@@ -1,0 +1,155 @@
+/* ================================
+   ADMIN APPLICATIONS – Quantum Dark Theme
+   ================================ */
+
+.applications-page {
+  display: flex;
+  background: #08090d;
+  min-height: 100vh;
+}
+
+.applications-content {
+  flex: 1;
+  padding: 48px 40px;
+  overflow-x: auto;
+}
+
+.applications-content h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 32px;
+}
+
+.applications-content h2::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, #00f0ff, transparent);
+  margin-top: 10px;
+  border-radius: 2px;
+}
+
+/* Filter/Select controls */
+select {
+  padding: 10px 14px;
+  background: rgba(18, 20, 32, 0.8);
+  color: #f3f4f6;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+select:focus {
+  border-color: #00f0ff;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.1);
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(18, 20, 32, 0.7);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(14px);
+}
+
+th, td {
+  padding: 14px 18px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+th {
+  background: rgba(147, 51, 234, 0.15);
+  color: white;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+td {
+  color: #9ca3af;
+  font-size: 0.9rem;
+  vertical-align: middle;
+}
+
+tbody tr:hover {
+  background: rgba(0, 240, 255, 0.03);
+}
+
+tbody tr:hover td {
+  color: #e5e7eb;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Action button */
+button {
+  padding: 7px 14px;
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  cursor: pointer;
+  border-radius: 7px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+button:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: white;
+  border-color: #ef4444;
+}
+
+/* Resume link */
+td a {
+  color: #60a5fa;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.25s ease;
+}
+
+td a:hover {
+  color: #00f0ff;
+  text-decoration: underline;
+}
+
+/* Status Badge */
+td .status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-pending { background: rgba(245, 158, 11, 0.1); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.2); }
+.status-reviewed { background: rgba(37, 99, 235, 0.1); color: #60a5fa; border: 1px solid rgba(37, 99, 235, 0.2); }
+.status-hired { background: rgba(34, 197, 94, 0.1); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.2); }
+.status-rejected { background: rgba(239, 68, 68, 0.1); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.2); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .applications-content { padding: 30px 16px; }
+}

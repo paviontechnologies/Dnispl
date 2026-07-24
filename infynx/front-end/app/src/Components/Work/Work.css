@@ -1,0 +1,166 @@
+/* Base Styles */
+.work-page-container {
+  font-family: var(--font-body);
+  color: var(--text-main);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 140px 24px 60px;
+  position: relative;
+  z-index: 2;
+}
+
+/* --------------------
+   Hero Section
+   -------------------- */
+.work-hero-section {
+  text-align: center;
+  padding: 60px 20px;
+  background: radial-gradient(circle at top, rgba(0, 240, 255, 0.08) 0%, rgba(8, 9, 13, 0) 70%);
+  border-radius: var(--border-radius-md);
+  margin-bottom: 40px;
+  border: 1px solid var(--glass-border);
+}
+
+.work-hero-section h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: white;
+  margin-bottom: 12px;
+}
+
+.work-hero-section p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+}
+
+/* --------------------
+   Sections and Grid
+   -------------------- */
+.work-section {
+  padding: 40px 0;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.work-section h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  color: white;
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.work-section h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background-color: var(--secondary);
+  margin: 10px auto 0;
+  border-radius: 2px;
+  box-shadow: 0 0 8px var(--secondary-glow);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+/* --------------------
+   Process Card
+   -------------------- */
+.process-card {
+  background: var(--bg-card);
+  padding: 35px 30px;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  border-left: 5px solid var(--secondary);
+  backdrop-filter: var(--backdrop-blur);
+  
+  /* Initial state is handled by framer-motion (Work.js setting y:50, opacity:0) */
+}
+
+.process-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.6), 0 0 15px var(--secondary-glow);
+  border-color: var(--secondary);
+}
+
+.card-icon {
+  font-size: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: rgba(0, 240, 255, 0.08);
+  border-radius: var(--border-radius-sm);
+  color: var(--secondary);
+  border: 1px solid rgba(0, 240, 255, 0.15);
+  margin-bottom: 20px;
+}
+
+.card-title {
+  font-family: var(--font-heading);
+  color: white;
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.process-card p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* Specific Card Styling */
+.delivery-card { border-left-color: var(--primary); }
+.networking-card { border-left-color: var(--accent); }
+
+/* --------------------
+   Delivery Flow Chart
+   -------------------- */
+.delivery-flow-chart {
+  text-align: center;
+  margin-top: 40px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.015);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--glass-border);
+}
+
+.delivery-flow-chart p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+/* --------------------
+   Final Step (List)
+   -------------------- */
+.final-step ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.final-step li {
+  background: var(--bg-card);
+  padding: 20px 24px;
+  border-radius: var(--border-radius-sm);
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  border: 1px solid var(--glass-border);
+  border-left: 4px solid var(--primary);
+  line-height: 1.6;
+}
+
+.final-step li strong {
+  color: white;
+}

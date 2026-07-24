@@ -1,0 +1,189 @@
+// {/* --- EXECUTIVE CONTEXT & PHILOSOPHY --- */}
+//       {/* <section className="about-section" id="about-us">
+//         <div className="about-content-wrapper">
+//           <div className="about-header center-text ftc-reveal">
+//             <span className="section-tag">Executive Context</span>
+//             <h2 className="section-title">
+//               Networks are Business Continuity Platforms, <br />
+//               <span className="text-gradient-purple">Not Just IT Assets</span>
+//             </h2>
+//           </div>
+
+//           <div className="about-grid" data-reveal-group>
+//             <div className="ceo-quote-card-new glass-panel-new ftc-reveal">
+//               <div className="text-on-left">
+//                 <p className="placeholder-text-redline">
+//                   "Complexity at Scale has outpaced traditional network operational models. Today, downtime translates directly to revenue loss, reputational damage, and security exposure. Reliability is engineered, not assumed."
+//                 </p>
+//               </div>
+//               <div className="ceo-profile-right">
+//                 <div className="ceo-img-frame-new">
+//                   <img src={ceoImage} alt="Rakesh Uniyal" />
+//                 </div>
+//                 <div className="ceo-info-standalone">
+//                   <p className="ceo-name">Rakesh Uniyal</p>
+//                   <p className="ceo-role-large">Founder & Director</p>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="about-text-col ftc-reveal">
+//               <div className="context-cards">
+//                 <div className="context-card">
+//                   <h4>Business Infrastructure First</h4>
+//                   <p>Every router, switch, and cable segment underpins critical transactions. We align architecture with business value.</p>
+//                 </div>
+//                 <div className="context-card">
+//                   <h4>Outcome Over SLAs</h4>
+//                   <p>Uptime metrics mean nothing if your business processes are stalled. We measure success by your operational resilience.</p>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </section> */}
+
+
+// /* --------------------------------------------------------------------------
+//    EXECUTIVE CONTEXT CSS
+//    -------------------------------------------------------------------------- */
+// // // .about-section {
+// //   padding: 120px 0;
+// //   position: relative;
+// //   background: #000;
+// // }
+
+// // .about-content-wrapper {
+// //   max-width: 1315px;
+// //   margin: 0 auto;
+// //   padding: 0 20px;
+// // }
+
+// // .about-grid {
+// //   display: grid;
+// //   grid-template-columns: 1.1fr 0.9fr;
+// //   gap: 25px;
+// //   align-items: stretch;
+// // }
+
+// // .ceo-quote-card-new {
+// //   background: var(--bg-card);
+// //   border: 1px solid var(--border-color);
+// //   border-radius: 15px;
+// //   padding: 40px;
+// //   display: grid;
+// //   grid-template-columns: 1.3fr 0.7fr;
+// //   gap: 36px;
+// //   align-items: center;
+// //   position: relative;
+// //   overflow: hidden;
+// //   transition: 400ms var(--cube-1);
+// // }
+
+// // .ceo-quote-card-new::before {
+// //   content: '\201C';
+// //   position: absolute;
+// //   top: -30px;
+// //   left: 18px;
+// //   font-size: 160px;
+// //   line-height: 1;
+// //   color: rgba(255, 255, 255, 0.04);
+// //   font-family: serif;
+// // }
+
+// // .ceo-quote-card-new:hover { border-color: var(--pr-hover-border); }
+
+// // .placeholder-text-redline {
+// //   position: relative;
+// //   font-family: var(--roboto);
+// //   font-size: 18px;
+// //   line-height: 30px;
+// //   color: #fff;
+// //   opacity: 0.9;
+// // }
+
+// // .ceo-profile-right {
+// //   display: flex;
+// //   flex-direction: column;
+// //   align-items: center;
+// //   text-align: center;
+// // }
+
+// // .ceo-img-frame-new {
+// //   width: 110px;
+// //   height: 110px;
+// //   border-radius: 50%;
+// //   overflow: hidden;
+// //   padding: 3px;
+// //   background: var(--ftc-gd-2);
+// //   margin-bottom: 16px;
+// // }
+
+// // .ceo-img-frame-new img {
+// //   width: 100%;
+// //   height: 100%;
+// //   object-fit: cover;
+// //   border-radius: 50%;
+// //   display: block;
+// // }
+
+// // .ceo-quote-card-new:hover .ceo-img-frame-new { animation: wobble-vertical 1s ease-in-out; }
+
+// // .ceo-name {
+// //   font-family: var(--saira);
+// //   font-size: 20px;
+// //   font-weight: 700;
+// //   color: #fff;
+// // }
+
+// // .ceo-role-large {
+// //   font-family: var(--roboto);
+// //   font-size: 13px;
+// //   letter-spacing: 1px;
+// //   text-transform: uppercase;
+// //   background: var(--ftc-gd-2);
+// //   -webkit-background-clip: text;
+// //   background-clip: text;
+// //   -webkit-text-fill-color: transparent;
+// // }
+
+// // .about-text-col { display: flex; }
+
+// // .context-cards {
+// //   display: flex;
+// //   flex-direction: column;
+// //   gap: 25px;
+// //   width: 100%;
+// // }
+
+// // .context-card {
+// //   flex: 1;
+// //   background: var(--bg-card);
+// //   border: 1px solid var(--border-color);
+// //   border-radius: 15px;
+// //   padding: 30px;
+// //   transition: 400ms var(--cube-1);
+// // }
+
+// // .context-card:hover {
+// //   border-color: var(--pr-hover-border);
+// //   background: var(--bg-card-hover);
+// // }
+
+// // .context-card h4 {
+// //   font-family: var(--saira);
+// //   font-size: 24px;
+// //   font-weight: 700;
+// //   line-height: 1.46;
+// //   color: #fff;
+// //   margin-bottom: 9px;
+// // }
+
+// // .context-card p {
+// //   font-family: var(--roboto);
+// //   font-size: 16px;
+// //   line-height: 26px;
+// //   color: #fff;
+// //   opacity: 0.8;
+// // }
+// //  */

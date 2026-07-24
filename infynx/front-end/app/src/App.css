@@ -1,0 +1,10 @@
+/* App.css – Global App wrapper reset */
+.App {
+  text-align: center;
+}
+
+/* Ensure full dark background at app root level */
+#root, .App {
+  background-color: #08090d;
+  min-height: 100vh;
+}

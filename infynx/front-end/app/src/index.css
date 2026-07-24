@@ -1,0 +1,277 @@
+/* ============================================================
+   Infynix design system  (ported from infynix.in / ftech theme)
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Saira:wght@100..900&family=Roboto:wght@100..900&family=Unbounded:wght@200..900&family=Ubuntu:wght@300;400;500;700&family=Oxanium:wght@200..800&family=Galada&display=swap');
+
+:root {
+  /* --- Fonts --- */
+  --saira: 'Saira', sans-serif;
+  --roboto: 'Roboto', sans-serif;
+  --unbounded: 'Unbounded', sans-serif;
+  --ubuntu: 'Ubuntu', sans-serif;
+  --oxanium: 'Oxanium', sans-serif;
+  --galada: 'Galada', cursive;
+
+  --font-heading: var(--saira);
+  --font-body: var(--roboto);
+
+  /* --- Brand gradients (the two signature ramps) --- */
+  --ftc-gd-1: linear-gradient(90deg, rgba(23, 63, 207, 1) 0%, rgba(229, 4, 238, 1) 100%);
+  --ftc-gd-2: linear-gradient(90deg, rgba(179, 37, 247, 1) 0%, rgba(0, 226, 245, 1) 100%);
+
+  /* --- Brand colors --- */
+  --pr-purple: #B325F7;
+  --pr-magenta: #E504EE;
+  --pr-cyan: #00E2F5;
+  --pr-blue: #173FCF;
+  --pr-lime: #C4F017;
+  --pr-violet: #6827DA;
+  --pr-hover-border: #A732F7;
+  --pr-soft-border: #CCA6F5;
+
+  /* --- Surfaces --- */
+  --bg-dark: #000000;
+  --bg-alt: #080808;
+  --bg-card: #181A2D;
+  --bg-card-hover: #1F273E;
+  --bg-glass: rgba(31, 39, 62, 0.7);
+  --btn-inner: #010419;
+
+  /* --- Text --- */
+  --text-primary: #ffffff;
+  --text-secondary: #DADADA;
+  --text-muted: #888888;
+
+  /* --- Lines --- */
+  --border-color: rgba(255, 255, 255, 0.12);
+  --border-color-hover: rgba(255, 255, 255, 0.28);
+  --backdrop-blur: blur(50px);
+
+  --border-radius-sm: 12px;
+  --border-radius-md: 15px;
+  --border-radius-lg: 20px;
+
+  /* --- Easing (theme's own curves) --- */
+  --cube-1: cubic-bezier(0.25, 0.46, 0.45, 0.5);
+  --cube-2: cubic-bezier(0.31, -0.105, 0.43, 1.4);
+
+  /* Back-compat aliases used by older pages */
+  --primary: var(--pr-purple);
+  --secondary: var(--pr-cyan);
+  --accent: var(--pr-magenta);
+  --primary-glow: rgba(179, 37, 247, 0.4);
+  --secondary-glow: rgba(0, 226, 245, 0.4);
+  --border-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg-dark);
+}
+
+body {
+  margin: 0;
+  font-family: var(--roboto);
+  font-size: 18px;
+  line-height: 30px;
+  background-color: var(--bg-dark);
+  color: var(--text-secondary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--saira);
+  color: var(--text-primary);
+  line-height: 1.16;
+  text-transform: capitalize;
+  margin-bottom: 0;
+}
+
+a { text-decoration: none; }
+ul { list-style: none; }
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 5px;
+  border: 2px solid var(--bg-dark);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--pr-purple); }
+
+/* ============================================================
+   Keyframes  (lifted from the source theme)
+   ============================================================ */
+@keyframes ftc-roteted {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes wobble-vertical {
+  16.65% { transform: translateY(8px); }
+  33.3%  { transform: translateY(-6px); }
+  49.95% { transform: translateY(4px); }
+  66.6%  { transform: translateY(-2px); }
+  83.25% { transform: translateY(1px); }
+  100%   { transform: translateY(0); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes float {
+  0%   { transform: translateY(0px) rotate(0deg); }
+  50%  { transform: translateY(-15px) rotate(2deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+@keyframes pulseGlow {
+  0%   { opacity: 0.3; transform: scale(1); }
+  50%  { opacity: 0.6; transform: scale(1.1); }
+  100% { opacity: 0.3; transform: scale(1); }
+}
+
+@keyframes subtleDrift {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  33%  { transform: translate(30px, -50px) scale(1.1); }
+  66%  { transform: translate(-20px, 20px) scale(0.95); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s var(--cube-1) forwards;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+
+/* ============================================================
+   Scroll reveal  (IntersectionObserver toggles .is-revealed)
+   ============================================================ */
+.ftc-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 900ms var(--cube-1), transform 900ms var(--cube-1);
+  will-change: opacity, transform;
+}
+.ftc-reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+.ftc-reveal-left  { transform: translateX(-50px); }
+.ftc-reveal-right { transform: translateX(50px); }
+.ftc-reveal-left.is-revealed,
+.ftc-reveal-right.is-revealed { transform: translateX(0); }
+
+.ftc-reveal-scale { transform: scale(0.92); }
+.ftc-reveal-scale.is-revealed { transform: scale(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ftc-reveal,
+  .ftc-reveal-left,
+  .ftc-reveal-right,
+  .ftc-reveal-scale {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ============================================================
+   Gradient text utilities
+   ============================================================ */
+.text-gradient-primary,
+.ftc-color-gd-2 {
+  background: var(--ftc-gd-2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-purple,
+.text-gradient-orange,
+.ftc-color-gd {
+  background: var(--ftc-gd-1);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-blue {
+  background: linear-gradient(90deg, #00E2F5 0%, #B325F7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ============================================================
+   Shared shells
+   ============================================================ */
+.glass-panel,
+.glass-card,
+.glass-panel-new {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  transition: 400ms var(--cube-1);
+}
+
+.glass-panel:hover,
+.glass-card:hover,
+.glass-panel-new:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--pr-hover-border);
+}
+
+.glass-pill {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 100px;
+}
+
+.container-max {
+  max-width: 1315px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 100%;
+}
+
+/* --- Blurred color orbs used as section ambience --- */
+.glow-orb {
+  position: absolute;
+  width: 608px;
+  height: 608px;
+  border-radius: 50%;
+  background: var(--pr-lime);
+  opacity: 0.3;
+  filter: blur(250px);
+  -webkit-filter: blur(250px);
+  z-index: -1;
+  pointer-events: none;
+}
