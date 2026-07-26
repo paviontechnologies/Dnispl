@@ -126,13 +126,26 @@
    Delivery Flow Chart
    -------------------- */
 .delivery-flow-chart {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 40px;
   padding: 24px;
   background: rgba(255, 255, 255, 0.015);
   border-radius: var(--border-radius-md);
   border: 1px solid var(--glass-border);
 }
+
+.flow-step {
+  min-width: 108px;
+  display: grid;
+  gap: 3px;
+  color: white;
+  font: 700 14px/1.2 var(--saira);
+}
+
+.flow-step small { color: #c4f017; font: 700 10px/1 var(--oxanium); }
+.flow-line { width: 48px; height: 1px; background: linear-gradient(90deg, #c4f017, #00e2f5); }
 
 .delivery-flow-chart p {
   font-size: 0.95rem;
@@ -159,8 +172,24 @@
   border: 1px solid var(--glass-border);
   border-left: 4px solid var(--primary);
   line-height: 1.6;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
 }
+
+.final-step li svg { flex: 0 0 auto; color: #c4f017; margin-top: 3px; }
+.final-step li span { display: grid; gap: 3px; }
 
 .final-step li strong {
   color: white;
+}
+
+.work-cta-row { margin-top: 34px; padding: 24px; display: flex; justify-content: space-between; align-items: center; gap: 20px; border: 1px solid rgba(255,255,255,0.12); background: rgba(10,16,18,0.72); }
+.work-cta-row p { color: white; }
+.work-cta-row a { color: #071013; background: #c4f017; padding: 11px 20px; font: 700 14px/1 var(--saira); }
+
+@media (max-width: 720px) {
+  .delivery-flow-chart { align-items: stretch; flex-direction: column; text-align: left; }
+  .flow-line { width: 1px; height: 22px; margin-left: 14px; }
+  .work-cta-row { align-items: flex-start; flex-direction: column; }
 }

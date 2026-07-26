@@ -3,6 +3,8 @@ import './Work.css';
 import { motion } from 'framer-motion';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import { Cable, CheckCircle2, Rocket, Settings, UserRoundCog, Wifi, Zap } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 // Note: Assuming Header and Footer components are defined elsewhere or passed in
 // For this example, I'll define a simple placeholder for them.
@@ -47,36 +49,36 @@ const Work = () => {
     const deliveryMethods = [
         { 
             title: "Software Delivery Methodologies", 
-            icon: "🚀", 
-            description: "We utilize modern frameworks like **Agile Scrum** and **Kanban** to ensure iterative development, continuous feedback, and rapid deployment. This allows us to adapt quickly to changing requirements and deliver value early and often." 
+            icon: Rocket,
+            description: "Agile Scrum and Kanban create short feedback loops, predictable delivery, and room to adapt as requirements evolve."
         },
         { 
             title: "Configuration & Implementation (Networking)", 
-            icon: "⚙️", 
-            description: "Our networking team handles the complete lifecycle of switch and router configuration. This includes initial setup, VLAN segmentation, security policy implementation, and optimizing network performance for maximum throughput." 
+            icon: Settings,
+            description: "We own the switch and router lifecycle, including VLAN segmentation, security policy, resilience, and performance tuning."
         },
         { 
             title: "Installation: WiFi & Access Points", 
-            icon: "📶", 
-            description: "We provide professional installation services for Wi-Fi switches and routers, ensuring optimal placement for seamless coverage. This includes detailed site surveys and post-installation tuning to minimize dead zones." 
+            icon: Wifi,
+            description: "Site surveys, deliberate access-point placement, and post-installation tuning deliver reliable coverage without hidden dead zones."
         },
     ];
 
     const infrastructureServices = [
         { 
             title: "Active Networking", 
-            icon: "⚡", 
-            description: "This encompasses all components that actively manage, route, and distribute data, such as **Routers**, **Switches**, **Firewalls**, and **Servers**. We manage and optimize these for high availability and security." 
+            icon: Zap,
+            description: "Routers, switches, firewalls, and servers are configured and observed as one high-availability system."
         },
         { 
             title: "Passive Networking", 
-            icon: "🔌", 
-            description: "This includes the foundational physical infrastructure: **Cabling (Fiber/Copper)**, patch panels, racks, and conduits. A robust passive network is essential for the reliability of all active components." 
+            icon: Cable,
+            description: "Fiber, copper, patch panels, racks, and conduits are documented, tested, and built as the network's dependable foundation."
         },
         { 
             title: "Employee Provisioning & Support", 
-            icon: "👨‍💻", 
-            description: "We equip your employees with the necessary hardware, software, and secure access (VPNs, specific configurations) required for their roles, ensuring they are productive from day one." 
+            icon: UserRoundCog,
+            description: "Role-ready hardware, software, secure access, and support get employees productive from their first day."
         }
     ];
 
@@ -112,16 +114,19 @@ const Work = () => {
                                 variants={cardVariants}
                                 transition={{ delay: index * 0.1 }} // Staggered delay for cards
                             >
-                                <span className="card-icon">{item.icon}</span>
+                                <span className="card-icon"><item.icon size={23} /></span>
                                 <h3 className="card-title">{item.title}</h3>
                                 <p>{item.description}</p>
                             </motion.div>
                         ))}
                     </div>
                     <div className="delivery-flow-chart">
-                        {/* Add a placeholder for a diagram showing the process */}
-                        
-                        <p>Our standard flow: Planning → Development → Testing → Review → Deployment.</p>
+                        {['Plan', 'Build', 'Test', 'Review', 'Deploy'].map((step, index) => (
+                            <React.Fragment key={step}>
+                                <span className="flow-step"><small>0{index + 1}</small>{step}</span>
+                                {index < 4 && <span className="flow-line" />}
+                            </React.Fragment>
+                        ))}
                     </div>
                 </motion.section>
 
@@ -142,7 +147,7 @@ const Work = () => {
                                 variants={cardVariants}
                                 transition={{ delay: index * 0.1 }} // Staggered delay for cards
                             >
-                                <span className="card-icon">{item.icon}</span>
+                                <span className="card-icon"><item.icon size={23} /></span>
                                 <h3 className="card-title">{item.title}</h3>
                                 <p>{item.description}</p>
                             </motion.div>
@@ -159,20 +164,26 @@ const Work = () => {
                 >
                     <h2>III. What We Deliver (The Outcome)</h2>
                     <ul>
-                        {/* Animating list items */}
-                        {["Robust, Scalable Software", "Optimized Network Topology", "Secure Environment", "Comprehensive Documentation"].map((text, index) => (
+                        {[
+                            ['Robust, scalable systems', 'Clean architecture with testing and clear operational ownership.'],
+                            ['Optimized network topology', 'Low latency and high availability across the infrastructure.'],
+                            ['Secure environment', 'Current security controls across software and network layers.'],
+                            ['Comprehensive documentation', 'A complete handover with diagrams, runbooks, and support guides.']
+                        ].map(([title, description], index) => (
                             <motion.li 
-                                key={index}
+                                key={title}
                                 variants={listItemVariants}
                                 transition={{ delay: index * 0.15 }}
                             >
-                                {index === 1 ? `✅ **${text}:** Low latency and high availability across your entire infrastructure. 
-
-[Image of a network topology diagram]
-` : `✅ **${text}:** ${text.includes('Software') ? 'Code delivered with clean architecture and comprehensive testing.' : text.includes('Environment') ? 'Implementation of the latest security protocols for both software and network.' : 'Full handover with detailed technical documentation and support guides.'}`}
+                                <CheckCircle2 size={21} />
+                                <span><strong>{title}</strong>{description}</span>
                             </motion.li>
                         ))}
                     </ul>
+                    <div className="work-cta-row">
+                        <p>Have a rollout or transformation in mind?</p>
+                        <Link to="/form">Start a project</Link>
+                    </div>
                 </motion.section>
             </div>
             <Footer/>

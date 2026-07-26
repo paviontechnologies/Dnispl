@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import { Link } from 'react-router-dom';
 
 // Import CSS file
 import './About.css'; 
@@ -295,9 +296,9 @@ const About = () => {
             <p>
               At DNISPL Infotech, performance speaks louder than promises. These numbers reflect our sustained delivery excellence.
             </p>
-            <a href="#about" className="link-arrow mt-10" style={{ textDecoration: 'none', color: '#3b82f6', fontWeight: 'bold' }}>
-              Know more about us →
-            </a>
+            <Link to="/portfolio" className="link-arrow mt-10" style={{ textDecoration: 'none', color: '#00e2f5', fontWeight: 'bold' }}>
+              Explore our case studies →
+            </Link>
           </div>
 
           <div className="stats-grid">
@@ -361,7 +362,7 @@ const About = () => {
             Contact us directly at <span className="cta-email" style={{textDecoration:'underline'}}>account@dnispl.com</span>
           </p>
           <div className="final-cta-actions">
-            <a href="#contact-form" className="btn btn-white">Contact Now</a>
+            <Link to="/form" className="btn btn-white">Contact Now</Link>
             
           </div>
         </div>

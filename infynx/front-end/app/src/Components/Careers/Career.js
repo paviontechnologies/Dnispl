@@ -16,6 +16,33 @@ const getTagClassName = (tag) => {
     }
 };
 
+const fallbackJobs = [
+    {
+        _id: 'network-engineer',
+        title: 'Network Engineer - L2/L3',
+        experience: 'ENGINEERING',
+        location: 'Gurugram / PAN India',
+        description: 'Design, configure, troubleshoot, and document resilient enterprise networks.',
+        fullDescription: 'Role: Own switching, routing, wireless, and firewall implementation across client environments.\nExperience: 3+ years with enterprise networking and hands-on troubleshooting.\nWhat matters: Strong fundamentals, calm incident response, and clear documentation.'
+    },
+    {
+        _id: 'project-coordinator',
+        title: 'Infrastructure Project Coordinator',
+        experience: 'DELIVERY',
+        location: 'Gurugram',
+        description: 'Coordinate multi-site deployment teams, timelines, reporting, and client communication.',
+        fullDescription: 'Role: Track field execution, dependencies, material movement, and customer sign-offs.\nExperience: 2+ years in telecom or IT infrastructure delivery.\nWhat matters: Ownership, practical planning, and concise communication.'
+    },
+    {
+        _id: 'business-development',
+        title: 'Business Development Manager',
+        experience: 'GROWTH',
+        location: 'NCR / Hybrid',
+        description: 'Build enterprise relationships and shape opportunities around measurable outcomes.',
+        fullDescription: 'Role: Develop qualified enterprise opportunities across networking and managed services.\nExperience: 4+ years in B2B technology or infrastructure services.\nWhat matters: Consultative discovery, account discipline, and long-term thinking.'
+    }
+];
+
 const Career = () => {
     const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -32,10 +59,11 @@ const Career = () => {
                 const response = await fetch('http://localhost:5000/api/jobs');
                 if (!response.ok) throw new Error('Failed to fetch job listings');
                 const data = await response.json();
-                setJobs(data);
+                setJobs(Array.isArray(data) && data.length ? data : fallbackJobs);
                 setLoading(false);
             } catch (err) {
-                setError(err.message);
+                setJobs(fallbackJobs);
+                setError('Showing currently featured roles while live listings reconnect.');
                 setLoading(false);
             }
         };
@@ -97,7 +125,7 @@ const Career = () => {
                     <ContentWrapper>
                         <div className="job-grid">
                             {loading && <p className="loading-text">Finding opportunities for you...</p>}
-                            {error && <p className="error-text">Error: {error}</p>}
+                            {error && <p className="career-notice">{error}</p>}
                             {!loading && jobs.map((job) => (
                                 <div key={job._id} className="job-card">
                                     <div className="job-card-header">

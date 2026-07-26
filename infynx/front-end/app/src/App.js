@@ -22,11 +22,14 @@ import Applications from "./Components/Admin/Applications/Application";
 // import Blogs from "./Components/Admin/Blogs/Blogs";
 import ProtectedRoute from "./Components/Admin/ProtectedRoute/ProtectedRoute";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import SiteExperience from './Components/SiteExperience/SiteExperience';
+import { InfoPage, NotFound } from './Components/InfoPage/InfoPage';
 
 function App() {
   return (
     <Router>
-      <Routes>
+      <SiteExperience>
+        <Routes>
         {/* Route 1: Home Page (loaded by default at the root) */}
         <Route path="/" element={<Home />} />
              
@@ -45,17 +48,18 @@ function App() {
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/form" element={<Form />} />
         <Route path="/portfolio" element={<Portfolio />} /> 
+        <Route path="/privacy" element={<InfoPage type="privacy" />} />
+        <Route path="/terms" element={<InfoPage type="terms" />} />
+        <Route path="/cookies" element={<InfoPage type="cookies" />} />
 
         <Route path="/admin/login" element={<Login />} />
-        <Route path="/admin/dashboard" element={<Dashboard />} />
-        <Route path="/admin/contacts" element={<Contacts />} />
-        <Route path="/admin/jobs" element={<Jobs />} />
-         <Route path="/admin/applications" element={<Applications />} /> 
-          <Route path="/admin/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> 
-          <Route path="/admin/contacts" element={<ProtectedRoute><Contacts /></ProtectedRoute>} />
-          <Route path="/admin/jobs" element={<ProtectedRoute><Jobs /></ProtectedRoute>} />
-          <Route path="/admin/applications" element={<ProtectedRoute><Applications /></ProtectedRoute>} /> 
-      </Routes>
+        <Route path="/admin/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> 
+        <Route path="/admin/contacts" element={<ProtectedRoute><Contacts /></ProtectedRoute>} />
+        <Route path="/admin/jobs" element={<ProtectedRoute><Jobs /></ProtectedRoute>} />
+        <Route path="/admin/applications" element={<ProtectedRoute><Applications /></ProtectedRoute>} />
+        <Route path="*" element={<NotFound />} />
+        </Routes>
+      </SiteExperience>
     </Router>
   );
 }

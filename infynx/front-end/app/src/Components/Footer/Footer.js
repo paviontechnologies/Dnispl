@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Mail, MapPin, Phone } from 'lucide-react';
 import './Footer.css';
 import Logo from '../Images/logo.png';
 
@@ -14,17 +15,17 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="footer-brand">
             <div className="logo-section">
-              <img src={Logo} alt="DNISPL Logo" className="footer-logo-img" />
+              <Link to="/"><img src={Logo} alt="DNISPL Logo" className="footer-logo-img" /></Link>
             </div>
             <p className="brand-desc">
               Building Enterprise Networks That Don't Fail When Business Can't. Strategic Network Integration & Operations at Scale.
             </p>
-            <div className="contact-details-footer" style={{ marginTop: '20px', fontSize: '13.5px', color: '#9ca3af', lineHeight: '1.8' }}>
-              <p>📍 <strong>HQ NCR:</strong> Worldmark Sector-69, Gurugram, Haryana</p>
-              <p>📞 <strong>Tel:</strong> +91-1244234805</p>
-              <p>📞 <strong>Toll Free:</strong> 1800-3135657</p>
-              <p>📧 <strong>Sales:</strong> sales@dnispl.com</p>
-              <p>📧 <strong>General:</strong> info@dnispl.com</p>
+            <div className="contact-details-footer">
+              <a href="https://maps.google.com/?q=WorldMark+Gurugram" target="_blank" rel="noreferrer"><MapPin size={15} /><span><strong>HQ NCR:</strong> Worldmark, Gurugram</span></a>
+              <a href="tel:+911244234805"><Phone size={15} /><span><strong>Tel:</strong> +91 124 423 4805</span></a>
+              <a href="tel:18003135657"><Phone size={15} /><span><strong>Toll Free:</strong> 1800 313 5657</span></a>
+              <a href="mailto:sales@dnispl.com"><Mail size={15} /><span><strong>Sales:</strong> sales@dnispl.com</span></a>
+              <a href="mailto:info@dnispl.com"><Mail size={15} /><span><strong>General:</strong> info@dnispl.com</span></a>
             </div>
           </div>
 

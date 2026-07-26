@@ -40,7 +40,6 @@
 
 .logo-img {
   height: 50px;
-  margin-top: 35px;
   width: auto;
   object-fit: contain;
   transition: 400ms var(--cube-1);
@@ -100,7 +99,8 @@
 
 /* Arrow Rotation */
 .arrow-icon {
-  font-size: 8px;
+  width: 13px;
+  height: 13px;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   color: var(--text-muted);
 }
@@ -361,6 +361,8 @@
   padding: 6px;
   z-index: 1010;
   transition: all 0.3s ease;
+  align-items: center;
+  justify-content: center;
 }
 
 .hamburger:hover {
@@ -374,7 +376,7 @@
   }
   
   .hamburger {
-    display: block;
+    display: flex;
   }
 
   /* MAIN NAV */

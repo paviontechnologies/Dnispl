@@ -1,7 +1,40 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import {
+  ArrowRight, Building2, ChevronDown, Cloud, Database, Factory,
+  GraduationCap, HeartPulse, Landmark, Menu, Network, RadioTower,
+  ShieldCheck, ShoppingBag, Truck, Users, Wrench, X
+} from 'lucide-react';
 import './Header.css';
 import Logo from '../Images/logo.png';
+
+const solutionItems = [
+  { to: '/network-implementation', icon: Network, title: 'Enterprise Networking', desc: 'Active and passive networking' },
+  { to: '/workforce-outsourcing', icon: Users, title: 'Managed Services', desc: 'Ongoing IT support and management' },
+  { to: '/business-solutions', icon: ShieldCheck, title: 'Cyber Security', desc: 'Protecting your digital assets' },
+  { to: '/regulatory-compliance', icon: Cloud, title: 'Cloud Solutions', desc: 'Scalable cloud infrastructure' },
+  { to: '/dc-passive-work', icon: Database, title: 'DC Infrastructure', desc: 'Data center passive work' },
+  { to: '/about', icon: Building2, title: 'Collaboration', desc: 'Expert IT guidance and strategy' },
+];
+
+const serviceItems = [
+  { to: '/workforce-outsourcing', icon: Wrench, title: 'Managed Services', desc: 'NOC, managed network, AMC and FMS' },
+  { to: '/work', icon: Network, title: 'Professional Services', desc: 'Audits, deployment and project management' },
+  { to: '/network-implementation', icon: ShieldCheck, title: 'Technical Support', desc: 'L1, L2, L3 and SME services' },
+  { to: '/careers', icon: Users, title: 'Workforce Solutions', desc: 'Technical staffing and field engineers' },
+];
+
+const industryItems = [
+  { to: '/portfolio?industry=finance', icon: Landmark, title: 'Banking & Finance', desc: 'Branch connectivity and SD-WAN' },
+  { to: '/portfolio?industry=telecom', icon: RadioTower, title: 'Telecom', desc: 'NOC, rollouts and fiber operations' },
+  { to: '/portfolio?industry=manufacturing', icon: Factory, title: 'Manufacturing', desc: 'Plant networks and connectivity' },
+  { to: '/portfolio?industry=healthcare', icon: HeartPulse, title: 'Healthcare', desc: 'Reliable hospital infrastructure' },
+  { to: '/portfolio?industry=education', icon: GraduationCap, title: 'Education', desc: 'Campus Wi-Fi architectures' },
+  { to: '/portfolio?industry=retail', icon: ShoppingBag, title: 'Retail', desc: 'Multi-store networks and VPNs' },
+  { to: '/dc-passive-work', icon: Database, title: 'Data Centers', desc: 'ACI, Nexus fabric and audits' },
+  { to: '/portfolio?industry=enterprise', icon: Building2, title: 'Enterprise', desc: 'End-to-end IT infrastructure' },
+  { to: '/portfolio?industry=logistics', icon: Truck, title: 'Logistics', desc: 'Warehouse and fleet connectivity' },
+];
 
 const HeaderContentWrapper = ({ children, className }) => (
   <div className={`container-max ${className || ''}`}>{children}</div>
@@ -59,13 +92,13 @@ const Header = () => {
           </div>
 
           {/* Hamburger Button */}
-          <button className="hamburger" onClick={toggleMenu} aria-label="Toggle navigation menu">
-            {isMenuOpen ? '✕' : '☰'}
+          <button className="hamburger" onClick={toggleMenu} aria-label="Toggle navigation menu" aria-expanded={isMenuOpen}>
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
 
           {/* Navigation */}
           <nav className={`nav-menu ${isMenuOpen ? 'open' : ''}`}>
-            <Link to="/" className="nav-link" onClick={closeMenuAndNavigate}>Home</Link>
+            <NavLink to="/" end className="nav-link" onClick={closeMenuAndNavigate}>Home</NavLink>
 
             {/* SOLUTIONS DROPDOWN */}
             <div
@@ -79,7 +112,7 @@ const Header = () => {
                 onClick={e => toggleDropdown('solutions', e)}
               >
                 Solutions
-                <span className={`arrow-icon ${activeDropdown === 'solutions' ? 'rotate' : ''}`}>▼</span>
+                <ChevronDown className={`arrow-icon ${activeDropdown === 'solutions' ? 'rotate' : ''}`} />
               </a>
 
               {activeDropdown === 'solutions' && (
@@ -89,21 +122,14 @@ const Header = () => {
                   </div>
 
                   <div className="dropdown-grid">
-                    {[
-                      { to: "/network-implementation", icon: "🌐", title: "Enterprise Networking", desc: "Active & Passive networking" },
-                      { to: "/workforce-outsourcing", icon: "👥", title: "Managed Services", desc: "Ongoing IT support & management" },
-                      { to: "/business-solutions", icon: "🖥️", title: "Cyber Security", desc: "Protecting your digital assets" },
-                      { to: "/regulatory-compliance", icon: "📋", title: "Cloud Solutions", desc: "Scalable cloud infrastructure" },
-                      { to: "/dc-passive-work", icon: "🔋", title: "DC Infrastructure", desc: "Data Center passive work" },
-                      { to: "/about", icon: "🧠", title: "Collaboration", desc: "Expert IT guidance & strategy" },
-                    ].map(item => (
+                    {solutionItems.map(item => (
                       <Link
                         key={item.to}
                         to={item.to}
                         className="dropdown-card"
                         onClick={closeMenuAndNavigate}
                       >
-                        <div className="card-icon">{item.icon}</div>
+                        <div className="card-icon"><item.icon size={19} /></div>
                         <div className="card-info">
                           <span className="card-title">{item.title}</span>
                           <span className="card-desc">{item.desc}</span>
@@ -127,7 +153,7 @@ const Header = () => {
                 onClick={e => toggleDropdown('services', e)}
               >
                 Services
-                <span className={`arrow-icon ${activeDropdown === 'services' ? 'rotate' : ''}`}>▼</span>
+                <ChevronDown className={`arrow-icon ${activeDropdown === 'services' ? 'rotate' : ''}`} />
               </a>
 
               {activeDropdown === 'services' && (
@@ -136,19 +162,14 @@ const Header = () => {
                     <h1 className="dropdown-subtitle">Professional operational services portfolios</h1>
                   </div>
                   <div className="dropdown-grid" style={{ gridTemplateColumns: '1fr' }}>
-                    {[
-                      { title: "Managed Services", desc: "NOC, Managed Network, SLA-driven AMC, FMS, Resource Augmentation" },
-                      { title: "Professional Services", desc: "Project Management, Network Audits, Deployment, Ekahau Wi-Fi Survey" },
-                      { title: "Technical Support", desc: "L1, L2, L3 Support, SME Services, Resident Engineers" },
-                      { title: "Workforce Solutions", desc: "Technical Manpower, Managed Desk Services, Field Engineers, Staffing" }
-                    ].map((item, idx) => (
-                      <div key={idx} className="dropdown-card" style={{ cursor: 'default' }}>
-                        <div className="card-icon">🛠️</div>
+                    {serviceItems.map((item) => (
+                      <Link key={item.title} to={item.to} className="dropdown-card" onClick={closeMenuAndNavigate}>
+                        <div className="card-icon"><item.icon size={19} /></div>
                         <div className="card-info">
                           <span className="card-title">{item.title}</span>
                           <span className="card-desc">{item.desc}</span>
                         </div>
-                      </div>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -167,7 +188,7 @@ const Header = () => {
                 onClick={e => toggleDropdown('industries', e)}
               >
                 Industries
-                <span className={`arrow-icon ${activeDropdown === 'industries' ? 'rotate' : ''}`}>▼</span>
+                <ChevronDown className={`arrow-icon ${activeDropdown === 'industries' ? 'rotate' : ''}`} />
               </a>
 
               {activeDropdown === 'industries' && (
@@ -176,32 +197,21 @@ const Header = () => {
                     <h1 className="dropdown-subtitle">Sectors we secure and empower nationwide</h1>
                   </div>
                   <div className="dropdown-grid">
-                    {[
-                      { icon: "🏦", title: "Banking & Finance", desc: "Branch connectivity, Core Banking, SD-WAN" },
-                      // { icon: "🏛️", title: "Government", desc: "Mission-critical secure infrastructure" },
-                      { icon: "📡", title: "Telecom", desc: "NOC, Network rollouts, fiber operations" },
-                      { icon: "🏭", title: "Manufacturing", desc: "Plant Networks & Industrial connectivity" },
-                      { icon: "🏥", title: "Healthcare", desc: "Reliable Hospital Network infrastructures" },
-                      { icon: "🎓", title: "Education", desc: "Campus Wi-Fi & Smart Network architectures" },
-                      { icon: "🛒", title: "Retail", desc: "Multi-store Enterprise Networking and VPNs" },
-                      { icon: "☁️", title: "Data Centers", desc: "Cisco ACI, Nexus fabric, security audits" },
-                      { icon: "🏢", title: "Enterprise", desc: "End-to-end active/passive IT infrastructure" },
-                      { icon: "🚚", title: "Logistics", desc: "Warehouse & Fleet connectivity frameworks" }
-                    ].map((item, idx) => (
-                      <div key={idx} className="dropdown-card" style={{ cursor: 'default' }}>
-                        <div className="card-icon">{item.icon}</div>
+                    {industryItems.map((item) => (
+                      <Link key={item.title} to={item.to} className="dropdown-card" onClick={closeMenuAndNavigate}>
+                        <div className="card-icon"><item.icon size={19} /></div>
                         <div className="card-info">
                           <span className="card-title">{item.title}</span>
                           <span className="card-desc">{item.desc}</span>
                         </div>
-                      </div>
+                      </Link>
                     ))}
                   </div>
                 </div>
               )}
             </div>
 
-            <Link to="/portfolio" className="nav-link" onClick={closeMenuAndNavigate}>Case Studies</Link>
+            <NavLink to="/portfolio" className="nav-link" onClick={closeMenuAndNavigate}>Case Studies</NavLink>
 
             {/* ABOUT DROPDOWN */}
             <div
@@ -215,7 +225,7 @@ const Header = () => {
                 onClick={e => toggleDropdown('about', e)}
               >
                 About Us
-                <span className={`arrow-icon ${activeDropdown === 'about' ? 'rotate' : ''}`}>▼</span>
+                <ChevronDown className={`arrow-icon ${activeDropdown === 'about' ? 'rotate' : ''}`} />
               </a>
 
               {activeDropdown === 'about' && (
@@ -235,14 +245,14 @@ const Header = () => {
                         <h4>{item.title}</h4>
                         <p>{item.desc}</p>
                       </div>
-                      <span className="arrow-right">→</span>
+                      <ArrowRight className="arrow-right" size={17} />
                     </Link>
                   ))}
                 </div>
               )}
             </div>
 
-            <Link to="/careers" className="nav-link" onClick={closeMenuAndNavigate}>Careers</Link>
+            <NavLink to="/careers" className="nav-link" onClick={closeMenuAndNavigate}>Careers</NavLink>
 
             <Link to="/admin/login" className="nav-link admin-nav" onClick={closeMenuAndNavigate}>HR Portal</Link>
 

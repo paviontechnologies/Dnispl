@@ -38,7 +38,7 @@ const HPD = () => {
             </p>
 
             <div className="hpd-hero-buttons fade-in-up delay-3">
-              <a href="#contact" className="btn-orange-glow">Request Hardware Quote</a>
+              <Link to="/form" className="btn-orange-glow">Request Hardware Quote</Link>
               <a href="#services" className="btn-glass-tech">See What We Provide</a>
             </div>
           </div>

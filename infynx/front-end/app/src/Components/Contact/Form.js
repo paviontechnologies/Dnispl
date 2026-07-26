@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Form.css";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+import { Mail, MapPin, Phone, Send } from "lucide-react";
 
 const Form = () => {
   const [status, setStatus] = useState(""); 
@@ -54,22 +55,22 @@ const Form = () => {
       <div className="contact-page">
         <section className="contact-info-section">
           <div className="contact-info-inner">
+            <span className="contact-kicker">LET'S BUILD / TOGETHER</span>
             <h2 className="contact-title">Contact Us</h2>
             <p className="contact-subtitle">
               Feel free to connect with us anytime — we are here to help.
             </p>
 
             <div className="contact-details-box">
-              <p>
-                <strong>📍 Address:</strong> Diversified Network and Infra
-                Solution PVT.LTD., Sector 65, Gurugram, Haryana, India.
-              </p>
-              <p>
-                <strong>📞 Phone:</strong> +91-1244234805
-              </p>
-              <p>
-                <strong>📧 Email:</strong> Info@dnispl.com
-              </p>
+              <a href="https://maps.google.com/?q=WorldMark+Sector+65+Gurugram" target="_blank" rel="noreferrer">
+                <MapPin size={20} /><span><strong>Visit our NCR hub</strong>WorldMark, Sector 65, Gurugram</span>
+              </a>
+              <a href="tel:+911244234805">
+                <Phone size={20} /><span><strong>Speak with our team</strong>+91 124 423 4805</span>
+              </a>
+              <a href="mailto:info@dnispl.com">
+                <Mail size={20} /><span><strong>Send an email</strong>info@dnispl.com</span>
+              </a>
             </div>
           </div>
         </section>
@@ -156,7 +157,7 @@ const Form = () => {
                 </div>
 
                 <button type="submit" className="contact-btn" disabled={loading}>
-                  {loading ? "Sending..." : "Send Message"}
+                  {loading ? "Sending..." : <><span>Send Message</span><Send size={17} /></>}
                 </button>
 
                 {status && <p className="form-status">{status}</p>}

@@ -31,7 +31,7 @@ const AP = () => {
             </p>
 
             <div className="ap-hero-buttons animate-slide-up delay-1">
-              <a href="#contact" className="btn-cyan-glow">Discuss Your Network Project</a>
+              <Link to="/form" className="btn-cyan-glow">Discuss Your Network Project</Link>
               <a href="#services" className="btn-glass-outline">View Capabilities</a>
             </div>
           </div>

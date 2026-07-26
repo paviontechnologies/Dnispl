@@ -36,7 +36,7 @@ const RC = () => {
             </p>
 
             <div className="rc-hero-buttons fade-in-up delay-3">
-              <a href="#contact" className="btn-indigo-glow">Request Audit</a>
+              <Link to="/form" className="btn-indigo-glow">Request Audit</Link>
               <a href="#services" className="btn-glass-indigo">View Services</a>
             </div>
           </div>

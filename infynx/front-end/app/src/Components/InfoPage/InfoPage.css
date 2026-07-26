@@ -1,0 +1,21 @@
+.info-page { min-height: 100vh; background: transparent; }
+.info-shell { width: min(920px, calc(100% - 40px)); margin: 0 auto; }
+.info-hero { padding: 150px 0 70px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+.info-eyebrow { display: inline-flex; align-items: center; gap: 8px; color: #c4f017; font: 700 12px/1 var(--oxanium); text-transform: uppercase; margin-bottom: 24px; }
+.info-hero h1 { font: 700 clamp(42px, 8vw, 84px)/0.95 var(--unbounded); text-transform: none; max-width: 780px; }
+.info-hero p { max-width: 680px; margin-top: 28px; color: #b8c1c6; font-size: 18px; }
+.info-updated { display: block; margin-top: 24px; color: #738087; font: 600 12px/1 var(--oxanium); }
+.info-content { padding-top: 72px; padding-bottom: 120px; display: grid; gap: 16px; }
+.info-card { display: grid; grid-template-columns: 54px 1fr; gap: 24px; padding: 30px; background: rgba(12, 18, 21, 0.72); border: 1px solid rgba(255, 255, 255, 0.12); backdrop-filter: blur(20px); transition: 300ms ease; }
+.info-card:hover { transform: translateX(8px); border-color: rgba(0, 226, 245, 0.45); }
+.info-card > span { color: #00e2f5; font: 700 13px/1 var(--oxanium); padding-top: 7px; }
+.info-card h2 { font-size: 24px; text-transform: none; margin-bottom: 10px; }
+.info-card p { color: #9ca8ae; font-size: 16px; line-height: 1.7; }
+.info-contact { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 30px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+.info-contact a, .info-home-link { color: #071013; background: #c4f017; padding: 12px 20px; font: 700 14px/1 var(--saira); }
+.not-found-content { min-height: 72vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 24px 80px; }
+.not-found-code { color: #00e2f5; font: 700 clamp(90px, 22vw, 230px)/0.76 var(--unbounded); opacity: 0.2; }
+.not-found-content h1 { font-size: clamp(30px, 5vw, 54px); text-transform: none; margin-top: -12px; }
+.not-found-content p { color: #9ca8ae; margin: 18px 0 30px; }
+.info-home-link { display: inline-flex; align-items: center; gap: 9px; }
+@media (max-width: 620px) { .info-hero { padding-top: 120px; } .info-card { grid-template-columns: 1fr; } .info-contact { align-items: flex-start; flex-direction: column; } }

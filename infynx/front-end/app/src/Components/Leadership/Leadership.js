@@ -3,9 +3,8 @@ import "./Leadership.css";
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import ceoImage from '../Images/Rakesh.jpg';  
-// Ensure these images exist or use placeholders
-// import ceoAvatar from '../Images/ceo-avatar.jpg';
-// import ceoMain from '../Images/ceo-main.png';
+import { Lightbulb, Rocket } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const ContentWrapper = ({ children, className }) => (
     <div className={`about-content-wrapper ${className || ""}`}>
@@ -55,8 +54,8 @@ const Leadership = () => {
             </p>
 
             <div className="leader-buttons">
-              <button className="btn-glow">Schedule a Call</button>
-              <button className="btn-glass">Call Me Now</button>
+              <Link to="/form" className="btn-glow">Schedule a Call</Link>
+              <a href="tel:+911244234805" className="btn-glass">Call Me Now</a>
             </div>
           </div>
 
@@ -65,18 +64,18 @@ const Leadership = () => {
             <div className="image-glass-container floating-anim">
                 <div className="blob-bg"></div>
                 <img
-                    src="./images/ceo-main.png" // Replace with actual CEO Image
+                  src={ceoImage}
                     alt="Rakesh Uniyal"
                     className="leader-main-img"
                 />
                 
                 {/* Floating Decor Elements */}
                 <div className="floating-card card-1">
-                    <span>🚀</span>
+                  <Rocket size={22} />
                     <p>Growth</p>
                 </div>
                 <div className="floating-card card-2">
-                    <span>💡</span>
+                  <Lightbulb size={22} />
                     <p>Innovation</p>
                 </div>
             </div>
@@ -104,8 +103,8 @@ const Leadership = () => {
             </p>
 
             <div className="ls-about-actions">
-              <button className="btn-primary-dark">Explore more</button>
-              <button className="btn-outline-dark">Watch video</button>
+              <Link to="/about" className="btn-primary-dark">Explore more</Link>
+              <Link to="/portfolio" className="btn-outline-dark">View case studies</Link>
             </div>
           </div>
 
@@ -198,10 +197,7 @@ const Leadership = () => {
           {/* CEO */}
           <div className="executive-card fade-in-up">
             <div className="executive-card-image">
-              <img
-                src="/images/ashish-mehra.jpg"
-                alt="Ashish Mehra - CEO"
-              />
+              <div className="executive-monogram" aria-label="Ashish Mehra">AM</div>
               <div className="executive-card-overlay"></div>
             </div>
 
@@ -225,10 +221,7 @@ const Leadership = () => {
           {/* HEAD OF SALES */}
           <div className="executive-card fade-in-up">
             <div className="executive-card-image">
-              <img
-                src="/images/awadesh-gupta.jpg"
-                alt="Awadesh Gupta - Head of Sales"
-              />
+              <div className="executive-monogram" aria-label="Awadhesh Gupta">AG</div>
               <div className="executive-card-overlay"></div>
             </div>
 

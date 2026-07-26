@@ -37,7 +37,7 @@ const WO = () => {
             </p>
 
             <div className="wo-hero-buttons fade-in-up delay-3">
-              <a href="#contact" className="btn-blue-solid">Request Workforce</a>
+              <Link to="/form" className="btn-blue-solid">Request Workforce</Link>
               <a href="#services" className="btn-glass-blue">Explore Profiles</a>
             </div>
           </div>

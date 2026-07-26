@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Portfolio.css";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 const ContentWrapper = ({ children, className }) => (
   <div className={`portfolio-content-wrapper ${className || ""}`}>
@@ -119,8 +119,10 @@ const PROJECTS = [
 ];
 
 const Portfolio = () => {
+  const [searchParams] = useSearchParams();
   const [activeFilter, setActiveFilter] = useState("All");
   const [selectedProject, setSelectedProject] = useState(null);
+  const industryFocus = searchParams.get('industry');
 
   const filteredProjects =
     activeFilter === "All"
@@ -144,7 +146,7 @@ const Portfolio = () => {
         <section className="portfolio-hero">
           <ContentWrapper>
             <div className="portfolio-badge fade-in-up">
-                <span className="dot-pulse"></span> OUR WORK
+              <span className="dot-pulse"></span> {industryFocus ? `${industryFocus.toUpperCase()} / INDUSTRY LENS` : 'OUR WORK'}
             </div>
             <h1 className="portfolio-title fade-in-up delay-1">
               A portfolio of <span className="text-gradient-blue">products</span> that
@@ -155,6 +157,13 @@ const Portfolio = () => {
               partners with teams to ship reliable software and robust
               infrastructure — on time, and with full ownership.
             </p>
+
+            {industryFocus && (
+              <div className="industry-lens fade-in-up delay-2">
+                <span>Exploring {industryFocus.replace('-', ' ')} infrastructure?</span>
+                <Link to="/form">Discuss your environment</Link>
+              </div>
+            )}
 
             <div className="portfolio-metrics fade-in-up delay-3">
               <div className="metric-card glass-metric">
@@ -324,7 +333,7 @@ const Portfolio = () => {
                 </p>
                 <div className="final-cta-actions">
                 <Link to="/form" className="btn-white-solid">Start a conversation</Link>
-                <a href="#portfolio" className="btn-outline-white">Request Case Studies</a>
+                <Link to="/form" className="btn-outline-white">Request Case Studies</Link>
                 </div>
             </div>
           </ContentWrapper>

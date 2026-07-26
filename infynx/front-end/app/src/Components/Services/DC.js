@@ -35,7 +35,7 @@ const DC = () => {
             </p>
 
             <div className="dc-hero-buttons fade-in-up delay-3">
-              <a href="#contact" className="btn-green-neon">Request Deployment</a>
+              <Link to="/form" className="btn-green-neon">Request Deployment</Link>
               <a href="#services" className="btn-glass-green">View Capabilities</a>
             </div>
           </div>

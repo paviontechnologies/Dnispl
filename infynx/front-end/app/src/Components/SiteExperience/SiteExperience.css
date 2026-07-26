@@ -1,0 +1,153 @@
+.site-experience {
+  --surface-glass: rgba(10, 15, 18, 0.68);
+  --line-glass: rgba(255, 255, 255, 0.13);
+  --signal-cyan: #00e2f5;
+  --signal-lime: #c4f017;
+  position: relative;
+  min-height: 100vh;
+  isolation: isolate;
+  background: #050709;
+}
+
+.site-page-stage {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+}
+
+.site-atmosphere,
+.site-network-scene,
+.site-cursor-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.site-atmosphere {
+  z-index: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    radial-gradient(circle at 82% 22%, rgba(0, 226, 245, 0.12), transparent 32%),
+    radial-gradient(circle at 18% 72%, rgba(196, 240, 23, 0.07), transparent 28%),
+    linear-gradient(145deg, #050709 0%, #0a0d11 56%, #07090b 100%);
+  background-size: 64px 64px, 64px 64px, auto, auto, auto;
+  mask-image: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.7) 72%, transparent 100%);
+}
+
+.site-network-scene {
+  z-index: 1;
+  opacity: 0.9;
+}
+
+.site-network-scene canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.site-scroll-progress {
+  position: fixed;
+  z-index: 1400;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, #c4f017, #00e2f5, #ff5a36);
+  box-shadow: 0 0 18px rgba(0, 226, 245, 0.65);
+}
+
+.site-cursor-glow {
+  z-index: 1;
+  background: radial-gradient(260px circle at var(--cursor-x, 50%) var(--cursor-y, 50%), rgba(0, 226, 245, 0.08), transparent 72%);
+  transition: opacity 200ms ease;
+}
+
+/* Let the shared scene show through while preserving each page's identity. */
+.site-experience :is(
+  .about-page-container,
+  .home-container,
+  .leadership-page-container,
+  .portfolio-page,
+  .career-page-root,
+  .career-container,
+  .contact-page,
+  .blog-wrapper,
+  .ap-page-container,
+  .wo-page-container,
+  .hpd-page-container,
+  .rc-page-container,
+  .dc-page-container
+) {
+  background: transparent;
+}
+
+.site-experience :is(
+  .glass-card,
+  .glass-panel,
+  .job-card,
+  .process-card,
+  .principle-card,
+  .stat-card,
+  .blog-card,
+  .contact-details-box,
+  .contact-form-section,
+  .ap-glass-card,
+  .ap-process-card,
+  .wo-glass-card,
+  .wo-process-card,
+  .hpd-glass-card,
+  .hpd-tech-card,
+  .hpd-process-card,
+  .rc-glass-card,
+  .rc-process-card,
+  .dc-glass-card,
+  .dc-process-card,
+  .project-card,
+  .executive-card
+) {
+  background: linear-gradient(145deg, rgba(20, 28, 32, 0.76), rgba(7, 10, 12, 0.64));
+  border-color: var(--line-glass);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.28), inset 0 1px rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(22px) saturate(130%);
+  -webkit-backdrop-filter: blur(22px) saturate(130%);
+  transform-style: preserve-3d;
+}
+
+.site-experience :is(
+  .job-card,
+  .process-card,
+  .principle-card,
+  .stat-card,
+  .blog-card,
+  .ap-glass-card,
+  .wo-glass-card,
+  .hpd-glass-card,
+  .hpd-tech-card,
+  .rc-glass-card,
+  .dc-glass-card,
+  .project-card,
+  .executive-card
+):hover {
+  border-color: rgba(0, 226, 245, 0.48);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.38), 0 0 34px rgba(0, 226, 245, 0.09);
+}
+
+.site-experience :is(button, a):focus-visible {
+  outline: 2px solid var(--signal-lime);
+  outline-offset: 4px;
+}
+
+.site-experience :is(input, textarea, select) {
+  backdrop-filter: blur(12px);
+}
+
+@media (max-width: 800px) {
+  .site-network-scene { opacity: 0.62; }
+  .site-cursor-glow { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-page-stage { transform: none !important; }
+}

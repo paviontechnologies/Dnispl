@@ -94,6 +94,11 @@
   color: var(--footer-text);
 }
 
+.contact-details-footer { margin-top: 20px; display: grid; gap: 7px; font-size: 13px; line-height: 1.5; }
+.contact-details-footer a { display: flex; align-items: center; gap: 9px; color: #9ca3af; transition: color 200ms ease; }
+.contact-details-footer a svg { color: #00e2f5; flex: 0 0 auto; }
+.contact-details-footer a:hover { color: white; }
+
 /* --- SOCIAL ICONS --- */
 .social-links {
   display: flex;
