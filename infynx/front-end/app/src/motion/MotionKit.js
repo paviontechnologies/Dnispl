@@ -449,21 +449,26 @@ export const OrbitVisual = ({
    Marquee
    ========================================================================== */
 
-/** Endlessly scrolling strip. Children are duplicated to make the loop seamless. */
+/**
+ * Endlessly scrolling strip. The track holds two identical copies and slides by
+ * exactly -50%, so the loop restarts on a frame that looks the same.
+ */
 export const Marquee = ({ items, renderItem, speed = 36, className = '' }) => (
   <div
     className={['fx-marquee', className].filter(Boolean).join(' ')}
     style={{ '--fx-marquee-speed': `${speed}s` }}
   >
-    {[0, 1].map((copy) => (
-      <div className="fx-marquee-run" key={copy} aria-hidden={copy === 1}>
-        {items.map((item, i) => (
-          <span className="fx-marquee-item" key={`${copy}-${i}`}>
-            {renderItem ? renderItem(item, i) : item}
-          </span>
-        ))}
-      </div>
-    ))}
+    <div className="fx-marquee-track">
+      {[0, 1].map((copy) => (
+        <div className="fx-marquee-run" key={copy} aria-hidden={copy === 1}>
+          {items.map((item, i) => (
+            <span className="fx-marquee-item" key={`${copy}-${i}`}>
+              {renderItem ? renderItem(item, i) : item}
+            </span>
+          ))}
+        </div>
+      ))}
+    </div>
   </div>
 );
 

@@ -6,6 +6,16 @@ import Footer from '../Footer/Footer';
 import blogOne from '../Images/infynix/blog-1.webp';
 import blogTwo from '../Images/infynix/blog-2.webp';
 import blogThree from '../Images/infynix/blog-3.webp';
+import { AnimatePresence, motion } from 'framer-motion';
+import {
+    AuroraBackdrop,
+    Reveal,
+    RevealGroup,
+    SplitHeading,
+    useScrollReveal
+} from '../../motion/MotionKit';
+
+const TINT = { from: '#00E2F5', to: '#B325F7', glow: 'rgba(0, 226, 245, 0.3)' };
 
 const fallbackBlogs = [
     { _id: 'network-resilience', image: blogOne, category: 'Infrastructure', title: 'Why resilient networks start before the first device', summary: 'Architecture, operational ownership, and failure planning matter more than any single piece of hardware.', content: 'A resilient network is designed around business continuity. Clear failure domains, tested recovery paths, documented ownership, and observability turn infrastructure from a collection of devices into a dependable operating system for the business.' },
@@ -17,6 +27,7 @@ const Blog = () => {
     const [blogs, setBlogs] = useState([]);
     const [selectedBlog, setSelectedBlog] = useState(null);
     const [loading, setLoading] = useState(true);
+    useScrollReveal();
 
     useEffect(() => {
         fetch('http://localhost:5000/api/blogs')
@@ -35,15 +46,44 @@ const Blog = () => {
           <div className="blog-wrapper">
 
             <div className="blog-hero">
-                <span className="blog-kicker">FIELD NOTES / 2026</span>
-                <h1>Ideas for infrastructure<br />that <span>keeps moving.</span></h1>
-                <p>Network strategy, operations, security, and practical lessons from complex rollouts.</p>
+                <AuroraBackdrop tint={TINT} />
+
+                <div className="blog-hero-inner">
+                    <motion.span
+                        className="blog-kicker"
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        FIELD NOTES / 2026
+                    </motion.span>
+
+                    <SplitHeading
+                        lines={[
+                            'Ideas for infrastructure',
+                            <span key="a">that <span className="blog-hero-accent">keeps moving.</span></span>
+                        ]}
+                    />
+
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.55 }}
+                    >
+                        Network strategy, operations, security, and practical lessons from complex rollouts.
+                    </motion.p>
+                </div>
             </div>
 
-            <div className="blog-container">
+            <RevealGroup className="blog-container">
                 {loading && <p className="blog-loading">Loading field notes...</p>}
                 {blogs.map((item) => (
-                    <article className={`blog-card ${selectedBlog === item._id ? 'expanded' : ''}`} key={item._id}>
+                    <Reveal
+                        as="article"
+                        dir="scale"
+                        className={`blog-card ${selectedBlog === item._id ? 'expanded' : ''}`}
+                        key={item._id}
+                    >
                         <div className="card-header">
                             <img src={item.image} alt={item.title} />
                             <span className="tag">{item.category}</span>
@@ -51,14 +91,35 @@ const Blog = () => {
                         <div className="card-body">
                             <h3>{item.title}</h3>
                             <p>{item.summary}</p>
-                            {selectedBlog === item._id && <p className="blog-full-copy">{item.content || item.summary}</p>}
-                            <button className="btn-read" onClick={() => setSelectedBlog(selectedBlog === item._id ? null : item._id)}>
-                                {selectedBlog === item._id ? <>Close story <Minus size={16} /></> : <>Read story <ArrowRight size={16} /></>}
-                            </button>
+
+                            <AnimatePresence initial={false}>
+                                {selectedBlog === item._id && (
+                                    <motion.p
+                                        className="blog-full-copy"
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: 'auto', opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                                    >
+                                        {item.content || item.summary}
+                                    </motion.p>
+                                )}
+                            </AnimatePresence>
+
+                            <motion.button
+                                className="btn-read"
+                                whileHover={{ x: 4 }}
+                                whileTap={{ scale: 0.97 }}
+                                onClick={() => setSelectedBlog(selectedBlog === item._id ? null : item._id)}
+                            >
+                                {selectedBlog === item._id
+                                    ? <>Close story <Minus size={16} /></>
+                                    : <>Read story <ArrowRight size={16} /></>}
+                            </motion.button>
                         </div>
-                    </article>
+                    </Reveal>
                 ))}
-            </div>
+            </RevealGroup>
           </div>
           <Footer />
         </>

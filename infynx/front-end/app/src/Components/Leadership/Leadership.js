@@ -196,13 +196,16 @@ const Leadership = () => {
 
           {/* Right side image */}
           <Reveal className="ls-about-right" dir="right">
-            <TiltCard className="ls-image-card">
-              <div className="card-shine"></div>
-              <img
-                src="https://images.unsplash.com/photo-1553877615-30c73a63bbc4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                alt="Team collaborating"
-                className="ls-about-image"
-              />
+            {/* Tilt sits on the wrapper so the card keeps its own rotate-straighten hover */}
+            <TiltCard className="ls-image-tilt">
+              <div className="ls-image-card">
+                <div className="card-shine"></div>
+                <img
+                  src="https://images.unsplash.com/photo-1553877615-30c73a63bbc4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                  alt="Team collaborating"
+                  className="ls-about-image"
+                />
+              </div>
             </TiltCard>
           </Reveal>
         </ContentWrapper>

@@ -56,6 +56,7 @@
   padding: 80px 0 60px;
   text-align: center;
   position: relative;
+  overflow: hidden;
 }
 
 .portfolio-badge {
@@ -106,18 +107,17 @@
   gap: 24px;
 }
 
+/* Entry, filter reshuffle, expand and hover-lift are all driven by
+   framer-motion in Portfolio.js — it owns `transform`, so CSS is left to
+   handle colour and shadow only. */
 .project-card {
   background: var(--glass-bg); border-radius: var(--border-radius-md); padding: 30px; border: 1px solid var(--glass-border);
   cursor: pointer; position: relative; overflow: hidden;
   backdrop-filter: var(--backdrop-blur);
-  opacity: 0;
-  transform: translateY(30px) scale(0.97);
-  animation: fadeInUpGrid 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .project-card:hover {
-  transform: translateY(-8px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 15px var(--primary-glow);
   border-color: var(--blue-primary);
 }
@@ -145,8 +145,8 @@
 .project-title { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 700; margin-bottom: 5px; color: white; transition: color 0.3s; }
 .project-industry { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px; }
 
-.project-body { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease; }
-.project-card.expanded .project-body { max-height: 500px; opacity: 1; margin-bottom: 20px; }
+/* Height is animated by framer-motion; CSS only clips the overflow */
+.project-body { overflow: hidden; }
 .body-content { padding-top: 15px; border-top: 1px solid var(--glass-border); }
 .project-problem, .project-solution, .project-techstack { margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6; color: var(--text-muted); }
 .project-impact { margin-bottom: 15px; }

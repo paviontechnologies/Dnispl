@@ -62,11 +62,14 @@
   height: 62%;
 }
 
+/* Each beam declares a plain two-stop gradient first; the color-mix version
+   that follows is simply ignored where color-mix is unsupported. */
 .fx-beam {
   position: absolute;
   bottom: 0;
   display: block;
   border-radius: 2px;
+  background: linear-gradient(to top, var(--fx-2) 0%, transparent 100%);
   background: linear-gradient(to top, var(--fx-2) 0%, color-mix(in srgb, var(--fx-1) 55%, transparent) 45%, transparent 100%);
   opacity: 0.35;
   filter: blur(0.5px);
@@ -75,10 +78,12 @@
 }
 
 .fx-beam:nth-child(3n) {
+  background: linear-gradient(to top, var(--fx-1) 0%, transparent 100%);
   background: linear-gradient(to top, var(--fx-1) 0%, color-mix(in srgb, var(--fx-2) 50%, transparent) 50%, transparent 100%);
 }
 
 .fx-beam:nth-child(4n + 1) {
+  background: linear-gradient(to top, #5588f6 0%, transparent 100%);
   background: linear-gradient(to top, #5588f6 0%, color-mix(in srgb, var(--fx-1) 45%, transparent) 55%, transparent 100%);
 }
 
@@ -125,7 +130,8 @@
 }
 
 .fx-cube-grid span {
-  border: 1px solid color-mix(in srgb, var(--fx-1) 25%, transparent);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-color: color-mix(in srgb, var(--fx-1) 25%, transparent);
   animation: float 9s ease-in-out infinite;
 }
 
@@ -291,21 +297,37 @@
   box-shadow: inset 18px 14px 48px rgba(255, 255, 255, 0.10);
 }
 
+/* -230px is exactly ten meridian periods (23px), so the loop has no seam */
 @keyframes fx-globe-spin {
-  to { background-position: -220px 0, 0 0; }
+  to { background-position: -230px 0, 0 0; }
 }
 
+/* Each ring keeps its own tilt while spinning, so the keyframes carry the
+   rotateX through rather than letting the spin overwrite it. */
 .fx-orbit-ring {
   position: absolute;
   border: 1px solid var(--fx-ring);
   border-radius: 50%;
   pointer-events: none;
-  animation: ftc-roteted linear infinite;
+  animation: linear infinite;
 }
 
-.fx-orbit-ring-1 { inset: -18%; transform: rotateX(74deg); animation-duration: 18s; }
-.fx-orbit-ring-2 { inset: -32%; transform: rotateX(66deg) rotateZ(28deg); animation-duration: 27s; animation-direction: reverse; opacity: 0.7; }
-.fx-orbit-ring-3 { inset: -46%; transform: rotateX(80deg) rotateZ(-14deg); animation-duration: 36s; opacity: 0.45; }
+.fx-orbit-ring-1 { inset: -18%; transform: rotateX(74deg); animation-name: fx-ring-1; animation-duration: 18s; }
+.fx-orbit-ring-2 { inset: -32%; transform: rotateX(66deg) rotateZ(28deg); animation-name: fx-ring-2; animation-duration: 27s; opacity: 0.7; }
+.fx-orbit-ring-3 { inset: -46%; transform: rotateX(80deg) rotateZ(-14deg); animation-name: fx-ring-3; animation-duration: 36s; opacity: 0.45; }
+
+@keyframes fx-ring-1 {
+  from { transform: rotateX(74deg) rotateZ(0deg); }
+  to   { transform: rotateX(74deg) rotateZ(360deg); }
+}
+@keyframes fx-ring-2 {
+  from { transform: rotateX(66deg) rotateZ(28deg); }
+  to   { transform: rotateX(66deg) rotateZ(-332deg); }
+}
+@keyframes fx-ring-3 {
+  from { transform: rotateX(80deg) rotateZ(-14deg); }
+  to   { transform: rotateX(80deg) rotateZ(346deg); }
+}
 
 .fx-orbit-ring::after {
   content: '';
@@ -340,16 +362,22 @@
   mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
 
+/* Two identical runs inside one track: sliding -50% lands on an identical frame */
+.fx-marquee-track {
+  display: flex;
+  flex: 0 0 auto;
+  animation: marquee var(--fx-marquee-speed, 36s) linear infinite;
+}
+
 .fx-marquee-run {
   display: flex;
   align-items: center;
   gap: 60px;
   padding-right: 60px;
   flex: 0 0 auto;
-  animation: marquee var(--fx-marquee-speed, 36s) linear infinite;
 }
 
-.fx-marquee:hover .fx-marquee-run { animation-play-state: paused; }
+.fx-marquee:hover .fx-marquee-track { animation-play-state: paused; }
 
 .fx-marquee-item {
   flex: 0 0 auto;

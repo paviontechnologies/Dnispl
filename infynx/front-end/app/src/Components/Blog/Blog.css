@@ -47,7 +47,11 @@
   padding: 140px 20px 80px 20px;
   margin-bottom: 50px;
   border-bottom: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
 }
+
+.blog-hero-inner { position: relative; z-index: 2; }
 
 .blog-kicker {
   display: block;
@@ -64,7 +68,8 @@
   text-transform: none;
 }
 
-.blog-hero h1 span {
+/* Scoped to the accent word — the split-line reveal wraps every line in spans */
+.blog-hero h1 .blog-hero-accent {
   color: var(--secondary);
   text-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
 }
@@ -178,9 +183,10 @@
   overflow: hidden;
 }
 
+/* Height is animated by framer-motion, so the clip has to stay on */
 .card-body .blog-full-copy {
   display: block;
-  overflow: visible;
+  overflow: hidden;
   color: #d8e0e3;
   margin-top: 4px;
   -webkit-line-clamp: initial;
