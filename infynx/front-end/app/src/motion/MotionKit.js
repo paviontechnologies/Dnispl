@@ -57,9 +57,19 @@ export const RevealGroup = ({ as: Tag = 'div', className = '', children, ...rest
    Split headline
    ========================================================================== */
 
+const SPLIT_VARIANTS = {
+  hidden: { y: '115%', rotateX: -78, opacity: 0 },
+  shown: { y: '0%', rotateX: 0, opacity: 1 }
+};
+
 /**
  * Each line sits in an overflow-hidden track and swings up out of perspective,
  * one after the next. Pass `lines` as strings or nodes.
+ *
+ * The viewport observer has to live on the track, not on the text: the text
+ * starts translated fully below the track, and an overflow-hidden ancestor
+ * clips it out of every intersection rect — observing it directly would mean
+ * it never registers as visible and so never animates in.
  */
 export const SplitHeading = ({
   lines,
@@ -74,17 +84,21 @@ export const SplitHeading = ({
   return (
     <Tag className={['fx-split', className].filter(Boolean).join(' ')}>
       {lines.map((line, i) => (
-        <span className="fx-split-line" key={i}>
+        <motion.span
+          className="fx-split-line"
+          key={i}
+          initial={reduced ? false : 'hidden'}
+          whileInView="shown"
+          viewport={{ once, amount: 0.15 }}
+        >
           <motion.span
             className="fx-split-inner"
-            initial={reduced ? false : { y: '115%', rotateX: -78, opacity: 0 }}
-            whileInView={{ y: '0%', rotateX: 0, opacity: 1 }}
-            viewport={{ once, amount: 0.15 }}
+            variants={SPLIT_VARIANTS}
             transition={{ duration: 1.1, delay: delay + i * stagger, ease: [0.25, 0.46, 0.45, 0.5] }}
           >
             {line}
           </motion.span>
-        </span>
+        </motion.span>
       ))}
     </Tag>
   );
@@ -355,11 +369,14 @@ const DriftItem = ({ index, progress, distance, reduced, className, children }) 
   const from = index % 2 === 0 ? -distance : distance;
   const x = useTransform(progress, [0, 1], [from, 0]);
   const opacity = useTransform(progress, [0, 0.5], [0, 1]);
+  // fx-drift-item keeps the wrapper transparent to the parent grid's sizing, so
+  // adding drift doesn't break equal-height rows.
+  const classes = ['fx-drift-item', className].filter(Boolean).join(' ');
 
-  if (reduced) return <div className={className}>{children}</div>;
+  if (reduced) return <div className={classes}>{children}</div>;
 
   return (
-    <motion.div className={className} style={{ x, opacity }}>
+    <motion.div className={classes} style={{ x, opacity }}>
       {children}
     </motion.div>
   );

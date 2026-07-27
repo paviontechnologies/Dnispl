@@ -239,6 +239,18 @@
 }
 
 /* --------------------------------------------------------------------------
+   Scroll drift — the wrapper must not disturb the parent grid's row sizing
+   -------------------------------------------------------------------------- */
+.fx-drift-item {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  will-change: transform, opacity;
+}
+
+.fx-drift-item > * { flex: 1 1 auto; }
+
+/* --------------------------------------------------------------------------
    Orbit visual — a slowly turning globe with orbital rings and a satellite.
    This is the "earth" companion to the Home phone/globe pairing.
    -------------------------------------------------------------------------- */
