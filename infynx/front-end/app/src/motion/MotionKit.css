@@ -1,0 +1,456 @@
+/* ==========================================================================
+   MotionKit — the Home page's motion vocabulary, made reusable.
+   Every primitive here is tintable through --fx-1 / --fx-2 so a page can keep
+   its own hue (green DC, orange HPD, indigo RC…) while moving the same way.
+   Tokens live in src/index.css; scroll-reveal lives there too (.ftc-reveal).
+   ========================================================================== */
+
+.fx-scope {
+  --fx-1: var(--pr-purple);
+  --fx-2: var(--pr-cyan);
+  --fx-glow: rgba(179, 37, 247, 0.35);
+  --fx-ring: rgba(0, 226, 245, 0.35);
+}
+
+/* --------------------------------------------------------------------------
+   Split-line headline — each line swings up out of 3D perspective
+   -------------------------------------------------------------------------- */
+.fx-split {
+  perspective: 2000px;
+  transform-style: preserve-3d;
+  overflow: hidden;
+}
+
+.fx-split-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+
+.fx-split-inner {
+  display: block;
+  transform-origin: top center;
+  will-change: transform, opacity;
+}
+
+/* --------------------------------------------------------------------------
+   Aurora backdrop — beams standing on a waterline, mirrored underneath,
+   with a floating cube grid. Drifts against the pointer via --mx / --my.
+   -------------------------------------------------------------------------- */
+.fx-aurora {
+  --mx: 0;
+  --my: 0;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.fx-aurora-inner {
+  position: absolute;
+  inset: 0;
+  transform: translate3d(calc(var(--mx) * -22px), calc(var(--my) * -14px), 0);
+  transition: transform 600ms var(--cube-1);
+}
+
+.fx-beam-field {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 62%;
+}
+
+.fx-beam {
+  position: absolute;
+  bottom: 0;
+  display: block;
+  border-radius: 2px;
+  background: linear-gradient(to top, var(--fx-2) 0%, color-mix(in srgb, var(--fx-1) 55%, transparent) 45%, transparent 100%);
+  opacity: 0.35;
+  filter: blur(0.5px);
+  animation: fx-beam-breathe 7s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.fx-beam:nth-child(3n) {
+  background: linear-gradient(to top, var(--fx-1) 0%, color-mix(in srgb, var(--fx-2) 50%, transparent) 50%, transparent 100%);
+}
+
+.fx-beam:nth-child(4n + 1) {
+  background: linear-gradient(to top, #5588f6 0%, color-mix(in srgb, var(--fx-1) 45%, transparent) 55%, transparent 100%);
+}
+
+@keyframes fx-beam-breathe {
+  0%, 100% { opacity: 0.18; transform: scaleY(0.82); }
+  50%      { opacity: 0.75; transform: scaleY(1); }
+}
+
+.fx-waterline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 62%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--fx-1) 25%, var(--fx-2) 50%, var(--fx-1) 75%, transparent 100%);
+  filter: blur(1px);
+  opacity: 0.6;
+}
+
+.fx-beam-reflection {
+  top: 62%;
+  height: 38%;
+  transform: scaleY(-1);
+  opacity: 0.45;
+  filter: blur(6px);
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 85%);
+  mask-image: linear-gradient(to top, transparent 0%, #000 85%);
+}
+
+/* Floating 2x2 cube grid */
+.fx-cube-grid {
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  width: 445px;
+  height: 532px;
+  max-width: 70vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  pointer-events: none;
+  opacity: 0.5;
+  transform: translateX(-50%) translate3d(calc(var(--mx) * 34px), calc(var(--my) * 24px), 0);
+  transition: transform 700ms var(--cube-1);
+}
+
+.fx-cube-grid span {
+  border: 1px solid color-mix(in srgb, var(--fx-1) 25%, transparent);
+  animation: float 9s ease-in-out infinite;
+}
+
+.fx-cube-grid span:nth-child(2) { margin-left: -2px; animation-delay: 1.2s; border-color: color-mix(in srgb, var(--fx-2) 22%, transparent); }
+.fx-cube-grid span:nth-child(3) { animation-delay: 2.4s; border-color: color-mix(in srgb, var(--fx-2) 22%, transparent); }
+.fx-cube-grid span:nth-child(4) { margin-left: -2px; animation-delay: 3.6s; }
+
+/* Ambient blurred orbs that drift on their own */
+.fx-orb {
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  max-width: 90vw;
+  border-radius: 50%;
+  filter: blur(200px);
+  -webkit-filter: blur(200px);
+  opacity: 0.3;
+  pointer-events: none;
+  animation: subtleDrift 22s ease-in-out infinite;
+}
+
+/* --------------------------------------------------------------------------
+   Scroll fan — cards fly in from their own side of the viewport and settle
+   into a rotated fan as the section scrolls through.
+   -------------------------------------------------------------------------- */
+.fx-fan {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 40px 20px 60px;
+  /* the fan swings wide before it settles — don't clip it */
+  overflow: visible;
+}
+
+.fx-fan-slot {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 320px;
+  max-width: 100%;
+  will-change: transform, opacity;
+}
+
+.fx-fan-card {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 25px;
+  padding: 34px 22px 28px;
+  text-align: center;
+  color: #fff;
+  border: none;
+  background: var(--fx-card-bg, var(--bg-card));
+  transition: 500ms var(--cube-1);
+}
+
+/* Hover straightens the card by cancelling its resting rotation */
+.fx-fan-slot:hover { z-index: 5; }
+
+.fx-fan-slot:hover .fx-fan-card {
+  transform: rotate(var(--counter-rot, 0deg)) translateY(-12px) scale(1.03);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55);
+}
+
+.fx-fan-badge {
+  display: inline-flex;
+  width: 92px;
+  height: 92px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-family: var(--saira);
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 20px;
+  background: var(--fx-badge-bg, rgba(0, 0, 0, 0.25));
+  border: 8px solid var(--fx-card-bg, var(--bg-card));
+  transition: 400ms var(--cube-1);
+}
+
+.fx-fan-card:hover .fx-fan-badge { animation: wobble-vertical 1s ease-in-out; }
+
+.fx-fan-card h3 {
+  font-family: var(--saira);
+  font-size: 24px;
+  line-height: 1.25;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+.fx-fan-card p {
+  font-family: var(--roboto);
+  font-size: 15px;
+  line-height: 25px;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Orbit visual — a slowly turning globe with orbital rings and a satellite.
+   This is the "earth" companion to the Home phone/globe pairing.
+   -------------------------------------------------------------------------- */
+.fx-orbit {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  width: 100%;
+  max-width: 420px;
+  margin-inline: auto;
+}
+
+.fx-orbit-stage {
+  position: relative;
+  width: 62%;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+}
+
+.fx-globe {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.32), transparent 44%),
+    radial-gradient(circle at 72% 78%, rgba(0, 0, 0, 0.6), transparent 58%),
+    linear-gradient(150deg, var(--fx-1), var(--fx-2));
+  box-shadow:
+    inset -18px -12px 44px rgba(0, 0, 0, 0.6),
+    0 0 70px var(--fx-glow);
+}
+
+/* Meridians + parallels scrolling sideways read as the globe turning */
+.fx-globe::before {
+  content: '';
+  position: absolute;
+  inset: -12%;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 22px, rgba(255, 255, 255, 0.20) 22px 23px),
+    repeating-linear-gradient(0deg, transparent 0 26px, rgba(255, 255, 255, 0.11) 26px 27px);
+  animation: fx-globe-spin 16s linear infinite;
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 58%, transparent 80%);
+  mask-image: radial-gradient(circle at 50% 50%, #000 58%, transparent 80%);
+}
+
+/* Atmosphere rim */
+.fx-globe::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow: inset 18px 14px 48px rgba(255, 255, 255, 0.10);
+}
+
+@keyframes fx-globe-spin {
+  to { background-position: -220px 0, 0 0; }
+}
+
+.fx-orbit-ring {
+  position: absolute;
+  border: 1px solid var(--fx-ring);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: ftc-roteted linear infinite;
+}
+
+.fx-orbit-ring-1 { inset: -18%; transform: rotateX(74deg); animation-duration: 18s; }
+.fx-orbit-ring-2 { inset: -32%; transform: rotateX(66deg) rotateZ(28deg); animation-duration: 27s; animation-direction: reverse; opacity: 0.7; }
+.fx-orbit-ring-3 { inset: -46%; transform: rotateX(80deg) rotateZ(-14deg); animation-duration: 36s; opacity: 0.45; }
+
+.fx-orbit-ring::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--fx-2);
+  box-shadow: 0 0 14px var(--fx-2);
+}
+
+/* Optional image dropped into the orbit (phone, device, portrait) */
+.fx-orbit-media {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.fx-orbit-float { animation: float 8s ease-in-out infinite; }
+
+/* --------------------------------------------------------------------------
+   Marquee strip
+   -------------------------------------------------------------------------- */
+.fx-marquee {
+  display: flex;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.fx-marquee-run {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  padding-right: 60px;
+  flex: 0 0 auto;
+  animation: marquee var(--fx-marquee-speed, 36s) linear infinite;
+}
+
+.fx-marquee:hover .fx-marquee-run { animation-play-state: paused; }
+
+.fx-marquee-item {
+  flex: 0 0 auto;
+  font-family: var(--saira);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  white-space: nowrap;
+  transition: color 400ms var(--cube-1);
+}
+
+.fx-marquee-item:hover { color: #fff; }
+
+/* --------------------------------------------------------------------------
+   Hover utilities
+   -------------------------------------------------------------------------- */
+.fx-lift { transition: transform 450ms var(--cube-1), box-shadow 450ms var(--cube-1), border-color 450ms var(--cube-1); }
+.fx-lift:hover { transform: translateY(-10px); box-shadow: 0 26px 52px rgba(0, 0, 0, 0.45); }
+
+/* Icon inside a card wobbles when the card is hovered */
+.fx-wobble-host:hover .fx-wobble { animation: wobble-vertical 1s ease-in-out; }
+
+/* Gradient rule that floods across the card's foot on hover */
+.fx-sweep { position: relative; overflow: hidden; }
+.fx-sweep::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0;
+  background: linear-gradient(90deg, var(--fx-1), var(--fx-2));
+  transition: width 550ms var(--cube-1);
+}
+.fx-sweep:hover::after { width: 100%; }
+
+/* Pointer-tilt card */
+.fx-tilt {
+  --tx: 0deg;
+  --ty: 0deg;
+  position: relative;
+  height: 100%;
+  transform: perspective(900px) rotateX(var(--tx)) rotateY(var(--ty));
+  transform-style: preserve-3d;
+  transition: transform 250ms var(--cube-1);
+}
+
+/* Shine that tracks the pointer across a tilted card. Sits above the card it
+   wraps, so it stays visible whatever the card's own background is. */
+.fx-tilt-shine {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(320px circle at var(--sx, 50%) var(--sy, 50%), rgba(255, 255, 255, 0.14), transparent 60%);
+  transition: opacity 350ms var(--cube-1);
+}
+.fx-tilt:hover .fx-tilt-shine { opacity: 1; }
+
+/* --------------------------------------------------------------------------
+   Reduced motion — everything settles into its resting pose
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .fx-beam,
+  .fx-cube-grid span,
+  .fx-orb,
+  .fx-globe::before,
+  .fx-orbit-ring,
+  .fx-orbit-float,
+  .fx-marquee-run {
+    animation: none !important;
+  }
+
+  .fx-aurora-inner,
+  .fx-cube-grid,
+  .fx-tilt {
+    transform: none !important;
+  }
+
+  .fx-lift:hover { transform: none; }
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 991px) {
+  .fx-fan { gap: 22px; padding: 30px 16px 44px; }
+  .fx-fan-slot { width: 300px; }
+  .fx-cube-grid { width: 320px; height: 380px; }
+  .fx-orb { width: 380px; height: 380px; filter: blur(150px); }
+}
+
+@media (max-width: 575px) {
+  .fx-fan-slot { width: 100%; max-width: 340px; }
+  .fx-fan-card { padding: 28px 18px 24px; }
+  .fx-fan-badge { width: 76px; height: 76px; font-size: 26px; border-width: 6px; }
+  .fx-fan-card h3 { font-size: 21px; }
+  .fx-cube-grid { display: none; }
+  .fx-marquee-run { gap: 36px; padding-right: 36px; }
+}

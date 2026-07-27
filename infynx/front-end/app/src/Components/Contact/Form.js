@@ -3,10 +3,60 @@ import "./Form.css";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import { Mail, MapPin, Phone, Send } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  AuroraBackdrop,
+  OrbitVisual,
+  Reveal,
+  RevealGroup,
+  SplitHeading,
+  useScrollReveal
+} from "../../motion/MotionKit";
+
+const TINT = { from: "#00E2F5", to: "#B325F7", glow: "rgba(0, 226, 245, 0.35)" };
+
+const CONTACT_POINTS = [
+  {
+    href: "https://maps.google.com/?q=WorldMark+Sector+65+Gurugram",
+    external: true,
+    icon: MapPin,
+    label: "Visit our NCR hub",
+    value: "WorldMark, Sector 65, Gurugram"
+  },
+  {
+    href: "tel:+911244234805",
+    icon: Phone,
+    label: "Speak with our team",
+    value: "+91 124 423 4805"
+  },
+  {
+    href: "mailto:info@dnispl.com",
+    icon: Mail,
+    label: "Send an email",
+    value: "info@dnispl.com"
+  }
+];
+
+const FIELDS = [
+  { name: "name", label: "Your Name", type: "text", placeholder: "Enter your name" },
+  { name: "email", label: "Your Email", type: "email", placeholder: "Enter your email" },
+  { name: "phone", label: "Phone Number", type: "tel", placeholder: "Enter your phone number" }
+];
+
+const SERVICES = [
+  "Software Development",
+  "Network Implementation",
+  "Business Solutions",
+  "Regulatory Compliance",
+  "Workforce Outsourcing",
+  "Data Center",
+  "Other"
+];
 
 const Form = () => {
-  const [status, setStatus] = useState(""); 
+  const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
+  useScrollReveal();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,24 +104,48 @@ const Form = () => {
 
       <div className="contact-page">
         <section className="contact-info-section">
-          <div className="contact-info-inner">
-            <span className="contact-kicker">LET'S BUILD / TOGETHER</span>
-            <h2 className="contact-title">Contact Us</h2>
-            <p className="contact-subtitle">
-              Feel free to connect with us anytime — we are here to help.
-            </p>
+          <AuroraBackdrop tint={TINT} />
 
-            <div className="contact-details-box">
-              <a href="https://maps.google.com/?q=WorldMark+Sector+65+Gurugram" target="_blank" rel="noreferrer">
-                <MapPin size={20} /><span><strong>Visit our NCR hub</strong>WorldMark, Sector 65, Gurugram</span>
-              </a>
-              <a href="tel:+911244234805">
-                <Phone size={20} /><span><strong>Speak with our team</strong>+91 124 423 4805</span>
-              </a>
-              <a href="mailto:info@dnispl.com">
-                <Mail size={20} /><span><strong>Send an email</strong>info@dnispl.com</span>
-              </a>
-            </div>
+          <div className="contact-info-inner">
+            <motion.span
+              className="contact-kicker"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              LET'S BUILD / TOGETHER
+            </motion.span>
+
+            <SplitHeading
+              as="h2"
+              className="contact-title"
+              lines={["Contact Us"]}
+            />
+
+            <motion.p
+              className="contact-subtitle"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+            >
+              Feel free to connect with us anytime — we are here to help.
+            </motion.p>
+
+            <RevealGroup className="contact-details-box">
+              {CONTACT_POINTS.map(({ href, external, icon: Icon, label, value }) => (
+                <Reveal
+                  as="a"
+                  dir="scale"
+                  key={href}
+                  href={href}
+                  className="fx-wobble-host"
+                  {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+                >
+                  <span className="fx-wobble contact-point-icon"><Icon size={20} /></span>
+                  <span><strong>{label}</strong>{value}</span>
+                </Reveal>
+              ))}
+            </RevealGroup>
           </div>
         </section>
 
@@ -79,7 +153,7 @@ const Form = () => {
         <div className="contact-two-column">
           {/* LEFT: MAP */}
           <div className="contact-left">
-            <section className="map-section">
+            <Reveal as="section" dir="left" className="map-section">
               <h3 className="map-title">Find Us on Google Maps</h3>
 
               <div className="map-container">
@@ -94,75 +168,114 @@ const Form = () => {
                   referrerPolicy="no-referrer-when-downgrade"
                 ></iframe>
               </div>
-            </section>
+
+              {/* Turning globe — the same orbit motion Home gives its phone visual */}
+              <div className="contact-reach">
+                <OrbitVisual tint={TINT} className="contact-globe" />
+                <div className="contact-reach-copy">
+                  <h4>We answer from wherever you are</h4>
+                  <p>
+                    NCR headquarters, execution teams across 100+ active locations, and a
+                    24/7 desk that routes your enquiry to the right architect.
+                  </p>
+                </div>
+              </div>
+            </Reveal>
           </div>
 
           {/* RIGHT: FORM */}
           <div className="contact-right">
-            <section className="contact-form-section">
+            <Reveal as="section" dir="right" className="contact-form-section">
               <h3 className="form-title">Send Us a Message</h3>
 
               <form className="contact-form" onSubmit={handleSubmit}>
-                <div className="form-group">
-                  <label>Your Name</label>
-                  <input
-                    name="name"
-                    type="text"
-                    placeholder="Enter your name"
-                    required
-                  />
-                </div>
+                {FIELDS.map((field, i) => (
+                  <motion.div
+                    className="form-group"
+                    key={field.name}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.4 }}
+                    transition={{ duration: 0.5, delay: i * 0.08 }}
+                  >
+                    <label>{field.label}</label>
+                    <input
+                      name={field.name}
+                      type={field.type}
+                      placeholder={field.placeholder}
+                      required
+                    />
+                  </motion.div>
+                ))}
 
-                <div className="form-group">
-                  <label>Your Email</label>
-                  <input
-                    name="email"
-                    type="email"
-                    placeholder="Enter your email"
-                    required
-                  />
-                </div>
-
-                <div className="form-group">
-                 <label>Phone Number</label>
-                   <input
-                    name="phone"
-                    type="tel"
-                    placeholder="Enter your phone number"
-                    required
-                  />
-                </div>
-
-                <div className="form-group">
+                <motion.div
+                  className="form-group"
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{ duration: 0.5, delay: 0.24 }}
+                >
                   <label>Service</label>
                   <select name="service" id="service" required>
                     <option value="">Select Service</option>
-                    <option>Software Development</option>
-                    <option>Network Implementation</option>
-                    <option>Business Solutions</option>
-                    <option>Regulatory Compliance</option>
-                    <option>Workforce Outsourcing</option>
-                    <option>Data Center</option>
-                    <option>Other</option>
-                 </select>
-                </div>
+                    {SERVICES.map((service) => (
+                      <option key={service}>{service}</option>
+                    ))}
+                  </select>
+                </motion.div>
 
-                <div className="form-group">
+                <motion.div
+                  className="form-group"
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{ duration: 0.5, delay: 0.32 }}
+                >
                   <label>Message</label>
                   <textarea
                     name="message"
                     placeholder="Type your message..."
                     required
                   ></textarea>
-                </div>
+                </motion.div>
 
-                <button type="submit" className="contact-btn" disabled={loading}>
-                  {loading ? "Sending..." : <><span>Send Message</span><Send size={17} /></>}
-                </button>
+                <motion.button
+                  type="submit"
+                  className="contact-btn"
+                  disabled={loading}
+                  whileHover={loading ? undefined : { y: -2, scale: 1.015 }}
+                  whileTap={loading ? undefined : { scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 380, damping: 22 }}
+                >
+                  {loading ? (
+                    <>
+                      <span className="contact-btn-spinner" aria-hidden="true" />
+                      <span>Sending...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Send Message</span>
+                      <Send size={17} />
+                    </>
+                  )}
+                </motion.button>
 
-                {status && <p className="form-status">{status}</p>}
+                <AnimatePresence mode="wait">
+                  {status && (
+                    <motion.p
+                      key={status}
+                      className="form-status"
+                      initial={{ opacity: 0, y: -8, height: 0 }}
+                      animate={{ opacity: 1, y: 0, height: "auto" }}
+                      exit={{ opacity: 0, y: -8, height: 0 }}
+                      transition={{ duration: 0.35 }}
+                    >
+                      {status}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
               </form>
-            </section>
+            </Reveal>
           </div>
         </div>
       </div>

@@ -24,9 +24,15 @@ export const useScrollReveal = () => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           const el = entry.target;
-          const group = el.closest('[data-reveal-group]') || el.parentElement;
-          const index = group ? Array.prototype.indexOf.call(group.children, el) : 0;
-          el.style.transitionDelay = `${Math.min(index, 6) * 90}ms`;
+          // An explicit data-reveal-delay wins; otherwise stagger by position.
+          const explicit = el.dataset.revealDelay;
+          if (explicit !== undefined && explicit !== '') {
+            el.style.transitionDelay = `${explicit}ms`;
+          } else {
+            const group = el.closest('[data-reveal-group]') || el.parentElement;
+            const index = group ? Array.prototype.indexOf.call(group.children, el) : 0;
+            el.style.transitionDelay = `${Math.min(index, 6) * 90}ms`;
+          }
           el.classList.add('is-revealed');
           observer.unobserve(el);
         });

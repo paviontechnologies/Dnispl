@@ -147,7 +147,8 @@
   border: 1px solid var(--glass-border);
   border-left: 4px solid var(--orange-neon); transition: 0.3s;
 }
-.hpd-timeline-card:hover { border-color: rgba(255, 255, 255, 0.15); border-left-color: var(--orange-neon); transform: translateX(6px); }
+/* Specific enough to win over the .ftc-reveal resting transform */
+.hpd-process-timeline .hpd-timeline-card:hover { border-color: rgba(255, 255, 255, 0.15); border-left-color: var(--orange-neon); transform: translateX(6px); }
 
 .timeline-number {
   font-family: var(--font-heading);

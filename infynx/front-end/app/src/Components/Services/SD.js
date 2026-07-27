@@ -3,99 +3,147 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import "./SD.css";
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import {
+  AuroraBackdrop,
+  Reveal,
+  RevealGroup,
+  ScrollFan,
+  SplitHeading,
+  useScrollReveal
+} from '../../motion/MotionKit';
+
+const TINT = { from: '#B325F7', to: '#00E2F5', glow: 'rgba(179, 37, 247, 0.32)' };
+
+/* Fan shades stay inside the page's purple/magenta family */
+const PALETTE = [
+  { card: '#B325F7', badge: '#9B1DD8' },
+  { card: '#8B5CF6', badge: '#7040D6' },
+  { card: '#E504EE', badge: '#BC03C4' },
+  { card: '#7C3AED', badge: '#6329C4' },
+  { card: '#A855F7', badge: '#8A44CC' },
+  { card: '#6827DA', badge: '#521FAE' }
+];
+
+const BUILDS = [
+  { icon: "💻", title: "Web Applications", desc: "Modern, secure & high-performance web apps designed for speed, usability, and business automation." },
+  { icon: "📱", title: "Mobile Applications", desc: "Cross-platform and native apps built for exceptional user experience and top-tier performance." },
+  { icon: "🛒", title: "E-Commerce Platforms", desc: "Custom e-commerce websites tailored to drive revenue, handle scale, and integrate secure payments." },
+  { icon: "☁️", title: "Cloud-Powered Apps", desc: "Cloud-native software built for AWS, Azure, and GCP with seamless CI/CD, logging, and automation." },
+  { icon: "🧠", title: "AI-Integrated Solutions", desc: "AI-powered tools for chat automation, prediction, computer vision, and real-time data processing." },
+  { icon: "🔗", title: "API Development", desc: "Secure, fast, and scalable APIs for your apps, partners, and internal systems integration." }
+];
+
+const REASONS = [
+  { icon: "⚡", title: "Fast Delivery", desc: "Agile sprints that ensure quick releases without compromising quality." },
+  { icon: "🛡️", title: "Secure Architecture", desc: "Industry-standard security practices with encryption and safe deployments." },
+  { icon: "📈", title: "Scale-Ready Systems", desc: "Software designed to handle millions of users and high traffic loads effortlessly." },
+  { icon: "🤝", title: "Dedicated Support", desc: "Post-deployment monitoring, regular updates, and continuous enhancements." }
+];
 
 const SD = () => {
+  useScrollReveal();
+
   return (
     <>
       <Header />
 
       <div className="sd-page-container">
-        
+
         {/* --- BACKGROUND ANIMATION LAYER --- */}
         <div className="sd-bg-layer">
-            <div className="code-rain"></div>
-            <div className="floating-symbol sym-1">{"{ }"}</div>
-            <div className="floating-symbol sym-2">{"< >"}</div>
-            <div className="floating-symbol sym-3">{"//"}</div>
+          <div className="code-rain"></div>
+          <div className="floating-symbol sym-1">{"{ }"}</div>
+          <div className="floating-symbol sym-2">{"< >"}</div>
+          <div className="floating-symbol sym-3">{"//"}</div>
         </div>
 
         {/* HERO SECTION */}
         <section className="sd-hero-section">
-          <div className="sd-content-wrapper">
-            <div className="sd-badge fade-in-up">
-                <span className="dot-blink"></span> READY TO SCALE
-            </div>
-{/*             
-            <h1 className="sd-hero-title fade-in-up delay-1">
-               <span className="text-gradient-purple"> Custom Software Development Services</span> <br/>
-            
-            </h1> */}
+          <AuroraBackdrop tint={TINT} />
 
-            <p className="sd-hero-subtitle fade-in-up delay-2">
+          <div className="sd-content-wrapper">
+            <motion.div
+              className="sd-badge"
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <span className="dot-blink"></span> READY TO SCALE
+            </motion.div>
+
+            <SplitHeading
+              className="sd-hero-title"
+              lines={[
+                <span className="text-gradient-purple" key="a">Custom Software</span>,
+                <span className="text-gradient-purple" key="b">Development Services</span>
+              ]}
+            />
+
+            <motion.p
+              className="sd-hero-subtitle"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+            >
               We build fast, secure, and scalable applications tailored to your business needs —
               from concept to deployment.
-            </p>
+            </motion.p>
 
-            <div className="sd-hero-buttons fade-in-up delay-3">
+            <motion.div
+              className="sd-hero-buttons"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.85 }}
+            >
               <a href="#contact" className="btn-purple-glow">Start a Project</a>
               <a href="#services" className="btn-glass-purple">Explore Services</a>
-            </div>
+            </motion.div>
           </div>
         </section>
 
-        {/* WHAT WE BUILD SECTION */}
+        {/* WHAT WE BUILD — scroll-driven card fan */}
         <section className="sd-services-section" id="services">
           <div className="sd-content-wrapper">
-            <div className="section-header center">
-                <h2 className="text-gradient-purple">What We Build</h2>
-                <p className="sd-section-desc">Engineering digital excellence for modern businesses.</p>
-            </div>
-
-            <div className="sd-cards-grid">
-              {[
-                { icon: "💻", title: "Web Applications", desc: "Modern, secure & high-performance web apps designed for speed, usability, and business automation." },
-                { icon: "📱", title: "Mobile Applications", desc: "Cross-platform and native apps built for exceptional user experience and top-tier performance." },
-                { icon: "🛒", title: "E-Commerce Platforms", desc: "Custom e-commerce websites tailored to drive revenue, handle scale, and integrate secure payments." },
-                { icon: "☁️", title: "Cloud-Powered Apps", desc: "Cloud-native software built for AWS, Azure, and GCP with seamless CI/CD, logging, and automation." },
-                { icon: "🧠", title: "AI-Integrated Solutions", desc: "AI-powered tools for chat automation, prediction, computer vision, and real-time data processing." },
-                { icon: "🔗", title: "API Development", desc: "Secure, fast, and scalable APIs for your apps, partners, and internal systems integration." }
-              ].map((service, index) => (
-                <div className="sd-glass-card hover-float" key={index}>
-                  <div className="card-shine"></div>
-                  <div className="sd-icon-box">{service.icon}</div>
-                  <h3>{service.title}</h3>
-                  <p>{service.desc}</p>
-                </div>
-              ))}
-            </div>
+            <Reveal className="section-header center">
+              <h2 className="text-gradient-purple">What We Build</h2>
+              <p className="sd-section-desc">Engineering digital excellence for modern businesses.</p>
+            </Reveal>
           </div>
+
+          <ScrollFan
+            items={BUILDS}
+            palette={PALETTE}
+            renderCard={(service) => (
+              <div className="fx-fan-card">
+                <div className="fx-fan-badge">{service.icon}</div>
+                <h3>{service.title}</h3>
+                <p>{service.desc}</p>
+              </div>
+            )}
+          />
         </section>
 
         {/* WHY CHOOSE US SECTION */}
         <section className="sd-why-section">
           <div className="sd-content-wrapper">
-            <h2 className="sd-section-title center text-white">Why Choose Us?</h2>
-            
-            <div className="sd-why-grid">
-              {[
-                { icon: "⚡", title: "Fast Delivery", desc: "Agile sprints that ensure quick releases without compromising quality." },
-                { icon: "🛡️", title: "Secure Architecture", desc: "Industry-standard security practices with encryption and safe deployments." },
-                { icon: "📈", title: "Scale-Ready Systems", desc: "Software designed to handle millions of users and high traffic loads effortlessly." },
-                { icon: "🤝", title: "Dedicated Support", desc: "Post-deployment monitoring, regular updates, and continuous enhancements." }
-              ].map((item, index) => (
-                <div className="sd-feature-card" key={index}>
-                  <div className="feature-icon-wrapper">{item.icon}</div>
+            <Reveal as="h2" className="sd-section-title center text-white">Why Choose Us?</Reveal>
+
+            <RevealGroup className="sd-why-grid">
+              {REASONS.map((item) => (
+                <Reveal className="sd-feature-card fx-wobble-host" key={item.title} dir="scale">
+                  <div className="feature-icon-wrapper fx-wobble">{item.icon}</div>
                   <h3>{item.title}</h3>
                   <p>{item.desc}</p>
-                </div>
+                </Reveal>
               ))}
-            </div>
+            </RevealGroup>
           </div>
         </section>
 
         {/* CTA SECTION */}
         <section className="sd-cta-section" id="contact">
-          <div className="sd-cta-box glass-panel-purple">
+          <Reveal className="sd-cta-box glass-panel-purple" dir="scale">
             <div className="glow-circle"></div>
             <h2>Ready to Build Your Software?</h2>
             <p>
@@ -103,7 +151,7 @@ const SD = () => {
               Let's turn your idea into reality.
             </p>
             <Link to="/form" className="btn-white-pulse">Contact Us</Link>
-          </div>
+          </Reveal>
         </section>
 
       </div>

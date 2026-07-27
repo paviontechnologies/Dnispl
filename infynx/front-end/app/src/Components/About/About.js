@@ -1,27 +1,120 @@
-import React, { useEffect } from 'react';
-import { 
-  Briefcase, 
-  TrendingUp, 
-  Globe, 
-  Server, 
-  Users, 
-  Cpu, 
-  Zap, 
-  Award 
+import React from 'react';
+import {
+  Briefcase,
+  TrendingUp,
+  Globe,
+  Server,
+  Users,
+  Cpu,
+  Zap,
+  Award
 } from 'lucide-react';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import { Link } from 'react-router-dom';
+import {
+  AuroraBackdrop,
+  CountUp,
+  Marquee,
+  OrbitVisual,
+  Reveal,
+  RevealGroup,
+  ScrollFan,
+  SplitHeading,
+  TiltCard,
+  useScrollReveal
+} from '../../motion/MotionKit';
 
 // Import CSS file
-import './About.css'; 
+import './About.css';
+
+const TINT = { from: '#00F0FF', to: '#8B5CF6', glow: 'rgba(0, 240, 255, 0.32)' };
+
+/* Fan colours pulled from the page's own cyan → violet ramp. */
+const PRINCIPLE_PALETTE = [
+  { card: '#1D4ED8', badge: '#1740A8' },
+  { card: '#8B5CF6', badge: '#7040D6' },
+  { card: '#0E9AA7', badge: '#0B7C87' }
+];
+
+const PRINCIPLES = [
+  {
+    title: 'Innovation First',
+    icon: '💡',
+    points: [
+      'Adopt emerging tech pragmatically',
+      'Run lightweight spikes & POCs',
+      'Continuously refactor for performance',
+      'Leverage AI copilots'
+    ]
+  },
+  {
+    title: 'Client-Centric',
+    icon: '🤝',
+    points: [
+      'Design with user empathy',
+      'Transparent communication',
+      'Business-hours support',
+      'Clear escalation paths'
+    ]
+  },
+  {
+    title: 'Ownership',
+    icon: '👑',
+    points: [
+      'Treat every project like our own',
+      'Proactive risk mitigation',
+      'Peer reviews & mentoring',
+      'Zero key-person risk'
+    ]
+  }
+];
+
+const STORY_FEATURES = [
+  { icon: '⚙️', text: 'End-to-End Dev' },
+  { icon: '🏗️', text: 'Agile Builds' },
+  { icon: '🧠', text: 'Expert Tech Stack' },
+  { icon: '🚀', text: 'Enterprise Ready' }
+];
+
+const CAPABILITY_STRIP = [
+  'Enterprise Networking', 'Structured Cabling', 'Managed NOC', 'SD-WAN',
+  'Data Center', 'Cloud Connectivity', 'Cybersecurity', 'AI & Automation',
+  'Workforce Outsourcing', 'Regulatory Compliance'
+];
+
+const JOURNEY = [
+  { side: 'left', year: '2017', yearClass: 'year-navy', title: 'DNISPL is Formed', icon: Briefcase, desc: 'Commences business on 10th February, laying the foundation for network and IT solutions services.' },
+  { side: 'right', year: '2018–19', yearClass: 'year-yellow', title: 'Bags Major Orders', icon: Award, desc: 'Delivered large network deployments and audits for enterprise clients across metro cities.' },
+  { side: 'left', year: '2019–20', yearClass: 'year-red', title: 'System Integrator', icon: Server, desc: 'Executed multi-location projects with complex networking, cabling, and infrastructure roll-outs.' },
+  { side: 'right', year: '2020–21', yearClass: 'year-blue', title: 'DNISPL Network', icon: Globe, desc: 'Formalized DNISPL as a network-first solutions company, scaling remote operations and support.' },
+  { side: 'left', year: '2021–22', yearClass: 'year-teal', title: 'New Verticals', icon: Zap, desc: 'Expanded into data-center networking, cloud connectivity, and security-led architectures.' },
+  { side: 'right', year: '2022–23', yearClass: 'year-dark-teal', title: 'Tech Mahindra Project', icon: Cpu, desc: '200+ manpower deployed. Installation & Commissioning of 1.5MVA DG Set. AMC for Samsung, SBI Life, etc.' },
+  { side: 'left', year: '2023–24', yearClass: 'year-steel-blue', title: 'Manpower Growth', icon: Users, desc: 'Strength increased to over 450. Solutions for fintech firms. Expanded presence in Mumbai & Bangalore.' },
+  { side: 'right', year: 'Future', yearClass: 'year-navy', title: 'Global Expansion', icon: TrendingUp, desc: 'Continuing our rapid ascent with AI integration and global strategic partnerships.' }
+];
+
+const STATS = [
+  { value: '200+', label: 'Projects Delivered' },
+  { value: '8+', label: 'Client Countries' },
+  { value: '98%', label: 'Retention Rate' },
+  { value: '5.0★', label: 'Average Rating' }
+];
+
+const LIFE = [
+  { title: 'Growth-Driven', desc: 'Mentorship, structured upskilling, and real-world projects.' },
+  { title: 'Collaboration', desc: 'Flat hierarchy, open communication, and transparent culture.' },
+  { title: 'Fun & Celebrations', desc: 'Festivals, games, off-sites, and reward programs.' },
+  { title: 'Work-Life Balance', desc: 'Flexible schedules, hybrid options, and wellness initiatives.' }
+];
 
 const ContentWrapper = ({ children, className }) => (
   <div className={`about-content-wrapper ${className || ''}`}>{children}</div>
 );
 
-const TimelineItem = ({ year, yearClass, title, desc, side, icon: Icon, delay }) => (
-  <div className={`timeline-item ${side} reveal-on-scroll`} style={{ transitionDelay: `${delay}s` }}>
+/* Each entry swings in from its own side of the centre rail. */
+const TimelineItem = ({ year, yearClass, title, desc, side, icon: Icon }) => (
+  <Reveal className={`timeline-item ${side}`} dir={side === 'left' ? 'left' : 'right'}>
     <div className="timeline-marker">
       <Icon size={20} strokeWidth={2.5} />
     </div>
@@ -31,39 +124,21 @@ const TimelineItem = ({ year, yearClass, title, desc, side, icon: Icon, delay })
       <h3 className="timeline-heading">{title}</h3>
       <p>{desc}</p>
     </div>
-  </div>
+  </Reveal>
 );
 
 const About = () => {
-  // Setup Intersection Observer for scroll animations
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('in-view');
-          }
-        });
-      },
-      { threshold: 0.15 } // Trigger when 15% visible
-    );
-
-    const elements = document.querySelectorAll('.reveal-on-scroll');
-    elements.forEach((el) => observer.observe(el));
-
-    return () => {
-      elements.forEach((el) => observer.unobserve(el));
-    };
-  }, []);
+  useScrollReveal();
 
   return (
     <div className="about-page-container">
-      {/* Header Placeholder */}
-      <Header/>
+      <Header />
 
       {/* --- HERO SECTION --- */}
       <section className="about-hero-section">
-        {/* Animated Shapes */}
+        <AuroraBackdrop tint={TINT} />
+
+        {/* Drifting colour shapes, kept behind the beams */}
         <div className="global-bg-shapes">
           <div className="shape shape-1"></div>
           <div className="shape shape-2"></div>
@@ -72,12 +147,17 @@ const About = () => {
 
         <ContentWrapper>
           <div className="hero-badge fade-in-up">
-             <span className="badge-dot"></span> OUR MISSION
+            <span className="badge-dot"></span> OUR MISSION
           </div>
-          <h1 className="about-hero-title fade-in-up delay-1">
-            Empowering Digital Growth Through <br />
-            <span className="text-gradient">Innovation & Trust</span>
-          </h1>
+
+          <SplitHeading
+            className="about-hero-title"
+            lines={[
+              'Empowering Digital Growth Through',
+              <span className="text-gradient" key="g">Innovation &amp; Trust</span>
+            ]}
+          />
+
           <p className="about-hero-description fade-in-up delay-2">
             At DNISPL Infotech, we believe technology should be an enabler, not a hurdle. We are dedicated
             to delivering human-centric, resilient, and scalable digital solutions that transform ambitious
@@ -86,10 +166,15 @@ const About = () => {
         </ContentWrapper>
       </section>
 
+      {/* --- CAPABILITY MARQUEE --- */}
+      <section className="about-marquee-section">
+        <Marquee items={CAPABILITY_STRIP} speed={42} />
+      </section>
+
       {/* --- OUR STORY --- */}
       <section className="our-story-section">
         <ContentWrapper className="our-story-inner">
-          <div className="our-story-left fade-in-up delay-2">
+          <Reveal className="our-story-left" dir="left">
             <h2 className="section-title">Our Story</h2>
             <p className="our-story-text">
               Incorporated in 2022 and operational since 2023, DNISPL Infotech engineers reliable web,
@@ -98,112 +183,82 @@ const About = () => {
               transparency.
             </p>
 
-            <div className="story-features-grid">
-              <div className="story-feature glass-card-sm">
-                <div className="feature-icon-box">⚙️</div>
-                <div className="story-feature-text">End-to-End Dev</div>
-              </div>
-              <div className="story-feature glass-card-sm">
-                <div className="feature-icon-box">🏗️</div>
-                <div className="story-feature-text">Agile Builds</div>
-              </div>
-              <div className="story-feature glass-card-sm">
-                <div className="feature-icon-box">🧠</div>
-                <div className="story-feature-text">Expert Tech Stack</div>
-              </div>
-              <div className="story-feature glass-card-sm">
-                <div className="feature-icon-box">🚀</div>
-                <div className="story-feature-text">Enterprise Ready</div>
-              </div>
-            </div>
+            <RevealGroup className="story-features-grid">
+              {STORY_FEATURES.map((feature) => (
+                <Reveal
+                  key={feature.text}
+                  dir="scale"
+                  className="story-feature glass-card-sm fx-wobble-host"
+                >
+                  <div className="feature-icon-box fx-wobble">{feature.icon}</div>
+                  <div className="story-feature-text">{feature.text}</div>
+                </Reveal>
+              ))}
+            </RevealGroup>
 
             <div className="story-locations">
               <div className="location-icon-pulse">📍</div>
               <div>
                 <p className="location-caption">Serving clients in</p>
-                <p className="location-places">India, UAE, USA, UK <span className="location-more">& more</span></p>
+                <p className="location-places">India, UAE, USA, UK <span className="location-more">&amp; more</span></p>
               </div>
             </div>
-          </div>
+          </Reveal>
 
-          <div className="our-story-right fade-in-up delay-2">
-            <div className="story-image-frame">
-              <img
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                alt="DNISPL team collaboration"
-                className="story-main-image"
-              />
+          <Reveal className="our-story-right" dir="right">
+            <div className="story-visual">
+              <div className="story-image-frame">
+                <img
+                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                  alt="DNISPL team collaboration"
+                  className="story-main-image"
+                />
+              </div>
+              {/* Turning globe overlapping the frame — Home's phone + globe pairing */}
+              <OrbitVisual tint={TINT} rings={2} className="story-globe" />
             </div>
-          </div>
+          </Reveal>
         </ContentWrapper>
       </section>
 
-      {/* --- CORE PRINCIPLES --- */}
+      {/* --- CORE PRINCIPLES (scroll-driven fan) --- */}
       <section className="core-principles-section">
         <ContentWrapper>
-          <div className="principles-header center-text">
-             <h2 className="section-title text-white">Our Core Principles</h2>
-             <p className="section-desc text-gray">The values that drive every line of code we write.</p>
-          </div>
-
-          <div className="principles-grid">
-            <article className="principle-card card-hover-effect">
-              <div className="principle-card-top">
-                <h3 className="principle-heading">Innovation First</h3>
-                <div className="icon-box-principle">💡</div>
-              </div>
-              <ul className="principle-list">
-                <li>Adopt emerging tech pragmatically</li>
-                <li>Run lightweight spikes & POCs</li>
-                <li>Continuously refactor for performance</li>
-                <li>Leverage AI copilots</li>
-              </ul>
-            </article>
-
-            <article className="principle-card card-hover-effect">
-              <div className="principle-card-top">
-                <h3 className="principle-heading">Client-Centric</h3>
-                <div className="icon-box-principle">🤝</div>
-              </div>
-              <ul className="principle-list">
-                <li>Design with user empathy</li>
-                <li>Transparent communication</li>
-                <li>Business-hours support</li>
-                <li>Clear escalation paths</li>
-              </ul>
-            </article>
-
-            <article className="principle-card card-hover-effect">
-              <div className="principle-card-top">
-                <h3 className="principle-heading">Ownership</h3>
-                <div className="icon-box-principle">👑</div>
-              </div>
-              <ul className="principle-list">
-                <li>Treat every project like our own</li>
-                <li>Proactive risk mitigation</li>
-                <li>Peer reviews & mentoring</li>
-                <li>Zero key-person risk</li>
-              </ul>
-            </article>
-          </div>
+          <Reveal className="principles-header center-text">
+            <h2 className="section-title text-white">Our Core Principles</h2>
+            <p className="section-desc text-gray">The values that drive every line of code we write.</p>
+          </Reveal>
         </ContentWrapper>
+
+        <ScrollFan
+          items={PRINCIPLES}
+          palette={PRINCIPLE_PALETTE}
+          renderCard={(principle) => (
+            <article className="fx-fan-card principle-fan-card">
+              <div className="fx-fan-badge">{principle.icon}</div>
+              <h3>{principle.title}</h3>
+              <ul className="principle-fan-list">
+                {principle.points.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+            </article>
+          )}
+        />
       </section>
 
-      {/* =========================================================
-          --- OUR JOURNEY (ENHANCED WITH ANIMATION & GRAPHICS) --- 
-          ========================================================= */}
+      {/* --- OUR JOURNEY --- */}
       <section className="our-journey-section">
-        {/* Background Graphics */}
         <div className="journey-bg-pattern"></div>
         <Cpu className="floating-tech-icon tech-icon-1" />
         <Server className="floating-tech-icon tech-icon-2" />
         <Globe className="floating-tech-icon tech-icon-3" />
 
         <ContentWrapper>
-          <div className="center-text mb-60" style={{ position: 'relative', zIndex: 5 }}>
+          <Reveal className="center-text mb-60" style={{ position: 'relative', zIndex: 5 }}>
             <h2 className="section-title">Our Journey</h2>
             <p className="section-desc">From incorporation to product scale—execution-first, outcomes-driven.</p>
-          </div>
+          </Reveal>
 
           <div className="journey-ribbon-timeline">
             {/* Center Line with Laser Beam */}
@@ -211,79 +266,9 @@ const About = () => {
               <div className="timeline-beam"></div>
             </div>
 
-            {/* Timeline Items */}
-            <TimelineItem 
-              side="left"
-              year="2017" yearClass="year-navy"
-              title="DNISPL is Formed"
-              desc="Commences business on 10th February, laying the foundation for network and IT solutions services."
-              icon={Briefcase}
-              delay={0}
-            />
-
-            <TimelineItem 
-              side="right"
-              year="2018–19" yearClass="year-yellow"
-              title="Bags Major Orders"
-              desc="Delivered large network deployments and audits for enterprise clients across metro cities."
-              icon={Award}
-              delay={0.1}
-            />
-
-            <TimelineItem 
-              side="left"
-              year="2019–20" yearClass="year-red"
-              title="System Integrator"
-              desc="Executed multi-location projects with complex networking, cabling, and infrastructure roll-outs."
-              icon={Server}
-              delay={0.2}
-            />
-
-            <TimelineItem 
-              side="right"
-              year="2020–21" yearClass="year-blue"
-              title="DNISPL Network"
-              desc="Formalized DNISPL as a network-first solutions company, scaling remote operations and support."
-              icon={Globe}
-              delay={0.3}
-            />
-
-            <TimelineItem 
-              side="left"
-              year="2021–22" yearClass="year-teal"
-              title="New Verticals"
-              desc="Expanded into data-center networking, cloud connectivity, and security-led architectures."
-              icon={Zap}
-              delay={0.4}
-            />
-
-            <TimelineItem 
-              side="right"
-              year="2022–23" yearClass="year-dark-teal"
-              title="Tech Mahindra Project"
-              desc="200+ manpower deployed. Installation & Commissioning of 1.5MVA DG Set. AMC for Samsung, SBI Life, etc."
-              icon={Cpu}
-              delay={0.5}
-            />
-
-            <TimelineItem 
-              side="left"
-              year="2023–24" yearClass="year-steel-blue"
-              title="Manpower Growth"
-              desc="Strength increased to over 450. Solutions for fintech firms. Expanded presence in Mumbai & Bangalore."
-              icon={Users}
-              delay={0.6}
-            />
-
-            <TimelineItem 
-              side="right"
-              year="Future" yearClass="year-navy"
-              title="Global Expansion"
-              desc="Continuing our rapid ascent with AI integration and global strategic partnerships."
-              icon={TrendingUp}
-              delay={0.7}
-            />
-
+            {JOURNEY.map((entry) => (
+              <TimelineItem key={entry.title} {...entry} />
+            ))}
           </div>
         </ContentWrapper>
       </section>
@@ -291,7 +276,7 @@ const About = () => {
       {/* --- STATS SECTION --- */}
       <section className="stats-section">
         <ContentWrapper className="stats-inner">
-          <div className="stats-intro">
+          <Reveal className="stats-intro" dir="left">
             <h2 className="section-title">Stats That Matter</h2>
             <p>
               At DNISPL Infotech, performance speaks louder than promises. These numbers reflect our sustained delivery excellence.
@@ -299,76 +284,58 @@ const About = () => {
             <Link to="/portfolio" className="link-arrow mt-10" style={{ textDecoration: 'none', color: '#00e2f5', fontWeight: 'bold' }}>
               Explore our case studies →
             </Link>
-          </div>
+          </Reveal>
 
-          <div className="stats-grid">
-            <div className="stat-card">
-              <h3 className="stat-value">200+</h3>
-              <p className="stat-label">Projects Delivered</p>
-            </div>
-            <div className="stat-card">
-              <h3 className="stat-value">8+</h3>
-              <p className="stat-label">Client Countries</p>
-            </div>
-            <div className="stat-card">
-              <h3 className="stat-value">98%</h3>
-              <p className="stat-label">Retention Rate</p>
-            </div>
-            <div className="stat-card">
-              <h3 className="stat-value">5.0<span>★</span></h3>
-              <p className="stat-label">Average Rating</p>
-            </div>
-          </div>
+          <RevealGroup className="stats-grid">
+            {STATS.map((stat) => (
+              <Reveal key={stat.label} dir="scale" className="stat-card">
+                <h3 className="stat-value"><CountUp value={stat.value} /></h3>
+                <p className="stat-label">{stat.label}</p>
+              </Reveal>
+            ))}
+          </RevealGroup>
         </ContentWrapper>
       </section>
 
       {/* --- LIFE AT DNISPL --- */}
       <section className="life-at-section">
         <ContentWrapper className="life-at-inner">
-          <div className="life-left">
+          <Reveal className="life-left" dir="left">
             <h2 className="section-title">Discover Life at <span className="text-gradient-blue">DNISPL</span></h2>
             <p className="life-desc">
               At Dnispl, innovation meets purpose. We empower every team member to grow, collaborate, and thrive.
             </p>
-            
-          </div>
+          </Reveal>
 
-          <div className="life-right-grid">
-            <div className="life-card card-hover-effect">
-              <h3 className="life-card-title">Growth-Driven</h3>
-              <p className="life-card-desc">Mentorship, structured upskilling, and real-world projects.</p>
-            </div>
-            <div className="life-card card-hover-effect">
-              <h3 className="life-card-title">Collaboration</h3>
-              <p className="life-card-desc">Flat hierarchy, open communication, and transparent culture.</p>
-            </div>
-            <div className="life-card card-hover-effect">
-              <h3 className="life-card-title">Fun & Celebrations</h3>
-              <p className="life-card-desc">Festivals, games, off-sites, and reward programs.</p>
-            </div>
-            <div className="life-card card-hover-effect">
-              <h3 className="life-card-title">Work-Life Balance</h3>
-              <p className="life-card-desc">Flexible schedules, hybrid options, and wellness initiatives.</p>
-            </div>
-          </div>
+          <RevealGroup className="life-right-grid">
+            {LIFE.map((item) => (
+              <Reveal key={item.title} dir="scale">
+                {/* Tilt lives on the wrapper so the card keeps its own hover lift */}
+                <TiltCard>
+                  <div className="life-card card-hover-effect">
+                    <h3 className="life-card-title">{item.title}</h3>
+                    <p className="life-card-desc">{item.desc}</p>
+                  </div>
+                </TiltCard>
+              </Reveal>
+            ))}
+          </RevealGroup>
         </ContentWrapper>
       </section>
 
-    
       <section className="final-cta-section">
-        <div className="cta-content">
+        <Reveal className="cta-content" dir="scale">
           <h2 className="final-cta-title">Excited to Start?</h2>
           <p className="final-cta-subtitle">
-            Contact us directly at <span className="cta-email" style={{textDecoration:'underline'}}>account@dnispl.com</span>
+            Contact us directly at <span className="cta-email" style={{ textDecoration: 'underline' }}>account@dnispl.com</span>
           </p>
           <div className="final-cta-actions">
             <Link to="/form" className="btn btn-white">Contact Now</Link>
-            
           </div>
-        </div>
+        </Reveal>
       </section>
-      
-      <Footer/>
+
+      <Footer />
     </div>
   );
 };

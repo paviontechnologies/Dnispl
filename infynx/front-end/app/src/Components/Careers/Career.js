@@ -2,6 +2,15 @@ import React, { useState, useEffect } from 'react';
 import './Career.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import { AnimatePresence, motion } from 'framer-motion';
+import {
+  AuroraBackdrop,
+  ScrollDrift,
+  SplitHeading,
+  useScrollReveal
+} from '../../motion/MotionKit';
+
+const TINT = { from: '#173FCF', to: '#00E2F5', glow: 'rgba(23, 63, 207, 0.32)' };
 
 const ContentWrapper = ({ children, className }) => (
     <div className={`career-content-wrapper ${className || ''}`}>{children}</div>
@@ -47,11 +56,13 @@ const Career = () => {
     const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    
+
     const [showForm, setShowForm] = useState(false);
     const [selectedJob, setSelectedJob] = useState(null);
     const [status, setStatus] = useState("");
     const [formLoading, setFormLoading] = useState(false);
+
+    useScrollReveal();
 
     useEffect(() => {
         const fetchJobs = async () => {
@@ -92,7 +103,7 @@ const Career = () => {
         try {
             const res = await fetch("http://localhost:5000/apply-job", {
                 method: "POST",
-                body: formData, 
+                body: formData,
             });
             const data = await res.json();
             if (res.ok) {
@@ -115,106 +126,167 @@ const Career = () => {
 
             <div className="career-container">
                 <section className="career-hero-section">
+                    <AuroraBackdrop tint={TINT} />
+
                     <ContentWrapper>
-                        <h1 className="career-title">Build the Future with <span className="dnispl-blue">DNISPL</span></h1>
-                        <p className="career-subtitle">Join a team that crafts dependable software solutions across Bharat.</p>
+                        <SplitHeading
+                            className="career-title"
+                            lines={[
+                                <span key="a">Build the Future with <span className="dnispl-blue">DNISPL</span></span>
+                            ]}
+                        />
+                        <motion.p
+                            className="career-subtitle"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.5 }}
+                        >
+                            Join a team that crafts dependable software solutions across Bharat.
+                        </motion.p>
                     </ContentWrapper>
                 </section>
 
                 <section className="job-listings-section">
                     <ContentWrapper>
-                        <div className="job-grid">
-                            {loading && <p className="loading-text">Finding opportunities for you...</p>}
-                            {error && <p className="career-notice">{error}</p>}
-                            {!loading && jobs.map((job) => (
-                                <div key={job._id} className="job-card">
-                                    <div className="job-card-header">
-                                        <span className={`job-tag ${getTagClassName(job.experience)}`}>{job.experience}</span>
-                                        <span className="job-location-pin">📍 {job.location}</span>
+                        {loading && <p className="loading-text">Finding opportunities for you...</p>}
+                        {error && <p className="career-notice">{error}</p>}
+
+                        {/* Roles slide in from alternating sides as the list scrolls through */}
+                        {!loading && (
+                            <ScrollDrift
+                                className="job-grid"
+                                items={jobs}
+                                renderItem={(job) => (
+                                    <div className="job-card">
+                                        <div className="job-card-header">
+                                            <span className={`job-tag ${getTagClassName(job.experience)}`}>{job.experience}</span>
+                                            <span className="job-location-pin">📍 {job.location}</span>
+                                        </div>
+                                        <h3 className="job-title">{job.title}</h3>
+                                        <p className="job-description-short">{job.description}</p>
+                                        <button onClick={() => handleViewApply(job)} className="btn-view-apply">
+                                            View & Apply
+                                        </button>
                                     </div>
-                                    <h3 className="job-title">{job.title}</h3>
-                                    <p className="job-description-short">{job.description}</p>
-                                    <button onClick={() => handleViewApply(job)} className="btn-view-apply">
-                                        View & Apply
-                                    </button>
-                                </div>
-                            ))}
-                        </div>
+                                )}
+                            />
+                        )}
                     </ContentWrapper>
                 </section>
             </div>
 
-            {showForm && (
-                <div className="form-modal-overlay">
-                    <div className="form-modal-content">
-                        <button className="close-modal-btn" onClick={() => setShowForm(false)}>&times;</button>
-                        
-                        <div className="modal-inner-scroll">
-                            <div className="form-header">
-                                <h2>Applying for: <span className="highlight-text">{selectedJob?.title}</span></h2>
-                                
-                                <div className="job-details-container">
-    <h4>Job Overview & Responsibilities:</h4>
-    <div className="job-details-content">
-        {selectedJob?.fullDescription?.split('\n').map((paragraph, pIndex) => (
-            <div key={pIndex} className="description-section">
-                {/* Agar line mein ":" hai toh use heading treat karein */}
-                {paragraph.includes(':') ? (
-                    <>
-                        <strong className="desc-heading">{paragraph.split(':')[0]}:</strong>
-                        <p className="desc-text">{paragraph.split(':')[1]}</p>
-                    </>
-                ) : (
-                    <p className="desc-text">{paragraph}</p>
-                )}
-            </div>
-        ))}
-    </div>
-</div>
-                                
-                                <p className="form-instruction">Fill your details to apply</p>
+            <AnimatePresence>
+                {showForm && (
+                    <motion.div
+                        className="form-modal-overlay"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.25 }}
+                        onClick={() => setShowForm(false)}
+                    >
+                        <motion.div
+                            className="form-modal-content"
+                            initial={{ opacity: 0, y: 40, scale: 0.94 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 24, scale: 0.96 }}
+                            transition={{ type: 'spring', stiffness: 260, damping: 26 }}
+                            onClick={(event) => event.stopPropagation()}
+                        >
+                            <button className="close-modal-btn" onClick={() => setShowForm(false)}>&times;</button>
+
+                            <div className="modal-inner-scroll">
+                                <div className="form-header">
+                                    <h2>Applying for: <span className="highlight-text">{selectedJob?.title}</span></h2>
+
+                                    <div className="job-details-container">
+                                        <h4>Job Overview & Responsibilities:</h4>
+                                        <div className="job-details-content">
+                                            {selectedJob?.fullDescription?.split('\n').map((paragraph, pIndex) => (
+                                                <motion.div
+                                                    key={pIndex}
+                                                    className="description-section"
+                                                    initial={{ opacity: 0, x: -14 }}
+                                                    animate={{ opacity: 1, x: 0 }}
+                                                    transition={{ duration: 0.35, delay: 0.15 + pIndex * 0.08 }}
+                                                >
+                                                    {/* Agar line mein ":" hai toh use heading treat karein */}
+                                                    {paragraph.includes(':') ? (
+                                                        <>
+                                                            <strong className="desc-heading">{paragraph.split(':')[0]}:</strong>
+                                                            <p className="desc-text">{paragraph.split(':')[1]}</p>
+                                                        </>
+                                                    ) : (
+                                                        <p className="desc-text">{paragraph}</p>
+                                                    )}
+                                                </motion.div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <p className="form-instruction">Fill your details to apply</p>
+                                </div>
+
+                                <form className="career-modal-form" onSubmit={handleSubmit}>
+                                    <div className="form-row">
+                                        <div className="form-group">
+                                            <label>Full Name</label>
+                                            <input name="name" type="text" placeholder="Rahul Kumar" required />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Email Address</label>
+                                            <input name="email" type="email" placeholder="rahul@example.com" required />
+                                        </div>
+                                    </div>
+
+                                    <div className="form-row">
+                                        <div className="form-group">
+                                            <label>State</label>
+                                            <input name="state" type="text" placeholder="Haryana" required />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>City</label>
+                                            <input name="city" type="text" placeholder="Gurugram" required />
+                                        </div>
+                                    </div>
+
+                                    <div className="form-group">
+                                        <label>Resume (PDF only)</label>
+                                        <div className="file-upload-wrapper">
+                                            <input name="resume" type="file" accept=".pdf" required className="file-input-field" />
+                                        </div>
+                                    </div>
+
+                                    <motion.button
+                                        type="submit"
+                                        className="modal-submit-btn"
+                                        disabled={formLoading}
+                                        whileHover={formLoading ? undefined : { y: -2, scale: 1.015 }}
+                                        whileTap={formLoading ? undefined : { scale: 0.98 }}
+                                    >
+                                        {formLoading ? "Sending..." : "Submit Application"}
+                                    </motion.button>
+
+                                    <AnimatePresence mode="wait">
+                                        {status && (
+                                            <motion.p
+                                                key={status}
+                                                className={`status-msg ${status.includes('✅') ? 'success' : 'error'}`}
+                                                initial={{ opacity: 0, y: -8 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                exit={{ opacity: 0, y: -8 }}
+                                                transition={{ duration: 0.3 }}
+                                            >
+                                                {status}
+                                            </motion.p>
+                                        )}
+                                    </AnimatePresence>
+                                </form>
                             </div>
-
-                            <form className="career-modal-form" onSubmit={handleSubmit}>
-                                <div className="form-row">
-                                    <div className="form-group">
-                                        <label>Full Name</label>
-                                        <input name="name" type="text" placeholder="Rahul Kumar" required />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Email Address</label>
-                                        <input name="email" type="email" placeholder="rahul@example.com" required />
-                                    </div>
-                                </div>
-
-                                <div className="form-row">
-                                    <div className="form-group">
-                                        <label>State</label>
-                                        <input name="state" type="text" placeholder="Haryana" required />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>City</label>
-                                        <input name="city" type="text" placeholder="Gurugram" required />
-                                    </div>
-                                </div>
-
-                                <div className="form-group">
-                                    <label>Resume (PDF only)</label>
-                                    <div className="file-upload-wrapper">
-                                        <input name="resume" type="file" accept=".pdf" required className="file-input-field" />
-                                    </div>
-                                </div>
-
-                                <button type="submit" className="modal-submit-btn" disabled={formLoading}>
-                                    {formLoading ? "Sending..." : "Submit Application"}
-                                </button>
-
-                                {status && <p className={`status-msg ${status.includes('✅') ? 'success' : 'error'}`}>{status}</p>}
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            )}
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             <Footer />
         </div>

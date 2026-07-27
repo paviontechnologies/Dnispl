@@ -17,12 +17,16 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
+  position: relative;
+  z-index: 2;
 }
 
 /* Hero Section */
 .career-hero-section {
   padding: 160px 0 60px;
   text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
 .career-title {
@@ -152,7 +156,7 @@
   overflow: hidden;
   border: 1px solid var(--border-color);
   box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8);
-  animation: zoomIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Entry/exit is driven by framer-motion in Career.js */
 }
 
 .modal-inner-scroll {

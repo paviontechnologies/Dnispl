@@ -27,6 +27,8 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 24px;
+  position: relative;
+  z-index: 2;
 }
 
 /* --- UTILITIES --- */
@@ -67,6 +69,8 @@
 .ap-hero-section {
   padding: 160px 0 80px;
   text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
 .ap-hero-title {
@@ -179,13 +183,34 @@
 .delay-2 { animation-delay: 0.4s; }
 .delay-3 { animation-delay: 0.6s; }
 
+/* --- PROCESS + ORBIT LAYOUT --- */
+.ap-process-layout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 40px;
+  align-items: center;
+}
+
+.ap-process-layout .ap-process-grid { grid-template-columns: repeat(2, 1fr); }
+
+.ap-process-visual { text-align: center; }
+.ap-process-visual p {
+  margin-top: 18px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
 /* --- RESPONSIVE --- */
 @media (max-width: 1024px) {
   .ap-process-grid { grid-template-columns: repeat(2, 1fr); }
+  .ap-process-layout { grid-template-columns: 1fr; }
+  .ap-process-visual { max-width: 280px; margin: 0 auto; }
 }
 @media (max-width: 768px) {
   .ap-hero-title { font-size: 2.5rem; }
   .ap-process-grid, .ap-cards-grid { grid-template-columns: 1fr; }
+  .ap-process-layout .ap-process-grid { grid-template-columns: 1fr; }
   .ap-hero-buttons { flex-direction: column; width: 100%; gap: 12px; }
   .glass-panel { padding: 40px 20px; }
 }
