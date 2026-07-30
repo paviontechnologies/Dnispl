@@ -12,6 +12,7 @@ import {
   SplitHeading,
   useScrollReveal
 } from "../../motion/MotionKit";
+import { publicFetch } from "../../config/api";
 
 const TINT = { from: "#00E2F5", to: "#B325F7", glow: "rgba(0, 226, 245, 0.35)" };
 
@@ -72,27 +73,11 @@ const Form = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:5000/send-mail", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        setStatus("✅ Your message has been sent successfully.");
-        e.target.reset();
-      } else {
-        setStatus(
-          data?.message || "❌ Something went wrong. Please try again later."
-        );
-      }
+      await publicFetch("/send-mail", { method: "POST", body: formData });
+      setStatus("✅ Your message has been sent successfully.");
+      e.target.reset();
     } catch (err) {
-      console.error(err);
-      setStatus("❌ Unable to send message. Please check your connection.");
+      setStatus(`❌ ${err.message || "Unable to send message. Please check your connection."}`);
     } finally {
       setLoading(false);
     }

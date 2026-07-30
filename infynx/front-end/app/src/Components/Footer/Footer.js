@@ -37,11 +37,15 @@ const Footer = () => {
               <Link to="/business-solutions">Cyber Security</Link>
               <Link to="/regulatory-compliance">Cloud Solutions</Link>
               <Link to="/dc-passive-work">DC Infrastructure</Link>
+              <Link to="/software-development">Software Development</Link>
             </div>
 
             <div className="footer-column">
               <h4>Company</h4>
               <Link to="/about">About Us</Link>
+              <Link to="/leadership">Leadership</Link>
+              <Link to="/work">How We Work</Link>
+              <Link to="/portfolio">Case Studies</Link>
               <Link to="/careers">Careers</Link>
               <Link to="/blog">Blogs & News</Link>
               <Link to="/form">Contact Us</Link>

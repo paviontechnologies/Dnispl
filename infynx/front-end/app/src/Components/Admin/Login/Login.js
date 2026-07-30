@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowLeft, KeyRound, Loader2, Lock, Mail, ShieldCheck, User } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { getRole, getToken, publicFetch } from "../../../config/api";
 import "./Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
 
-  const [loginMode, setLoginMode] = useState("admin"); // 'admin' or 'hr'
+  const [loginMode, setLoginMode] = useState("admin"); // 'admin' | 'hr'
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -14,37 +17,26 @@ const Login = () => {
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(null); // { tone, text }
+
+  const landing = (role) => (role === "hr" ? "/admin/jobs" : "/admin/dashboard");
 
   const handleAdminLogin = async (e) => {
     e.preventDefault();
-    setMessage("");
+    setMessage(null);
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/admin/login", {
+      const data = await publicFetch("/api/admin/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username,
-          password,
-        }),
+        body: { username, password },
       });
 
-      const data = await res.json();
-
-      if (res.ok) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("userRole", "admin");
-        navigate("/admin/dashboard");
-      } else {
-        setMessage(data.message || "Invalid credentials");
-      }
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("userRole", "admin");
+      navigate("/admin/dashboard");
     } catch (err) {
-      console.error(err);
-      setMessage("Server Connection Error");
+      setMessage({ tone: "error", text: err.message || "Invalid credentials" });
     } finally {
       setLoading(false);
     }
@@ -53,29 +45,15 @@ const Login = () => {
   const handleSendOtp = async (e) => {
     e.preventDefault();
     if (!email) return;
-    setMessage("");
+    setMessage(null);
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/hr/send-otp", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        setOtpSent(true);
-        setMessage("✅ OTP sent successfully. Please check your inbox!");
-      } else {
-        setMessage("❌ " + (data.message || "Failed to send OTP."));
-      }
+      await publicFetch("/api/hr/send-otp", { method: "POST", body: { email } });
+      setOtpSent(true);
+      setMessage({ tone: "success", text: `Code sent to ${email}. It expires in 5 minutes.` });
     } catch (err) {
-      console.error(err);
-      setMessage("❌ Connection Error. Please try again.");
+      setMessage({ tone: "error", text: err.message || "Failed to send the code." });
     } finally {
       setLoading(false);
     }
@@ -84,137 +62,207 @@ const Login = () => {
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
     if (!otp) return;
-    setMessage("");
+    setMessage(null);
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/hr/verify-otp", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, otp }),
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("userRole", "hr");
-        navigate("/admin/jobs"); // Directly link HR to Jobs page on dashboard!
-      } else {
-        setMessage("❌ " + (data.message || "Invalid or expired OTP."));
-      }
+      const data = await publicFetch("/api/hr/verify-otp", { method: "POST", body: { email, otp } });
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("userRole", "hr");
+      navigate("/admin/jobs");
     } catch (err) {
-      console.error(err);
-      setMessage("❌ Verification Error. Please try again.");
+      setMessage({ tone: "error", text: err.message || "Invalid or expired code." });
     } finally {
       setLoading(false);
     }
   };
 
+  // Already signed in — skip the form
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const role = localStorage.getItem("userRole");
-      if (role === "hr") {
-        navigate("/admin/jobs");
-      } else {
-        navigate("/admin/dashboard");
-      }
-    }
+    if (getToken()) navigate(landing(getRole()), { replace: true });
   }, [navigate]);
+
+  const switchMode = (mode) => {
+    setLoginMode(mode);
+    setMessage(null);
+    setOtpSent(false);
+    setOtp("");
+  };
 
   return (
     <div className="login-page">
-      <div className="login-card">
-        <h2>DNISPL Portal</h2>
-        <p>Access administration tools & career updates</p>
+      <div className="login-ambience" aria-hidden="true">
+        <span className="login-orb login-orb-1" />
+        <span className="login-orb login-orb-2" />
+        <span className="login-grid" />
+      </div>
 
-        <div className="login-tabs">
+      <Link to="/" className="login-back"><ArrowLeft size={16} /> Back to website</Link>
+
+      <motion.div
+        className="login-card"
+        initial={{ opacity: 0, y: 26, scale: 0.97 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <div className="login-brand">
+          <span className="login-brand-mark">D</span>
+          <div>
+            <strong>DNISPL</strong>
+            <small>Control Room</small>
+          </div>
+        </div>
+
+        <h1>Sign in</h1>
+        <p className="login-intro">Administration tools, hiring, and content management.</p>
+
+        <div className="login-tabs" role="tablist">
           <button
             type="button"
-            className={`tab-btn ${loginMode === "admin" ? "active" : ""}`}
-            onClick={() => { setLoginMode("admin"); setMessage(""); }}
+            role="tab"
+            aria-selected={loginMode === "admin"}
+            className={`login-tab ${loginMode === "admin" ? "active" : ""}`}
+            onClick={() => switchMode("admin")}
           >
-            Admin Login
+            <Lock size={14} /> Admin
           </button>
           <button
             type="button"
-            className={`tab-btn ${loginMode === "hr" ? "active" : ""}`}
-            onClick={() => { setLoginMode("hr"); setMessage(""); }}
+            role="tab"
+            aria-selected={loginMode === "hr"}
+            className={`login-tab ${loginMode === "hr" ? "active" : ""}`}
+            onClick={() => switchMode("hr")}
           >
-            HR Login (OTP)
+            <KeyRound size={14} /> HR — one-time code
           </button>
         </div>
 
-        {message && (
-          <div className={`login-message ${message.includes("✅") ? "success" : "error"}`}>
-            {message}
-          </div>
-        )}
+        <AnimatePresence mode="wait">
+          {message && (
+            <motion.div
+              key={message.text}
+              className={`login-message ${message.tone}`}
+              initial={{ opacity: 0, y: -8, height: 0 }}
+              animate={{ opacity: 1, y: 0, height: "auto" }}
+              exit={{ opacity: 0, y: -8, height: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {message.text}
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-        {loginMode === "admin" ? (
-          <form onSubmit={handleAdminLogin}>
-            <input
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <button type="submit" disabled={loading}>
-              {loading ? "Logging in..." : "Login"}
-            </button>
-          </form>
-        ) : (
-          <div>
-            {!otpSent ? (
-              <form onSubmit={handleSendOtp}>
-                <input
-                  type="email"
-                  placeholder="Enter HR Email (e.g. hr@dnispl.com)"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-                <button type="submit" disabled={loading}>
-                  {loading ? "Sending..." : "Send OTP"}
-                </button>
-              </form>
-            ) : (
-              <form onSubmit={handleVerifyOtp}>
-                <input
-                  type="text"
-                  placeholder="Enter 6-Digit OTP"
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value)}
-                  maxLength={6}
-                  required
-                />
-                <button type="submit" disabled={loading}>
-                  {loading ? "Verifying..." : "Verify & Login"}
-                </button>
-                <button
-                  type="button"
-                  className="btn-link"
-                  onClick={() => setOtpSent(false)}
-                  style={{ marginTop: "10px", background: "none", border: "none", color: "#3b82f6", cursor: "pointer", display: "block", width: "100%", textAlign: "center" }}
-                >
-                  Change Email / Resend
-                </button>
-              </form>
-            )}
-          </div>
-        )}
-      </div>
+        <AnimatePresence mode="wait">
+          {loginMode === "admin" ? (
+            <motion.form
+              key="admin"
+              onSubmit={handleAdminLogin}
+              initial={{ opacity: 0, x: -14 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 14 }}
+              transition={{ duration: 0.28 }}
+            >
+              <label className="login-field">
+                <span>Username</span>
+                <div className="login-input">
+                  <User size={16} />
+                  <input
+                    type="text"
+                    placeholder="admin"
+                    autoComplete="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                  />
+                </div>
+              </label>
+
+              <label className="login-field">
+                <span>Password</span>
+                <div className="login-input">
+                  <Lock size={16} />
+                  <input
+                    type="password"
+                    placeholder="••••••••"
+                    autoComplete="current-password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+              </label>
+
+              <button type="submit" className="login-submit" disabled={loading}>
+                {loading ? <><Loader2 size={16} className="login-spin" /> Signing in…</> : "Sign in"}
+              </button>
+            </motion.form>
+          ) : (
+            <motion.div
+              key="hr"
+              initial={{ opacity: 0, x: 14 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -14 }}
+              transition={{ duration: 0.28 }}
+            >
+              {!otpSent ? (
+                <form onSubmit={handleSendOtp}>
+                  <label className="login-field">
+                    <span>Work email</span>
+                    <div className="login-input">
+                      <Mail size={16} />
+                      <input
+                        type="email"
+                        placeholder="hr@dnispl.com"
+                        autoComplete="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                      />
+                    </div>
+                  </label>
+
+                  <button type="submit" className="login-submit" disabled={loading}>
+                    {loading ? <><Loader2 size={16} className="login-spin" /> Sending…</> : "Send one-time code"}
+                  </button>
+
+                  <p className="login-note">
+                    <ShieldCheck size={13} /> Only approved DNISPL mailboxes can receive a code.
+                  </p>
+                </form>
+              ) : (
+                <form onSubmit={handleVerifyOtp}>
+                  <label className="login-field">
+                    <span>6-digit code</span>
+                    <div className="login-input">
+                      <KeyRound size={16} />
+                      <input
+                        type="text"
+                        inputMode="numeric"
+                        pattern="[0-9]*"
+                        placeholder="000000"
+                        className="login-otp"
+                        value={otp}
+                        onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
+                        maxLength={6}
+                        autoFocus
+                        required
+                      />
+                    </div>
+                  </label>
+
+                  <button type="submit" className="login-submit" disabled={loading || otp.length < 6}>
+                    {loading ? <><Loader2 size={16} className="login-spin" /> Verifying…</> : "Verify & sign in"}
+                  </button>
+
+                  <button type="button" className="login-link" onClick={() => { setOtpSent(false); setOtp(""); setMessage(null); }}>
+                    Use a different email / resend
+                  </button>
+                </form>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
     </div>
   );
 };

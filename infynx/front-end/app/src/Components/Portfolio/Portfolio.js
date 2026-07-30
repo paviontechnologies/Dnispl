@@ -3,6 +3,7 @@ import "./Portfolio.css";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import { Link, useSearchParams } from 'react-router-dom';
+import { X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   AuroraBackdrop,
@@ -28,11 +29,29 @@ const ContentWrapper = ({ children, className }) => (
   </div>
 );
 
+/**
+ * Industry lens. The header links to /portfolio?industry=<key>, so every key it
+ * advertises has to resolve here — otherwise those nav items land on a page
+ * that silently ignores the parameter.
+ */
+const INDUSTRY_LENS = {
+  finance: { label: 'Banking & Finance', blurb: 'Branch connectivity, core banking networks, and SD-WAN estates.' },
+  telecom: { label: 'Telecom', blurb: 'NOC operations, nationwide rollouts, and fiber execution.' },
+  manufacturing: { label: 'Manufacturing', blurb: 'Plant networks, shop-floor connectivity, and campus links.' },
+  healthcare: { label: 'Healthcare', blurb: 'Always-on hospital infrastructure and clinical system uptime.' },
+  education: { label: 'Education', blurb: 'Campus Wi-Fi architectures and high-density coverage.' },
+  retail: { label: 'Retail', blurb: 'Multi-store networks, VPN backhaul, and POS reliability.' },
+  enterprise: { label: 'Enterprise', blurb: 'End-to-end IT infrastructure across distributed offices.' },
+  logistics: { label: 'Logistics', blurb: 'Warehouse and fleet connectivity across sites in motion.' },
+  hospitality: { label: 'Hospitality', blurb: 'Guest networks, POS, and property-wide coverage.' }
+};
+
 const PROJECTS = [
   {
     id: 1,
     title: "DinePOS – Smart POS & Inventory Automation",
     category: "Web",
+    industryKey: "hospitality",
     industry: "Hospitality / Restaurants",
     problem:
       "Local restaurants struggled with manual billing, inaccurate inventory, and no visibility on daily sales performance.",
@@ -50,6 +69,7 @@ const PROJECTS = [
     id: 2,
     title: "Ease Yatrika – School Transport & Booking Platform",
     category: "Mobile",
+    industryKey: "education",
     industry: "EdTech / Transportation",
     problem:
       "Parents had no transparency on school cabs location, safety, and billing. Operators managed everything on Excel and WhatsApp.",
@@ -67,6 +87,7 @@ const PROJECTS = [
     id: 3,
     title: "StockPilot – Multi-Location Inventory Intelligence",
     category: "AI & Automation",
+    industryKey: "retail",
     industry: "Retail / Distribution",
     problem:
       "Retailers had multiple warehouses and stores, but no unified, intelligent view of inventory, reorder levels, and dead stock.",
@@ -84,6 +105,7 @@ const PROJECTS = [
     id: 4,
     title: "InfraNet360 – PAN India Active & Passive Rollout",
     category: "Network & Infra",
+    industryKey: "telecom",
     industry: "Telecom / Enterprise",
     problem:
       "A leading SI required a single partner to execute PAN India network rollouts – including fiber, L2/L3 setup, DC passive work, and audits.",
@@ -102,6 +124,7 @@ const PROJECTS = [
     id: 5,
     title: "LeadSync – B2B Sales & Marketing Automation Suite",
     category: "Web",
+    industryKey: "enterprise",
     industry: "B2B SaaS",
     problem:
       "The client’s sales team used spreadsheets and manual follow-ups, causing lost leads and poor tracking.",
@@ -117,36 +140,104 @@ const PROJECTS = [
   },
   {
     id: 6,
-    title: "LeadSync – B2B Sales & Marketing Automation Suite",
-    category: "Web",
-    industry: "B2B SaaS",
+    title: "Core Banking Network & Branch SD-WAN Estate",
+    category: "Network & Infra",
+    industryKey: "finance",
+    industry: "Banking & Financial Services",
     problem:
-      "The client’s sales team used spreadsheets and manual follow-ups, causing lost leads and poor tracking.",
+      "Branch connectivity ran on ageing MPLS links with no application-level visibility, and every outage became a manual, branch-by-branch investigation.",
     solution:
-      "We built a web-based lead management and automation suite with email workflows, lead scoring, task reminders, and dashboards.",
+      "We re-architected the branch edge onto SD-WAN with dual-transport failover, application-aware path selection, centralised policy, and a monitored NOC handover.",
     impact: [
-      "2x increase in qualified follow-ups",
-      "Single source of truth for leads and activities",
-      "Team performance tracking made transparent",
+      "400+ branch sites migrated with no unplanned core downtime",
+      "Link failover measured in seconds instead of manual re-routes",
+      "Single monitoring plane across every branch and the data centre",
     ],
-    techStack: "Next.js, Node.js, MySQL, Redis, SendGrid, Chart.js",
-    tag: "SaaS Platform",
+    techStack: "Cisco SD-WAN (vManage), ISR routers, Fortinet NGFW, dual-ISP transport, NOC tooling",
+    tag: "Network Transformation",
   },
-  
-  
+  {
+    id: 7,
+    title: "Plant Network Modernisation & Shop-Floor Connectivity",
+    category: "Network & Infra",
+    industryKey: "manufacturing",
+    industry: "Manufacturing",
+    problem:
+      "Production lines shared a flat network with office traffic, so a single broadcast storm could stall the shop floor, and industrial zones had no segmentation.",
+    solution:
+      "We segmented OT from IT with policy-enforced VLANs, deployed ruggedised switching across production zones, and rebuilt the fibre backbone between plant blocks.",
+    impact: [
+      "Production and corporate traffic fully isolated",
+      "Redundant ring topology removed the single points of failure",
+      "Documented, labelled cable plant with Fluke certification",
+    ],
+    techStack: "Industrial Ethernet switches, fibre ring backbone, VLAN segmentation, Cisco ISE",
+    tag: "OT / IT Convergence",
+  },
+  {
+    id: 8,
+    title: "Hospital Infrastructure & Clinical System Uptime",
+    category: "Network & Infra",
+    industryKey: "healthcare",
+    industry: "Healthcare",
+    problem:
+      "Clinical applications and imaging transfers competed with guest Wi-Fi on the same infrastructure, and there was no redundancy on the paths carrying patient data.",
+    solution:
+      "We designed a tiered network separating clinical, administrative, and guest traffic, with redundant uplinks, prioritised imaging transfer, and 24/7 monitored support.",
+    impact: [
+      "Clinical traffic prioritised and isolated from guest load",
+      "Redundant paths on every critical ward and imaging link",
+      "24/7 NOC coverage with a defined clinical escalation matrix",
+    ],
+    techStack: "Layer 3 switching, QoS policy, controller-based Wi-Fi, redundant uplinks, NOC monitoring",
+    tag: "Mission-Critical Infra",
+  },
+  {
+    id: 9,
+    title: "Warehouse & Fleet Connectivity Rollout",
+    category: "Network & Infra",
+    industryKey: "logistics",
+    industry: "Logistics & Warehousing",
+    problem:
+      "Scanner coverage dropped in high-rack aisles and cold zones, forcing manual stock reconciliation at the end of every shift.",
+    solution:
+      "We ran predictive and on-site RF surveys, redesigned access-point placement for rack-aisle propagation, and deployed hardened APs across cold and dock zones.",
+    impact: [
+      "Continuous scanner coverage through high-rack aisles",
+      "End-of-shift manual reconciliation effectively eliminated",
+      "Repeatable site template rolled out across the warehouse network",
+    ],
+    techStack: "Predictive RF survey tooling, industrial-grade APs, wireless controllers, PoE switching",
+    tag: "Wireless Engineering",
+  },
 ];
 
 const Portfolio = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [activeFilter, setActiveFilter] = useState("All");
   const [selectedProject, setSelectedProject] = useState(null);
-  const industryFocus = searchParams.get('industry');
   useScrollReveal();
+
+  const industryKey = (searchParams.get('industry') || '').toLowerCase();
+  const lens = INDUSTRY_LENS[industryKey];
+
+  // Industry comes from the URL (header nav), category from the chips — they
+  // stack, so an industry lens still respects the chip the visitor picks.
+  const industryMatches = industryKey
+    ? PROJECTS.filter((p) => p.industryKey === industryKey)
+    : PROJECTS;
 
   const filteredProjects =
     activeFilter === "All"
-      ? PROJECTS
-      : PROJECTS.filter((p) => p.category === activeFilter);
+      ? industryMatches
+      : industryMatches.filter((p) => p.category === activeFilter);
+
+  const clearLens = () => {
+    const next = new URLSearchParams(searchParams);
+    next.delete('industry');
+    setSearchParams(next, { replace: true });
+    setSelectedProject(null);
+  };
 
   return (
     <>
@@ -172,7 +263,7 @@ const Portfolio = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <span className="dot-pulse"></span> {industryFocus ? `${industryFocus.toUpperCase()} / INDUSTRY LENS` : 'OUR WORK'}
+              <span className="dot-pulse"></span> {lens ? `${lens.label.toUpperCase()} / INDUSTRY LENS` : 'OUR WORK'}
             </motion.div>
 
             <SplitHeading
@@ -194,15 +285,18 @@ const Portfolio = () => {
               infrastructure — on time, and with full ownership.
             </motion.p>
 
-            {industryFocus && (
+            {lens && (
               <motion.div
                 className="industry-lens"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.72 }}
               >
-                <span>Exploring {industryFocus.replace('-', ' ')} infrastructure?</span>
+                <span>{lens.blurb}</span>
                 <Link to="/form">Discuss your environment</Link>
+                <button type="button" className="lens-clear" onClick={clearLens}>
+                  <X size={14} /> Show all work
+                </button>
               </motion.div>
             )}
 
@@ -222,7 +316,9 @@ const Portfolio = () => {
         <section className="portfolio-projects-section">
           <ContentWrapper>
             <Reveal className="portfolio-header-row">
-              <h2 className="section-heading">Featured Case Studies</h2>
+              <h2 className="section-heading">
+                {lens ? `${lens.label} Case Studies` : 'Featured Case Studies'}
+              </h2>
 
               <div className="portfolio-filters">
                 {["All", "Web", "Mobile", "AI & Automation", "Network & Infra"].map(
@@ -338,6 +434,32 @@ const Portfolio = () => {
                 ))}
               </AnimatePresence>
             </motion.div>
+
+            {!filteredProjects.length && (
+              <motion.div
+                className="portfolio-empty"
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45 }}
+              >
+                <h3>No published case study matches this combination yet.</h3>
+                <p>
+                  We have delivered work here that isn’t public — ask us for the
+                  relevant references directly.
+                </p>
+                <div className="portfolio-empty-actions">
+                  {activeFilter !== 'All' && (
+                    <button type="button" onClick={() => setActiveFilter('All')}>
+                      Clear category
+                    </button>
+                  )}
+                  {lens && (
+                    <button type="button" onClick={clearLens}>Show all industries</button>
+                  )}
+                  <Link to="/form">Request case studies</Link>
+                </div>
+              </motion.div>
+            )}
           </ContentWrapper>
         </section>
 

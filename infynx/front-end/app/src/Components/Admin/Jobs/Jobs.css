@@ -1,197 +1,24 @@
-/* ================================
-   ADMIN JOBS – Quantum Dark Theme
-   ================================ */
+/* ============================================================
+   Jobs — form panel + table extras
+   ============================================================ */
 
-.jobs-page {
-  display: flex;
-  background: #08090d;
-  min-height: 100vh;
+.job-form-panel { margin-bottom: 18px; }
+
+.admin-hint {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  line-height: 1.5;
 }
 
-.jobs-content {
-  flex: 1;
-  padding: 48px 40px;
-  overflow-x: auto;
-}
-
-.jobs-content h2 {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: white;
-  margin-bottom: 32px;
-}
-
-.jobs-content h2::after {
-  content: '';
-  display: block;
-  width: 50px;
-  height: 3px;
-  background: linear-gradient(90deg, #00f0ff, transparent);
-  margin-top: 10px;
-  border-radius: 2px;
-}
-
-/* Job Form */
-.job-form {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  margin-bottom: 40px;
-  background: rgba(18, 20, 32, 0.7);
-  padding: 32px;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(14px);
-}
-
-.job-form input,
-.job-form textarea {
-  padding: 12px 16px;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.02);
-  color: #f3f4f6;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
-  outline: none;
-  transition: all 0.3s ease;
-}
-
-.job-form input::placeholder,
-.job-form textarea::placeholder {
-  color: #6b7280;
-}
-
-.job-form input:focus,
-.job-form textarea:focus {
-  border-color: #00f0ff;
-  background: rgba(255, 255, 255, 0.04);
-  box-shadow: 0 0 12px rgba(0, 240, 255, 0.12);
-}
-
-/* Search box spans full row */
-.job-form .search-box {
-  grid-column: span 2;
-}
-
-.job-form textarea {
-  grid-column: span 2;
-  height: 110px;
-  resize: vertical;
-}
-
-.job-form button {
-  grid-column: span 2;
-  width: 200px;
-  padding: 13px;
-  background: linear-gradient(135deg, hsl(263, 90%, 62%), #00f0ff);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-family: 'Outfit', sans-serif;
-  font-weight: 700;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
-}
-
-.job-form button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(147, 51, 234, 0.5);
-}
-
-/* Table */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: rgba(18, 20, 32, 0.7);
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(14px);
-}
-
-th, td {
-  padding: 14px 18px;
-  text-align: left;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-th {
-  background: rgba(147, 51, 234, 0.15);
-  color: white;
-  font-family: 'Outfit', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 700;
+.job-track {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 100px;
+  background: rgba(179, 37, 247, 0.14);
+  border: 1px solid rgba(179, 37, 247, 0.34);
+  color: #d9a6ff;
+  font: 600 0.72rem/1 var(--oxanium);
+  letter-spacing: 0.07em;
   text-transform: uppercase;
-  letter-spacing: 0.6px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-}
-
-td {
-  color: #9ca3af;
-  font-size: 0.9rem;
-}
-
-tbody tr:hover {
-  background: rgba(0, 240, 255, 0.03);
-}
-
-tbody tr:hover td {
-  color: #e5e7eb;
-}
-
-tbody tr:last-child td {
-  border-bottom: none;
-}
-
-/* Row action buttons */
-tbody td button {
-  padding: 7px 14px;
-  border: none;
-  border-radius: 7px;
-  cursor: pointer;
-  font-family: 'Outfit', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 600;
-  transition: all 0.25s ease;
-  margin-right: 8px;
-}
-
-/* Edit button */
-tbody td button:first-child {
-  background: rgba(37, 99, 235, 0.12);
-  color: #60a5fa;
-  border: 1px solid rgba(37, 99, 235, 0.2);
-}
-
-tbody td button:first-child:hover {
-  background: rgba(37, 99, 235, 0.25);
-  color: white;
-  border-color: #3b82f6;
-}
-
-/* Delete button */
-tbody td button:last-child {
-  background: rgba(239, 68, 68, 0.1);
-  color: #f87171;
-  border: 1px solid rgba(239, 68, 68, 0.2);
-}
-
-tbody td button:last-child:hover {
-  background: rgba(239, 68, 68, 0.2);
-  color: white;
-  border-color: #ef4444;
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-  .jobs-content { padding: 30px 16px; }
-  .job-form { grid-template-columns: 1fr; }
-  .job-form .search-box,
-  .job-form textarea,
-  .job-form button { grid-column: span 1; }
+  white-space: nowrap;
 }

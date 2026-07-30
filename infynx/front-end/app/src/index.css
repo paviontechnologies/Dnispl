@@ -62,6 +62,10 @@
   --primary-glow: rgba(179, 37, 247, 0.4);
   --secondary-glow: rgba(0, 226, 245, 0.4);
   --border-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+  /* Page CSS referenced these two without them ever being declared, which left
+     borders falling back to currentColor and body copy to the inherited value. */
+  --glass-border: var(--border-color);
+  --text-main: var(--text-secondary);
 }
 
 * {

@@ -9,6 +9,7 @@ import {
   SplitHeading,
   useScrollReveal
 } from '../../motion/MotionKit';
+import { api, publicFetch } from '../../config/api';
 
 const TINT = { from: '#173FCF', to: '#00E2F5', glow: 'rgba(23, 63, 207, 0.32)' };
 
@@ -67,14 +68,12 @@ const Career = () => {
     useEffect(() => {
         const fetchJobs = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/jobs');
-                if (!response.ok) throw new Error('Failed to fetch job listings');
-                const data = await response.json();
+                const data = await publicFetch('/api/jobs');
                 setJobs(Array.isArray(data) && data.length ? data : fallbackJobs);
-                setLoading(false);
             } catch (err) {
                 setJobs(fallbackJobs);
                 setError('Showing currently featured roles while live listings reconnect.');
+            } finally {
                 setLoading(false);
             }
         };
@@ -101,17 +100,17 @@ const Career = () => {
         formData.append("resume", e.target.resume.files[0]);
 
         try {
-            const res = await fetch("http://localhost:5000/apply-job", {
+            const res = await fetch(api("/apply-job"), {
                 method: "POST",
                 body: formData,
             });
-            const data = await res.json();
+            const data = await res.json().catch(() => ({}));
             if (res.ok) {
                 setStatus("✅ Application submitted successfully!");
                 e.target.reset();
                 setTimeout(() => setShowForm(false), 2000);
             } else {
-                setStatus(data?.message || "❌ Submission failed.");
+                setStatus(`❌ ${data?.message || "Submission failed."}`);
             }
         } catch (err) {
             setStatus("❌ Connection error. Please try again.");

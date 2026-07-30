@@ -91,10 +91,158 @@
   padding: 0 24px 80px 24px;
 }
 
-.blog-loading {
-  grid-column: 1 / -1;
+.blog-empty {
   text-align: center;
   color: var(--text-muted);
+  padding: 0 24px 90px;
+}
+
+/* --- Category chips --- */
+.blog-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  max-width: 1200px;
+  margin: 0 auto 34px;
+  padding: 0 24px;
+}
+
+.blog-chip {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 9px 20px;
+  border-radius: 100px;
+  font: 600 0.82rem/1 var(--font-heading);
+  cursor: pointer;
+  transition: 300ms var(--cube-1);
+}
+
+.blog-chip:hover { border-color: var(--pr-hover-border); color: #fff; }
+
+.blog-chip.active {
+  background: var(--ftc-gd-2);
+  border-color: transparent;
+  color: #05070f;
+}
+
+/* --- Lead story: newest note, full width --- */
+.blog-lead {
+  max-width: 1200px;
+  margin: 0 auto 28px;
+  padding: 0 24px;
+}
+
+.blog-lead-inner {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  transition: 400ms var(--cube-1);
+}
+
+.blog-lead-inner:hover {
+  border-color: var(--pr-hover-border);
+  transform: translateY(-6px);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.55), 0 0 22px var(--secondary-glow);
+}
+
+.blog-lead-media {
+  position: relative;
+  min-height: 320px;
+  overflow: hidden;
+}
+
+.blog-lead-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
+  transition: transform 600ms var(--cube-1);
+}
+
+.blog-lead-inner:hover .blog-lead-media img { transform: scale(1.06); }
+
+.blog-lead-copy {
+  padding: 44px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 14px;
+}
+
+.blog-lead-copy .tag { position: static; }
+
+.blog-lead-copy h2 {
+  font: 800 clamp(1.5rem, 2.6vw, 2.1rem)/1.25 var(--font-heading);
+  color: #fff;
+  text-transform: none;
+}
+
+.blog-lead-copy p { color: var(--text-muted); line-height: 1.65; }
+
+.blog-lead-meta {
+  font: 500 0.78rem/1 var(--oxanium);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pr-cyan);
+}
+
+.blog-lead-copy .btn-read { margin-top: 8px; }
+
+/* Cards are entirely clickable now that each story has its own page */
+.blog-card-link {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  color: inherit;
+}
+
+/* Records with no cover image still need a filled media block */
+.blog-media-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: var(--ftc-gd-1);
+  font: 700 0.85rem/1 var(--oxanium);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fff;
+  opacity: 0.85;
+}
+
+/* --- Loading skeletons --- */
+.blog-card-skeleton { pointer-events: none; }
+.blog-card-skeleton:hover { transform: none; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); }
+
+.skeleton-media { height: 220px; }
+
+.skeleton-media,
+.skeleton-line {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.04) 25%, rgba(255, 255, 255, 0.09) 37%, rgba(255, 255, 255, 0.04) 63%);
+  background-size: 400% 100%;
+  animation: blog-shimmer 1.4s ease infinite;
+  border-radius: 6px;
+}
+
+.skeleton-line { height: 13px; margin-bottom: 12px; }
+.skeleton-line-lg { height: 20px; width: 82%; }
+.skeleton-line-sm { width: 45%; }
+
+@keyframes blog-shimmer {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-media, .skeleton-line { animation: none; }
 }
 
 /* --- Blog Cards --- */
@@ -218,11 +366,17 @@
 }
 
 /* --- Mobile Responsiveness --- */
+@media (max-width: 900px) {
+  .blog-lead-inner { grid-template-columns: 1fr; }
+  .blog-lead-media { min-height: 230px; }
+  .blog-lead-copy { padding: 32px 26px; }
+}
+
 @media (max-width: 768px) {
   .blog-hero h1 {
     font-size: 2.2rem;
   }
-  
+
   .blog-container {
     grid-template-columns: 1fr;
     padding: 0 20px 60px 20px;
