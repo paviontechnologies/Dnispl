@@ -12,6 +12,8 @@ import RC from "./Components/Services/RC";
 import WO from "./Components/Services/WO";
 import DC from "./Components/Services/DC";
 import Portfolio from './Components/Portfolio/Portfolio';
+import Industries from './Components/Industries/Industries';
+import IndustryDetail from './Components/Industries/IndustryDetail';
 import Form from "./Components/Contact/Form";
 import BlogPage from './Components/Blog/Blog';
 import BlogPost from './Components/Blog/BlogPost';
@@ -50,6 +52,13 @@ function App() {
         <Route path="/blog/:id" element={<BlogPost />} />
         <Route path="/form" element={<Form />} />
         <Route path="/portfolio" element={<Portfolio />} />
+
+        {/* Industries. The nav used to point at /portfolio?industry=<key>,
+            which rendered the same case-study page for every sector — so each
+            item looked like a dead link. These are the real pages; the
+            ?industry= lens stays supported as a deep link from them. */}
+        <Route path="/industries" element={<Industries />} />
+        <Route path="/industries/:slug" element={<IndustryDetail />} />
         <Route path="/privacy" element={<InfoPage type="privacy" />} />
         <Route path="/terms" element={<InfoPage type="terms" />} />
         <Route path="/cookies" element={<InfoPage type="cookies" />} />

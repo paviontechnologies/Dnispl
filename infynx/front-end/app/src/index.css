@@ -279,3 +279,81 @@ code {
   z-index: -1;
   pointer-events: none;
 }
+
+/* ============================================================
+   Shared patterns the page stylesheets referenced but never
+   declared. Each of these classes appeared in JSX across
+   several pages with no rule behind it, so the element fell
+   back to browser defaults — unpadded pills, left-aligned CTA
+   panels, unstyled 404. Declared once here rather than six
+   times across the service pages.
+   ============================================================ */
+
+/* --- Service-page CTA panels (ap / dc / hpd / rc / sd / wo) --- */
+.ap-cta-box,
+.dc-cta-box,
+.hpd-cta-box,
+.rc-cta-box,
+.sd-cta-box,
+.wo-cta-box {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 58px 42px;
+  text-align: center;
+  overflow: hidden;
+  border-radius: var(--border-radius-lg);
+}
+
+.ap-cta-box h2,
+.dc-cta-box h2,
+.hpd-cta-box h2,
+.rc-cta-box h2,
+.sd-cta-box h2,
+.wo-cta-box h2 {
+  font-family: var(--saira);
+  font-size: clamp(1.6rem, 2.8vw, 2.3rem);
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 14px;
+}
+
+.ap-cta-box > p,
+.dc-cta-box > p,
+.hpd-cta-box > p,
+.rc-cta-box > p,
+.sd-cta-box > p,
+.wo-cta-box > p {
+  max-width: 58ch;
+  margin: 0 auto 30px;
+  font-size: 16px;
+  line-height: 29px;
+  color: var(--text-secondary);
+}
+
+.ap-cta-content { position: relative; z-index: 1; }
+
+/* .scan-line is owned by DC.css, which gives it the green treatment that page
+   needs — not redeclared here. */
+
+/* --- Hero stat pills (home) --- */
+.stat-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  padding: 12px 22px;
+}
+
+.stat-item p { font-size: 14px; line-height: 1.4; margin: 0; }
+.stat-item strong { color: #fff; }
+
+/* --- Section header helpers used across pages --- */
+.section-header.center { text-align: center; margin-inline: auto; }
+.text-white { color: #fff; }
+
+/* --- Not-found shell --- */
+.not-found-page { min-height: 62vh; display: flex; align-items: center; }
+
+/* --- Small odds and ends referenced in JSX --- */
+.link-arrow { transition: transform 320ms var(--cube-1); }
+a:hover > .link-arrow { transform: translateX(4px); }

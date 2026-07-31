@@ -3,16 +3,19 @@ import "./Portfolio.css";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import { Link, useSearchParams } from 'react-router-dom';
-import { X } from 'lucide-react';
+import { ArrowRight, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   AuroraBackdrop,
   CountUp,
+  MagneticButton,
   Reveal,
   RevealGroup,
   SplitHeading,
   useScrollReveal
 } from '../../motion/MotionKit';
+import { INDUSTRY_LENS } from '../../data/industries';
+import { PROJECTS, PROJECT_CATEGORIES } from '../../data/projects';
 
 const TINT = { from: '#00F0FF', to: '#2563EB', glow: 'rgba(0, 240, 255, 0.3)' };
 
@@ -28,189 +31,6 @@ const ContentWrapper = ({ children, className }) => (
     {children}
   </div>
 );
-
-/**
- * Industry lens. The header links to /portfolio?industry=<key>, so every key it
- * advertises has to resolve here — otherwise those nav items land on a page
- * that silently ignores the parameter.
- */
-const INDUSTRY_LENS = {
-  finance: { label: 'Banking & Finance', blurb: 'Branch connectivity, core banking networks, and SD-WAN estates.' },
-  telecom: { label: 'Telecom', blurb: 'NOC operations, nationwide rollouts, and fiber execution.' },
-  manufacturing: { label: 'Manufacturing', blurb: 'Plant networks, shop-floor connectivity, and campus links.' },
-  healthcare: { label: 'Healthcare', blurb: 'Always-on hospital infrastructure and clinical system uptime.' },
-  education: { label: 'Education', blurb: 'Campus Wi-Fi architectures and high-density coverage.' },
-  retail: { label: 'Retail', blurb: 'Multi-store networks, VPN backhaul, and POS reliability.' },
-  enterprise: { label: 'Enterprise', blurb: 'End-to-end IT infrastructure across distributed offices.' },
-  logistics: { label: 'Logistics', blurb: 'Warehouse and fleet connectivity across sites in motion.' },
-  hospitality: { label: 'Hospitality', blurb: 'Guest networks, POS, and property-wide coverage.' }
-};
-
-const PROJECTS = [
-  {
-    id: 1,
-    title: "DinePOS – Smart POS & Inventory Automation",
-    category: "Web",
-    industryKey: "hospitality",
-    industry: "Hospitality / Restaurants",
-    problem:
-      "Local restaurants struggled with manual billing, inaccurate inventory, and no visibility on daily sales performance.",
-    solution:
-      "We built a cloud-based POS with real-time KOT printing, table management, recipe-level inventory deduction, and multi-outlet support.",
-    impact: [
-      "30% reduction in pilferage and wastage",
-      "Real-time sales dashboard for owners across outlets",
-      "Integrated GST-compliant invoicing and reports",
-    ],
-    techStack: "React, Node.js, PostgreSQL, Redis, AWS, Thermal Printer APIs",
-    tag: "Product Engineering",
-  },
-  {
-    id: 2,
-    title: "Ease Yatrika – School Transport & Booking Platform",
-    category: "Mobile",
-    industryKey: "education",
-    industry: "EdTech / Transportation",
-    problem:
-      "Parents had no transparency on school cabs location, safety, and billing. Operators managed everything on Excel and WhatsApp.",
-    solution:
-      "A mobile-first platform for route planning, live GPS tracking, parent notifications, and automated fee collection with reporting.",
-    impact: [
-      "90% reduction in manual coordination between parents and drivers",
-      "Live ETA tracking improved parent satisfaction",
-      "Central dashboard for school administrators",
-    ],
-    techStack: "Flutter, Firebase, Node.js, Google Maps APIs, Razorpay",
-    tag: "Mobility & Safety",
-  },
-  {
-    id: 3,
-    title: "StockPilot – Multi-Location Inventory Intelligence",
-    category: "AI & Automation",
-    industryKey: "retail",
-    industry: "Retail / Distribution",
-    problem:
-      "Retailers had multiple warehouses and stores, but no unified, intelligent view of inventory, reorder levels, and dead stock.",
-    solution:
-      "We developed an AI-driven inventory engine that predicts reorder points, highlights slow-moving SKUs, and optimizes procurement.",
-    impact: [
-      "Up to 25% reduction in overstocking",
-      "Improved fill-rate and on-shelf availability",
-      "Unified stock visibility across warehouses and stores",
-    ],
-    techStack: "React, Python, ML models (time series), MongoDB, Kafka",
-    tag: "AI & Analytics",
-  },
-  {
-    id: 4,
-    title: "InfraNet360 – PAN India Active & Passive Rollout",
-    category: "Network & Infra",
-    industryKey: "telecom",
-    industry: "Telecom / Enterprise",
-    problem:
-      "A leading SI required a single partner to execute PAN India network rollouts – including fiber, L2/L3 setup, DC passive work, and audits.",
-    solution:
-      "DNISPL provided end-to-end implementation: inside-building fiber, Cat-6, electrical, DC passive, L2/L3 configuration, and regulatory audits.",
-    impact: [
-      "On-time delivery across 50+ cities",
-      "Standardized documentation and TRAI-compliant audits",
-      "Single-window execution partner for the SI",
-    ],
-    techStack:
-      "Cisco / Juniper switches & routers, Fiber & Cat-6, UPS, DG, DC passive components",
-    tag: "Network Rollout",
-  },
-  {
-    id: 5,
-    title: "LeadSync – B2B Sales & Marketing Automation Suite",
-    category: "Web",
-    industryKey: "enterprise",
-    industry: "B2B SaaS",
-    problem:
-      "The client’s sales team used spreadsheets and manual follow-ups, causing lost leads and poor tracking.",
-    solution:
-      "We built a web-based lead management and automation suite with email workflows, lead scoring, task reminders, and dashboards.",
-    impact: [
-      "2x increase in qualified follow-ups",
-      "Single source of truth for leads and activities",
-      "Team performance tracking made transparent",
-    ],
-    techStack: "Next.js, Node.js, MySQL, Redis, SendGrid, Chart.js",
-    tag: "SaaS Platform",
-  },
-  {
-    id: 6,
-    title: "Core Banking Network & Branch SD-WAN Estate",
-    category: "Network & Infra",
-    industryKey: "finance",
-    industry: "Banking & Financial Services",
-    problem:
-      "Branch connectivity ran on ageing MPLS links with no application-level visibility, and every outage became a manual, branch-by-branch investigation.",
-    solution:
-      "We re-architected the branch edge onto SD-WAN with dual-transport failover, application-aware path selection, centralised policy, and a monitored NOC handover.",
-    impact: [
-      "400+ branch sites migrated with no unplanned core downtime",
-      "Link failover measured in seconds instead of manual re-routes",
-      "Single monitoring plane across every branch and the data centre",
-    ],
-    techStack: "Cisco SD-WAN (vManage), ISR routers, Fortinet NGFW, dual-ISP transport, NOC tooling",
-    tag: "Network Transformation",
-  },
-  {
-    id: 7,
-    title: "Plant Network Modernisation & Shop-Floor Connectivity",
-    category: "Network & Infra",
-    industryKey: "manufacturing",
-    industry: "Manufacturing",
-    problem:
-      "Production lines shared a flat network with office traffic, so a single broadcast storm could stall the shop floor, and industrial zones had no segmentation.",
-    solution:
-      "We segmented OT from IT with policy-enforced VLANs, deployed ruggedised switching across production zones, and rebuilt the fibre backbone between plant blocks.",
-    impact: [
-      "Production and corporate traffic fully isolated",
-      "Redundant ring topology removed the single points of failure",
-      "Documented, labelled cable plant with Fluke certification",
-    ],
-    techStack: "Industrial Ethernet switches, fibre ring backbone, VLAN segmentation, Cisco ISE",
-    tag: "OT / IT Convergence",
-  },
-  {
-    id: 8,
-    title: "Hospital Infrastructure & Clinical System Uptime",
-    category: "Network & Infra",
-    industryKey: "healthcare",
-    industry: "Healthcare",
-    problem:
-      "Clinical applications and imaging transfers competed with guest Wi-Fi on the same infrastructure, and there was no redundancy on the paths carrying patient data.",
-    solution:
-      "We designed a tiered network separating clinical, administrative, and guest traffic, with redundant uplinks, prioritised imaging transfer, and 24/7 monitored support.",
-    impact: [
-      "Clinical traffic prioritised and isolated from guest load",
-      "Redundant paths on every critical ward and imaging link",
-      "24/7 NOC coverage with a defined clinical escalation matrix",
-    ],
-    techStack: "Layer 3 switching, QoS policy, controller-based Wi-Fi, redundant uplinks, NOC monitoring",
-    tag: "Mission-Critical Infra",
-  },
-  {
-    id: 9,
-    title: "Warehouse & Fleet Connectivity Rollout",
-    category: "Network & Infra",
-    industryKey: "logistics",
-    industry: "Logistics & Warehousing",
-    problem:
-      "Scanner coverage dropped in high-rack aisles and cold zones, forcing manual stock reconciliation at the end of every shift.",
-    solution:
-      "We ran predictive and on-site RF surveys, redesigned access-point placement for rack-aisle propagation, and deployed hardened APs across cold and dock zones.",
-    impact: [
-      "Continuous scanner coverage through high-rack aisles",
-      "End-of-shift manual reconciliation effectively eliminated",
-      "Repeatable site template rolled out across the warehouse network",
-    ],
-    techStack: "Predictive RF survey tooling, industrial-grade APs, wireless controllers, PoE switching",
-    tag: "Wireless Engineering",
-  },
-];
 
 const Portfolio = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -266,12 +86,25 @@ const Portfolio = () => {
               <span className="dot-pulse"></span> {lens ? `${lens.label.toUpperCase()} / INDUSTRY LENS` : 'OUR WORK'}
             </motion.div>
 
+            {/* Re-keying on the lens makes the headline replay its split reveal
+                when the visitor switches sector, so the page visibly responds
+                instead of silently swapping one word. */}
             <SplitHeading
+              key={lens ? lens.slug : 'all'}
               className="portfolio-title"
-              lines={[
-                <span key="a">A portfolio of <span className="text-gradient-blue">products</span> that</span>,
-                <span key="b">actually went <span className="text-gradient-purple">live</span>.</span>
-              ]}
+              lines={
+                lens
+                  ? [
+                      <span key="a">
+                        <span className="text-gradient-blue">{lens.label}</span> work
+                      </span>,
+                      <span key="b">that actually went <span className="text-gradient-purple">live</span>.</span>
+                    ]
+                  : [
+                      <span key="a">A portfolio of <span className="text-gradient-blue">products</span> that</span>,
+                      <span key="b">actually went <span className="text-gradient-purple">live</span>.</span>
+                    ]
+              }
             />
 
             <motion.p
@@ -280,9 +113,11 @@ const Portfolio = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              From early-stage MVPs to scaled enterprise platforms, DNISPL
-              partners with teams to ship reliable software and robust
-              infrastructure — on time, and with full ownership.
+              {lens
+                ? lens.blurb
+                : `From early-stage MVPs to scaled enterprise platforms, DNISPL
+                   partners with teams to ship reliable software and robust
+                   infrastructure — on time, and with full ownership.`}
             </motion.p>
 
             {lens && (
@@ -292,8 +127,10 @@ const Portfolio = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.72 }}
               >
-                <span>{lens.blurb}</span>
-                <Link to="/form">Discuss your environment</Link>
+                <Link to={`/industries/${lens.slug}`} className="lens-back">
+                  <ArrowRight size={14} /> Full {lens.label} sector page
+                </Link>
+                <Link to="/form" className="lens-cta">Discuss your environment</Link>
                 <button type="button" className="lens-clear" onClick={clearLens}>
                   <X size={14} /> Show all work
                 </button>
@@ -321,7 +158,7 @@ const Portfolio = () => {
               </h2>
 
               <div className="portfolio-filters">
-                {["All", "Web", "Mobile", "AI & Automation", "Network & Infra"].map(
+                {PROJECT_CATEGORIES.map(
                   (filter) => (
                     <motion.button
                       key={filter}
@@ -456,6 +293,13 @@ const Portfolio = () => {
                   {lens && (
                     <button type="button" onClick={clearLens}>Show all industries</button>
                   )}
+                  {/* The sector page carries the capability detail even where no
+                      case study is public, so it is the more useful exit. */}
+                  {lens && (
+                    <Link to={`/industries/${lens.slug}`}>
+                      {lens.label} sector page
+                    </Link>
+                  )}
                   <Link to="/form">Request case studies</Link>
                 </div>
               </motion.div>
@@ -492,7 +336,34 @@ const Portfolio = () => {
           </ContentWrapper>
         </section>
 
-        {/* 4️⃣ FINAL CTA */}
+        {/* 4️⃣ BROWSE BY SECTOR — the industry pages, not a filter on this one */}
+        <section className="portfolio-sectors">
+          <ContentWrapper>
+            <Reveal className="portfolio-sectors-head">
+              <h2 className="section-heading">Browse by sector</h2>
+              <p>
+                Each sector page carries the pressures we design against and the
+                capabilities we bring — including work that isn’t public here.
+              </p>
+            </Reveal>
+
+            <RevealGroup className="portfolio-sector-chips">
+              {Object.values(INDUSTRY_LENS).map((entry) => (
+                <Reveal key={entry.slug} dir="scale" className="sector-chip-shell">
+                  <Link
+                    to={`/industries/${entry.slug}`}
+                    className={`sector-chip ${industryKey === entry.slug ? 'current' : ''}`}
+                  >
+                    {entry.label}
+                    <ArrowRight size={14} />
+                  </Link>
+                </Reveal>
+              ))}
+            </RevealGroup>
+          </ContentWrapper>
+        </section>
+
+        {/* 5️⃣ FINAL CTA */}
         <section className="portfolio-final-cta">
           <ContentWrapper className="portfolio-final-inner">
             <Reveal className="cta-box-gradient" dir="scale">
@@ -504,8 +375,10 @@ const Portfolio = () => {
                 rolling out infra across India — DNISPL can be your partner.
                 </p>
                 <div className="final-cta-actions">
-                <Link to="/form" className="btn-white-solid">Start a conversation</Link>
-                <Link to="/form" className="btn-outline-white">Request Case Studies</Link>
+                <MagneticButton as={Link} to="/form" className="btn-white-solid">
+                  Start a conversation
+                </MagneticButton>
+                <Link to="/industries" className="btn-outline-white">Explore industries</Link>
                 </div>
             </Reveal>
           </ContentWrapper>

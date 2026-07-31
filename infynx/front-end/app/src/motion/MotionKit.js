@@ -7,8 +7,16 @@
  * run up on entry. These primitives are the same motions, parameterised so each
  * page can keep its own hue and content.
  */
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  animate,
+  motion,
+  useInView,
+  useMotionValue,
+  useReducedMotion,
+  useScroll,
+  useTransform
+} from 'framer-motion';
 import './MotionKit.css';
 
 export { useScrollReveal, useCountUp, CountUp } from '../hooks/useScrollReveal';
@@ -240,6 +248,72 @@ export const AuroraBackdrop = ({
 };
 
 /* ==========================================================================
+   Section progress
+   ========================================================================== */
+
+/**
+ * Scroll progress for a section, with a guard the raw `useScroll` range lacks.
+ *
+ * A range like ['start end', 'center center'] only reaches 1 if the document
+ * can scroll far enough to put the section's centre at the viewport's centre.
+ * On a short page — a careers list with three roles, a filtered case-study
+ * view — that scroll distance does not exist, so progress stalls part-way and
+ * whatever it drives is left frozen mid-animation. That is what left the
+ * careers cards permanently overlapping each other.
+ *
+ * So: measure whether the range is actually reachable, and if it isn't, drive
+ * the same 0 → 1 value off entering the viewport instead. Callers get one
+ * motion value either way and don't need to care which mode they're in.
+ */
+export const useSectionProgress = (
+  ref,
+  { offset = ['start end', 'center center'], duration = 1.1 } = {}
+) => {
+  const reduced = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset });
+  const timed = useMotionValue(0);
+  const [scrollable, setScrollable] = useState(true);
+  const inView = useInView(ref, { once: true, amount: 0.2 });
+
+  // Can the document scroll far enough for `offset`'s end position to be hit?
+  useEffect(() => {
+    const measure = () => {
+      const node = ref.current;
+      if (!node) return;
+      const maxScroll =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const rect = node.getBoundingClientRect();
+      const centreAt =
+        rect.top + window.scrollY + rect.height / 2 - window.innerHeight / 2;
+      // 4px of slack absorbs sub-pixel layout rounding.
+      setScrollable(maxScroll > 4 && centreAt <= maxScroll - 4);
+    };
+
+    measure();
+    // Re-measure once late layout (fonts, images, lazy sections) has settled.
+    const settle = window.setTimeout(measure, 500);
+    window.addEventListener('resize', measure);
+    return () => {
+      window.clearTimeout(settle);
+      window.removeEventListener('resize', measure);
+    };
+  }, [ref]);
+
+  useEffect(() => {
+    if (scrollable) return undefined;
+    if (reduced) {
+      timed.set(1);
+      return undefined;
+    }
+    if (!inView) return undefined;
+    const controls = animate(timed, 1, { duration, ease: [0.16, 1, 0.3, 1] });
+    return () => controls.stop();
+  }, [scrollable, inView, reduced, timed, duration]);
+
+  return scrollable ? scrollYProgress : timed;
+};
+
+/* ==========================================================================
    Scroll fan
    ========================================================================== */
 
@@ -325,10 +399,7 @@ export const ScrollFan = ({
   const ref = useRef(null);
   const reduced = useReducedMotion();
   const viewport = useViewportWidth();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start end', 'center center']
-  });
+  const progress = useSectionProgress(ref);
 
   // Full 340px throw on desktop; proportionally gentler once cards start
   // wrapping, so they never fly in from far outside the page.
@@ -341,7 +412,7 @@ export const ScrollFan = ({
           key={keyOf(item, index)}
           index={index}
           total={items.length}
-          progress={scrollYProgress}
+          progress={progress}
           spread={spread}
           palette={palette}
           reduced={reduced}
@@ -396,10 +467,7 @@ export const ScrollDrift = ({
 }) => {
   const ref = useRef(null);
   const reduced = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start end', 'center center']
-  });
+  const progress = useSectionProgress(ref);
 
   return (
     <div className={className} ref={ref}>
@@ -407,7 +475,7 @@ export const ScrollDrift = ({
         <DriftItem
           key={keyOf(item, index)}
           index={index}
-          progress={scrollYProgress}
+          progress={progress}
           distance={distance}
           reduced={reduced}
           className={itemClassName}
@@ -488,6 +556,417 @@ export const Marquee = ({ items, renderItem, speed = 36, className = '' }) => (
     </div>
   </div>
 );
+
+/* ==========================================================================
+   Network lattice — the 3D hero visual
+   ========================================================================== */
+
+/**
+ * A live WebGL lattice: nodes suspended in depth, linked wherever they fall
+ * within range of each other, turning slowly and leaning towards the pointer.
+ * `tint` colours the nodes and the links, so each industry page gets the same
+ * structure in its own hue.
+ *
+ * three.js is loaded on demand rather than imported at module scope — the site
+ * shell already runs a WebGL scene, and pulling a second copy of three into
+ * every page's initial bundle costs more than the visual is worth on routes
+ * that never show one.
+ *
+ * The render loop only runs while the canvas is actually on screen, and under
+ * `prefers-reduced-motion` nothing is created at all: the CSS fallback behind
+ * it stands in.
+ */
+export const NetworkLattice = ({
+  tint,
+  variant = 'sphere',
+  density = 90,
+  className = ''
+}) => {
+  const mountRef = useRef(null);
+  const reduced = useReducedMotion();
+  // Drives the crossfade from the CSS stand-in to the live canvas.
+  const [live, setLive] = useState(false);
+
+  useEffect(() => {
+    const mount = mountRef.current;
+    if (!mount || reduced) return undefined;
+
+    let disposed = false;
+    let cleanup = null;
+
+    import('three')
+      .then((THREE) => {
+        if (disposed || !mountRef.current) return;
+
+        const host = mountRef.current;
+        const size = () => ({
+          w: host.clientWidth || 480,
+          h: host.clientHeight || 480
+        });
+        const { w, h } = size();
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(46, w / h, 0.1, 100);
+        camera.position.set(0, 0, 7.2);
+
+        let renderer;
+        try {
+          renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        } catch (err) {
+          // No WebGL context available (blocked, software-rendering disabled).
+          // The CSS fallback layer is already behind us, so just stand down.
+          return;
+        }
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+        renderer.setSize(w, h);
+        renderer.setClearColor(0x000000, 0);
+        host.appendChild(renderer.domElement);
+
+        const colorA = new THREE.Color(tint?.from || '#00E2F5');
+        const colorB = new THREE.Color(tint?.to || '#B325F7');
+
+        /* --- node positions --- */
+        const count = Math.max(24, Math.min(160, density));
+        const points = [];
+        if (variant === 'grid') {
+          // A rippled plane, seen at an angle — reads as a fabric or a floor.
+          const side = Math.max(4, Math.round(Math.sqrt(count)));
+          for (let ix = 0; ix < side; ix += 1) {
+            for (let iz = 0; iz < side; iz += 1) {
+              const x = (ix / (side - 1) - 0.5) * 8;
+              const z = (iz / (side - 1) - 0.5) * 8;
+              points.push(new THREE.Vector3(x, Math.sin(x * 1.1) * Math.cos(z * 1.1) * 0.55, z));
+            }
+          }
+        } else {
+          // Fibonacci sphere: even coverage without the clustering that random
+          // spherical sampling produces at the poles.
+          const golden = Math.PI * (3 - Math.sqrt(5));
+          for (let i = 0; i < count; i += 1) {
+            const y = 1 - (i / (count - 1)) * 2;
+            const radius = Math.sqrt(Math.max(0, 1 - y * y));
+            const theta = golden * i;
+            const jitter = 0.9 + Math.random() * 0.22;
+            points.push(
+              new THREE.Vector3(
+                Math.cos(theta) * radius * 2.5 * jitter,
+                y * 2.5 * jitter,
+                Math.sin(theta) * radius * 2.5 * jitter
+              )
+            );
+          }
+        }
+
+        const group = new THREE.Group();
+        scene.add(group);
+
+        /* --- nodes --- */
+        const nodeGeometry = new THREE.BufferGeometry().setFromPoints(points);
+        const nodeColors = new Float32Array(points.length * 3);
+        points.forEach((p, i) => {
+          const mix = colorA.clone().lerp(colorB, (p.y + 2.5) / 5);
+          nodeColors[i * 3] = mix.r;
+          nodeColors[i * 3 + 1] = mix.g;
+          nodeColors[i * 3 + 2] = mix.b;
+        });
+        nodeGeometry.setAttribute('color', new THREE.BufferAttribute(nodeColors, 3));
+        const nodes = new THREE.Points(
+          nodeGeometry,
+          new THREE.PointsMaterial({
+            size: 0.075,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.95,
+            depthWrite: false,
+            blending: THREE.AdditiveBlending
+          })
+        );
+        group.add(nodes);
+
+        /* --- links between neighbours --- */
+        const LINK_RANGE = variant === 'grid' ? 1.9 : 1.55;
+        const MAX_LINKS_PER_NODE = 3;
+        const linkPositions = [];
+        const linkColors = [];
+        for (let i = 0; i < points.length; i += 1) {
+          let made = 0;
+          for (let j = i + 1; j < points.length && made < MAX_LINKS_PER_NODE; j += 1) {
+            if (points[i].distanceTo(points[j]) > LINK_RANGE) continue;
+            linkPositions.push(
+              points[i].x, points[i].y, points[i].z,
+              points[j].x, points[j].y, points[j].z
+            );
+            const ca = colorA.clone().lerp(colorB, (points[i].y + 2.5) / 5);
+            const cb = colorA.clone().lerp(colorB, (points[j].y + 2.5) / 5);
+            linkColors.push(ca.r, ca.g, ca.b, cb.r, cb.g, cb.b);
+            made += 1;
+          }
+        }
+        const linkGeometry = new THREE.BufferGeometry();
+        linkGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linkPositions, 3));
+        linkGeometry.setAttribute('color', new THREE.Float32BufferAttribute(linkColors, 3));
+        const linkMaterial = new THREE.LineBasicMaterial({
+          vertexColors: true,
+          transparent: true,
+          opacity: 0.24,
+          depthWrite: false,
+          blending: THREE.AdditiveBlending
+        });
+        const links = new THREE.LineSegments(linkGeometry, linkMaterial);
+        group.add(links);
+
+        /* --- a wireframe shell for silhouette --- */
+        const shell = new THREE.Mesh(
+          new THREE.IcosahedronGeometry(variant === 'grid' ? 3.4 : 2.95, 1),
+          new THREE.MeshBasicMaterial({
+            color: colorB,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.07,
+            depthWrite: false
+          })
+        );
+        group.add(shell);
+
+        if (variant === 'grid') group.rotation.x = -0.62;
+
+        /* --- interaction + loop --- */
+        const pointer = { x: 0, y: 0 };
+        const target = { x: 0, y: 0 };
+        const handlePointer = (event) => {
+          const rect = host.getBoundingClientRect();
+          if (!rect.width || !rect.height) return;
+          target.x = ((event.clientX - rect.left) / rect.width - 0.5) * 0.9;
+          target.y = ((event.clientY - rect.top) / rect.height - 0.5) * 0.6;
+        };
+        window.addEventListener('pointermove', handlePointer, { passive: true });
+
+        const handleResize = () => {
+          const next = size();
+          camera.aspect = next.w / next.h;
+          camera.updateProjectionMatrix();
+          renderer.setSize(next.w, next.h);
+        };
+        const resizeObserver =
+          typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(handleResize);
+        if (resizeObserver) resizeObserver.observe(host);
+        else window.addEventListener('resize', handleResize);
+
+        let frameId = null;
+        let visible = true;
+        const clock = new THREE.Clock();
+        const baseRotationX = variant === 'grid' ? -0.62 : 0;
+
+        const render = () => {
+          const elapsed = clock.getElapsedTime();
+          pointer.x += (target.x - pointer.x) * 0.045;
+          pointer.y += (target.y - pointer.y) * 0.045;
+          group.rotation.y = elapsed * 0.11 + pointer.x;
+          group.rotation.x = baseRotationX + Math.sin(elapsed * 0.28) * 0.11 - pointer.y;
+          shell.rotation.y = elapsed * -0.07;
+          shell.rotation.z = elapsed * 0.05;
+          // Links breathe so the lattice never reads as a static mesh.
+          linkMaterial.opacity = 0.18 + Math.sin(elapsed * 0.9) * 0.07;
+          renderer.render(scene, camera);
+          frameId = window.requestAnimationFrame(render);
+        };
+
+        const start = () => {
+          if (frameId === null) {
+            clock.getDelta();
+            render();
+          }
+        };
+        const stop = () => {
+          if (frameId !== null) {
+            window.cancelAnimationFrame(frameId);
+            frameId = null;
+          }
+        };
+
+        // Only burn frames while the canvas is on screen.
+        const io = new IntersectionObserver(
+          ([entry]) => {
+            visible = entry.isIntersecting;
+            if (visible) start();
+            else stop();
+          },
+          { threshold: 0 }
+        );
+        io.observe(host);
+        if (visible) start();
+        setLive(true);
+
+        cleanup = () => {
+          stop();
+          setLive(false);
+          io.disconnect();
+          if (resizeObserver) resizeObserver.disconnect();
+          else window.removeEventListener('resize', handleResize);
+          window.removeEventListener('pointermove', handlePointer);
+          nodeGeometry.dispose();
+          nodes.material.dispose();
+          linkGeometry.dispose();
+          linkMaterial.dispose();
+          shell.geometry.dispose();
+          shell.material.dispose();
+          renderer.dispose();
+          renderer.domElement.remove();
+        };
+      })
+      .catch(() => {
+        /* three failed to load — the CSS fallback layer stays visible */
+      });
+
+    return () => {
+      disposed = true;
+      if (cleanup) cleanup();
+    };
+  }, [tint, variant, density, reduced]);
+
+  const style = tint
+    ? { '--fx-1': tint.from, '--fx-2': tint.to, '--fx-glow': tint.glow || tint.from }
+    : undefined;
+
+  return (
+    <div
+      className={['fx-lattice', 'fx-scope', live ? 'is-live' : '', className]
+        .filter(Boolean)
+        .join(' ')}
+      style={style}
+      aria-hidden="true"
+    >
+      {/* Carries the visual on reduced-motion, on a failed three import, and in
+          the frames before WebGL initialises — then fades out, so it doesn't sit
+          behind the lattice as a second, brighter object. */}
+      <span className="fx-lattice-fallback" />
+      <div className="fx-lattice-canvas" ref={mountRef} />
+    </div>
+  );
+};
+
+/* ==========================================================================
+   Magnetic button
+   ========================================================================== */
+
+/**
+ * Leans towards the pointer while it's nearby and snaps back on exit. Used on
+ * the primary CTA so the most important target on the page is the one that
+ * responds first.
+ */
+export const MagneticButton = ({
+  as: Tag = 'button',
+  strength = 0.28,
+  className = '',
+  children,
+  ...rest
+}) => {
+  const ref = useRef(null);
+  const reduced = useReducedMotion();
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const handleMove = useCallback(
+    (event) => {
+      const node = ref.current;
+      if (!node || reduced) return;
+      const rect = node.getBoundingClientRect();
+      x.set((event.clientX - (rect.left + rect.width / 2)) * strength);
+      y.set((event.clientY - (rect.top + rect.height / 2)) * strength);
+    },
+    [reduced, strength, x, y]
+  );
+
+  const handleLeave = useCallback(() => {
+    animate(x, 0, { type: 'spring', stiffness: 260, damping: 18 });
+    animate(y, 0, { type: 'spring', stiffness: 260, damping: 18 });
+  }, [x, y]);
+
+  const MotionTag = useMemo(() => motion.create(Tag), [Tag]);
+
+  return (
+    <MotionTag
+      ref={ref}
+      className={['fx-magnetic', className].filter(Boolean).join(' ')}
+      style={{ x, y }}
+      onPointerMove={handleMove}
+      onPointerLeave={handleLeave}
+      {...rest}
+    >
+      {children}
+    </MotionTag>
+  );
+};
+
+/* ==========================================================================
+   Spotlight card
+   ========================================================================== */
+
+/**
+ * Writes the pointer's position into --sx / --sy so a radial highlight can
+ * follow it across the card. Cheaper than TiltCard (no transform, no layout)
+ * which makes it safe to use on a grid of twenty.
+ */
+export const SpotlightCard = ({
+  as: Tag = 'div',
+  className = '',
+  children,
+  ...rest
+}) => {
+  const ref = useRef(null);
+
+  const handleMove = useCallback((event) => {
+    const node = ref.current;
+    if (!node) return;
+    const rect = node.getBoundingClientRect();
+    node.style.setProperty('--sx', `${((event.clientX - rect.left) / rect.width) * 100}%`);
+    node.style.setProperty('--sy', `${((event.clientY - rect.top) / rect.height) * 100}%`);
+  }, []);
+
+  return (
+    <Tag
+      ref={ref}
+      className={['fx-spotlight', className].filter(Boolean).join(' ')}
+      onPointerMove={handleMove}
+      {...rest}
+    >
+      <span className="fx-spotlight-glow" aria-hidden="true" />
+      <div className="fx-spotlight-body">{children}</div>
+    </Tag>
+  );
+};
+
+/* ==========================================================================
+   Scroll-drawn connector
+   ========================================================================== */
+
+/**
+ * A vertical rule that draws itself downward as its section scrolls past —
+ * used as the spine of a numbered sequence so the list reads as a path rather
+ * than as separate cards.
+ */
+export const ScrollSpine = ({ tint, className = '' }) => {
+  const ref = useRef(null);
+  const progress = useSectionProgress(ref, {
+    offset: ['start 80%', 'end 40%']
+  });
+  const scaleY = useTransform(progress, [0, 1], [0, 1]);
+
+  const style = tint
+    ? { '--fx-1': tint.from, '--fx-2': tint.to }
+    : undefined;
+
+  return (
+    <div
+      className={['fx-spine', className].filter(Boolean).join(' ')}
+      ref={ref}
+      style={style}
+      aria-hidden="true"
+    >
+      <motion.span className="fx-spine-fill" style={{ scaleY }} />
+    </div>
+  );
+};
 
 /* ==========================================================================
    Tilt card

@@ -8,7 +8,9 @@ import Footer from '../Footer/Footer';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { useScrollReveal, CountUp } from '../../hooks/useScrollReveal';
-import { Phone, Mail, Linkedin } from 'lucide-react';
+import { ArrowRight, Phone, Mail, Linkedin } from 'lucide-react';
+import { MagneticButton, SpotlightCard } from '../../motion/MotionKit';
+import { INDUSTRIES } from '../../data/industries';
 
 // Icons/logos imports
 import ditIcon from '../Images/icons/dit.png';
@@ -418,6 +420,51 @@ const Home = () => {
                 <p>{cab.desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* --- INDUSTRIES WE OPERATE IN --- */}
+      <section className="home-industries-section" id="industries">
+        <div className="container-max">
+          <div className="section-header center ftc-reveal">
+            <span className="section-tag">Sectors</span>
+            <h2 className="section-title">
+              Every Sector Breaks Its Network{' '}
+              <span className="text-gradient-blue">Differently</span>
+            </h2>
+            <p className="section-desc">
+              A branch estate fails on failover time. A shop floor fails on
+              segmentation. Same discipline — different failure mode.
+            </p>
+          </div>
+
+          <div className="home-industry-grid" data-reveal-group>
+            {INDUSTRIES.map((industry) => {
+              const Icon = industry.icon;
+              return (
+                <SpotlightCard
+                  key={industry.slug}
+                  as={Link}
+                  to={`/industries/${industry.slug}`}
+                  className="home-industry-card ftc-reveal"
+                  style={{ '--fx-1': industry.tint.from, '--fx-2': industry.tint.to }}
+                >
+                  <span className="home-industry-icon"><Icon size={20} /></span>
+                  <span className="home-industry-name">{industry.name}</span>
+                  <span className="home-industry-desc">{industry.tagline}</span>
+                  <span className="home-industry-go">
+                    <ArrowRight size={15} />
+                  </span>
+                </SpotlightCard>
+              );
+            })}
+          </div>
+
+          <div className="home-industry-cta ftc-reveal">
+            <MagneticButton as={Link} to="/industries" className="btn btn-glow-primary">
+              Explore all industries
+            </MagneticButton>
           </div>
         </div>
       </section>

@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+import IndustryStrip from "../Industries/IndustryStrip";
 import "./AP.css";
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -139,6 +140,14 @@ const AP = () => {
             </div>
           </div>
         </section>
+
+        {/* Sector cross-links — routes this capability page into the
+            industries that buy it. */}
+        <IndustryStrip
+          tint={TINT}
+          title="Sectors we build networks for"
+          slugs={['enterprise', 'finance', 'telecom', 'manufacturing', 'healthcare', 'education']}
+        />
 
         {/* CTA SECTION */}
         <section className="ap-cta-section" id="contact">

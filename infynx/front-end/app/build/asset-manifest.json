@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/static/css/main.503b2f6f.css",
+    "main.js": "/static/js/main.a7469d0c.js",
+    "static/media/Rakesh.jpg": "/static/media/Rakesh.fba49bc1d31608b502d6.jpg",
+    "static/media/p4-bg-img-1.webp": "/static/media/p4-bg-img-1.c282416a2e279f7c0660.webp",
+    "static/media/blog-3.webp": "/static/media/blog-3.9cc134777f5cdf614f86.webp",
+    "static/media/s4-bg-shape-1.webp": "/static/media/s4-bg-shape-1.8eb2ddbd8fd7c2726642.webp",
+    "static/media/airtel1.png": "/static/media/airtel1.22a7b8bdf3623578e057.png",
+    "static/media/blog-2.webp": "/static/media/blog-2.9ce3a49488f3f8e83abc.webp",
+    "static/media/blog-1.webp": "/static/media/blog-1.4adde17334dc72d3c2ed.webp",
+    "static/media/dit.png": "/static/media/dit.157dfd065cca3e59e4c5.png",
+    "static/media/c4-bg-img-1-1.webp": "/static/media/c4-bg-img-1-1.46ab7f3ae11491c3a8c6.webp",
+    "static/media/logo.png": "/static/media/logo.7b71871e68be2467d5a3.png",
+    "static/media/cta-5-bg-shape.webp": "/static/media/cta-5-bg-shape.da9f561eb7fac67ccc2a.webp",
+    "static/media/ch4-bg-img-1.webp": "/static/media/ch4-bg-img-1.dfec1d595f6f9a05763b.webp",
+    "static/media/Tech-M1.png": "/static/media/Tech-M1.9cf7ce0e56c622c422c5.png",
+    "static/media/c4-phone.webp": "/static/media/c4-phone.73f0b13ce90ce2fd2c36.webp",
+    "static/media/JCB.jpg": "/static/media/JCB.898d4eba70dc27cca409.jpg",
+    "static/media/Kyndryl.png": "/static/media/Kyndryl.3e823d82bbb46b2ecf84.png",
+    "static/media/c4-phone-cirlce.webp": "/static/media/c4-phone-cirlce.3b7a7d6b0d8c5194ad55.webp",
+    "index.html": "/index.html",
+    "main.503b2f6f.css.map": "/static/css/main.503b2f6f.css.map",
+    "main.a7469d0c.js.map": "/static/js/main.a7469d0c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.503b2f6f.css",
+    "static/js/main.a7469d0c.js"
+  ]
+}
