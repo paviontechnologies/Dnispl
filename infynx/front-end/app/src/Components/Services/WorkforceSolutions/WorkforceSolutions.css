@@ -1,0 +1,592 @@
+.workforce-page {
+  background: #ffffff;
+  color: #101828;
+  overflow: hidden;
+}
+
+.section-padding {
+  padding: 110px 0;
+}
+
+.section-eyebrow {
+  display: inline-block;
+  margin-bottom: 18px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #2563eb;
+}
+
+.text-gradient-blue {
+  background: linear-gradient(90deg, #2563eb, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* HERO */
+
+.workforce-hero {
+  position: relative;
+  min-height: 720px;
+  display: flex;
+  align-items: center;
+  background:
+    radial-gradient(circle at 80% 30%, rgba(37, 99, 235, 0.10), transparent 35%),
+    linear-gradient(135deg, #f8fbff 0%, #ffffff 60%);
+  overflow: hidden;
+}
+
+.workforce-hero-inner {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 80px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.workforce-hero-content h1 {
+  max-width: 720px;
+  margin: 0 0 28px;
+  font-size: clamp(48px, 6vw, 82px);
+  line-height: 1.05;
+  letter-spacing: -3px;
+  font-weight: 700;
+}
+
+.workforce-hero-content p {
+  max-width: 650px;
+  color: #667085;
+  font-size: 18px;
+  line-height: 1.8;
+  margin-bottom: 35px;
+}
+
+.workforce-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.workforce-hero-actions .btn-glow,
+.workforce-final-cta .btn-glow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.workforce-secondary-btn {
+  color: #344054;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.workforce-secondary-btn:hover {
+  color: #2563eb;
+}
+
+/* HERO VISUAL */
+
+.workforce-hero-visual {
+  height: 500px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.workforce-orbit {
+  position: absolute;
+  border: 1px solid rgba(37, 99, 235, 0.15);
+  border-radius: 50%;
+}
+
+.orbit-one {
+  width: 390px;
+  height: 390px;
+}
+
+.orbit-two {
+  width: 280px;
+  height: 280px;
+}
+
+.workforce-icon-card {
+  width: 170px;
+  height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 35px;
+  color: #2563eb;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(37, 99, 235, 0.15);
+  box-shadow: 0 30px 80px rgba(16, 24, 40, 0.12);
+  z-index: 2;
+}
+
+.floating-card {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: #ffffff;
+  border: 1px solid #eaecf0;
+  border-radius: 14px;
+  box-shadow: 0 15px 40px rgba(16, 24, 40, 0.10);
+}
+
+.floating-card svg {
+  color: #2563eb;
+}
+
+.floating-card div {
+  display: flex;
+  flex-direction: column;
+}
+
+.floating-card strong {
+  font-size: 13px;
+}
+
+.floating-card span {
+  color: #98a2b3;
+  font-size: 11px;
+  margin-top: 3px;
+}
+
+.floating-card-one {
+  top: 70px;
+  right: 20px;
+}
+
+.floating-card-two {
+  bottom: 70px;
+  left: 20px;
+}
+
+.workforce-hero-glow {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.15;
+}
+
+.glow-one {
+  background: #2563eb;
+  top: -100px;
+  right: 10%;
+}
+
+.glow-two {
+  background: #06b6d4;
+  bottom: -100px;
+  left: 10%;
+}
+
+/* INTRO */
+
+.workforce-intro {
+  background: #ffffff;
+}
+
+.workforce-intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+}
+
+.workforce-intro h2,
+.benefits-content h2,
+.section-heading-centered h2 {
+  margin: 0;
+  font-size: clamp(38px, 4vw, 58px);
+  line-height: 1.15;
+  letter-spacing: -2px;
+}
+
+.workforce-intro-text p {
+  color: #667085;
+  font-size: 17px;
+  line-height: 1.8;
+  margin: 0 0 20px;
+}
+
+/* SERVICES */
+
+.workforce-services {
+  background: transparent;
+}
+
+.section-heading-centered {
+  max-width: 750px;
+  margin: 0 auto 65px;
+  text-align: center;
+}
+
+.section-heading-centered p {
+  color: #667085;
+  line-height: 1.7;
+  margin-top: 22px;
+}
+
+.workforce-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.workforce-service-card {
+  position: relative;
+  min-height: 300px;
+  padding: 35px;
+  border: 1px solid #eaecf0;
+  border-radius: 20px;
+  transition: 0.35s ease;
+  overflow: hidden;
+}
+
+.workforce-service-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(0, 153, 255, 0.35);
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.35),
+    0 0 30px rgba(0, 119, 255, 0.06);
+}
+
+.service-card-number {
+  position: absolute;
+  top: 25px;
+  right: 30px;
+  color: #d0d5dd;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.service-icon {
+  width: 58px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  color: #2563eb;
+  background: #eff6ff;
+  border-radius: 15px;
+}
+
+.workforce-service-card h3 {
+  margin: 0 0 14px;
+  font-size: 21px;
+}
+
+.workforce-service-card p {
+  color: #667085;
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.service-card-line {
+  width: 40px;
+  height: 2px;
+  margin-top: 25px;
+  background: linear-gradient(90deg, #2563eb, #06b6d4);
+}
+
+/* BENEFITS */
+
+.workforce-benefits-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 100px;
+  align-items: center;
+}
+
+.benefits-visual {
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(37, 99, 235, 0.2), transparent 40%),
+    #0b1220;
+}
+
+.benefits-panel {
+  width: 100%;
+  max-width: 400px;
+  padding: 45px;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(10px);
+}
+
+.panel-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #60a5fa;
+}
+
+.benefits-panel h3 {
+  margin: 25px 0 50px;
+  font-size: 38px;
+  line-height: 1.2;
+}
+
+.panel-stat {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.panel-stat strong {
+  font-size: 18px;
+}
+
+.panel-stat span {
+  margin-top: 5px;
+  color: #98a2b3;
+  font-size: 13px;
+}
+
+.benefits-content > p {
+  color: #667085;
+  line-height: 1.8;
+  font-size: 17px;
+  margin: 25px 0 35px;
+}
+
+.benefits-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #344054;
+  font-size: 14px;
+}
+
+.benefit-item svg {
+  flex-shrink: 0;
+  color: #2563eb;
+}
+
+/* PROCESS */
+
+.workforce-process {
+  background: #f8fafc;
+}
+
+.workforce-process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.process-step {
+  padding: 30px;
+  border: 1px solid #eaecf0;
+  border-radius: 18px;
+}
+
+.process-step > span {
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.process-step h3 {
+  margin: 25px 0 12px;
+  font-size: 21px;
+}
+
+.process-step p {
+  margin: 0;
+  color: #667085;
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+/* CTA */
+
+.workforce-final-cta {
+  padding: 100px 0;
+  background: #ffffff;
+}
+
+.workforce-cta-box {
+  position: relative;
+  padding: 100px 40px;
+  text-align: center;
+  border-radius: 30px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(37, 99, 235, 0.12), transparent 30%),
+    radial-gradient(circle at 80% 70%, rgba(6, 182, 212, 0.10), transparent 30%),
+    #f8fafc;
+  border: 1px solid #eaecf0;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 2;
+  max-width: 750px;
+  margin: auto;
+}
+
+.cta-content h2 {
+  margin: 0 0 20px;
+  font-size: clamp(38px, 5vw, 62px);
+  letter-spacing: -2px;
+}
+
+.cta-content p {
+  max-width: 650px;
+  margin: 0 auto 30px;
+  color: #667085;
+  line-height: 1.8;
+}
+
+.cta-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2563eb;
+  box-shadow: 0 0 20px rgba(37, 99, 235, 0.6);
+}
+
+.dot-one {
+  top: 25%;
+  left: 15%;
+}
+
+.dot-two {
+  top: 65%;
+  left: 8%;
+}
+
+.dot-three {
+  top: 20%;
+  right: 12%;
+}
+
+.dot-four {
+  bottom: 18%;
+  right: 18%;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1024px) {
+  .workforce-hero-inner,
+  .workforce-intro-grid,
+  .workforce-benefits-grid {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+
+  .workforce-hero {
+    padding: 100px 0;
+  }
+
+  .workforce-hero-visual {
+    height: 400px;
+  }
+
+  .workforce-services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .workforce-process-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 650px) {
+  .section-padding {
+    padding: 75px 0;
+  }
+
+  .workforce-hero-content h1 {
+    font-size: 48px;
+    letter-spacing: -2px;
+  }
+
+  .workforce-hero-content p {
+    font-size: 16px;
+  }
+
+  .workforce-hero-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .workforce-hero-visual {
+    height: 350px;
+  }
+
+  .orbit-one {
+    width: 280px;
+    height: 280px;
+  }
+
+  .orbit-two {
+    width: 210px;
+    height: 210px;
+  }
+
+  .workforce-icon-card {
+    width: 130px;
+    height: 130px;
+  }
+
+  .floating-card {
+    transform: scale(0.85);
+  }
+
+  .floating-card-one {
+    right: -15px;
+  }
+
+  .floating-card-two {
+    left: -15px;
+  }
+
+  .workforce-services-grid,
+  .workforce-process-grid,
+  .benefits-list {
+    grid-template-columns: 1fr;
+  }
+
+  .benefits-visual {
+    min-height: 400px;
+    padding: 20px;
+  }
+
+  .benefits-panel {
+    padding: 30px;
+  }
+
+  .workforce-cta-box {
+    padding: 75px 25px;
+  }
+}

@@ -72,16 +72,20 @@ const About = () => {
 
         <ContentWrapper>
           <div className="hero-badge fade-in-up">
-             <span className="badge-dot"></span> OUR MISSION
+            <span className="badge-dot"></span> ABOUT DNISPL
           </div>
+
           <h1 className="about-hero-title fade-in-up delay-1">
-            Empowering Digital Growth Through <br />
-            <span className="text-gradient">Innovation & Trust</span>
+            Building Reliable Technology
+            <br />
+            <span className="text-gradient">For a Connected Future</span>
           </h1>
+
           <p className="about-hero-description fade-in-up delay-2">
-            At DNISPL Infotech, we believe technology should be an enabler, not a hurdle. We are dedicated
-            to delivering human-centric, resilient, and scalable digital solutions that transform ambitious
-            ideas into market-leading products.
+            DNISPL is a technology and IT solutions company delivering reliable,
+            scalable, and business-focused solutions across IT infrastructure,
+            networking, managed services, software development, and digital
+            transformation.
           </p>
         </ContentWrapper>
       </section>
@@ -90,38 +94,39 @@ const About = () => {
       <section className="our-story-section">
         <ContentWrapper className="our-story-inner">
           <div className="our-story-left fade-in-up delay-2">
-            <h2 className="section-title">Our Story</h2>
+            <h2 className="section-title">Who We Are</h2>
             <p className="our-story-text">
-              Incorporated in 2022 and operational since 2023, DNISPL Infotech engineers reliable web,
-              mobile, network and AI solutions for Indian and global businesses. We operate with a
-              client-first mindset—clear communication, predictable delivery, and engineering
-              transparency.
+              DNISPL is committed to helping businesses build stronger technology
+              foundations and operate with greater efficiency. From IT infrastructure
+              and networking to software solutions and managed services, we combine
+              technical expertise, execution discipline, and customer-focused support
+              to deliver solutions that create measurable business value.
             </p>
 
             <div className="story-features-grid">
               <div className="story-feature glass-card-sm">
                 <div className="feature-icon-box">⚙️</div>
-                <div className="story-feature-text">End-to-End Dev</div>
+                <div className="story-feature-text">Reliable Solutions</div>
               </div>
               <div className="story-feature glass-card-sm">
                 <div className="feature-icon-box">🏗️</div>
-                <div className="story-feature-text">Agile Builds</div>
+                <div className="story-feature-text">Expert Execution</div>
               </div>
               <div className="story-feature glass-card-sm">
                 <div className="feature-icon-box">🧠</div>
-                <div className="story-feature-text">Expert Tech Stack</div>
+                <div className="story-feature-text">Scalable Technology</div>
               </div>
               <div className="story-feature glass-card-sm">
                 <div className="feature-icon-box">🚀</div>
-                <div className="story-feature-text">Enterprise Ready</div>
+                <div className="story-feature-text">Long-Term Support</div>
               </div>
             </div>
 
             <div className="story-locations">
               <div className="location-icon-pulse">📍</div>
               <div>
-                <p className="location-caption">Serving clients in</p>
-                <p className="location-places">India, UAE, USA, UK <span className="location-more">& more</span></p>
+                <p className="location-caption">Serving businesses across</p>
+                <p className="location-places">India & Global Markets</p>
               </div>
             </div>
           </div>
@@ -142,8 +147,8 @@ const About = () => {
       <section className="core-principles-section">
         <ContentWrapper>
           <div className="principles-header center-text">
-             <h2 className="section-title text-white">Our Core Principles</h2>
-             <p className="section-desc text-gray">The values that drive every line of code we write.</p>
+             <h2 className="section-title text-white">What Drives Us</h2>
+             <p className="section-desc text-gray">Our approach is built around technology, accountability, and long-term partnerships.</p>
           </div>
 
           <div className="principles-grid">
@@ -153,10 +158,10 @@ const About = () => {
                 <div className="icon-box-principle">💡</div>
               </div>
               <ul className="principle-list">
-                <li>Adopt emerging tech pragmatically</li>
-                <li>Run lightweight spikes & POCs</li>
-                <li>Continuously refactor for performance</li>
-                <li>Leverage AI copilots</li>
+                <li>Adopt practical and emerging technologies</li>
+                <li>Build solutions for real business needs</li>
+                <li>Focus on performance and scalability</li>
+                <li>Continuously improve our capabilities</li>
               </ul>
             </article>
 
@@ -166,10 +171,10 @@ const About = () => {
                 <div className="icon-box-principle">🤝</div>
               </div>
               <ul className="principle-list">
-                <li>Design with user empathy</li>
-                <li>Transparent communication</li>
-                <li>Business-hours support</li>
-                <li>Clear escalation paths</li>
+                <li>Understand business requirements deeply</li>
+                <li>Maintain clear and transparent communication</li>
+                <li>Deliver with quality and accountability</li>
+                <li>Build long-term client relationships</li>
               </ul>
             </article>
 
@@ -179,10 +184,10 @@ const About = () => {
                 <div className="icon-box-principle">👑</div>
               </div>
               <ul className="principle-list">
-                <li>Treat every project like our own</li>
-                <li>Proactive risk mitigation</li>
-                <li>Peer reviews & mentoring</li>
-                <li>Zero key-person risk</li>
+                <li>Take responsibility from planning to delivery</li>
+                <li>Proactively identify and solve challenges</li>
+                <li>Maintain high standards of execution</li>
+                <li>Stay accountable for business outcomes</li>
               </ul>
             </article>
           </div>
@@ -214,74 +219,83 @@ const About = () => {
             {/* Timeline Items */}
             <TimelineItem 
               side="left"
-              year="2017" yearClass="year-navy"
-              title="DNISPL is Formed"
-              desc="Commences business on 10th February, laying the foundation for network and IT solutions services."
+              year="2017"
+              title="DNISPL is Established"
+              desc="DNISPL began its journey with a vision to deliver dependable IT infrastructure, networking, and technology solutions for businesses."
               icon={Briefcase}
               delay={0}
             />
 
             <TimelineItem 
               side="right"
-              year="2018–19" yearClass="year-yellow"
-              title="Bags Major Orders"
-              desc="Delivered large network deployments and audits for enterprise clients across metro cities."
-              icon={Award}
+              year="2018"
+              title="Building Strong Foundations"
+              desc="Focused on strengthening technical capabilities and delivering reliable IT infrastructure and networking solutions to meet evolving business needs."
+              icon={Server}
               delay={0.1}
             />
 
             <TimelineItem 
               side="left"
-              year="2019–20" yearClass="year-red"
-              title="System Integrator"
-              desc="Executed multi-location projects with complex networking, cabling, and infrastructure roll-outs."
-              icon={Server}
+              year="2019"
+              title="Expanding Client Partnerships"
+              desc="Expanded our client network and strengthened long-term partnerships through consistent service delivery, technical expertise, and responsive support."
+              icon={Users}
               delay={0.2}
             />
 
             <TimelineItem 
               side="right"
-              year="2020–21" yearClass="year-blue"
-              title="DNISPL Network"
-              desc="Formalized DNISPL as a network-first solutions company, scaling remote operations and support."
-              icon={Globe}
+              year="2020"
+              title="Growing Technology Capabilities"
+              desc="Enhanced our technology capabilities and expanded our service offerings to support businesses with reliable and scalable IT solutions."
+              icon={Cpu}
               delay={0.3}
             />
 
             <TimelineItem 
               side="left"
-              year="2021–22" yearClass="year-teal"
-              title="New Verticals"
-              desc="Expanded into data-center networking, cloud connectivity, and security-led architectures."
-              icon={Zap}
+              year="2021"
+              title="Strengthening Our Services"
+              desc="Continued expanding our expertise across IT infrastructure, networking, managed services, and technology-driven business solutions."
+              icon={Globe}
               delay={0.4}
             />
 
             <TimelineItem 
               side="right"
-              year="2022–23" yearClass="year-dark-teal"
-              title="Tech Mahindra Project"
-              desc="200+ manpower deployed. Installation & Commissioning of 1.5MVA DG Set. AMC for Samsung, SBI Life, etc."
-              icon={Cpu}
+              year="2022"
+              title="Scaling Our Operations"
+              desc="Expanded our operational capabilities and strengthened our team to deliver larger and more complex technology and infrastructure projects."
+              icon={TrendingUp}
               delay={0.5}
             />
 
             <TimelineItem 
               side="left"
-              year="2023–24" yearClass="year-steel-blue"
-              title="Manpower Growth"
-              desc="Strength increased to over 450. Solutions for fintech firms. Expanded presence in Mumbai & Bangalore."
-              icon={Users}
+              year="2023"
+              title="Expanding Our Reach"
+              desc="Focused on delivering end-to-end technology solutions while building stronger client relationships and expanding our presence across key markets."
+              icon={Award}
               delay={0.6}
             />
 
             <TimelineItem 
               side="right"
-              year="Future" yearClass="year-navy"
-              title="Global Expansion"
-              desc="Continuing our rapid ascent with AI integration and global strategic partnerships."
-              icon={TrendingUp}
+              year="2024–25"
+              title="Driving Growth & Innovation"
+              desc="Continued to evolve with modern technologies, managed services, and scalable solutions designed to help businesses improve efficiency and stay future-ready."
+              icon={Zap}
               delay={0.7}
+            />
+
+            <TimelineItem 
+              side="left"
+              year="2026"
+              title="Building the Future"
+              desc="Moving forward with a focus on innovation, strategic partnerships, and scalable technology solutions that create lasting value for our clients."
+              icon={TrendingUp}
+              delay={0.8}
             />
 
           </div>
@@ -303,20 +317,20 @@ const About = () => {
 
           <div className="stats-grid">
             <div className="stat-card">
-              <h3 className="stat-value">200+</h3>
-              <p className="stat-label">Projects Delivered</p>
+              <h3 className="stat-value">End-to-End</h3>
+              <p className="stat-label">Technology Solutions</p>
             </div>
             <div className="stat-card">
-              <h3 className="stat-value">8+</h3>
-              <p className="stat-label">Client Countries</p>
+              <h3 className="stat-value">24/7</h3>
+              <p className="stat-label">Operational Support</p>
             </div>
             <div className="stat-card">
-              <h3 className="stat-value">98%</h3>
-              <p className="stat-label">Retention Rate</p>
+              <h3 className="stat-value">Multi-Industry</h3>
+              <p className="stat-label">Domain Experience</p>
             </div>
             <div className="stat-card">
-              <h3 className="stat-value">5.0<span>★</span></h3>
-              <p className="stat-label">Average Rating</p>
+              <h3 className="stat-value">Long-Term</h3>
+              <p className="stat-label">Client Partnerships</p>
             </div>
           </div>
         </ContentWrapper>
@@ -326,9 +340,11 @@ const About = () => {
       <section className="life-at-section">
         <ContentWrapper className="life-at-inner">
           <div className="life-left">
-            <h2 className="section-title">Discover Life at <span className="text-gradient-blue">DNISPL</span></h2>
+            <h2 className="section-title">Life at <span className="text-gradient-blue">DNISPL</span></h2>
             <p className="life-desc">
-              At Dnispl, innovation meets purpose. We empower every team member to grow, collaborate, and thrive.
+              We believe great technology is built by great teams. At DNISPL, we
+              encourage collaboration, continuous learning, ownership, and a shared
+              commitment to delivering meaningful outcomes for our clients.
             </p>
             
           </div>
@@ -356,16 +372,33 @@ const About = () => {
 
     
       <section className="final-cta-section">
-        <div className="cta-content">
-          <h2 className="final-cta-title">Excited to Start?</h2>
-          <p className="final-cta-subtitle">
-            Contact us directly at <span className="cta-email" style={{textDecoration:'underline'}}>account@dnispl.com</span>
-          </p>
-          <div className="final-cta-actions">
-            <Link to="/form" className="btn btn-white">Contact Now</Link>
-            
+        <ContentWrapper className="final-cta-inner">
+          <div className="cta-box-gradient">
+              <div className="cta-dots cta-dots-left"></div>
+              <div className="cta-dots cta-dots-right"></div>
+            <h2 className="final-cta-title">
+              Let's Build Something
+              <span className="text-gradient-blue"> Better Together.</span>
+            </h2>
+
+            <p className="final-cta-subtitle">
+              Have a technology challenge or a project in mind?
+              Let's discuss how DNISPL can help your business build,
+              scale, and operate with confidence.
+              <br />
+              Contact us at{" "}
+              <a href="mailto:accounts@dnispl.com">
+                accounts@dnispl.com
+              </a>
+            </p>
+
+            <div className="final-cta-actions">
+              <Link to="/form" className="btn btn-solid">
+                Contact Us
+              </Link>
+            </div>
           </div>
-        </div>
+        </ContentWrapper>
       </section>
       
       <Footer/>

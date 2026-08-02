@@ -4,13 +4,11 @@ import Home from './Components/home/Home';
 import Career from './Components/Careers/Career';
 import About from './Components/About/About'; 
 import Leadership from './Components/Leadership/Leadership';
-import Work from "./Components/Work/Work";
-// import SD from "./Components/Services/SD";
-import AP from "./Components/Services/AP";
-import HPD from "./Components/Services/HPD";
-import RC from "./Components/Services/RC";
-import WO from "./Components/Services/WO";
-import DC from "./Components/Services/DC";
+import Work from './Components/Work/Work';
+import ManagedServices from './Components/Services/ManagedServices/ManagedServices';
+import ProfessionalServices from './Components/Services/ProfessionalServices/ProfessionalServices';
+import TechnicalSupport from './Components/Services/TechnicalSupport/TechnicalSupport';
+import WorkforceSolutions from './Components/Services/WorkforceSolutions/WorkforceSolutions';
 import Portfolio from './Components/Portfolio/Portfolio';
 import Form from "./Components/Contact/Form";
 import BlogPage from './Components/Blog/Blog';
@@ -19,7 +17,6 @@ import Dashboard from "./Components/Admin/Dashboard/Dashboard";
 import Contacts from "./Components/Admin/Contacts/Contacts";
 import Jobs from "./Components/Admin/Jobs/Jobs";
 import Applications from "./Components/Admin/Applications/Application";
-// import Blogs from "./Components/Admin/Blogs/Blogs";
 import ProtectedRoute from "./Components/Admin/ProtectedRoute/ProtectedRoute";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SiteExperience from './Components/SiteExperience/SiteExperience';
@@ -39,12 +36,11 @@ function App() {
         
         <Route path="/leadership" element={<Leadership />} />
         <Route path="/work" element={<Work />} />
-        {/* <Route path="/software-development" element={<SD />} /> */}
-        <Route path="/network-implementation" element={<AP />} />
-        <Route path="/workforce-outsourcing" element={<WO />} />
-        <Route path="/business-solutions" element={<HPD />} />
-        <Route path="/regulatory-compliance" element={<RC />} />
-        <Route path="/dc-passive-work" element={<DC />} />
+        <Route path="/services/managed" element={<ManagedServices />} />
+        <Route path="/services/professional" element={<ProfessionalServices />} />
+        <Route path="/services/technical" element={<TechnicalSupport />} />
+
+        <Route path="/services/workforce-solutions" element={<WorkforceSolutions />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/form" element={<Form />} />
         <Route path="/portfolio" element={<Portfolio />} /> 

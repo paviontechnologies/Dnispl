@@ -74,11 +74,6 @@
   .career-container,
   .contact-page,
   .blog-wrapper,
-  .ap-page-container,
-  .wo-page-container,
-  .hpd-page-container,
-  .rc-page-container,
-  .dc-page-container
 ) {
   background: transparent;
 }
@@ -93,20 +88,10 @@
   .blog-card,
   .contact-details-box,
   .contact-form-section,
-  .ap-glass-card,
-  .ap-process-card,
-  .wo-glass-card,
-  .wo-process-card,
-  .hpd-glass-card,
-  .hpd-tech-card,
-  .hpd-process-card,
-  .rc-glass-card,
-  .rc-process-card,
-  .dc-glass-card,
-  .dc-process-card,
   .project-card,
-  .executive-card
-) {
+  .executive-card,
+  .portfolio-card,
+  .portfolio-card-content,) {
   background: linear-gradient(145deg, rgba(20, 28, 32, 0.76), rgba(7, 10, 12, 0.64));
   border-color: var(--line-glass);
   box-shadow: 0 22px 60px rgba(0, 0, 0, 0.28), inset 0 1px rgba(255, 255, 255, 0.08);
@@ -121,14 +106,8 @@
   .principle-card,
   .stat-card,
   .blog-card,
-  .ap-glass-card,
-  .wo-glass-card,
-  .hpd-glass-card,
-  .hpd-tech-card,
-  .rc-glass-card,
-  .dc-glass-card,
   .project-card,
-  .executive-card
+  .executive-card,
 ):hover {
   border-color: rgba(0, 226, 245, 0.48);
   box-shadow: 0 28px 70px rgba(0, 0, 0, 0.38), 0 0 34px rgba(0, 226, 245, 0.09);
@@ -141,6 +120,1118 @@
 
 .site-experience :is(input, textarea, select) {
   backdrop-filter: blur(12px);
+}
+
+/* =========================================
+   MANAGED SERVICES - THEME OVERRIDE
+   Must be placed AFTER global site-experience CSS
+========================================= */
+
+.site-experience .managed-services-page {
+  background: transparent !important;
+  color: #ffffff;
+}
+
+/* Managed Services Cards */
+.site-experience .managed-services-page .managed-service-card {
+  position: relative;
+  padding: 32px;
+  min-height: 300px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(20, 28, 32, 0.76),
+      rgba(7, 10, 12, 0.64)
+    ) !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.13) !important;
+  border-radius: 12px;
+
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.28),
+    inset 0 1px rgba(255, 255, 255, 0.08) !important;
+
+  backdrop-filter: blur(22px) saturate(130%);
+  -webkit-backdrop-filter: blur(22px) saturate(130%);
+
+  transform-style: preserve-3d;
+  transition: all 0.35s ease;
+  overflow: hidden;
+}
+
+/* Top Electric Blue Line */
+.site-experience .managed-services-page .managed-service-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #00e2f5,
+    #1677ff,
+    transparent
+  );
+
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+/* Hover */
+.site-experience .managed-services-page .managed-service-card:hover {
+  transform: translateY(-8px);
+
+  border-color: rgba(0, 226, 245, 0.48) !important;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(25, 36, 42, 0.88),
+      rgba(7, 12, 16, 0.78)
+    ) !important;
+
+  box-shadow:
+    0 28px 70px rgba(0, 0, 0, 0.38),
+    0 0 34px rgba(0, 226, 245, 0.09) !important;
+}
+
+.site-experience .managed-services-page .managed-service-card:hover::before {
+  opacity: 1;
+}
+
+
+/* Card Top */
+.site-experience .managed-services-page .managed-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+/* Card Number */
+.site-experience .managed-services-page .managed-card-number {
+  color: rgba(255, 255, 255, 0.38);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+
+/* Card Icon */
+.site-experience .managed-services-page .managed-card-icon {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #00e2f5;
+
+  background: rgba(0, 226, 245, 0.08);
+  border: 1px solid rgba(0, 226, 245, 0.16);
+
+  border-radius: 10px;
+
+  transition: all 0.3s ease;
+}
+
+.site-experience
+.managed-services-page
+.managed-service-card:hover
+.managed-card-icon {
+  color: #c4f017;
+  background: rgba(196, 240, 23, 0.08);
+  border-color: rgba(196, 240, 23, 0.25);
+  box-shadow: 0 0 25px rgba(196, 240, 23, 0.08);
+}
+
+
+/* Card Heading */
+.site-experience .managed-services-page .managed-service-card h3 {
+  margin: 32px 0 12px;
+
+  font-size: 21px;
+  color: #ffffff;
+}
+
+
+/* Card Description */
+.site-experience .managed-services-page .managed-service-card p {
+  color: rgba(255, 255, 255, 0.58);
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+
+/* Card Link */
+.site-experience .managed-services-page .managed-service-card a {
+  position: absolute;
+  left: 32px;
+  bottom: 28px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #00e2f5;
+  text-decoration: none;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  transition: all 0.3s ease;
+}
+
+.site-experience
+.managed-services-page
+.managed-service-card
+a:hover {
+  color: #c4f017;
+  gap: 12px;
+}
+
+
+/* =========================================
+   MANAGED SERVICES HERO
+========================================= */
+
+.site-experience .managed-services-page .managed-hero {
+  background: transparent !important;
+}
+
+
+/* =========================================
+   MANAGED SERVICES SECTIONS
+========================================= */
+
+.site-experience .managed-services-page .managed-intro,
+.site-experience .managed-services-page .managed-services-section,
+.site-experience .managed-services-page .managed-support,
+.site-experience .managed-services-page .managed-process,
+.site-experience .managed-services-page .managed-final-cta {
+  background: transparent !important;
+}
+
+
+/* =========================================
+   MANAGED SERVICES PROCESS CARDS
+========================================= */
+
+.site-experience .managed-services-page .managed-process-card {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(20, 28, 32, 0.76),
+      rgba(7, 10, 12, 0.64)
+    ) !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.13);
+
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.28),
+    inset 0 1px rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+.site-experience .managed-services-page .managed-process-card:hover {
+  border-color: rgba(0, 226, 245, 0.48);
+
+  box-shadow:
+    0 28px 70px rgba(0, 0, 0, 0.38),
+    0 0 34px rgba(0, 226, 245, 0.09);
+}
+
+
+/* =========================================
+   MANAGED SERVICES SUPPORT VISUAL
+========================================= */
+
+.site-experience .managed-services-page .managed-support-visual {
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(0, 226, 245, 0.08),
+      transparent 55%
+    ),
+    rgba(10, 15, 18, 0.50) !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.28),
+    inset 0 1px rgba(255, 255, 255, 0.06);
+}
+
+
+/* =========================================
+   MANAGED SERVICES FLOATING CARDS
+========================================= */
+
+.site-experience .managed-services-page .support-floating-card {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(20, 28, 32, 0.85),
+      rgba(7, 10, 12, 0.75)
+    ) !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.13);
+
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.35);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+
+/* =========================================
+   CTA BOX
+========================================= */
+
+.site-experience .managed-services-page .managed-cta-box {
+  background:
+    radial-gradient(
+      circle at 20% 30%,
+      rgba(0, 226, 245, 0.10),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(196, 240, 23, 0.06),
+      transparent 30%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(20, 28, 32, 0.76),
+      rgba(7, 10, 12, 0.64)
+    ) !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.13);
+
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.28),
+    inset 0 1px rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+
+/* =========================================
+   MANAGED SERVICES TEXT
+========================================= */
+
+.site-experience .managed-services-page h1,
+.site-experience .managed-services-page h2,
+.site-experience .managed-services-page h3 {
+  color: #ffffff;
+}
+
+.site-experience .managed-services-page p {
+  color: rgba(255, 255, 255, 0.58);
+}
+
+
+/* Gradient Highlight */
+.site-experience .managed-services-page h1 span,
+.site-experience .managed-services-page h2 span {
+  background: linear-gradient(
+    90deg,
+    #ffffff,
+    #00e2f5,
+    #00a8ff
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* =========================================
+   MANAGED SERVICES BUTTONS
+========================================= */
+
+.site-experience .managed-services-page .managed-primary-btn {
+  color: #050709;
+
+  background: linear-gradient(
+    90deg,
+    #c4f017,
+    #00e2f5
+  );
+
+  border: none;
+
+  box-shadow:
+    0 10px 35px rgba(0, 226, 245, 0.20);
+}
+
+.site-experience .managed-services-page .managed-primary-btn:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 15px 45px rgba(0, 226, 245, 0.30);
+}
+
+.site-experience .managed-services-page .managed-secondary-btn {
+  color: #ffffff;
+
+  background: rgba(255, 255, 255, 0.04);
+
+  border: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+.site-experience .managed-services-page .managed-secondary-btn:hover {
+  color: #00e2f5;
+
+  border-color: rgba(0, 226, 245, 0.45);
+
+  background: rgba(0, 226, 245, 0.05);
+}
+
+
+/* =========================================================
+   DNISPL SERVICE PAGES
+   PROFESSIONAL SERVICES
+   TECHNICAL SUPPORT
+   WORKFORCE SOLUTIONS
+========================================================= */
+
+
+/* =========================================================
+   COMMON SERVICE PAGE BACKGROUND
+========================================================= */
+
+.site-experience :is(
+  .professional-services-page,
+  .technical-support-page,
+  .workforce-page
+) {
+  background: transparent !important;
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   COMMON SECTION BACKGROUNDS
+========================================================= */
+
+.site-experience :is(
+  .professional-services-page,
+  .technical-support-page,
+  .workforce-page
+) :is(
+  .professional-hero,
+  .professional-intro,
+  .professional-services-section,
+  .professional-support,
+  .professional-process,
+  .professional-final-cta,
+
+  .technical-hero,
+  .technical-intro,
+  .technical-services-section,
+  .technical-support-section,
+  .technical-process,
+  .technical-final-cta,
+
+  .workforce-hero,
+  .workforce-intro,
+  .workforce-solutions-section,
+  .workforce-support,
+  .workforce-process,
+  .workforce-final-cta
+) {
+  background: transparent !important;
+}
+
+
+/* =========================================================
+   PROFESSIONAL SERVICES CARDS
+========================================================= */
+
+.site-experience .professional-service-card {
+  position: relative;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(20, 28, 32, 0.76),
+      rgba(7, 10, 12, 0.64)
+    ) !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.13) !important;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.28),
+    inset 0 1px rgba(255, 255, 255, 0.08) !important;
+
+  backdrop-filter: blur(22px) saturate(130%);
+  -webkit-backdrop-filter: blur(22px) saturate(130%);
+
+  transition: all 0.35s ease;
+  overflow: hidden;
+}
+
+
+/* Professional Card Top Line */
+
+.site-experience .professional-service-card::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 2px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #00e2f5,
+      #1677ff,
+      transparent
+    );
+
+  opacity: 0;
+
+  transition: opacity 0.35s ease;
+}
+
+
+/* Professional Hover */
+
+.site-experience .professional-service-card:hover {
+ transform: translateY(-8px);
+
+  border-color: rgba(0, 226, 245, 0.48) !important;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(25, 36, 42, 0.88),
+      rgba(7, 12, 16, 0.78)
+    ) !important;
+
+  box-shadow:
+    0 28px 70px rgba(0, 0, 0, 0.38),
+    0 0 34px rgba(0, 226, 245, 0.09) !important;
+}
+
+.site-experience
+.professional-service-card:hover::before {
+  opacity: 1;
+}
+
+
+/* Professional Icon */
+
+.site-experience .professional-service-card
+.professional-card-icon {
+  color: #00e2f5;
+
+  background:
+    rgba(0, 226, 245, 0.08);
+
+  border:
+    1px solid rgba(0, 226, 245, 0.16);
+
+  transition: all 0.3s ease;
+}
+
+.site-experience .professional-service-card:hover
+.professional-card-icon {
+  color: #c4f017;
+
+  background:
+    rgba(196, 240, 23, 0.08);
+
+  border-color:
+    rgba(196, 240, 23, 0.25);
+
+  box-shadow:
+    0 0 25px rgba(196, 240, 23, 0.08);
+}
+
+
+/* Professional Text */
+
+.site-experience .professional-service-card h3 {
+  color: #ffffff;
+}
+
+.site-experience .professional-service-card p {
+  color: rgba(255, 255, 255, 0.58);
+}
+
+
+/* Professional Links */
+
+.site-experience .professional-service-card a {
+  color: #00e2f5;
+
+  transition:
+    color 0.3s ease,
+    gap 0.3s ease;
+}
+
+.site-experience .professional-service-card a:hover {
+  color: #c4f017;
+}
+
+
+/* =========================================================
+   TECHNICAL SUPPORT CARDS
+========================================================= */
+
+.site-experience .technical-support-card {
+  position: relative;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(20, 28, 32, 0.76),
+      rgba(7, 10, 12, 0.64)
+    ) !important;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.13) !important;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.28),
+    inset 0 1px rgba(255, 255, 255, 0.08) !important;
+
+  backdrop-filter:
+    blur(22px) saturate(130%);
+
+  -webkit-backdrop-filter:
+    blur(22px) saturate(130%);
+
+  transition:
+    all 0.35s ease;
+
+  overflow: hidden;
+}
+
+
+/* Technical Top Line */
+
+.site-experience .technical-support-card::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 2px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #00e2f5,
+      #1677ff,
+      transparent
+    );
+
+  opacity: 0;
+
+  transition:
+    opacity 0.35s ease;
+}
+
+
+/* Technical Hover */
+
+.site-experience .technical-support-card:hover {
+  transform:
+    translateY(-8px);
+
+  border-color:
+    rgba(0, 226, 245, 0.48) !important;
+
+  box-shadow:
+    0 28px 70px rgba(0, 0, 0, 0.38),
+    0 0 34px rgba(0, 226, 245, 0.09) !important;
+}
+
+.site-experience
+.technical-support-card:hover::before {
+  opacity: 1;
+}
+
+
+/* Technical Icon */
+
+.site-experience .technical-support-card
+.technical-card-icon {
+  color: #00e2f5;
+
+  background:
+    rgba(0, 226, 245, 0.08);
+
+  border:
+    1px solid rgba(0, 226, 245, 0.16);
+}
+
+.site-experience .technical-support-card:hover
+.technical-card-icon {
+  color: #c4f017;
+
+  background:
+    rgba(196, 240, 23, 0.08);
+
+  border-color:
+    rgba(196, 240, 23, 0.25);
+}
+
+
+/* Technical Text */
+
+.site-experience .technical-support-card h3 {
+  color: #ffffff;
+}
+
+.site-experience .technical-support-card p {
+  color:
+    rgba(255, 255, 255, 0.58);
+}
+
+
+/* =========================================================
+   WORKFORCE SOLUTIONS CARDS
+========================================================= */
+
+.site-experience .workforce-solution-card {
+  position: relative;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(20, 28, 32, 0.76),
+      rgba(7, 10, 12, 0.64)
+    ) !important;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.13) !important;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.28),
+    inset 0 1px rgba(255, 255, 255, 0.08) !important;
+
+  backdrop-filter:
+    blur(22px) saturate(130%);
+
+  -webkit-backdrop-filter:
+    blur(22px) saturate(130%);
+
+  transition:
+    all 0.35s ease;
+
+  overflow: hidden;
+}
+
+
+/* Workforce Top Line */
+
+.site-experience .workforce-solution-card::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 2px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #00e2f5,
+      #1677ff,
+      transparent
+    );
+
+  opacity: 0;
+
+  transition:
+    opacity 0.35s ease;
+}
+
+
+/* Workforce Hover */
+
+.site-experience .workforce-solution-card:hover {
+  transform:
+    translateY(-8px);
+
+  border-color:
+    rgba(0, 226, 245, 0.48) !important;
+
+  box-shadow:
+    0 28px 70px rgba(0, 0, 0, 0.38),
+    0 0 34px rgba(0, 226, 245, 0.09) !important;
+}
+
+.site-experience
+.workforce-solution-card:hover::before {
+  opacity: 1;
+}
+
+
+/* Workforce Icon */
+
+.site-experience .workforce-solution-card
+.workforce-card-icon {
+  color: #00e2f5;
+
+  background:
+    rgba(0, 226, 245, 0.08);
+
+  border:
+    1px solid rgba(0, 226, 245, 0.16);
+}
+
+.site-experience .workforce-solution-card:hover
+.workforce-card-icon {
+  color: #c4f017;
+
+  background:
+    rgba(196, 240, 23, 0.08);
+
+  border-color:
+    rgba(196, 240, 23, 0.25);
+}
+
+
+/* Workforce Text */
+
+.site-experience .workforce-solution-card h3 {
+  color: #ffffff;
+}
+
+.site-experience .workforce-solution-card p {
+  color:
+    rgba(255, 255, 255, 0.58);
+}
+
+
+/* =========================================================
+   COMMON SERVICE PAGE HEADINGS
+========================================================= */
+
+.site-experience :is(
+  .professional-services-page,
+  .technical-support-page,
+  .workforce-page
+) h1,
+.site-experience :is(
+  .professional-services-page,
+  .technical-support-page,
+  .workforce-page
+) h2,
+.site-experience :is(
+  .professional-services-page,
+  .technical-support-page,
+  .workforce-page
+) h3 {
+  color: #ffffff;
+}
+
+
+/* Gradient Headings */
+
+.site-experience :is(
+  .professional-services-page,
+  .technical-support-page,
+  .workforce-page
+) h1 span,
+.site-experience :is(
+  .professional-services-page,
+  .technical-support-page,
+  .workforce-page
+) h2 span {
+  background:
+    linear-gradient(
+      90deg,
+      #ffffff,
+      #00e2f5,
+      #00a8ff
+    );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+/* Paragraphs */
+
+.site-experience :is(
+  .professional-services-page,
+  .technical-support-page,
+  .workforce-page
+) p {
+  color:
+    rgba(255, 255, 255, 0.58);
+}
+
+
+/* =========================================================
+   COMMON SERVICE PROCESS CARDS
+========================================================= */
+
+.site-experience :is(
+  .professional-services-page,
+  .technical-support-page,
+  .workforce-page
+) :is(
+  .professional-process-card,
+  .technical-process-card,
+  .workforce-process-card
+) {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(20, 28, 32, 0.76),
+      rgba(7, 10, 12, 0.64)
+    ) !important;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.13);
+
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.28),
+    inset 0 1px rgba(255, 255, 255, 0.08);
+
+  backdrop-filter:
+    blur(22px);
+
+  -webkit-backdrop-filter:
+    blur(22px);
+
+  transition:
+    all 0.35s ease;
+}
+
+.site-experience :is(
+  .professional-process-card,
+  .technical-process-card,
+  .workforce-process-card
+):hover {
+  transform:
+    translateY(-6px);
+
+  border-color:
+    rgba(0, 226, 245, 0.40);
+
+  box-shadow:
+    0 28px 70px rgba(0, 0, 0, 0.38),
+    0 0 30px rgba(0, 226, 245, 0.08);
+}
+
+
+/* =========================================================
+   COMMON SERVICE VISUAL PANELS
+========================================================= */
+
+.site-experience :is(
+  .professional-services-page,
+  .technical-support-page,
+  .workforce-page
+) :is(
+  .professional-support-visual,
+  .technical-support-visual,
+  .workforce-support-visual
+) {
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(0, 226, 245, 0.08),
+      transparent 55%
+    ),
+    rgba(10, 15, 18, 0.50) !important;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.10);
+
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.28),
+    inset 0 1px rgba(255, 255, 255, 0.06);
+
+  backdrop-filter:
+    blur(16px);
+}
+
+
+/* =========================================================
+   COMMON FLOATING CARDS
+========================================================= */
+
+.site-experience :is(
+  .professional-services-page,
+  .technical-support-page,
+  .workforce-page
+) .support-floating-card {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(20, 28, 32, 0.85),
+      rgba(7, 10, 12, 0.75)
+    ) !important;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.13);
+
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.35);
+
+  backdrop-filter:
+    blur(18px);
+
+  -webkit-backdrop-filter:
+    blur(18px);
+}
+
+
+/* =========================================================
+   COMMON CTA
+========================================================= */
+
+.site-experience :is(
+  .professional-services-page,
+  .technical-support-page,
+  .workforce-page
+) :is(
+  .professional-cta-box,
+  .technical-cta-box,
+  .workforce-cta-box
+) {
+  background:
+    radial-gradient(
+      circle at 20% 30%,
+      rgba(0, 226, 245, 0.10),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(196, 240, 23, 0.06),
+      transparent 30%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(20, 28, 32, 0.76),
+      rgba(7, 10, 12, 0.64)
+    ) !important;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.13);
+
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.28),
+    inset 0 1px rgba(255, 255, 255, 0.08);
+
+  backdrop-filter:
+    blur(22px);
+}
+
+
+/* =========================================================
+   COMMON BUTTONS
+========================================================= */
+
+.site-experience :is(
+  .professional-services-page,
+  .technical-support-page,
+  .workforce-page
+) .managed-primary-btn,
+.site-experience :is(
+  .professional-services-page,
+  .technical-support-page,
+  .workforce-page
+) .professional-primary-btn,
+.site-experience :is(
+  .professional-services-page,
+  .technical-support-page,
+  .workforce-page
+) .technical-primary-btn,
+.site-experience :is(
+  .professional-services-page,
+  .technical-support-page,
+  .workforce-page
+) .workforce-primary-btn {
+  color: #050709;
+
+  background:
+    linear-gradient(
+      90deg,
+      #c4f017,
+      #00e2f5
+    );
+
+  border: none;
+
+  box-shadow:
+    0 10px 35px rgba(0, 226, 245, 0.20);
+
+  transition:
+    all 0.3s ease;
+}
+
+.site-experience :is(
+  .professional-services-page,
+  .technical-support-page,
+  .workforce-page
+) :is(
+  .managed-primary-btn,
+  .professional-primary-btn,
+  .technical-primary-btn,
+  .workforce-primary-btn
+):hover {
+  transform:
+    translateY(-3px);
+
+  box-shadow:
+    0 15px 45px rgba(0, 226, 245, 0.30);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .site-experience :is(
+    .professional-service-card,
+    .technical-support-card,
+    .workforce-solution-card
+  ) {
+    border-radius: 10px;
+  }
+
+  .site-experience :is(
+    .professional-service-card,
+    .technical-support-card,
+    .workforce-solution-card
+  ):hover {
+    transform:
+      translateY(-4px);
+  }
 }
 
 @media (max-width: 800px) {
