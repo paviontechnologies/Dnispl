@@ -4,6 +4,13 @@ import Home from './Components/home/Home';
 import Career from './Components/Careers/Career';
 import About from './Components/About/About';
 import Leadership from './Components/Leadership/Leadership';
+<<<<<<< HEAD
+import Work from './Components/Work/Work';
+import ManagedServices from './Components/Services/ManagedServices/ManagedServices';
+import ProfessionalServices from './Components/Services/ProfessionalServices/ProfessionalServices';
+import TechnicalSupport from './Components/Services/TechnicalSupport/TechnicalSupport';
+import WorkforceSolutions from './Components/Services/WorkforceSolutions/WorkforceSolutions';
+=======
 import Work from "./Components/Work/Work";
 import SD from "./Components/Services/SD";
 import AP from "./Components/Services/AP";
@@ -11,6 +18,7 @@ import HPD from "./Components/Services/HPD";
 import RC from "./Components/Services/RC";
 import WO from "./Components/Services/WO";
 import DC from "./Components/Services/DC";
+>>>>>>> b9d58bf141ed5a6e141dfcf9e4c8fb380e9086dd
 import Portfolio from './Components/Portfolio/Portfolio';
 import Industries from './Components/Industries/Industries';
 import IndustryDetail from './Components/Industries/IndustryDetail';
@@ -22,7 +30,10 @@ import Dashboard from "./Components/Admin/Dashboard/Dashboard";
 import Contacts from "./Components/Admin/Contacts/Contacts";
 import Jobs from "./Components/Admin/Jobs/Jobs";
 import Applications from "./Components/Admin/Applications/Application";
+<<<<<<< HEAD
+=======
 import Blogs from "./Components/Admin/Blogs/Blogs";
+>>>>>>> b9d58bf141ed5a6e141dfcf9e4c8fb380e9086dd
 import ProtectedRoute from "./Components/Admin/ProtectedRoute/ProtectedRoute";
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import SiteExperience from './Components/SiteExperience/SiteExperience';
@@ -42,12 +53,20 @@ function App() {
 
         <Route path="/leadership" element={<Leadership />} />
         <Route path="/work" element={<Work />} />
+<<<<<<< HEAD
+        <Route path="/services/managed" element={<ManagedServices />} />
+        <Route path="/services/professional" element={<ProfessionalServices />} />
+        <Route path="/services/technical" element={<TechnicalSupport />} />
+
+        <Route path="/services/workforce-solutions" element={<WorkforceSolutions />} />
+=======
         <Route path="/software-development" element={<SD />} />
         <Route path="/network-implementation" element={<AP />} />
         <Route path="/workforce-outsourcing" element={<WO />} />
         <Route path="/business-solutions" element={<HPD />} />
         <Route path="/regulatory-compliance" element={<RC />} />
         <Route path="/dc-passive-work" element={<DC />} />
+>>>>>>> b9d58bf141ed5a6e141dfcf9e4c8fb380e9086dd
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:id" element={<BlogPost />} />
         <Route path="/form" element={<Form />} />

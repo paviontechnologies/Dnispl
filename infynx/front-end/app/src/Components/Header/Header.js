@@ -18,11 +18,38 @@ const solutionItems = [
 ];
 
 const serviceItems = [
+<<<<<<< HEAD
+  {
+    to: '/services/managed',
+    icon: Wrench,
+    title: 'Managed Services',
+    desc: 'NOC, managed network, AMC and FMS'
+  },
+  {
+    to: '/services/professional',
+    icon: Network,
+    title: 'Professional Services',
+    desc: 'Audits, deployment and project management'
+  },
+  {
+    to: '/services/technical',
+    icon: ShieldCheck,
+    title: 'Technical Support',
+    desc: 'L1, L2, L3 and SME services'
+  },
+  {
+    to: '/services/workforce-solutions',
+    icon: Users,
+    title: 'Workforce Solutions',
+    desc: 'Technical staffing and field engineers'
+  },
+=======
   { to: '/workforce-outsourcing', icon: Wrench, title: 'Managed Services', desc: 'NOC, managed network, AMC and FMS' },
   { to: '/work', icon: Network, title: 'Professional Services', desc: 'Audits, deployment and project management' },
   { to: '/network-implementation', icon: ShieldCheck, title: 'Technical Support', desc: 'L1, L2, L3 and SME services' },
   { to: '/software-development', icon: Code2, title: 'Software Development', desc: 'Custom platforms, APIs and integrations' },
   { to: '/careers', icon: Users, title: 'Workforce Solutions', desc: 'Technical staffing and field engineers' },
+>>>>>>> b9d58bf141ed5a6e141dfcf9e4c8fb380e9086dd
 ];
 
 /**
@@ -218,7 +245,7 @@ const Header = () => {
               )}
             </div>
 
-            <NavLink to="/portfolio" className="nav-link" onClick={closeMenuAndNavigate}>Case Studies</NavLink>
+            <NavLink to="/portfolio" className="nav-link" onClick={closeMenuAndNavigate}>Portfolio</NavLink>
 
             {/* ABOUT DROPDOWN */}
             <div
