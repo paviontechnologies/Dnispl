@@ -230,14 +230,14 @@ const Home = () => {
               transition={{ duration: 1, delay: 1.2 }}
               className="hero-stats"
             >
-              <div className="stat-item glass-pill">
+              <Link to="/active-locations" className="stat-item glass-pill">
                 <span className="check-icon">🏢</span>
                 <p><strong>100+</strong> Active Locations</p>
-              </div>
-              <div className="stat-item glass-pill">
+              </Link>
+              <Link to="/sparing-warehouses" className="stat-item glass-pill">
                 <span className="check-icon">📦</span>
                 <p><strong>18</strong> Sparing Warehouses</p>
-              </div>
+              </Link>
             </motion.div>
           </div>
         </div>

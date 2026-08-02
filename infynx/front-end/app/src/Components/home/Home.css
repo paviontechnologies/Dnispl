@@ -425,9 +425,11 @@ ye iska css h
   font-size: 15px;
   color: #fff;
   transition: 400ms var(--cube-1);
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.hero-stats .glass-pill:hover { border-color: var(--pr-hover-border); }
+.hero-stats .glass-pill:hover { border-color: var(--pr-hover-border); transform: translateY(-2px); }
 .hero-stats .glass-pill:hover .check-icon { animation: wobble-vertical 1s ease-in-out; }
 
 .hero-stats .check-icon { display: inline-block; font-size: 20px; }

@@ -32,6 +32,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import SiteExperience from './Components/SiteExperience/SiteExperience';
 import { InfoPage, NotFound } from './Components/InfoPage/InfoPage';
 import IndustryPage from './Components/Industries/IndustryPage';
+import ActiveLocations from './Components/Locations/ActiveLocations';
+import SparingWarehouses from './Components/Locations/SparingWarehouses';
 
 function App() {
   return (
@@ -64,6 +66,8 @@ function App() {
           <Route path="/privacy" element={<InfoPage type="privacy" />} />
           <Route path="/terms" element={<InfoPage type="terms" />} />
           <Route path="/cookies" element={<InfoPage type="cookies" />} />
+          <Route path="/active-locations" element={<ActiveLocations />} />
+          <Route path="/sparing-warehouses" element={<SparingWarehouses />} />
 
           <Route path="/admin/login" element={<Login />} />
           {/* Bare /admin used to 404 even though the sidebar linked to it */}
