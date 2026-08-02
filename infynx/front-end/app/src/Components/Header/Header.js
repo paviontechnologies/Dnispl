@@ -3,14 +3,14 @@ import { Link, NavLink } from 'react-router-dom';
 import {
   ArrowRight, Building2, ChevronDown, Cloud, Code2, Database, Factory,
   GraduationCap, HeartPulse, Landmark, Menu, Network, RadioTower,
-  ShieldCheck, ShoppingBag, Truck, Users, Wrench, X
+  ShieldCheck, ShoppingBag, Truck, Wrench, X
 } from 'lucide-react';
 import './Header.css';
 import Logo from '../Images/logo.png';
 
 const solutionItems = [
   { to: '/network-implementation', icon: Network, title: 'Enterprise Networking', desc: 'Active and passive networking' },
-  { to: '/workforce-outsourcing', icon: Users, title: 'Managed Services', desc: 'Ongoing IT support and management' },
+  // { to: '/workforce-outsourcing', icon: Users, title: 'Managed Services', desc: 'Ongoing IT support and management' },
   { to: '/business-solutions', icon: ShieldCheck, title: 'Cyber Security', desc: 'Protecting your digital assets' },
   { to: '/regulatory-compliance', icon: Cloud, title: 'Cloud Solutions', desc: 'Scalable cloud infrastructure' },
   { to: '/dc-passive-work', icon: Database, title: 'DC Infrastructure', desc: 'Data center passive work' },
@@ -22,19 +22,19 @@ const serviceItems = [
   { to: '/work', icon: Network, title: 'Professional Services', desc: 'Audits, deployment and project management' },
   { to: '/network-implementation', icon: ShieldCheck, title: 'Technical Support', desc: 'L1, L2, L3 and SME services' },
   { to: '/software-development', icon: Code2, title: 'Software Development', desc: 'Custom platforms, APIs and integrations' },
-  { to: '/careers', icon: Users, title: 'Workforce Solutions', desc: 'Technical staffing and field engineers' },
+  // { to: '/careers', icon: Users, title: 'Workforce Solutions', desc: 'Technical staffing and field engineers' },
 ];
 
 const industryItems = [
-  { to: '/portfolio?industry=finance', icon: Landmark, title: 'Banking & Finance', desc: 'Branch connectivity and SD-WAN' },
-  { to: '/portfolio?industry=telecom', icon: RadioTower, title: 'Telecom', desc: 'NOC, rollouts and fiber operations' },
-  { to: '/portfolio?industry=manufacturing', icon: Factory, title: 'Manufacturing', desc: 'Plant networks and connectivity' },
-  { to: '/portfolio?industry=healthcare', icon: HeartPulse, title: 'Healthcare', desc: 'Reliable hospital infrastructure' },
-  { to: '/portfolio?industry=education', icon: GraduationCap, title: 'Education', desc: 'Campus Wi-Fi architectures' },
-  { to: '/portfolio?industry=retail', icon: ShoppingBag, title: 'Retail', desc: 'Multi-store networks and VPNs' },
-  { to: '/dc-passive-work', icon: Database, title: 'Data Centers', desc: 'ACI, Nexus fabric and audits' },
-  { to: '/portfolio?industry=enterprise', icon: Building2, title: 'Enterprise', desc: 'End-to-end IT infrastructure' },
-  { to: '/portfolio?industry=logistics', icon: Truck, title: 'Logistics', desc: 'Warehouse and fleet connectivity' },
+  { to: '/industries/finance', icon: Landmark, title: 'Banking & Finance', desc: 'Branch connectivity and SD-WAN' },
+  { to: '/industries/telecom', icon: RadioTower, title: 'Telecom', desc: 'NOC, rollouts and fiber operations' },
+  { to: '/industries/manufacturing', icon: Factory, title: 'Manufacturing', desc: 'Plant networks and connectivity' },
+  { to: '/industries/healthcare', icon: HeartPulse, title: 'Healthcare', desc: 'Reliable hospital infrastructure' },
+  { to: '/industries/education', icon: GraduationCap, title: 'Education', desc: 'Campus Wi-Fi architectures' },
+  { to: '/industries/retail', icon: ShoppingBag, title: 'Retail', desc: 'Multi-store networks and VPNs' },
+  { to: '/industries/data-centers', icon: Database, title: 'Data Centers', desc: 'ACI, Nexus fabric and audits' },
+  { to: '/industries/enterprise', icon: Building2, title: 'Enterprise', desc: 'End-to-end IT infrastructure' },
+  { to: '/industries/logistics', icon: Truck, title: 'Logistics', desc: 'Warehouse and fleet connectivity' },
 ];
 
 const HeaderContentWrapper = ({ children, className }) => (

@@ -25,6 +25,7 @@ import ProtectedRoute from "./Components/Admin/ProtectedRoute/ProtectedRoute";
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import SiteExperience from './Components/SiteExperience/SiteExperience';
 import { InfoPage, NotFound } from './Components/InfoPage/InfoPage';
+import IndustryPage from './Components/Industries/IndustryPage';
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
         <Route path="/blog/:id" element={<BlogPost />} />
         <Route path="/form" element={<Form />} />
         <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/industries/:industryKey" element={<IndustryPage />} />
         <Route path="/privacy" element={<InfoPage type="privacy" />} />
         <Route path="/terms" element={<InfoPage type="terms" />} />
         <Route path="/cookies" element={<InfoPage type="cookies" />} />

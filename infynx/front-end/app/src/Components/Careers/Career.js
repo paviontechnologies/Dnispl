@@ -43,14 +43,14 @@ const fallbackJobs = [
         description: 'Coordinate multi-site deployment teams, timelines, reporting, and client communication.',
         fullDescription: 'Role: Track field execution, dependencies, material movement, and customer sign-offs.\nExperience: 2+ years in telecom or IT infrastructure delivery.\nWhat matters: Ownership, practical planning, and concise communication.'
     },
-    {
-        _id: 'business-development',
-        title: 'Business Development Manager',
-        experience: 'GROWTH',
-        location: 'NCR / Hybrid',
-        description: 'Build enterprise relationships and shape opportunities around measurable outcomes.',
-        fullDescription: 'Role: Develop qualified enterprise opportunities across networking and managed services.\nExperience: 4+ years in B2B technology or infrastructure services.\nWhat matters: Consultative discovery, account discipline, and long-term thinking.'
-    }
+    // {
+    //     _id: 'business-development',
+    //     title: 'Business Development Manager',
+    //     experience: 'GROWTH',
+    //     location: 'NCR / Hybrid',
+    //     description: 'Build enterprise relationships and shape opportunities around measurable outcomes.',
+    //     fullDescription: 'Role: Develop qualified enterprise opportunities across networking and managed services.\nExperience: 4+ years in B2B technology or infrastructure services.\nWhat matters: Consultative discovery, account discipline, and long-term thinking.'
+    // }
 ];
 
 const Career = () => {

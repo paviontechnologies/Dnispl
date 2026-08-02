@@ -218,8 +218,8 @@ const Home = () => {
               transition={{ duration: 0.8, delay: 1.05 }}
               className="hero-actions"
             >
-              <Link to="/form" className="btn btn-glow-primary">Request Architecture Audit</Link>
-              <a href="#expert-consultation" className="btn btn-glass-outline">Speak with a Network Architect</a>
+              {/* <Link to="/form" className="btn btn-glow-primary">Request Architecture Audit</Link> */}
+              {/* <a href="#expert-consultation" className="btn btn-glass-outline">Speak with a Network Architect</a> */}
             </motion.div>
 
             <motion.div 
