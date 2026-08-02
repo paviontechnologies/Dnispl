@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+import IndustryStrip from "../Industries/IndustryStrip";
 import "./HPD.css";
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -148,6 +149,14 @@ const HPD = () => {
             </RevealGroup>
           </div>
         </section>
+
+        {/* Sector cross-links — routes this capability page into the
+            industries that buy it. */}
+        <IndustryStrip
+          tint={TINT}
+          title="Sectors we procure and deploy for"
+          slugs={['enterprise', 'retail', 'education', 'government', 'hospitality', 'healthcare']}
+        />
 
         {/* CTA SECTION */}
         <section className="hpd-cta-section" id="contact">

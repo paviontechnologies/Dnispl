@@ -147,6 +147,16 @@ const About = () => {
 
         <ContentWrapper>
           <div className="hero-badge fade-in-up">
+<<<<<<< HEAD
+            <span className="badge-dot"></span> ABOUT DNISPL
+          </div>
+
+          <h1 className="about-hero-title fade-in-up delay-1">
+            Building Reliable Technology
+            <br />
+            <span className="text-gradient">For a Connected Future</span>
+          </h1>
+=======
             <span className="badge-dot"></span> OUR MISSION
           </div>
 
@@ -157,11 +167,13 @@ const About = () => {
               <span className="text-gradient" key="g">Innovation &amp; Trust</span>
             ]}
           />
+>>>>>>> b9d58bf141ed5a6e141dfcf9e4c8fb380e9086dd
 
           <p className="about-hero-description fade-in-up delay-2">
-            At DNISPL Infotech, we believe technology should be an enabler, not a hurdle. We are dedicated
-            to delivering human-centric, resilient, and scalable digital solutions that transform ambitious
-            ideas into market-leading products.
+            DNISPL is a technology and IT solutions company delivering reliable,
+            scalable, and business-focused solutions across IT infrastructure,
+            networking, managed services, software development, and digital
+            transformation.
           </p>
         </ContentWrapper>
       </section>
@@ -174,15 +186,41 @@ const About = () => {
       {/* --- OUR STORY --- */}
       <section className="our-story-section">
         <ContentWrapper className="our-story-inner">
+<<<<<<< HEAD
+          <div className="our-story-left fade-in-up delay-2">
+            <h2 className="section-title">Who We Are</h2>
+=======
           <Reveal className="our-story-left" dir="left">
             <h2 className="section-title">Our Story</h2>
+>>>>>>> b9d58bf141ed5a6e141dfcf9e4c8fb380e9086dd
             <p className="our-story-text">
-              Incorporated in 2022 and operational since 2023, DNISPL Infotech engineers reliable web,
-              mobile, network and AI solutions for Indian and global businesses. We operate with a
-              client-first mindset—clear communication, predictable delivery, and engineering
-              transparency.
+              DNISPL is committed to helping businesses build stronger technology
+              foundations and operate with greater efficiency. From IT infrastructure
+              and networking to software solutions and managed services, we combine
+              technical expertise, execution discipline, and customer-focused support
+              to deliver solutions that create measurable business value.
             </p>
 
+<<<<<<< HEAD
+            <div className="story-features-grid">
+              <div className="story-feature glass-card-sm">
+                <div className="feature-icon-box">⚙️</div>
+                <div className="story-feature-text">Reliable Solutions</div>
+              </div>
+              <div className="story-feature glass-card-sm">
+                <div className="feature-icon-box">🏗️</div>
+                <div className="story-feature-text">Expert Execution</div>
+              </div>
+              <div className="story-feature glass-card-sm">
+                <div className="feature-icon-box">🧠</div>
+                <div className="story-feature-text">Scalable Technology</div>
+              </div>
+              <div className="story-feature glass-card-sm">
+                <div className="feature-icon-box">🚀</div>
+                <div className="story-feature-text">Long-Term Support</div>
+              </div>
+            </div>
+=======
             <RevealGroup className="story-features-grid">
               {STORY_FEATURES.map((feature) => (
                 <Reveal
@@ -195,12 +233,18 @@ const About = () => {
                 </Reveal>
               ))}
             </RevealGroup>
+>>>>>>> b9d58bf141ed5a6e141dfcf9e4c8fb380e9086dd
 
             <div className="story-locations">
               <div className="location-icon-pulse">📍</div>
               <div>
+<<<<<<< HEAD
+                <p className="location-caption">Serving businesses across</p>
+                <p className="location-places">India & Global Markets</p>
+=======
                 <p className="location-caption">Serving clients in</p>
                 <p className="location-places">India, UAE, USA, UK <span className="location-more">&amp; more</span></p>
+>>>>>>> b9d58bf141ed5a6e141dfcf9e4c8fb380e9086dd
               </div>
             </div>
           </Reveal>
@@ -224,10 +268,58 @@ const About = () => {
       {/* --- CORE PRINCIPLES (scroll-driven fan) --- */}
       <section className="core-principles-section">
         <ContentWrapper>
+<<<<<<< HEAD
+          <div className="principles-header center-text">
+             <h2 className="section-title text-white">What Drives Us</h2>
+             <p className="section-desc text-gray">Our approach is built around technology, accountability, and long-term partnerships.</p>
+          </div>
+
+          <div className="principles-grid">
+            <article className="principle-card card-hover-effect">
+              <div className="principle-card-top">
+                <h3 className="principle-heading">Innovation First</h3>
+                <div className="icon-box-principle">💡</div>
+              </div>
+              <ul className="principle-list">
+                <li>Adopt practical and emerging technologies</li>
+                <li>Build solutions for real business needs</li>
+                <li>Focus on performance and scalability</li>
+                <li>Continuously improve our capabilities</li>
+              </ul>
+            </article>
+
+            <article className="principle-card card-hover-effect">
+              <div className="principle-card-top">
+                <h3 className="principle-heading">Client-Centric</h3>
+                <div className="icon-box-principle">🤝</div>
+              </div>
+              <ul className="principle-list">
+                <li>Understand business requirements deeply</li>
+                <li>Maintain clear and transparent communication</li>
+                <li>Deliver with quality and accountability</li>
+                <li>Build long-term client relationships</li>
+              </ul>
+            </article>
+
+            <article className="principle-card card-hover-effect">
+              <div className="principle-card-top">
+                <h3 className="principle-heading">Ownership</h3>
+                <div className="icon-box-principle">👑</div>
+              </div>
+              <ul className="principle-list">
+                <li>Take responsibility from planning to delivery</li>
+                <li>Proactively identify and solve challenges</li>
+                <li>Maintain high standards of execution</li>
+                <li>Stay accountable for business outcomes</li>
+              </ul>
+            </article>
+          </div>
+=======
           <Reveal className="principles-header center-text">
             <h2 className="section-title text-white">Our Core Principles</h2>
             <p className="section-desc text-gray">The values that drive every line of code we write.</p>
           </Reveal>
+>>>>>>> b9d58bf141ed5a6e141dfcf9e4c8fb380e9086dd
         </ContentWrapper>
 
         <ScrollFan
@@ -266,9 +358,94 @@ const About = () => {
               <div className="timeline-beam"></div>
             </div>
 
+<<<<<<< HEAD
+            {/* Timeline Items */}
+            <TimelineItem 
+              side="left"
+              year="2017"
+              title="DNISPL is Established"
+              desc="DNISPL began its journey with a vision to deliver dependable IT infrastructure, networking, and technology solutions for businesses."
+              icon={Briefcase}
+              delay={0}
+            />
+
+            <TimelineItem 
+              side="right"
+              year="2018"
+              title="Building Strong Foundations"
+              desc="Focused on strengthening technical capabilities and delivering reliable IT infrastructure and networking solutions to meet evolving business needs."
+              icon={Server}
+              delay={0.1}
+            />
+
+            <TimelineItem 
+              side="left"
+              year="2019"
+              title="Expanding Client Partnerships"
+              desc="Expanded our client network and strengthened long-term partnerships through consistent service delivery, technical expertise, and responsive support."
+              icon={Users}
+              delay={0.2}
+            />
+
+            <TimelineItem 
+              side="right"
+              year="2020"
+              title="Growing Technology Capabilities"
+              desc="Enhanced our technology capabilities and expanded our service offerings to support businesses with reliable and scalable IT solutions."
+              icon={Cpu}
+              delay={0.3}
+            />
+
+            <TimelineItem 
+              side="left"
+              year="2021"
+              title="Strengthening Our Services"
+              desc="Continued expanding our expertise across IT infrastructure, networking, managed services, and technology-driven business solutions."
+              icon={Globe}
+              delay={0.4}
+            />
+
+            <TimelineItem 
+              side="right"
+              year="2022"
+              title="Scaling Our Operations"
+              desc="Expanded our operational capabilities and strengthened our team to deliver larger and more complex technology and infrastructure projects."
+              icon={TrendingUp}
+              delay={0.5}
+            />
+
+            <TimelineItem 
+              side="left"
+              year="2023"
+              title="Expanding Our Reach"
+              desc="Focused on delivering end-to-end technology solutions while building stronger client relationships and expanding our presence across key markets."
+              icon={Award}
+              delay={0.6}
+            />
+
+            <TimelineItem 
+              side="right"
+              year="2024–25"
+              title="Driving Growth & Innovation"
+              desc="Continued to evolve with modern technologies, managed services, and scalable solutions designed to help businesses improve efficiency and stay future-ready."
+              icon={Zap}
+              delay={0.7}
+            />
+
+            <TimelineItem 
+              side="left"
+              year="2026"
+              title="Building the Future"
+              desc="Moving forward with a focus on innovation, strategic partnerships, and scalable technology solutions that create lasting value for our clients."
+              icon={TrendingUp}
+              delay={0.8}
+            />
+
+=======
             {JOURNEY.map((entry) => (
               <TimelineItem key={entry.title} {...entry} />
             ))}
+>>>>>>> b9d58bf141ed5a6e141dfcf9e4c8fb380e9086dd
           </div>
         </ContentWrapper>
       </section>
@@ -286,6 +463,26 @@ const About = () => {
             </Link>
           </Reveal>
 
+<<<<<<< HEAD
+          <div className="stats-grid">
+            <div className="stat-card">
+              <h3 className="stat-value">End-to-End</h3>
+              <p className="stat-label">Technology Solutions</p>
+            </div>
+            <div className="stat-card">
+              <h3 className="stat-value">24/7</h3>
+              <p className="stat-label">Operational Support</p>
+            </div>
+            <div className="stat-card">
+              <h3 className="stat-value">Multi-Industry</h3>
+              <p className="stat-label">Domain Experience</p>
+            </div>
+            <div className="stat-card">
+              <h3 className="stat-value">Long-Term</h3>
+              <p className="stat-label">Client Partnerships</p>
+            </div>
+          </div>
+=======
           <RevealGroup className="stats-grid">
             {STATS.map((stat) => (
               <Reveal key={stat.label} dir="scale" className="stat-card">
@@ -294,16 +491,24 @@ const About = () => {
               </Reveal>
             ))}
           </RevealGroup>
+>>>>>>> b9d58bf141ed5a6e141dfcf9e4c8fb380e9086dd
         </ContentWrapper>
       </section>
 
       {/* --- LIFE AT DNISPL --- */}
       <section className="life-at-section">
         <ContentWrapper className="life-at-inner">
+<<<<<<< HEAD
+          <div className="life-left">
+            <h2 className="section-title">Life at <span className="text-gradient-blue">DNISPL</span></h2>
+=======
           <Reveal className="life-left" dir="left">
             <h2 className="section-title">Discover Life at <span className="text-gradient-blue">DNISPL</span></h2>
+>>>>>>> b9d58bf141ed5a6e141dfcf9e4c8fb380e9086dd
             <p className="life-desc">
-              At Dnispl, innovation meets purpose. We empower every team member to grow, collaborate, and thrive.
+              We believe great technology is built by great teams. At DNISPL, we
+              encourage collaboration, continuous learning, ownership, and a shared
+              commitment to delivering meaningful outcomes for our clients.
             </p>
           </Reveal>
 
@@ -324,6 +529,35 @@ const About = () => {
       </section>
 
       <section className="final-cta-section">
+<<<<<<< HEAD
+        <ContentWrapper className="final-cta-inner">
+          <div className="cta-box-gradient">
+              <div className="cta-dots cta-dots-left"></div>
+              <div className="cta-dots cta-dots-right"></div>
+            <h2 className="final-cta-title">
+              Let's Build Something
+              <span className="text-gradient-blue"> Better Together.</span>
+            </h2>
+
+            <p className="final-cta-subtitle">
+              Have a technology challenge or a project in mind?
+              Let's discuss how DNISPL can help your business build,
+              scale, and operate with confidence.
+              <br />
+              Contact us at{" "}
+              <a href="mailto:accounts@dnispl.com">
+                accounts@dnispl.com
+              </a>
+            </p>
+
+            <div className="final-cta-actions">
+              <Link to="/form" className="btn btn-solid">
+                Contact Us
+              </Link>
+            </div>
+          </div>
+        </ContentWrapper>
+=======
         <Reveal className="cta-content" dir="scale">
           <h2 className="final-cta-title">Excited to Start?</h2>
           <p className="final-cta-subtitle">
@@ -333,6 +567,7 @@ const About = () => {
             <Link to="/form" className="btn btn-white">Contact Now</Link>
           </div>
         </Reveal>
+>>>>>>> b9d58bf141ed5a6e141dfcf9e4c8fb380e9086dd
       </section>
 
       <Footer />

@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+import IndustryStrip from "../Industries/IndustryStrip";
 import "./SD.css";
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -140,6 +141,14 @@ const SD = () => {
             </RevealGroup>
           </div>
         </section>
+
+        {/* Sector cross-links — routes this capability page into the
+            industries that buy it. */}
+        <IndustryStrip
+          tint={TINT}
+          title="Sectors we have shipped software for"
+          slugs={['hospitality', 'retail', 'education', 'logistics', 'enterprise']}
+        />
 
         {/* CTA SECTION */}
         <section className="sd-cta-section" id="contact">

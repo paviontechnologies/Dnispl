@@ -3,16 +3,19 @@ import "./Portfolio.css";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import { Link, useSearchParams } from 'react-router-dom';
-import { X } from 'lucide-react';
+import { ArrowRight, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   AuroraBackdrop,
   CountUp,
+  MagneticButton,
   Reveal,
   RevealGroup,
   SplitHeading,
   useScrollReveal
 } from '../../motion/MotionKit';
+import { INDUSTRY_LENS } from '../../data/industries';
+import { PROJECTS, PROJECT_CATEGORIES } from '../../data/projects';
 
 const TINT = { from: '#00F0FF', to: '#2563EB', glow: 'rgba(0, 240, 255, 0.3)' };
 
@@ -29,189 +32,172 @@ const ContentWrapper = ({ children, className }) => (
   </div>
 );
 
-/**
- * Industry lens. The header links to /portfolio?industry=<key>, so every key it
- * advertises has to resolve here — otherwise those nav items land on a page
- * that silently ignores the parameter.
- */
-const INDUSTRY_LENS = {
-  finance: { label: 'Banking & Finance', blurb: 'Branch connectivity, core banking networks, and SD-WAN estates.' },
-  telecom: { label: 'Telecom', blurb: 'NOC operations, nationwide rollouts, and fiber execution.' },
-  manufacturing: { label: 'Manufacturing', blurb: 'Plant networks, shop-floor connectivity, and campus links.' },
-  healthcare: { label: 'Healthcare', blurb: 'Always-on hospital infrastructure and clinical system uptime.' },
-  education: { label: 'Education', blurb: 'Campus Wi-Fi architectures and high-density coverage.' },
-  retail: { label: 'Retail', blurb: 'Multi-store networks, VPN backhaul, and POS reliability.' },
-  enterprise: { label: 'Enterprise', blurb: 'End-to-end IT infrastructure across distributed offices.' },
-  logistics: { label: 'Logistics', blurb: 'Warehouse and fleet connectivity across sites in motion.' },
-  hospitality: { label: 'Hospitality', blurb: 'Guest networks, POS, and property-wide coverage.' }
-};
+<<<<<<< HEAD
 
-const PROJECTS = [
-  {
-    id: 1,
-    title: "DinePOS – Smart POS & Inventory Automation",
-    category: "Web",
-    industryKey: "hospitality",
-    industry: "Hospitality / Restaurants",
-    problem:
-      "Local restaurants struggled with manual billing, inaccurate inventory, and no visibility on daily sales performance.",
-    solution:
-      "We built a cloud-based POS with real-time KOT printing, table management, recipe-level inventory deduction, and multi-outlet support.",
-    impact: [
-      "30% reduction in pilferage and wastage",
-      "Real-time sales dashboard for owners across outlets",
-      "Integrated GST-compliant invoicing and reports",
-    ],
-    techStack: "React, Node.js, PostgreSQL, Redis, AWS, Thermal Printer APIs",
-    tag: "Product Engineering",
-  },
-  {
-    id: 2,
-    title: "Ease Yatrika – School Transport & Booking Platform",
-    category: "Mobile",
-    industryKey: "education",
-    industry: "EdTech / Transportation",
-    problem:
-      "Parents had no transparency on school cabs location, safety, and billing. Operators managed everything on Excel and WhatsApp.",
-    solution:
-      "A mobile-first platform for route planning, live GPS tracking, parent notifications, and automated fee collection with reporting.",
-    impact: [
-      "90% reduction in manual coordination between parents and drivers",
-      "Live ETA tracking improved parent satisfaction",
-      "Central dashboard for school administrators",
-    ],
-    techStack: "Flutter, Firebase, Node.js, Google Maps APIs, Razorpay",
-    tag: "Mobility & Safety",
-  },
-  {
-    id: 3,
-    title: "StockPilot – Multi-Location Inventory Intelligence",
-    category: "AI & Automation",
-    industryKey: "retail",
-    industry: "Retail / Distribution",
-    problem:
-      "Retailers had multiple warehouses and stores, but no unified, intelligent view of inventory, reorder levels, and dead stock.",
-    solution:
-      "We developed an AI-driven inventory engine that predicts reorder points, highlights slow-moving SKUs, and optimizes procurement.",
-    impact: [
-      "Up to 25% reduction in overstocking",
-      "Improved fill-rate and on-shelf availability",
-      "Unified stock visibility across warehouses and stores",
-    ],
-    techStack: "React, Python, ML models (time series), MongoDB, Kafka",
-    tag: "AI & Analytics",
-  },
-  {
-    id: 4,
-    title: "InfraNet360 – PAN India Active & Passive Rollout",
-    category: "Network & Infra",
-    industryKey: "telecom",
-    industry: "Telecom / Enterprise",
-    problem:
-      "A leading SI required a single partner to execute PAN India network rollouts – including fiber, L2/L3 setup, DC passive work, and audits.",
-    solution:
-      "DNISPL provided end-to-end implementation: inside-building fiber, Cat-6, electrical, DC passive, L2/L3 configuration, and regulatory audits.",
-    impact: [
-      "On-time delivery across 50+ cities",
-      "Standardized documentation and TRAI-compliant audits",
-      "Single-window execution partner for the SI",
-    ],
-    techStack:
-      "Cisco / Juniper switches & routers, Fiber & Cat-6, UPS, DG, DC passive components",
-    tag: "Network Rollout",
-  },
-  {
-    id: 5,
-    title: "LeadSync – B2B Sales & Marketing Automation Suite",
-    category: "Web",
-    industryKey: "enterprise",
-    industry: "B2B SaaS",
-    problem:
-      "The client’s sales team used spreadsheets and manual follow-ups, causing lost leads and poor tracking.",
-    solution:
-      "We built a web-based lead management and automation suite with email workflows, lead scoring, task reminders, and dashboards.",
-    impact: [
-      "2x increase in qualified follow-ups",
-      "Single source of truth for leads and activities",
-      "Team performance tracking made transparent",
-    ],
-    techStack: "Next.js, Node.js, MySQL, Redis, SendGrid, Chart.js",
-    tag: "SaaS Platform",
-  },
-  {
-    id: 6,
-    title: "Core Banking Network & Branch SD-WAN Estate",
-    category: "Network & Infra",
-    industryKey: "finance",
-    industry: "Banking & Financial Services",
-    problem:
-      "Branch connectivity ran on ageing MPLS links with no application-level visibility, and every outage became a manual, branch-by-branch investigation.",
-    solution:
-      "We re-architected the branch edge onto SD-WAN with dual-transport failover, application-aware path selection, centralised policy, and a monitored NOC handover.",
-    impact: [
-      "400+ branch sites migrated with no unplanned core downtime",
-      "Link failover measured in seconds instead of manual re-routes",
-      "Single monitoring plane across every branch and the data centre",
-    ],
-    techStack: "Cisco SD-WAN (vManage), ISR routers, Fortinet NGFW, dual-ISP transport, NOC tooling",
-    tag: "Network Transformation",
-  },
-  {
-    id: 7,
-    title: "Plant Network Modernisation & Shop-Floor Connectivity",
-    category: "Network & Infra",
-    industryKey: "manufacturing",
-    industry: "Manufacturing",
-    problem:
-      "Production lines shared a flat network with office traffic, so a single broadcast storm could stall the shop floor, and industrial zones had no segmentation.",
-    solution:
-      "We segmented OT from IT with policy-enforced VLANs, deployed ruggedised switching across production zones, and rebuilt the fibre backbone between plant blocks.",
-    impact: [
-      "Production and corporate traffic fully isolated",
-      "Redundant ring topology removed the single points of failure",
-      "Documented, labelled cable plant with Fluke certification",
-    ],
-    techStack: "Industrial Ethernet switches, fibre ring backbone, VLAN segmentation, Cisco ISE",
-    tag: "OT / IT Convergence",
-  },
-  {
-    id: 8,
-    title: "Hospital Infrastructure & Clinical System Uptime",
-    category: "Network & Infra",
-    industryKey: "healthcare",
-    industry: "Healthcare",
-    problem:
-      "Clinical applications and imaging transfers competed with guest Wi-Fi on the same infrastructure, and there was no redundancy on the paths carrying patient data.",
-    solution:
-      "We designed a tiered network separating clinical, administrative, and guest traffic, with redundant uplinks, prioritised imaging transfer, and 24/7 monitored support.",
-    impact: [
-      "Clinical traffic prioritised and isolated from guest load",
-      "Redundant paths on every critical ward and imaging link",
-      "24/7 NOC coverage with a defined clinical escalation matrix",
-    ],
-    techStack: "Layer 3 switching, QoS policy, controller-based Wi-Fi, redundant uplinks, NOC monitoring",
-    tag: "Mission-Critical Infra",
-  },
-  {
-    id: 9,
-    title: "Warehouse & Fleet Connectivity Rollout",
-    category: "Network & Infra",
-    industryKey: "logistics",
-    industry: "Logistics & Warehousing",
-    problem:
-      "Scanner coverage dropped in high-rack aisles and cold zones, forcing manual stock reconciliation at the end of every shift.",
-    solution:
-      "We ran predictive and on-site RF surveys, redesigned access-point placement for rack-aisle propagation, and deployed hardened APs across cold and dock zones.",
-    impact: [
-      "Continuous scanner coverage through high-rack aisles",
-      "End-of-shift manual reconciliation effectively eliminated",
-      "Repeatable site template rolled out across the warehouse network",
-    ],
-    techStack: "Predictive RF survey tooling, industrial-grade APs, wireless controllers, PoE switching",
-    tag: "Wireless Engineering",
-  },
-];
+  const PROJECTS = [
+    {
+      id: 1,
+      title: "PAN India Enterprise Network Rollout",
+      category: "Network & Infra",
+      industry: "Telecom / Enterprise",
+      problem:
+        "The client required a reliable implementation partner to execute large-scale network infrastructure deployment across multiple locations with consistent quality and documentation.",
+      solution:
+        "DNISPL delivered end-to-end network rollout services including site coordination, structured cabling, fiber connectivity, L2/L3 implementation, equipment installation, configuration support, testing, and documentation.",
+      impact: [
+        "Successful deployment across multiple locations",
+        "Standardized implementation and documentation process",
+        "Improved network reliability and operational readiness",
+        "Single-window execution and project coordination"
+      ],
+      techStack:
+        "Cisco / Juniper Infrastructure, Fiber Optics, Cat-6, L2/L3 Networking, Structured Cabling",
+      tag: "Network Rollout"
+    },
 
+    {
+      id: 2,
+      title: "Enterprise NOC & 24×7 Network Monitoring",
+      category: "NOC & Managed Services",
+      industry: "Enterprise / Telecom",
+      problem:
+        "The client needed continuous monitoring and faster incident response to maintain network availability and minimize service disruptions.",
+      solution:
+        "DNISPL provided NOC operations with proactive network monitoring, incident detection, ticket management, escalation handling, SLA tracking, and coordination with on-site engineering teams.",
+      impact: [
+        "24×7 proactive network monitoring",
+        "Faster incident detection and escalation",
+        "Improved SLA compliance and service availability",
+        "Centralized visibility of network operations"
+      ],
+      techStack:
+        "NOC Operations, Network Monitoring, Incident Management, SLA Management, L1/L2/L3 Support",
+      tag: "NOC Operations"
+    },
+
+    {
+      id: 3,
+      title: "Cisco Network Upgrade & Migration",
+      category: "Network & Infra",
+      industry: "Enterprise / Data Centre",
+      problem:
+        "The existing network infrastructure required hardware refresh, IOS upgrades, configuration migration, and controlled implementation with minimal downtime.",
+      solution:
+        "DNISPL supported network upgrade and migration activities including device installation, configuration backup, IOS upgrade, configuration deployment, validation, testing, and post-change monitoring.",
+      impact: [
+        "Modernized network infrastructure",
+        "Controlled migration with planned downtime",
+        "Improved network performance and stability",
+        "Validated configuration and post-upgrade health checks"
+      ],
+      techStack:
+        "Cisco Catalyst 9200 / 9300 Series, IOS-XE, L2/L3 Switching, Routing, VLAN, STP",
+      tag: "Network Upgrade"
+    },
+
+    {
+      id: 4,
+      title: "Enterprise Wi-Fi Survey & Deployment",
+      category: "Wi-Fi Solutions",
+      industry: "Enterprise / Corporate",
+      problem:
+        "The client required reliable wireless coverage across a large environment with proper capacity planning and minimal dead zones.",
+      solution:
+        "DNISPL provided professional Wi-Fi site survey and deployment support including coverage analysis, RF planning, heatmap analysis, access point placement recommendations, and implementation support.",
+      impact: [
+        "Improved wireless coverage and connectivity",
+        "Reduced Wi-Fi dead zones",
+        "Optimized access point placement",
+        "Better user experience and network capacity planning"
+      ],
+      techStack:
+        "Ekahau AI Pro, Wi-Fi Site Survey, RF Analysis, Heatmaps, Enterprise Access Points",
+      tag: "Wi-Fi Solutions"
+    },
+
+    {
+      id: 5,
+      title: "L1 / L2 / L3 Managed Network Support",
+      category: "Managed Services",
+      industry: "Enterprise / BFSI / Telecom",
+      problem:
+        "The client needed skilled technical resources to manage day-to-day network operations, troubleshooting, incident resolution, and escalation management.",
+      solution:
+        "DNISPL provided dedicated L1, L2, L3, and SME-level support for network operations, troubleshooting, configuration changes, incident resolution, and coordination with technology vendors.",
+      impact: [
+        "Dedicated technical support coverage",
+        "Faster troubleshooting and incident resolution",
+        "Reduced operational workload for internal IT teams",
+        "Structured escalation and vendor coordination"
+      ],
+      techStack:
+        "L1 / L2 / L3 Support, Network Troubleshooting, Routing, Switching, Vendor Coordination",
+      tag: "Managed IT Services"
+    },
+
+    {
+      id: 6,
+      title: "IT Infrastructure AMC & Preventive Maintenance",
+      category: "AMC & Support",
+      industry: "Enterprise / Corporate",
+      problem:
+        "The client required ongoing maintenance and technical support to reduce infrastructure downtime and ensure operational continuity.",
+      solution:
+        "DNISPL delivered AMC-based infrastructure support covering preventive maintenance, troubleshooting, hardware checks, incident management, and on-site technical assistance.",
+      impact: [
+        "Reduced unexpected infrastructure downtime",
+        "Regular preventive maintenance activities",
+        "Faster on-site technical response",
+        "Improved infrastructure availability"
+      ],
+      techStack:
+        "IT Infrastructure, Network Devices, Preventive Maintenance, On-site Support, AMC",
+      tag: "AMC Support"
+    },
+
+    {
+      id: 7,
+      title: "Data Centre Active & Passive Infrastructure",
+      category: "Data Centre",
+      industry: "Enterprise / Telecom",
+      problem:
+        "The project required structured implementation of data centre infrastructure with proper cabling, rack organization, connectivity, and documentation.",
+      solution:
+        "DNISPL supported data centre infrastructure activities including structured cabling, fiber connectivity, rack installation, patching, labeling, cable management, and implementation documentation.",
+      impact: [
+        "Organized and structured data centre environment",
+        "Improved cable management and traceability",
+        "Standardized infrastructure documentation",
+        "Simplified future maintenance and troubleshooting"
+      ],
+      techStack:
+        "Fiber Optics, Cat-6, Racks, Patch Panels, Structured Cabling, Cable Management",
+      tag: "Data Centre"
+    },
+
+    {
+      id: 8,
+      title: "Multi-Site IT Project Management",
+      category: "Project Management",
+      industry: "Enterprise / Telecom",
+      problem:
+        "Large-scale deployments required centralized coordination between customers, vendors, field engineers, and multiple project stakeholders.",
+      solution:
+        "DNISPL managed project execution through planning, resource coordination, site readiness tracking, vendor coordination, deployment monitoring, documentation, and project closure.",
+      impact: [
+        "Improved coordination across project stakeholders",
+        "Better visibility into project milestones",
+        "Centralized project tracking and reporting",
+        "Structured deployment and project closure"
+      ],
+      techStack:
+        "Project Planning, Resource Management, Vendor Coordination, Site Management, Reporting",
+      tag: "Project Management"
+    }
+  ];
+
+=======
+>>>>>>> b9d58bf141ed5a6e141dfcf9e4c8fb380e9086dd
 const Portfolio = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [activeFilter, setActiveFilter] = useState("All");
@@ -227,6 +213,21 @@ const Portfolio = () => {
     ? PROJECTS.filter((p) => p.industryKey === industryKey)
     : PROJECTS;
 
+<<<<<<< HEAD
+  const filteredProjects = PROJECTS.filter((project) => {
+  const categoryMatch =
+    activeFilter === "All" ||
+    project.category === activeFilter;
+
+  const industryMatch =
+    !industryFocus ||
+    project.industry
+      .toLowerCase()
+      .includes(industryFocus.toLowerCase());
+
+  return categoryMatch && industryMatch;
+});
+=======
   const filteredProjects =
     activeFilter === "All"
       ? industryMatches
@@ -238,6 +239,7 @@ const Portfolio = () => {
     setSearchParams(next, { replace: true });
     setSelectedProject(null);
   };
+>>>>>>> b9d58bf141ed5a6e141dfcf9e4c8fb380e9086dd
 
   return (
     <>
@@ -254,7 +256,22 @@ const Portfolio = () => {
 
         {/* 1️⃣ HERO SECTION */}
         <section className="portfolio-hero">
+<<<<<<< HEAD
+          <ContentWrapper>
+            <div className="portfolio-badge fade-in-up">
+              <span className="dot-pulse"></span> {industryFocus ? `${industryFocus.toUpperCase()} / INDUSTRY LENS` : 'OUR WORK'}
+            </div>
+            <h1 className="portfolio-title fade-in-up delay-1">
+              Infrastructure that keeps <span className="text-gradient-blue">Business connected</span>.
+            </h1>
+            <p className="portfolio-subtitle fade-in-up delay-2">
+              From enterprise network deployments and NOC operations to Wi-Fi,
+              data centre infrastructure, and managed IT services — DNISPL delivers
+              reliable technology solutions built for performance, scale, and continuity.
+            </p>
+=======
           <AuroraBackdrop tint={TINT} />
+>>>>>>> b9d58bf141ed5a6e141dfcf9e4c8fb380e9086dd
 
           <ContentWrapper>
             <motion.div
@@ -266,12 +283,25 @@ const Portfolio = () => {
               <span className="dot-pulse"></span> {lens ? `${lens.label.toUpperCase()} / INDUSTRY LENS` : 'OUR WORK'}
             </motion.div>
 
+            {/* Re-keying on the lens makes the headline replay its split reveal
+                when the visitor switches sector, so the page visibly responds
+                instead of silently swapping one word. */}
             <SplitHeading
+              key={lens ? lens.slug : 'all'}
               className="portfolio-title"
-              lines={[
-                <span key="a">A portfolio of <span className="text-gradient-blue">products</span> that</span>,
-                <span key="b">actually went <span className="text-gradient-purple">live</span>.</span>
-              ]}
+              lines={
+                lens
+                  ? [
+                      <span key="a">
+                        <span className="text-gradient-blue">{lens.label}</span> work
+                      </span>,
+                      <span key="b">that actually went <span className="text-gradient-purple">live</span>.</span>
+                    ]
+                  : [
+                      <span key="a">A portfolio of <span className="text-gradient-blue">products</span> that</span>,
+                      <span key="b">actually went <span className="text-gradient-purple">live</span>.</span>
+                    ]
+              }
             />
 
             <motion.p
@@ -280,9 +310,11 @@ const Portfolio = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              From early-stage MVPs to scaled enterprise platforms, DNISPL
-              partners with teams to ship reliable software and robust
-              infrastructure — on time, and with full ownership.
+              {lens
+                ? lens.blurb
+                : `From early-stage MVPs to scaled enterprise platforms, DNISPL
+                   partners with teams to ship reliable software and robust
+                   infrastructure — on time, and with full ownership.`}
             </motion.p>
 
             {lens && (
@@ -292,14 +324,36 @@ const Portfolio = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.72 }}
               >
-                <span>{lens.blurb}</span>
-                <Link to="/form">Discuss your environment</Link>
+                <Link to={`/industries/${lens.slug}`} className="lens-back">
+                  <ArrowRight size={14} /> Full {lens.label} sector page
+                </Link>
+                <Link to="/form" className="lens-cta">Discuss your environment</Link>
                 <button type="button" className="lens-clear" onClick={clearLens}>
                   <X size={14} /> Show all work
                 </button>
               </motion.div>
             )}
 
+<<<<<<< HEAD
+            <div className="portfolio-metrics fade-in-up delay-3">
+              <div className="metric-card glass-metric">
+                <span className="metric-value">200+</span>
+                <span className="metric-label">Projects Delivered</span>
+              </div>
+              <div className="metric-card glass-metric">
+                <span className="metric-value">24×7</span>
+                <span className="metric-label">NOC & Support</span>
+              </div>
+              <div className="metric-card glass-metric">
+                <span className="metric-value">L1-L3</span>
+                <span className="metric-label">Technical expertise</span>
+              </div>
+              <div className="metric-card glass-metric">
+                <span className="metric-value">PAN INDIA</span>
+                <span className="metric-label">Deployment capability</span>
+              </div>
+            </div>
+=======
             {/* Counters run up as the strip enters view */}
             <RevealGroup className="portfolio-metrics">
               {METRICS.map((metric) => (
@@ -309,19 +363,79 @@ const Portfolio = () => {
                 </Reveal>
               ))}
             </RevealGroup>
+>>>>>>> b9d58bf141ed5a6e141dfcf9e4c8fb380e9086dd
           </ContentWrapper>
         </section>
 
         {/* 2️⃣ FILTERS + PROJECT GRID */}
         <section className="portfolio-projects-section">
           <ContentWrapper>
+<<<<<<< HEAD
+            <div className="portfolio-header-row">
+              <h2 className="section-heading">
+                Featured Case Studies
+              </h2>
+                 {/* INDUSTRY FILTER */}
+              <div className="industry-filter-wrapper">
+                <label htmlFor="industry-filter">
+                  Filter by Industry
+                </label>
+                <select id="industry-filter" value={industryFocus || ""} onChange={(e) => {
+                  const value = e.target.value;
+                  setSearchParams(
+                     value
+                     ? { industry: value }
+                     : {}
+                    );
+=======
             <Reveal className="portfolio-header-row">
               <h2 className="section-heading">
                 {lens ? `${lens.label} Case Studies` : 'Featured Case Studies'}
               </h2>
+>>>>>>> b9d58bf141ed5a6e141dfcf9e4c8fb380e9086dd
 
+                  setSelectedProject(null);
+                }}>
+                  <option value="" className="filter-option">
+                    All Industries
+                  </option>
+                  <option value="Telecom">Telecom</option>
+                  <option value="Enterprise">Enterprise</option>
+                  <option value="Corporate">Corporate</option>
+                  <option value="BFSI">BFSI</option>
+                  <option value="Data Centre">Data Centre</option>
+                </select>
+              </div>
+
+              {/* CATEGORY FILTER */}
               <div className="portfolio-filters">
-                {["All", "Web", "Mobile", "AI & Automation", "Network & Infra"].map(
+<<<<<<< HEAD
+                {[
+                  "All",
+                  "Network & Infra",
+                  "NOC & Managed Services",
+                  "Wi-Fi Solutions",
+                  "Managed Services",
+                  "AMC & Support",
+                  "Data Centre",
+                  "Project Management",
+                ].map((filter) => (
+                  <button
+                    key={filter}
+                    type="button"
+                    className={`filter-chip ${
+                      activeFilter === filter ? "active" : ""
+                    }`}
+                    onClick={() => {
+                      setActiveFilter(filter);
+                      setSelectedProject(null);
+                    }}
+                  >
+                    {filter}
+                  </button>
+                ))}
+=======
+                {PROJECT_CATEGORIES.map(
                   (filter) => (
                     <motion.button
                       key={filter}
@@ -339,6 +453,7 @@ const Portfolio = () => {
                     </motion.button>
                   )
                 )}
+>>>>>>> b9d58bf141ed5a6e141dfcf9e4c8fb380e9086dd
               </div>
             </Reveal>
 
@@ -456,6 +571,13 @@ const Portfolio = () => {
                   {lens && (
                     <button type="button" onClick={clearLens}>Show all industries</button>
                   )}
+                  {/* The sector page carries the capability detail even where no
+                      case study is public, so it is the more useful exit. */}
+                  {lens && (
+                    <Link to={`/industries/${lens.slug}`}>
+                      {lens.label} sector page
+                    </Link>
+                  )}
                   <Link to="/form">Request case studies</Link>
                 </div>
               </motion.div>
@@ -468,19 +590,29 @@ const Portfolio = () => {
           <ContentWrapper className="portfolio-process-inner">
             <Reveal className="process-left" dir="left">
               <h2 className="section-heading text-dark">
-                How we turn <span className="text-gradient-blue">ideas</span> into
-                production-ready <span className="text-gradient-purple">systems</span>.
+                How we deliver <span className="text-gradient-blue">reliable IT infrastructure</span>.
               </h2>
               <p className="process-intro">
-                DNISPL combines product thinking, engineering excellence, and
-                on-ground implementation experience. We don’t just ship code —
-                we own outcomes.
+                From network deployment and data centre infrastructure to NOC operations
+                and managed IT services, DNISPL combines technical expertise, structured
+                project execution, and proactive support to deliver reliable and scalable
+                technology environments.
               </p>
             </Reveal>
 
             <Reveal className="process-right" dir="right">
               <div className="process-highlight-card glass-panel-blue">
                 <p className="highlight-label">Why teams stay with us</p>
+<<<<<<< HEAD
+                  <ul>
+                    <li>Structured planning and transparent communication</li>
+                    <li>Experienced network and infrastructure teams</li>
+                    <li>End-to-end project coordination and execution</li>
+                    <li>Proactive monitoring, support, and maintenance</li>
+                  </ul>
+              </div> 
+            </div>
+=======
                 <ul>
                   <li>Transparent communication & weekly check-ins</li>
                   <li>Strong infra + app + network capabilities</li>
@@ -489,23 +621,60 @@ const Portfolio = () => {
                 </ul>
               </div>
             </Reveal>
+>>>>>>> b9d58bf141ed5a6e141dfcf9e4c8fb380e9086dd
           </ContentWrapper>
         </section>
 
-        {/* 4️⃣ FINAL CTA */}
+        {/* 4️⃣ BROWSE BY SECTOR — the industry pages, not a filter on this one */}
+        <section className="portfolio-sectors">
+          <ContentWrapper>
+            <Reveal className="portfolio-sectors-head">
+              <h2 className="section-heading">Browse by sector</h2>
+              <p>
+                Each sector page carries the pressures we design against and the
+                capabilities we bring — including work that isn’t public here.
+              </p>
+            </Reveal>
+
+            <RevealGroup className="portfolio-sector-chips">
+              {Object.values(INDUSTRY_LENS).map((entry) => (
+                <Reveal key={entry.slug} dir="scale" className="sector-chip-shell">
+                  <Link
+                    to={`/industries/${entry.slug}`}
+                    className={`sector-chip ${industryKey === entry.slug ? 'current' : ''}`}
+                  >
+                    {entry.label}
+                    <ArrowRight size={14} />
+                  </Link>
+                </Reveal>
+              ))}
+            </RevealGroup>
+          </ContentWrapper>
+        </section>
+
+        {/* 5️⃣ FINAL CTA */}
         <section className="portfolio-final-cta">
           <ContentWrapper className="portfolio-final-inner">
             <Reveal className="cta-box-gradient" dir="scale">
                 <h2 className="final-cta-title">
-                Let’s add your product to this portfolio.
+                  Have an IT infrastructure project in mind?
                 </h2>
                 <p className="final-cta-subtitle">
-                Whether you’re building an MVP, scaling an existing platform, or
-                rolling out infra across India — DNISPL can be your partner.
+                  Whether you need enterprise networking, NOC operations, Wi-Fi solutions,
+                  data centre infrastructure, managed IT services, or AMC support —
+                  DNISPL is ready to help you plan, deploy, and manage reliable technology
+                  solutions.
                 </p>
                 <div className="final-cta-actions">
-                <Link to="/form" className="btn-white-solid">Start a conversation</Link>
+<<<<<<< HEAD
+                <Link to="/form" className="btn-white-solid">Discuss Your Project</Link>
                 <Link to="/form" className="btn-outline-white">Request Case Studies</Link>
+=======
+                <MagneticButton as={Link} to="/form" className="btn-white-solid">
+                  Start a conversation
+                </MagneticButton>
+                <Link to="/industries" className="btn-outline-white">Explore industries</Link>
+>>>>>>> b9d58bf141ed5a6e141dfcf9e4c8fb380e9086dd
                 </div>
             </Reveal>
           </ContentWrapper>

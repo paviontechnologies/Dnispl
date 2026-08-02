@@ -3,15 +3,48 @@ import './Career.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import {
   AuroraBackdrop,
+  CountUp,
+  MagneticButton,
+  NetworkLattice,
+  Reveal,
+  RevealGroup,
   ScrollDrift,
+  SpotlightCard,
   SplitHeading,
   useScrollReveal
 } from '../../motion/MotionKit';
 import { api, publicFetch } from '../../config/api';
 
 const TINT = { from: '#173FCF', to: '#00E2F5', glow: 'rgba(23, 63, 207, 0.32)' };
+
+const CULTURE_STATS = [
+  { value: '100+', label: 'Active sites to work across' },
+  { value: '2000+', label: 'Devices under our care' },
+  { value: '18', label: 'Regional hubs' },
+  { value: '24/7', label: 'NOC you can rotate through' }
+];
+
+const WHY_US = [
+  {
+    title: 'Real estates, not sandboxes',
+    desc: 'You work on branch networks, plant floors, and hospital wings that people depend on the same afternoon. The feedback loop is immediate and it is honest.'
+  },
+  {
+    title: 'Multi-OEM by design',
+    desc: 'Cisco, Fortinet, HPE, Juniper, Cato. You build transferable depth across vendors instead of becoming fluent in exactly one console.'
+  },
+  {
+    title: 'Escalation you can climb',
+    desc: 'L1 to L2 to L3 to SME is a defined path here, not a title change. Senior engineers sit in the same escalation chain you do.'
+  },
+  {
+    title: 'Documentation is the job',
+    desc: 'As-builts, RCAs, and test records are how we work, which means your work is visible and your reasoning is reviewable.'
+  }
+];
 
 const ContentWrapper = ({ children, className }) => (
     <div className={`career-content-wrapper ${className || ''}`}>{children}</div>
@@ -140,13 +173,30 @@ const Career = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.5 }}
                         >
-                            Join a team that crafts dependable software solutions across Bharat.
+                            Engineer the networks that hospitals, banks, and production lines
+                            cannot afford to lose — across 100+ active sites nationwide.
                         </motion.p>
+
+                        <RevealGroup className="career-stats">
+                            {CULTURE_STATS.map((stat) => (
+                                <Reveal key={stat.label} className="career-stat" dir="scale">
+                                    <span className="career-stat-value">
+                                        <CountUp value={stat.value} />
+                                    </span>
+                                    <span className="career-stat-label">{stat.label}</span>
+                                </Reveal>
+                            ))}
+                        </RevealGroup>
                     </ContentWrapper>
                 </section>
 
                 <section className="job-listings-section">
                     <ContentWrapper>
+                        <Reveal className="career-section-head">
+                            <span className="career-tag">Open roles</span>
+                            <h2>Where we need people right now</h2>
+                        </Reveal>
+
                         {loading && <p className="loading-text">Finding opportunities for you...</p>}
                         {error && <p className="career-notice">{error}</p>}
 
@@ -171,6 +221,67 @@ const Career = () => {
                             />
                         )}
                     </ContentWrapper>
+                </section>
+
+                {/* --- WHY WORK HERE --- */}
+                <section className="career-why-section">
+                    <ContentWrapper className="career-why-inner">
+                        <Reveal className="career-why-copy" dir="left">
+                            <span className="career-tag">Why here</span>
+                            <h2>Depth you can’t get from a lab</h2>
+                            <p className="career-why-lead">
+                                Most infrastructure careers stall because the work stays
+                                theoretical. Ours doesn’t — you are on live estates from
+                                early, with senior engineers in the same escalation chain.
+                            </p>
+
+                            <RevealGroup className="career-why-grid">
+                                {WHY_US.map((item, index) => (
+                                    <Reveal key={item.title} className="career-why-shell">
+                                        <SpotlightCard className="career-why-card">
+                                            <span className="career-why-num">
+                                                {String(index + 1).padStart(2, '0')}
+                                            </span>
+                                            <h3>{item.title}</h3>
+                                            <p>{item.desc}</p>
+                                        </SpotlightCard>
+                                    </Reveal>
+                                ))}
+                            </RevealGroup>
+                        </Reveal>
+
+                        <Reveal className="career-why-visual" dir="right">
+                            <NetworkLattice tint={TINT} density={92} />
+                            <p className="career-why-caption">
+                                Metro through tier-3. Wherever the estate is, that is where
+                                the work is.
+                            </p>
+                        </Reveal>
+                    </ContentWrapper>
+                </section>
+
+                {/* --- SPECULATIVE CTA --- */}
+                <section className="career-cta-section">
+                    <Reveal className="career-cta-box" dir="scale">
+                        <h2>Nothing above fits you?</h2>
+                        <p>
+                            We hire ahead of requirements for strong network, delivery, and
+                            software people. Send us what you have built and where you want
+                            to go next.
+                        </p>
+                        <div className="career-cta-actions">
+                            <MagneticButton
+                                as="a"
+                                href="mailto:info@dnispl.com?subject=Speculative%20application"
+                                className="career-btn-primary"
+                            >
+                                Email us your profile
+                            </MagneticButton>
+                            <Link to="/about" className="career-btn-ghost">
+                                How we work
+                            </Link>
+                        </div>
+                    </Reveal>
                 </section>
             </div>
 

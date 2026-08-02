@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import {
-  ArrowRight, Building2, ChevronDown, Cloud, Code2, Database, Factory,
-  GraduationCap, HeartPulse, Landmark, Menu, Network, RadioTower,
-  ShieldCheck, ShoppingBag, Truck, Wrench, X
+  ArrowRight, ChevronDown, Cloud, Code2, Database, Menu, Network,
+  ShieldCheck, Users, Wrench, X
 } from 'lucide-react';
 import './Header.css';
 import Logo from '../Images/logo.png';
+import { INDUSTRIES } from '../../data/industries';
 
 const solutionItems = [
   { to: '/network-implementation', icon: Network, title: 'Enterprise Networking', desc: 'Active and passive networking' },
-  // { to: '/workforce-outsourcing', icon: Users, title: 'Managed Services', desc: 'Ongoing IT support and management' },
   { to: '/business-solutions', icon: ShieldCheck, title: 'Cyber Security', desc: 'Protecting your digital assets' },
   { to: '/regulatory-compliance', icon: Cloud, title: 'Cloud Solutions', desc: 'Scalable cloud infrastructure' },
   { to: '/dc-passive-work', icon: Database, title: 'DC Infrastructure', desc: 'Data center passive work' },
@@ -18,23 +17,26 @@ const solutionItems = [
 ];
 
 const serviceItems = [
-  { to: '/workforce-outsourcing', icon: Wrench, title: 'Managed Services', desc: 'NOC, managed network, AMC and FMS' },
-  { to: '/work', icon: Network, title: 'Professional Services', desc: 'Audits, deployment and project management' },
-  { to: '/network-implementation', icon: ShieldCheck, title: 'Technical Support', desc: 'L1, L2, L3 and SME services' },
+  { to: '/services/managed', icon: Wrench, title: 'Managed Services', desc: 'NOC, managed network, AMC and FMS' },
+  { to: '/services/professional', icon: Network, title: 'Professional Services', desc: 'Audits, deployment and project management' },
+  { to: '/services/technical', icon: ShieldCheck, title: 'Technical Support', desc: 'L1, L2, L3 and SME services' },
+  { to: '/services/workforce-solutions', icon: Users, title: 'Workforce Solutions', desc: 'Technical staffing and field engineers' },
   { to: '/software-development', icon: Code2, title: 'Software Development', desc: 'Custom platforms, APIs and integrations' },
-  // { to: '/careers', icon: Users, title: 'Workforce Solutions', desc: 'Technical staffing and field engineers' },
 ];
 
+/**
+ * Built from the industries dataset so the menu can never advertise a sector
+ * that has no page behind it. Data Centers is appended by hand — it is a
+ * service page, not a sector, but it belongs in this menu commercially.
+ */
 const industryItems = [
-  { to: '/industries/finance', icon: Landmark, title: 'Banking & Finance', desc: 'Branch connectivity and SD-WAN' },
-  { to: '/industries/telecom', icon: RadioTower, title: 'Telecom', desc: 'NOC, rollouts and fiber operations' },
-  { to: '/industries/manufacturing', icon: Factory, title: 'Manufacturing', desc: 'Plant networks and connectivity' },
-  { to: '/industries/healthcare', icon: HeartPulse, title: 'Healthcare', desc: 'Reliable hospital infrastructure' },
-  { to: '/industries/education', icon: GraduationCap, title: 'Education', desc: 'Campus Wi-Fi architectures' },
-  { to: '/industries/retail', icon: ShoppingBag, title: 'Retail', desc: 'Multi-store networks and VPNs' },
-  { to: '/industries/data-centers', icon: Database, title: 'Data Centers', desc: 'ACI, Nexus fabric and audits' },
-  { to: '/industries/enterprise', icon: Building2, title: 'Enterprise', desc: 'End-to-end IT infrastructure' },
-  { to: '/industries/logistics', icon: Truck, title: 'Logistics', desc: 'Warehouse and fleet connectivity' },
+  ...INDUSTRIES.map((industry) => ({
+    to: `/industries/${industry.slug}`,
+    icon: industry.icon,
+    title: industry.name,
+    desc: industry.tagline
+  })),
+  { to: '/dc-passive-work', icon: Database, title: 'Data Centers', desc: 'ACI, Nexus fabric and audits' }
 ];
 
 const HeaderContentWrapper = ({ children, className }) => (
@@ -193,7 +195,7 @@ const Header = () => {
               </a>
 
               {activeDropdown === 'industries' && (
-                <div className="dropdown-menu services-menu" style={{ width: '560px' }}>
+                <div className="dropdown-menu services-menu" style={{ width: '580px' }}>
                   <div className="dropdown-header">
                     <h1 className="dropdown-subtitle">Sectors we secure and empower nationwide</h1>
                   </div>
@@ -208,11 +210,14 @@ const Header = () => {
                       </Link>
                     ))}
                   </div>
+                  <Link to="/industries" className="dropdown-footer-link" onClick={closeMenuAndNavigate}>
+                    View all industries <ArrowRight size={15} />
+                  </Link>
                 </div>
               )}
             </div>
 
-            <NavLink to="/portfolio" className="nav-link" onClick={closeMenuAndNavigate}>Case Studies</NavLink>
+            <NavLink to="/portfolio" className="nav-link" onClick={closeMenuAndNavigate}>Portfolio</NavLink>
 
             {/* ABOUT DROPDOWN */}
             <div
