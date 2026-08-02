@@ -10,7 +10,6 @@ import { INDUSTRIES } from '../../data/industries';
 
 const solutionItems = [
   { to: '/network-implementation', icon: Network, title: 'Enterprise Networking', desc: 'Active and passive networking' },
-  { to: '/workforce-outsourcing', icon: Users, title: 'Managed Services', desc: 'Ongoing IT support and management' },
   { to: '/business-solutions', icon: ShieldCheck, title: 'Cyber Security', desc: 'Protecting your digital assets' },
   { to: '/regulatory-compliance', icon: Cloud, title: 'Cloud Solutions', desc: 'Scalable cloud infrastructure' },
   { to: '/dc-passive-work', icon: Database, title: 'DC Infrastructure', desc: 'Data center passive work' },
@@ -18,38 +17,11 @@ const solutionItems = [
 ];
 
 const serviceItems = [
-<<<<<<< HEAD
-  {
-    to: '/services/managed',
-    icon: Wrench,
-    title: 'Managed Services',
-    desc: 'NOC, managed network, AMC and FMS'
-  },
-  {
-    to: '/services/professional',
-    icon: Network,
-    title: 'Professional Services',
-    desc: 'Audits, deployment and project management'
-  },
-  {
-    to: '/services/technical',
-    icon: ShieldCheck,
-    title: 'Technical Support',
-    desc: 'L1, L2, L3 and SME services'
-  },
-  {
-    to: '/services/workforce-solutions',
-    icon: Users,
-    title: 'Workforce Solutions',
-    desc: 'Technical staffing and field engineers'
-  },
-=======
-  { to: '/workforce-outsourcing', icon: Wrench, title: 'Managed Services', desc: 'NOC, managed network, AMC and FMS' },
-  { to: '/work', icon: Network, title: 'Professional Services', desc: 'Audits, deployment and project management' },
-  { to: '/network-implementation', icon: ShieldCheck, title: 'Technical Support', desc: 'L1, L2, L3 and SME services' },
+  { to: '/services/managed', icon: Wrench, title: 'Managed Services', desc: 'NOC, managed network, AMC and FMS' },
+  { to: '/services/professional', icon: Network, title: 'Professional Services', desc: 'Audits, deployment and project management' },
+  { to: '/services/technical', icon: ShieldCheck, title: 'Technical Support', desc: 'L1, L2, L3 and SME services' },
+  { to: '/services/workforce-solutions', icon: Users, title: 'Workforce Solutions', desc: 'Technical staffing and field engineers' },
   { to: '/software-development', icon: Code2, title: 'Software Development', desc: 'Custom platforms, APIs and integrations' },
-  { to: '/careers', icon: Users, title: 'Workforce Solutions', desc: 'Technical staffing and field engineers' },
->>>>>>> b9d58bf141ed5a6e141dfcf9e4c8fb380e9086dd
 ];
 
 /**
