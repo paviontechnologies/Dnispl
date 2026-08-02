@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 import { Mail, MapPin, Phone } from 'lucide-react';
 import './Footer.css';
 import Logo from '../Images/logo.png';
+import { INDUSTRIES } from '../../data/industries';
+
+/* Six of the ten sectors — enough to signal coverage without turning the
+   column into a wall. "All industries" carries the rest. */
+const FOOTER_INDUSTRIES = INDUSTRIES.slice(0, 6);
 
 const Footer = () => {
   return (
@@ -37,11 +42,25 @@ const Footer = () => {
               <Link to="/business-solutions">Cyber Security</Link>
               <Link to="/regulatory-compliance">Cloud Solutions</Link>
               <Link to="/dc-passive-work">DC Infrastructure</Link>
+              <Link to="/software-development">Software Development</Link>
+            </div>
+
+            <div className="footer-column">
+              <h4>Industries</h4>
+              {FOOTER_INDUSTRIES.map((industry) => (
+                <Link key={industry.slug} to={`/industries/${industry.slug}`}>
+                  {industry.name}
+                </Link>
+              ))}
+              <Link to="/industries" className="footer-see-all">All industries →</Link>
             </div>
 
             <div className="footer-column">
               <h4>Company</h4>
               <Link to="/about">About Us</Link>
+              <Link to="/leadership">Leadership</Link>
+              <Link to="/work">How We Work</Link>
+              <Link to="/portfolio">Case Studies</Link>
               <Link to="/careers">Careers</Link>
               <Link to="/blog">Blogs & News</Link>
               <Link to="/form">Contact Us</Link>

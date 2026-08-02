@@ -56,6 +56,7 @@
   padding: 80px 0 60px;
   text-align: center;
   position: relative;
+  overflow: hidden;
 }
 
 .portfolio-badge {
@@ -65,9 +66,43 @@
   margin-bottom: 25px; border: 1px solid rgba(37, 99, 235, 0.2);
 }
 .dot-pulse { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 10px rgba(34, 197, 94, 0.5); }
-.industry-lens { width: fit-content; max-width: 100%; margin: 24px auto 0; display: flex; align-items: center; gap: 18px; padding: 10px 12px 10px 18px; color: #c7d0d4; background: rgba(10, 16, 18, 0.72); border: 1px solid rgba(255,255,255,0.12); font-size: 13px; }
-.industry-lens a { color: #071013; background: #c4f017; padding: 9px 14px; font: 700 12px/1 var(--saira); white-space: nowrap; }
-@media (max-width: 560px) { .industry-lens { align-items: flex-start; flex-direction: column; } }
+/* Lens bar — shown when ?industry= narrows the grid. Its first job is to make
+   the narrowing visible; its second is to offer the sector page, which carries
+   the capability detail this page deliberately doesn't. */
+.industry-lens { width: fit-content; max-width: 100%; margin: 24px auto 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; padding: 12px 14px; border-radius: 100px; color: #c7d0d4; background: rgba(10, 16, 18, 0.72); border: 1px solid rgba(255,255,255,0.12); font-size: 13px; }
+.industry-lens a, .lens-clear { display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px; border-radius: 100px; font: 700 12px/1 var(--saira); white-space: nowrap; cursor: pointer; transition: 320ms var(--cube-1); }
+.lens-cta { color: #071013; background: #c4f017; border: 1px solid transparent; }
+.lens-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(196, 240, 23, 0.28); }
+.lens-back { color: #dff2ff; background: rgba(0, 240, 255, 0.09); border: 1px solid rgba(0, 240, 255, 0.32); }
+.lens-back:hover { background: rgba(0, 240, 255, 0.17); color: #fff; }
+.lens-clear { background: transparent; border: 1px solid rgba(255,255,255,0.18); color: #c7d0d4; font-weight: 600; }
+.lens-clear:hover { border-color: var(--pr-hover-border); color: #fff; }
+@media (max-width: 560px) { .industry-lens { align-items: stretch; flex-direction: column; border-radius: var(--border-radius-md); } .industry-lens a, .lens-clear { justify-content: center; } }
+
+/* --- Browse-by-sector strip --- */
+.portfolio-sectors { position: relative; z-index: 2; padding: 90px 0 20px; }
+.portfolio-sectors-head { max-width: 640px; margin: 0 auto 34px; text-align: center; }
+.portfolio-sectors-head p { margin-top: 12px; color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; }
+.portfolio-sector-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.sector-chip-shell { display: flex; }
+.sector-chip { display: inline-flex; align-items: center; gap: 9px; padding: 12px 22px; border-radius: 100px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); color: var(--text-secondary); font: 600 0.88rem/1 var(--saira); transition: 340ms var(--cube-1); }
+.sector-chip:hover { color: #fff; border-color: #00f0ff; background: rgba(0, 240, 255, 0.1); transform: translateY(-3px); }
+.sector-chip svg { opacity: 0.5; transition: transform 320ms var(--cube-1), opacity 320ms; }
+.sector-chip:hover svg { opacity: 1; transform: translateX(3px); }
+/* The sector already in view is marked rather than offered again. */
+.sector-chip.current { color: #05070f; background: linear-gradient(96deg, #00f0ff, #2563eb); border-color: transparent; }
+.sector-chip.current svg { opacity: 1; }
+
+/* --- Empty result state --- */
+.portfolio-empty { max-width: 620px; margin: 20px auto 0; padding: 46px 32px; text-align: center; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--border-radius-lg); }
+.portfolio-empty h3 { font: 700 1.2rem/1.45 var(--saira); color: #fff; text-transform: none; margin-bottom: 10px; }
+.portfolio-empty p { color: var(--text-muted); font-size: 0.94rem; line-height: 1.65; margin-bottom: 24px; }
+.portfolio-empty-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.portfolio-empty-actions button, .portfolio-empty-actions a { padding: 11px 22px; border-radius: 100px; font: 600 0.86rem/1 var(--saira); cursor: pointer; transition: 300ms var(--cube-1); }
+.portfolio-empty-actions button { background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); }
+.portfolio-empty-actions button:hover { border-color: var(--pr-hover-border); color: #fff; }
+.portfolio-empty-actions a { background: var(--ftc-gd-2); border: 1px solid transparent; color: #05070f; }
+.portfolio-empty-actions a:hover { transform: translateY(-2px); box-shadow: 0 10px 24px var(--secondary-glow); }
 
 .portfolio-title {
   font-family: var(--font-heading);
@@ -106,19 +141,18 @@
   gap: 24px;
 }
 
+/* Entry, filter reshuffle, expand and hover-lift are all driven by
+   framer-motion in Portfolio.js — it owns `transform`, so CSS is left to
+   handle colour and shadow only. */
 .project-card {
   display: flex; flex-direction: column;
   background: var(--glass-bg); border-radius: var(--border-radius-md); padding: 30px; border: 1px solid var(--glass-border);
   cursor: pointer; position: relative; overflow: hidden;
   backdrop-filter: var(--backdrop-blur);
-  opacity: 0;
-  transform: translateY(30px) scale(0.97);
-  animation: fadeInUpGrid 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .project-card:hover {
-  transform: translateY(-8px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 15px var(--primary-glow);
   border-color: var(--blue-primary);
 }
@@ -141,13 +175,25 @@
 }
 .project-card:hover .card-shine { left: 150%; transition: 0.8s ease-in-out; }
 
-.project-badge-row { display: flex; justify-content: space-between; margin-bottom: 15px; }
+/* Cards in a row are grid-stretched to equal height, so the body has to be the
+   part that grows — otherwise the "View Case Study" buttons sit at whatever
+   height each card's own text happened to end at. */
+.project-card { display: flex; flex-direction: column; }
+.project-card-header { flex-shrink: 0; }
+.project-footer { margin-top: auto; padding-top: 6px; }
+
+.project-badge-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 15px; }
 .project-category { font-size: 0.9rem; color: var(--text-muted); }
 .project-title { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 700; margin-bottom: 5px; color: white; transition: color 0.3s; min-height: 58px; }
 .project-industry { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px; min-height: 42px; }
 
+<<<<<<< HEAD
 .project-body { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease; flex: 1; }
 .project-card.expanded .project-body { max-height: 500px; opacity: 1; margin-bottom: 20px; }
+=======
+/* Height is animated by framer-motion; CSS only clips the overflow */
+.project-body { overflow: hidden; }
+>>>>>>> b9d58bf141ed5a6e141dfcf9e4c8fb380e9086dd
 .body-content { padding-top: 15px; border-top: 1px solid var(--glass-border); }
 .project-problem, .project-solution, .project-techstack { margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6; color: var(--text-muted); }
 .project-impact { margin-bottom: 15px; }
@@ -202,7 +248,13 @@
 }
 .final-cta-title { font-family: var(--font-heading); font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 20px; font-weight: 800; color: white; }
 .final-cta-subtitle { font-size: 1.15rem; max-width: 700px; margin: 0 auto 40px; color: var(--text-muted); }
-.final-cta-actions { display: flex; justify-content: center; gap: 20px; }
+.final-cta-actions { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 20px; }
+.portfolio-final-inner { position: relative; z-index: 2; }
+/* Slight extra depth on the glass metric tiles over the plain .metric-card */
+.glass-metric { backdrop-filter: var(--backdrop-blur); }
+/* framer-motion owns transform on these cards, so the CSS hover is shadow only */
+.hover-lift { transition: box-shadow 420ms var(--cube-1); }
+.hover-lift:hover { box-shadow: 0 26px 52px rgba(0, 0, 0, 0.5); }
 
 .btn-white-solid { background: white; color: var(--dark-bg); padding: 14px 34px; border-radius: 50px; font-family: var(--font-heading); font-weight: 700; text-decoration: none; transition: 0.3s; }
 .btn-white-solid:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255,255,255,0.2); }

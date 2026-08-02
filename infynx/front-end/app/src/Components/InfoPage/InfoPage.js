@@ -3,7 +3,17 @@ import { ArrowLeft, Cookie, FileCheck2, ShieldCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import { motion } from 'framer-motion';
+import {
+  AuroraBackdrop,
+  Reveal,
+  RevealGroup,
+  SplitHeading,
+  useScrollReveal
+} from '../../motion/MotionKit';
 import './InfoPage.css';
+
+const TINT = { from: '#00E2F5', to: '#C4F017', glow: 'rgba(0, 226, 245, 0.28)' };
 
 const pageContent = {
   privacy: {
@@ -44,30 +54,58 @@ const pageContent = {
 export const InfoPage = ({ type }) => {
   const content = pageContent[type];
   const Icon = content.icon;
+  useScrollReveal();
 
   return (
     <div className="info-page">
       <Header />
       <section className="info-hero">
+        <AuroraBackdrop tint={TINT} cubes={false} />
+
         <div className="info-shell">
-          <span className="info-eyebrow"><Icon size={16} /> {content.eyebrow}</span>
-          <h1>{content.title}</h1>
-          <p>{content.intro}</p>
-          <span className="info-updated">Last updated: July 2026</span>
+          <motion.span
+            className="info-eyebrow"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <Icon size={16} /> {content.eyebrow}
+          </motion.span>
+
+          <SplitHeading lines={[content.title]} />
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
+            {content.intro}
+          </motion.p>
+
+          <motion.span
+            className="info-updated"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+          >
+            Last updated: July 2026
+          </motion.span>
         </div>
       </section>
-      <section className="info-content info-shell">
+
+      <RevealGroup as="section" className="info-content info-shell">
         {content.sections.map(([title, body], index) => (
-          <article className="info-card" key={title}>
+          <Reveal as="article" dir="left" className="info-card" key={title}>
             <span>0{index + 1}</span>
             <div><h2>{title}</h2><p>{body}</p></div>
-          </article>
+          </Reveal>
         ))}
-        <div className="info-contact">
+        <Reveal className="info-contact" dir="scale">
           <p>Questions about this policy?</p>
           <Link to="/form">Contact our team</Link>
-        </div>
-      </section>
+        </Reveal>
+      </RevealGroup>
+
       <Footer />
     </div>
   );
@@ -77,10 +115,34 @@ export const NotFound = () => (
   <div className="info-page not-found-page">
     <Header />
     <section className="not-found-content">
-      <span className="not-found-code">404</span>
-      <h1>This route is off the network.</h1>
-      <p>The page may have moved, but the rest of the infrastructure is online.</p>
-      <Link to="/" className="info-home-link"><ArrowLeft size={18} /> Back to home</Link>
+      <AuroraBackdrop tint={TINT} />
+
+      <motion.span
+        className="not-found-code"
+        initial={{ opacity: 0, scale: 0.85 }}
+        animate={{ opacity: 0.2, scale: 1 }}
+        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+      >
+        404
+      </motion.span>
+
+      <SplitHeading lines={['This route is off the network.']} />
+
+      <motion.p
+        initial={{ opacity: 0, y: 18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.5 }}
+      >
+        The page may have moved, but the rest of the infrastructure is online.
+      </motion.p>
+
+      <motion.div
+        initial={{ opacity: 0, y: 18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.65 }}
+      >
+        <Link to="/" className="info-home-link"><ArrowLeft size={18} /> Back to home</Link>
+      </motion.div>
     </section>
     <Footer />
   </div>

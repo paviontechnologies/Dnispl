@@ -107,6 +107,7 @@
 .btn-outline-dark:hover { background: rgba(255, 255, 255, 0.05); border-color: var(--accent); }
 
 .ls-about-right { flex: 1; display: flex; justify-content: center; }
+.ls-image-tilt { border-radius: 24px; }
 .ls-image-card { position: relative; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 6px solid var(--bg-card); transform: rotate(1.5deg); transition: 0.5s; }
 .ls-image-card:hover { transform: rotate(0deg) scale(1.02); }
 .ls-about-image { width: 100%; display: block; filter: brightness(0.85); }
@@ -200,6 +201,47 @@ EXECUTIVE LEADERSHIP TEAM
   grid-template-columns: repeat(3, 1fr);
   gap: 28px;
   z-index: 3;
+}
+
+/* =========================================
+   EXECUTIVE CARDS ON THE SCROLL FAN
+========================================= */
+
+/* Full-bleed portrait, so the fan card drops its own padding */
+.executive-fan-card {
+  padding: 0;
+  overflow: hidden;
+  text-align: left;
+  border-radius: 24px;
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.executive-fan-card .executive-card-image { height: 250px; }
+
+.executive-fan-card:hover .executive-card-image img { transform: scale(1.05); }
+
+.executive-fan-card h3 {
+  margin: 0 0 10px;
+  font-size: 24px;
+  letter-spacing: -0.3px;
+}
+
+.executive-fan-card .executive-role { color: rgba(255, 255, 255, 0.85); }
+.executive-fan-card .executive-description { color: rgba(255, 255, 255, 0.72); }
+.executive-fan-card .executive-experience span { color: #fff; }
+
+/* Orbit rings turning around the hero portrait */
+.leader-orbit {
+  position: absolute;
+  left: 50%;
+  bottom: 8%;
+  width: 330px;
+  height: 330px;
+  transform: translateX(-50%);
+  z-index: 1;
+  pointer-events: none;
 }
 
 

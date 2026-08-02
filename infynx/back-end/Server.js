@@ -8,6 +8,7 @@ const Job = require("./Models/Job");
 require('dotenv').config();   
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
 const Auth = require("./Middleware/Auth");
 const Otp = require("./Models/Otp");
 
@@ -25,8 +26,11 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Resume files ko browser se access karne ke liye
-app.use("/uploads",express.static("uploads"));
+// Resume files ko browser se access karne ke liye.
+// __dirname se resolve karte hain taki Linux (case-sensitive) par bhi chale.
+const UPLOAD_DIR = path.join(__dirname, "uploads");
+if (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+app.use("/uploads", express.static(UPLOAD_DIR));
 
 // 🔍 Debug: check env load (password ko mat log karna)
 console.log('SMTP_HOST:', process.env.SMTP_HOST);
@@ -44,16 +48,26 @@ mongoose
 
     const storage = multer.diskStorage({
     destination:(req,file,cb)=>{
-    cb(null,"uploads/");
+    cb(null,UPLOAD_DIR);
     },
 
     filename:(req,file,cb)=>{
-    cb(null,Date.now()+"-"+file.originalname);
+    // Original name sanitize karte hain — path traversal aur weird chars se bachne ke liye
+    const safe = path.basename(file.originalname).replace(/[^a-zA-Z0-9._-]/g, "_");
+    cb(null,Date.now()+"-"+safe);
     }
     });
 
+    // Resume hi accept karna hai: sirf PDF/DOC, max 5 MB.
     const upload = multer({
-    storage
+    storage,
+    limits: { fileSize: 5 * 1024 * 1024 },
+    fileFilter: (req, file, cb) => {
+      const ok = [".pdf", ".doc", ".docx"].includes(
+        path.extname(file.originalname).toLowerCase()
+      );
+      cb(ok ? null : new Error("Only PDF or Word documents are allowed"), ok);
+    }
     });
 
 // ------------------- JOBS API -------------------
@@ -86,21 +100,6 @@ app.post('/api/jobs', Auth, async (req, res) => {
     });
   }
 });
-
-// Create Job
-app.post("/api/jobs", Auth, async (req, res) => {
-  try {
-    const job = await Job.create(req.body);
-
-    res.status(201).json(job);
-
-  } catch (err) {
-    res.status(500).json({
-      message: err.message,
-    });
-  }
-});
-
 
 // Update Job
 app.put("/api/jobs/:id", Auth, async (req, res) => {
@@ -264,8 +263,19 @@ app.get('/api/blogs', async (req, res) => {
     }
 });
 
-// Post a new blog (Use this for your Admin/Dashboard)
-app.post('/api/blogs', async (req, res) => {
+// Get one blog by id — blog detail page ke liye
+app.get('/api/blogs/:id', async (req, res) => {
+    try {
+        const blog = await Blog.findById(req.params.id);
+        if (!blog) return res.status(404).json({ message: 'Blog not found' });
+        res.json(blog);
+    } catch (err) {
+        res.status(400).json({ message: 'Invalid blog id', error: err.message });
+    }
+});
+
+// Post a new blog — sirf logged-in admin (pehle ye khula hua tha)
+app.post('/api/blogs', Auth, async (req, res) => {
     try {
         const newBlog = new Blog(req.body);
         const savedBlog = await newBlog.save();
@@ -275,10 +285,51 @@ app.post('/api/blogs', async (req, res) => {
     }
 });
 
+// Update blog
+app.put('/api/blogs/:id', Auth, async (req, res) => {
+    try {
+        const blog = await Blog.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+            runValidators: true,
+        });
+        if (!blog) return res.status(404).json({ message: 'Blog not found' });
+        res.json(blog);
+    } catch (err) {
+        res.status(400).json({ message: 'Error updating blog', error: err.message });
+    }
+});
+
+// Delete blog
+app.delete('/api/blogs/:id', Auth, async (req, res) => {
+    try {
+        const blog = await Blog.findByIdAndDelete(req.params.id);
+        if (!blog) return res.status(404).json({ message: 'Blog not found' });
+        res.json({ message: 'Blog Deleted' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 // -------------------- JOB APPLICATION ROUTE -------------------
 
-app.post("/apply-job", upload.single("resume"), async (req, res) => {
+// Multer ke errors (size limit, wrong type) ko 400 mein badalte hain, warna
+// unhandled hokar 500 "Internal error" chala jaata tha.
+const uploadResume = (req, res, next) =>
+  upload.single("resume")(req, res, (err) => {
+    if (!err) return next();
+    const message =
+      err.code === "LIMIT_FILE_SIZE"
+        ? "Resume must be smaller than 5 MB"
+        : err.message || "Resume upload failed";
+    return res.status(400).json({ message });
+  });
+
+app.post("/apply-job", uploadResume, async (req, res) => {
   try {
+    if (!req.file) {
+      return res.status(400).json({ message: "A resume file is required" });
+    }
+
     const application = await Application.create({
       name: req.body.name,
       email: req.body.email,
@@ -341,16 +392,53 @@ app.delete("/api/applications/:id", Auth, async (req, res) => {
 
 app.get("/api/dashboard", Auth, async (req, res) => {
   try {
-    const contacts = await Contact.countDocuments();
-    const jobs = await Job.countDocuments();
-    const applications = await Application.countDocuments();
-    const blogs = await Blog.countDocuments();
+    const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+
+    const [
+      contacts,
+      jobs,
+      applications,
+      blogs,
+      contactsThisWeek,
+      applicationsThisWeek,
+      pendingContacts,
+      pendingApplications,
+      recentContacts,
+      recentApplications,
+      serviceSplit,
+    ] = await Promise.all([
+      Contact.countDocuments(),
+      Job.countDocuments(),
+      Application.countDocuments(),
+      Blog.countDocuments(),
+      Contact.countDocuments({ createdAt: { $gte: weekAgo } }),
+      Application.countDocuments({ createdAt: { $gte: weekAgo } }),
+      Contact.countDocuments({ status: "Pending" }),
+      Application.countDocuments({ status: "Pending" }),
+      Contact.find().sort({ createdAt: -1 }).limit(5).select("name service status createdAt"),
+      Application.find().sort({ createdAt: -1 }).limit(5).select("name jobProfile status createdAt"),
+      Contact.aggregate([
+        { $group: { _id: "$service", count: { $sum: 1 } } },
+        { $sort: { count: -1 } },
+        { $limit: 6 },
+      ]),
+    ]);
 
     res.json({
       contacts,
       jobs,
       applications,
       blogs,
+      contactsThisWeek,
+      applicationsThisWeek,
+      pendingContacts,
+      pendingApplications,
+      recentContacts,
+      recentApplications,
+      serviceSplit: serviceSplit.map((entry) => ({
+        service: entry._id || "Unspecified",
+        count: entry.count,
+      })),
     });
 
   } catch (err) {
@@ -382,7 +470,8 @@ app.post("/api/admin/login", async (req,res)=>{
 
     const token=jwt.sign(
     {
-    id:admin._id
+    id:admin._id,
+    role:"admin"
     },
     process.env.JWT_SECRET,
     {
@@ -408,11 +497,39 @@ app.post("/api/admin/login", async (req,res)=>{
 
 // -------------------- HR OTP LOGIN --------------------
 
+/**
+ * Sirf approved HR mailboxes hi OTP maang sakte hain. Iske bina koi bhi apna
+ * email daal kar khud ko OTP bhej sakta tha aur poora admin API access mil
+ * jaata tha. Allowlist HR_EMAILS env var se aati hai (comma separated);
+ * kuch set na ho to @dnispl.com domain default hai.
+ */
+const HR_EMAILS = (process.env.HR_EMAILS || "")
+  .split(",")
+  .map((entry) => entry.trim().toLowerCase())
+  .filter(Boolean);
+
+const HR_DOMAIN = (process.env.HR_DOMAIN || "dnispl.com").toLowerCase();
+
+const isAuthorisedHr = (email) => {
+  const normalised = String(email).trim().toLowerCase();
+  if (HR_EMAILS.length) return HR_EMAILS.includes(normalised);
+  return normalised.endsWith(`@${HR_DOMAIN}`);
+};
+
+const OTP_TTL_MS = 5 * 60 * 1000;
+
 // Send OTP
 app.post("/api/hr/send-otp", async (req, res) => {
   const { email } = req.body;
   if (!email) {
     return res.status(400).json({ message: "Email is required" });
+  }
+
+  if (!isAuthorisedHr(email)) {
+    // Deliberately vague — kis email ki access hai ye leak nahi karna chahiye
+    return res.status(403).json({
+      message: "This email is not authorised for HR portal access.",
+    });
   }
 
   // Generate 6-digit OTP
@@ -470,9 +587,22 @@ app.post("/api/hr/verify-otp", async (req, res) => {
     return res.status(400).json({ message: "Email and OTP are required" });
   }
 
+  if (!isAuthorisedHr(email)) {
+    return res.status(403).json({
+      message: "This email is not authorised for HR portal access.",
+    });
+  }
+
   try {
     const record = await Otp.findOne({ email });
     if (!record || record.otp !== otp) {
+      return res.status(400).json({ message: "Invalid or expired OTP" });
+    }
+
+    // Mongo ka TTL monitor ~60s par chalta hai, to expiry khud bhi check karte
+    // hain — warna mail mein likha "5 minutes" enforce nahi hota.
+    if (Date.now() - new Date(record.createdAt).getTime() > OTP_TTL_MS) {
+      await Otp.deleteOne({ email });
       return res.status(400).json({ message: "Invalid or expired OTP" });
     }
 
@@ -494,6 +624,16 @@ app.post("/api/hr/verify-otp", async (req, res) => {
     console.error("OTP VERIFY ERROR:", err);
     res.status(500).json({ message: "Verification failed", error: err.message });
   }
+});
+
+// -------------------- HEALTH --------------------
+
+app.get("/api/health", (req, res) => {
+  res.json({
+    status: "ok",
+    db: mongoose.connection.readyState === 1 ? "connected" : "disconnected",
+    uptime: Math.round(process.uptime()),
+  });
 });
 
 app.listen(PORT, () => {

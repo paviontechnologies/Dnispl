@@ -46,8 +46,8 @@
 /* --- TOP SECTION LAYOUT --- */
 .footer-top {
   display: grid;
-  grid-template-columns: 1.5fr 2fr 1.2fr;
-  gap: 60px;
+  grid-template-columns: 1.35fr 2.6fr 1.05fr;
+  gap: 48px;
   margin-bottom: 60px;
 }
 
@@ -145,10 +145,17 @@
 }
 
 /* --- LINKS SECTION --- */
+/* Four columns since Industries joined Solutions, Company, and Legal. */
 .footer-links-wrapper {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
+}
+
+/* Escape hatch out of the six-sector shortlist */
+.footer-see-all {
+  color: var(--pr-cyan) !important;
+  font-weight: 600;
 }
 
 .footer-column h4 {
@@ -268,6 +275,9 @@
   .footer-top {
     grid-template-columns: 1.2fr 1.8fr;
     gap: 40px;
+  }
+  .footer-links-wrapper {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 

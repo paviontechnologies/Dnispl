@@ -1045,6 +1045,114 @@ ye iska css h
 }
 
 /* --------------------------------------------------------------------------
+   INDUSTRIES — ten compact tiles, each tinted with its own sector hue and
+   linking to that sector's page.
+   -------------------------------------------------------------------------- */
+.home-industries-section {
+  padding: 120px 0;
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--border-color);
+  background: linear-gradient(180deg, rgba(0, 226, 245, 0.03), transparent 55%);
+}
+
+.home-industry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(238px, 1fr));
+  gap: 16px;
+  margin-top: 52px;
+}
+
+.home-industry-card {
+  position: relative;
+  display: block;
+  padding: 26px 24px 24px;
+  border-radius: var(--border-radius-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  transition: 420ms var(--cube-1);
+}
+
+.home-industry-card:hover {
+  transform: translateY(-7px);
+  border-color: color-mix(in srgb, var(--fx-1) 48%, transparent);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+}
+
+.home-industry-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  margin-bottom: 18px;
+  color: var(--fx-1);
+  background: color-mix(in srgb, var(--fx-1) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--fx-1) 28%, transparent);
+  transition: 420ms var(--cube-1);
+}
+
+.home-industry-card:hover .home-industry-icon {
+  background: color-mix(in srgb, var(--fx-1) 22%, transparent);
+  transform: scale(1.07);
+}
+
+.home-industry-name {
+  display: block;
+  font-family: var(--saira);
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 7px;
+}
+
+.home-industry-desc {
+  display: block;
+  font-size: 13.5px;
+  line-height: 22px;
+  color: var(--text-muted);
+  padding-right: 28px;
+}
+
+/* Arrow tucked into the corner so it doesn't take a row of its own. Offsets are
+   0 because SpotlightCard's inner body div is the containing block, and it
+   already sits inside the card's padding. */
+.home-industry-go {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  color: var(--text-muted);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: 380ms var(--cube-1);
+}
+
+.home-industry-card:hover .home-industry-go {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--fx-1);
+}
+
+.home-industry-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 44px;
+}
+
+@media (max-width: 767px) {
+  .home-industries-section { padding: 80px 0; }
+  .home-industry-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .home-industry-card { padding: 22px 18px 20px; }
+  .home-industry-desc { padding-right: 0; }
+  .home-industry-go { display: none; }
+}
+
+@media (max-width: 440px) {
+  .home-industry-grid { grid-template-columns: 1fr; }
+}
+
+/* --------------------------------------------------------------------------
    OPERATIONAL SCALE — gradient stat bar (ftc-achieve-4)
    -------------------------------------------------------------------------- */
 .operational-scale-section {

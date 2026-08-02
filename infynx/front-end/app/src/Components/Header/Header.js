@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import {
-  ArrowRight, Building2, ChevronDown, Cloud, Database, Factory,
-  GraduationCap, HeartPulse, Landmark, Menu, Network, RadioTower,
-  ShieldCheck, ShoppingBag, Truck, Users, Wrench, X
+  ArrowRight, ChevronDown, Cloud, Code2, Database, Menu, Network,
+  ShieldCheck, Users, Wrench, X
 } from 'lucide-react';
 import './Header.css';
 import Logo from '../Images/logo.png';
+import { INDUSTRIES } from '../../data/industries';
 
 const solutionItems = [
   { to: '/network-implementation', icon: Network, title: 'Enterprise Networking', desc: 'Active and passive networking' },
@@ -14,10 +14,11 @@ const solutionItems = [
   { to: '/business-solutions', icon: ShieldCheck, title: 'Cyber Security', desc: 'Protecting your digital assets' },
   { to: '/regulatory-compliance', icon: Cloud, title: 'Cloud Solutions', desc: 'Scalable cloud infrastructure' },
   { to: '/dc-passive-work', icon: Database, title: 'DC Infrastructure', desc: 'Data center passive work' },
-  { to: '/about', icon: Building2, title: 'Collaboration', desc: 'Expert IT guidance and strategy' },
+  { to: '/software-development', icon: Code2, title: 'Software Development', desc: 'Web, mobile, cloud and AI builds' },
 ];
 
 const serviceItems = [
+<<<<<<< HEAD
   {
     to: '/services/managed',
     icon: Wrench,
@@ -42,18 +43,28 @@ const serviceItems = [
     title: 'Workforce Solutions',
     desc: 'Technical staffing and field engineers'
   },
+=======
+  { to: '/workforce-outsourcing', icon: Wrench, title: 'Managed Services', desc: 'NOC, managed network, AMC and FMS' },
+  { to: '/work', icon: Network, title: 'Professional Services', desc: 'Audits, deployment and project management' },
+  { to: '/network-implementation', icon: ShieldCheck, title: 'Technical Support', desc: 'L1, L2, L3 and SME services' },
+  { to: '/software-development', icon: Code2, title: 'Software Development', desc: 'Custom platforms, APIs and integrations' },
+  { to: '/careers', icon: Users, title: 'Workforce Solutions', desc: 'Technical staffing and field engineers' },
+>>>>>>> b9d58bf141ed5a6e141dfcf9e4c8fb380e9086dd
 ];
 
+/**
+ * Built from the industries dataset so the menu can never advertise a sector
+ * that has no page behind it. Data Centers is appended by hand — it is a
+ * service page, not a sector, but it belongs in this menu commercially.
+ */
 const industryItems = [
-  { to: '/portfolio?industry=finance', icon: Landmark, title: 'Banking & Finance', desc: 'Branch connectivity and SD-WAN' },
-  { to: '/portfolio?industry=telecom', icon: RadioTower, title: 'Telecom', desc: 'NOC, rollouts and fiber operations' },
-  { to: '/portfolio?industry=manufacturing', icon: Factory, title: 'Manufacturing', desc: 'Plant networks and connectivity' },
-  { to: '/portfolio?industry=healthcare', icon: HeartPulse, title: 'Healthcare', desc: 'Reliable hospital infrastructure' },
-  { to: '/portfolio?industry=education', icon: GraduationCap, title: 'Education', desc: 'Campus Wi-Fi architectures' },
-  { to: '/portfolio?industry=retail', icon: ShoppingBag, title: 'Retail', desc: 'Multi-store networks and VPNs' },
-  { to: '/dc-passive-work', icon: Database, title: 'Data Centers', desc: 'ACI, Nexus fabric and audits' },
-  { to: '/portfolio?industry=enterprise', icon: Building2, title: 'Enterprise', desc: 'End-to-end IT infrastructure' },
-  { to: '/portfolio?industry=logistics', icon: Truck, title: 'Logistics', desc: 'Warehouse and fleet connectivity' },
+  ...INDUSTRIES.map((industry) => ({
+    to: `/industries/${industry.slug}`,
+    icon: industry.icon,
+    title: industry.name,
+    desc: industry.tagline
+  })),
+  { to: '/dc-passive-work', icon: Database, title: 'Data Centers', desc: 'ACI, Nexus fabric and audits' }
 ];
 
 const HeaderContentWrapper = ({ children, className }) => (
@@ -212,7 +223,7 @@ const Header = () => {
               </a>
 
               {activeDropdown === 'industries' && (
-                <div className="dropdown-menu services-menu" style={{ width: '560px' }}>
+                <div className="dropdown-menu services-menu" style={{ width: '580px' }}>
                   <div className="dropdown-header">
                     <h1 className="dropdown-subtitle">Sectors we secure and empower nationwide</h1>
                   </div>
@@ -227,6 +238,9 @@ const Header = () => {
                       </Link>
                     ))}
                   </div>
+                  <Link to="/industries" className="dropdown-footer-link" onClick={closeMenuAndNavigate}>
+                    View all industries <ArrowRight size={15} />
+                  </Link>
                 </div>
               )}
             </div>
@@ -254,6 +268,7 @@ const Header = () => {
                     { to: "/about", title: "About Us", desc: "Our history, engineering values, and outcomes." },
                     { to: "/leadership", title: "Leadership Team", desc: "Meet the founders and directors." },
                     { to: "/work", title: "How We Work", desc: "Agile execution, SoW, and SLA operations." },
+                    { to: "/blog", title: "Blogs & News", desc: "Field notes from complex rollouts." },
                   ].map(item => (
                     <Link
                       key={item.to}

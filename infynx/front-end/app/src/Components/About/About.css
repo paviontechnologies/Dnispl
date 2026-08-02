@@ -95,12 +95,44 @@
 .story-image-frame:hover { transform: rotate(0deg) scale(1.02); }
 .story-main-image { width: 100%; display: block; filter: brightness(0.85); }
 
+/* Globe overlapping the story frame, mirroring Home's phone + globe pairing */
+.story-visual { position: relative; width: 100%; }
+.story-globe {
+  position: absolute;
+  left: -34px;
+  bottom: -46px;
+  width: 168px;
+  max-width: 168px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* --- CAPABILITY MARQUEE --- */
+.about-marquee-section {
+  padding: 26px 0;
+  background: rgba(8, 9, 13, 0.75);
+  border-bottom: 1px solid var(--border-color);
+}
+
 /* --- CORE PRINCIPLES --- */
 .core-principles-section { padding: 100px 0; background: rgba(8, 9, 13, 0.6); border-bottom: 1px solid var(--border-color); position: relative; overflow: hidden; }
 .section-desc { font-size: 1.15rem; margin-bottom: 50px; color: var(--text-muted); }
 
 .principles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .principle-card { background: var(--bg-card); backdrop-filter: var(--backdrop-blur); border: 1px solid var(--glass-border); border-radius: var(--border-radius-md); padding: 40px 30px; color: white; position: relative; overflow: hidden; transition: 0.3s; }
+
+/* Principle cards riding the scroll fan */
+.principle-fan-card { text-align: left; padding: 34px 30px 30px; }
+.principle-fan-card .fx-fan-badge { font-size: 34px; margin-bottom: 22px; }
+.principle-fan-card h3 { font-size: 1.35rem; }
+.principle-fan-list { padding-left: 20px; margin: 0; list-style: disc; }
+.principle-fan-list li {
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+}
+.principle-fan-list li:last-child { margin-bottom: 0; }
 
 /* Shared Hover Effect for Dark Cards */
 .card-hover-effect:hover { 
@@ -174,8 +206,8 @@
   opacity: 0.6;
 }
 
-.timeline-item { position: relative; width: 50%; margin-bottom: 70px; opacity: 0; transform: translateY(50px); transition: all 0.8s ease-out; }
-.timeline-item.in-view { opacity: 1; transform: translateY(0); }
+/* Entry motion comes from the shared .ftc-reveal system (see src/index.css) */
+.timeline-item { position: relative; width: 50%; margin-bottom: 70px; }
 
 .timeline-item.left { left: 0; padding-right: 50px; text-align: right; }
 .timeline-item.right { left: 50%; padding-left: 50px; text-align: left; }
@@ -211,7 +243,7 @@
 }
 .timeline-item.left .timeline-connector { right: 20px; transform-origin: right; }
 .timeline-item.right .timeline-connector { left: 20px; transform-origin: left; }
-.timeline-item.in-view .timeline-connector { opacity: 0.3; }
+.timeline-item.is-revealed .timeline-connector { opacity: 0.3; }
 
 .glass-card-timeline { 
   background: var(--bg-card); 
@@ -635,4 +667,5 @@
   .final-cta-actions { width: 100%; }
   .final-cta-actions .btn-solid { width: 100%; max-width: 260px; padding: 17px 30px; margin: 0 auto; }
   .timeline-item { margin-bottom: 50px; }
+  .story-globe { width: 116px; max-width: 116px; left: -18px; bottom: -30px; }
 }

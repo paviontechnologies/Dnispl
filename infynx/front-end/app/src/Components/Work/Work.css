@@ -19,7 +19,11 @@
   border-radius: var(--border-radius-md);
   margin-bottom: 40px;
   border: 1px solid var(--glass-border);
+  position: relative;
+  overflow: hidden;
 }
+
+.work-hero-inner { position: relative; z-index: 2; }
 
 .work-hero-section h1 {
   font-family: var(--font-heading);
@@ -153,8 +157,22 @@
 }
 
 /* --------------------
+   Fan cards
+   -------------------- */
+.work-fan-card .fx-fan-badge { display: inline-flex; }
+
+/* --------------------
    Final Step (List)
    -------------------- */
+.work-outcome-layout {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 40px;
+  align-items: center;
+}
+
+.work-outcome-visual { justify-self: center; }
+
 .final-step ul {
   list-style: none;
   padding: 0;
@@ -187,6 +205,11 @@
 .work-cta-row { margin-top: 34px; padding: 24px; display: flex; justify-content: space-between; align-items: center; gap: 20px; border: 1px solid rgba(255,255,255,0.12); background: rgba(10,16,18,0.72); }
 .work-cta-row p { color: white; }
 .work-cta-row a { color: #071013; background: #c4f017; padding: 11px 20px; font: 700 14px/1 var(--saira); }
+
+@media (max-width: 960px) {
+  .work-outcome-layout { grid-template-columns: 1fr; }
+  .work-outcome-visual { max-width: 240px; }
+}
 
 @media (max-width: 720px) {
   .delivery-flow-chart { align-items: stretch; flex-direction: column; text-align: left; }

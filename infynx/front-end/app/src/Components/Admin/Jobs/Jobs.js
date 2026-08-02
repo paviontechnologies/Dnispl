@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from "react";
-import Sidebar from "../Sidebar/Sidebar";
+import React, { useCallback, useEffect, useState } from "react";
+import { Pencil, Plus, RefreshCw, Trash2, X } from "lucide-react";
+import { motion } from "framer-motion";
+import AdminLayout, { AdminState } from "../AdminLayout/AdminLayout";
+import { authFetch, publicFetch } from "../../../config/api";
 import "./Jobs.css";
 
 const initialForm = {
@@ -11,79 +14,80 @@ const initialForm = {
   fullDescription: "",
 };
 
+/* The careers page colours its tag from this value, so keep the vocabulary tight. */
+const EXPERIENCE_OPTIONS = ["ENGINEERING", "DELIVERY", "GROWTH", "OPERATIONS"];
+
+/** Every key is coerced — older records may be missing category or location. */
+const matches = (job, term) =>
+  [job.title, job.location, job.category, job.experience]
+    .map((value) => String(value ?? "").toLowerCase())
+    .some((value) => value.includes(term));
+
+const formatDate = (value) =>
+  value ? new Date(value).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }) : "—";
+
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
   const [form, setForm] = useState(initialForm);
   const [editingId, setEditingId] = useState(null);
   const [search, setSearch] = useState("");
+  const [showForm, setShowForm] = useState(false);
+  const [state, setState] = useState("loading");
+  const [saving, setSaving] = useState(false);
+  const [feedback, setFeedback] = useState(null); // { tone, text }
 
-  useEffect(() => {
-    fetchJobs();
+  const fetchJobs = useCallback(async () => {
+    setState("loading");
+    try {
+      const data = await publicFetch("/api/jobs");
+      setJobs(Array.isArray(data) ? data : []);
+      setState("ready");
+    } catch (err) {
+      setFeedback({ tone: "error", text: err.message });
+      setState("error");
+    }
   }, []);
 
-  const fetchJobs = async () => {
-    const res = await fetch("http://localhost:5000/api/jobs");
-    const data = await res.json();
-    setJobs(data);
-  };
-
-  const filteredJobs = jobs.filter((job) =>
-  job.title.toLowerCase().includes(search.toLowerCase()) ||
-  job.location.toLowerCase().includes(search.toLowerCase()) ||
-  job.category.toLowerCase().includes(search.toLowerCase())
-);
+  useEffect(() => { fetchJobs(); }, [fetchJobs]);
 
   const handleChange = (e) => {
-    const { name, type, value, checked, files } = e.target;
-    const newValue = type === "checkbox" ? checked : type === "file" ? files : value;
-    setForm((prev) => ({
-      ...prev,
-      [name]: newValue,
-    }));
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const saveJob = async () => {
-  try {
-    const url = editingId
-      ? `http://localhost:5000/api/jobs/${editingId}`
-      : "http://localhost:5000/api/jobs";
-
-    const method = editingId ? "PUT" : "POST";
-
-    console.log("Sending:", form);
-
-    const res = await fetch(url, {
-      method,
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": localStorage.getItem("token"),
-      },
-      body: JSON.stringify(form),
-    });
-
-    const data = await res.json();
-
-    console.log("Status:", res.status);
-    console.log("Response:", data);
-
-    if (!res.ok) {
-      alert(data.message);
-      return;
-    }
-
-    alert(editingId ? "Job Updated" : "Job Added");
-
+  const resetForm = () => {
     setForm(initialForm);
     setEditingId(null);
-    fetchJobs();
+    setShowForm(false);
+  };
 
-  } catch (err) {
-    console.log(err);
-  }
-};
+  const saveJob = async (e) => {
+    e.preventDefault();
+    setSaving(true);
+    setFeedback(null);
+
+    try {
+      const saved = await authFetch(
+        editingId ? `/api/jobs/${editingId}` : "/api/jobs",
+        { method: editingId ? "PUT" : "POST", body: form }
+      );
+
+      setJobs((rows) =>
+        editingId ? rows.map((row) => (row._id === editingId ? saved : row)) : [saved, ...rows]
+      );
+      setFeedback({ tone: "success", text: editingId ? "Role updated." : "Role published to the careers page." });
+      resetForm();
+    } catch (err) {
+      setFeedback({ tone: "error", text: err.message });
+    } finally {
+      setSaving(false);
+    }
+  };
 
   const editJob = (job) => {
     setEditingId(job._id);
+    setShowForm(true);
+    setFeedback(null);
     setForm({
       title: job.title || "",
       experience: job.experience || "",
@@ -92,126 +96,212 @@ const Jobs = () => {
       description: job.description || "",
       fullDescription: job.fullDescription || "",
     });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const deleteJob = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this job?")) return;
+  const deleteJob = async (job) => {
+    if (!window.confirm(`Delete "${job.title}"? This removes it from the careers page.`)) return;
+
     try {
-      const res = await fetch(`http://localhost:5000/api/jobs/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Authorization": localStorage.getItem("token"),
-        },
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        alert(data.message || "Failed to delete job");
-        return;
-      }
-      alert("Job Deleted");
-      fetchJobs();
+      await authFetch(`/api/jobs/${job._id}`, { method: "DELETE" });
+      setJobs((rows) => rows.filter((row) => row._id !== job._id));
+      if (editingId === job._id) resetForm();
+      setFeedback({ tone: "success", text: "Role deleted." });
     } catch (err) {
-      console.log(err);
+      setFeedback({ tone: "error", text: err.message });
     }
   };
 
+  const term = search.trim().toLowerCase();
+  const filteredJobs = term ? jobs.filter((job) => matches(job, term)) : jobs;
+
+  const actions = (
+    <>
+      <button type="button" className="admin-btn admin-btn-ghost" onClick={fetchJobs} disabled={state === "loading"}>
+        <RefreshCw size={15} className={state === "loading" ? "spin" : ""} />
+        Refresh
+      </button>
+      <button
+        type="button"
+        className="admin-btn"
+        onClick={() => (showForm ? resetForm() : setShowForm(true))}
+      >
+        {showForm ? <><X size={15} /> Close</> : <><Plus size={15} /> New role</>}
+      </button>
+    </>
+  );
+
   return (
-    <div className="jobs-page">
-      <Sidebar />
+    <AdminLayout
+      title="Manage Jobs"
+      subtitle={`${jobs.length} role${jobs.length === 1 ? "" : "s"} live on the careers page`}
+      actions={actions}
+    >
+      {feedback && (
+        <div className={`admin-banner admin-banner-${feedback.tone}`}>{feedback.text}</div>
+      )}
 
-      <div className="jobs-content">
+      {showForm && (
+        <motion.form
+          className="admin-panel job-form-panel"
+          onSubmit={saveJob}
+          initial={{ opacity: 0, y: -12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="admin-panel-head">
+            <div>
+              <h2>{editingId ? "Edit role" : "Publish a new role"}</h2>
+              <p>These fields render directly on the public careers page.</p>
+            </div>
+          </div>
 
-        <h2>Manage Jobs</h2>
+          <div className="admin-form-grid">
+            <div className="admin-field">
+              <label htmlFor="title">Job title</label>
+              <input id="title" name="title" value={form.title} onChange={handleChange} placeholder="Network Engineer - L2/L3" required />
+            </div>
 
-        <div className="job-form">
+            <div className="admin-field">
+              <label htmlFor="experience">Track</label>
+              <select id="experience" name="experience" value={form.experience} onChange={handleChange} required>
+                <option value="">Select a track</option>
+                {EXPERIENCE_OPTIONS.map((option) => (
+                  <option key={option} value={option}>{option}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="admin-field">
+              <label htmlFor="location">Location</label>
+              <input id="location" name="location" value={form.location} onChange={handleChange} placeholder="Gurugram / PAN India" required />
+            </div>
+
+            <div className="admin-field">
+              <label htmlFor="category">Category</label>
+              <input id="category" name="category" value={form.category} onChange={handleChange} placeholder="Networking" required />
+            </div>
+
+            <div className="admin-field span-full">
+              <label htmlFor="description">Short description</label>
+              <textarea id="description" name="description" value={form.description} onChange={handleChange} placeholder="One or two lines shown on the role card." required />
+            </div>
+
+            <div className="admin-field span-full">
+              <label htmlFor="fullDescription">Full description</label>
+              <textarea
+                id="fullDescription"
+                name="fullDescription"
+                value={form.fullDescription}
+                onChange={handleChange}
+                rows={7}
+                placeholder={"Role: what this person owns\nExperience: what we expect\nWhat matters: how we evaluate"}
+                required
+              />
+              <small className="admin-hint">
+                Lines containing a colon render as bold headings in the application modal.
+              </small>
+            </div>
+          </div>
+
+          <div className="admin-form-actions">
+            <button type="submit" className="admin-btn" disabled={saving}>
+              {saving ? "Saving…" : editingId ? "Update role" : "Publish role"}
+            </button>
+            <button type="button" className="admin-btn admin-btn-ghost" onClick={resetForm}>
+              Cancel
+            </button>
+          </div>
+        </motion.form>
+      )}
+
+      <div className="admin-panel">
+        <div className="admin-panel-head">
           <input
-            name="search"
-            placeholder="Search jobs..."
-            className="search-box"
+            type="text"
+            className="admin-search"
+            placeholder="Search by title, location, category, or track…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <input
-            name="title"
-            placeholder="Job Title"
-            value={form.title}
-            onChange={handleChange}
-          />
-
-          <input
-            name="experience"
-            placeholder="Experience"
-            value={form.experience}
-            onChange={handleChange}
-          />
-
-          <input
-            name="location"
-            placeholder="Location"
-            value={form.location}
-            onChange={handleChange}
-          />
-
-          <input
-            name="category"
-            placeholder="Category"
-            value={form.category}
-            onChange={handleChange}
-          />
-
-          <textarea
-            name="description"
-            placeholder="Short Description"
-            value={form.description}
-            onChange={handleChange}
-            />
-
-          <textarea
-            name="fullDescription"
-            placeholder="Full Description"
-            value={form.fullDescription}
-            onChange={handleChange}
-          />
-
-          <button onClick={saveJob}>
-            {editingId ? "Update Job" : "Add Job"}
-          </button>
         </div>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Experience</th>
-              <th>Location</th>
-              <th>Category</th>
-              <th>Actions</th>
-              <th>Created At</th>
-            </tr>
-          </thead>
+        {state === "loading" && !jobs.length && <AdminState kind="loading" title="Loading roles" />}
 
-          <tbody>
-          {filteredJobs.map((job) => (
-              <tr key={job._id}>
-                <td>{job.title}</td>
-                <td>{job.experience}</td>
-                <td>{job.location}</td>
-                <td>{job.category}</td>
-                <td>{new Date(job.createdAt).toLocaleDateString()}</td>
-                <td>
-                  <button onClick={() => editJob(job)}>
-                    Edit
-                  </button>
-                  <button onClick={() => deleteJob(job._id)}>
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        {state === "error" && (
+          <AdminState
+            kind="error"
+            title="Couldn’t load roles"
+            message={feedback?.text}
+            action={<button type="button" className="admin-btn" onClick={fetchJobs}>Try again</button>}
+          />
+        )}
+
+        {state === "ready" && !jobs.length && (
+          <AdminState
+            title="No roles published"
+            message="Publish your first opening and it appears on the careers page immediately."
+            action={<button type="button" className="admin-btn" onClick={() => setShowForm(true)}><Plus size={15} /> New role</button>}
+          />
+        )}
+
+        {state === "ready" && jobs.length > 0 && !filteredJobs.length && (
+          <AdminState
+            title="No matches"
+            message={`Nothing matches “${search}”.`}
+            action={<button type="button" className="admin-btn admin-btn-ghost" onClick={() => setSearch("")}>Clear search</button>}
+          />
+        )}
+
+        {filteredJobs.length > 0 && (
+          <div className="admin-table-scroll">
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Track</th>
+                  <th>Location</th>
+                  <th>Category</th>
+                  <th>Created</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredJobs.map((job) => (
+                  <tr key={job._id}>
+                    <td className="cell-strong">{job.title}</td>
+                    <td><span className="job-track">{job.experience || "—"}</span></td>
+                    <td>{job.location || "—"}</td>
+                    <td>{job.category || "—"}</td>
+                    <td className="cell-muted">{formatDate(job.createdAt)}</td>
+                    <td>
+                      <div className="admin-row-actions">
+                        <button
+                          type="button"
+                          className="admin-icon-btn"
+                          onClick={() => editJob(job)}
+                          aria-label={`Edit ${job.title}`}
+                        >
+                          <Pencil size={15} />
+                        </button>
+                        <button
+                          type="button"
+                          className="admin-icon-btn danger"
+                          onClick={() => deleteJob(job)}
+                          aria-label={`Delete ${job.title}`}
+                        >
+                          <Trash2 size={15} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
-    </div>
+    </AdminLayout>
   );
 };
 

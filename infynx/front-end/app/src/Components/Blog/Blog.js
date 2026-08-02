@@ -1,33 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Minus } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import './Blog.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import blogOne from '../Images/infynix/blog-1.webp';
-import blogTwo from '../Images/infynix/blog-2.webp';
-import blogThree from '../Images/infynix/blog-3.webp';
+import { motion } from 'framer-motion';
+import {
+    AuroraBackdrop,
+    Reveal,
+    RevealGroup,
+    SplitHeading,
+    useScrollReveal
+} from '../../motion/MotionKit';
+import { publicFetch } from '../../config/api';
+import { fallbackBlogs, resolveBlogs } from './blogData';
 
-const fallbackBlogs = [
-    { _id: 'network-resilience', image: blogOne, category: 'Infrastructure', title: 'Why resilient networks start before the first device', summary: 'Architecture, operational ownership, and failure planning matter more than any single piece of hardware.', content: 'A resilient network is designed around business continuity. Clear failure domains, tested recovery paths, documented ownership, and observability turn infrastructure from a collection of devices into a dependable operating system for the business.' },
-    { _id: 'managed-operations', image: blogTwo, category: 'Operations', title: 'From reactive support to managed network operations', summary: 'A practical model for moving teams from ticket queues to measurable service outcomes.', content: 'Managed operations work best when service levels connect to real user impact. Shared dashboards, escalation paths, capacity reviews, and problem management create a cycle where every incident improves the network instead of becoming another isolated ticket.' },
-    { _id: 'secure-scale', image: blogThree, category: 'Security', title: 'Scaling infrastructure without scaling exposure', summary: 'How segmentation and policy-led deployment keep distributed environments manageable.', content: 'Growth should not multiply security exceptions. Repeatable site templates, identity-aware access, segmentation, and automated compliance evidence make it possible to add locations while keeping risk visible and policy consistent.' },
-];
+const TINT = { from: '#00E2F5', to: '#B325F7', glow: 'rgba(0, 226, 245, 0.3)' };
 
 const Blog = () => {
     const [blogs, setBlogs] = useState([]);
-    const [selectedBlog, setSelectedBlog] = useState(null);
+    const [activeCategory, setActiveCategory] = useState('All');
     const [loading, setLoading] = useState(true);
+    useScrollReveal();
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/blogs')
-            .then(res => {
-                if (!res.ok) throw new Error('Blog service unavailable');
-                return res.json();
-            })
-            .then(data => setBlogs(Array.isArray(data) && data.length ? data : fallbackBlogs))
-            .catch(() => setBlogs(fallbackBlogs))
-            .finally(() => setLoading(false));
+        let cancelled = false;
+
+        publicFetch('/api/blogs')
+            .then((data) => { if (!cancelled) setBlogs(resolveBlogs(data)); })
+            .catch(() => { if (!cancelled) setBlogs(fallbackBlogs); })
+            .finally(() => { if (!cancelled) setLoading(false); });
+
+        return () => { cancelled = true; };
     }, []);
+
+    const categories = ['All', ...Array.from(new Set(blogs.map((item) => item.category).filter(Boolean)))];
+    const visibleBlogs =
+        activeCategory === 'All' ? blogs : blogs.filter((item) => item.category === activeCategory);
+
+    const [lead, ...rest] = visibleBlogs;
 
     return (
         <>
@@ -35,30 +46,116 @@ const Blog = () => {
           <div className="blog-wrapper">
 
             <div className="blog-hero">
-                <span className="blog-kicker">FIELD NOTES / 2026</span>
-                <h1>Ideas for infrastructure<br />that <span>keeps moving.</span></h1>
-                <p>Network strategy, operations, security, and practical lessons from complex rollouts.</p>
+                <AuroraBackdrop tint={TINT} />
+
+                <div className="blog-hero-inner">
+                    <motion.span
+                        className="blog-kicker"
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        FIELD NOTES / 2026
+                    </motion.span>
+
+                    <SplitHeading
+                        lines={[
+                            'Ideas for infrastructure',
+                            <span key="a">that <span className="blog-hero-accent">keeps moving.</span></span>
+                        ]}
+                    />
+
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.55 }}
+                    >
+                        Network strategy, operations, security, and practical lessons from complex rollouts.
+                    </motion.p>
+                </div>
             </div>
 
-            <div className="blog-container">
-                {loading && <p className="blog-loading">Loading field notes...</p>}
-                {blogs.map((item) => (
-                    <article className={`blog-card ${selectedBlog === item._id ? 'expanded' : ''}`} key={item._id}>
-                        <div className="card-header">
-                            <img src={item.image} alt={item.title} />
-                            <span className="tag">{item.category}</span>
+            {loading ? (
+                /* Skeletons hold the grid's shape so the page doesn't jump on load */
+                <div className="blog-container">
+                    {[0, 1, 2].map((key) => (
+                        <div className="blog-card blog-card-skeleton" key={key}>
+                            <div className="skeleton-media" />
+                            <div className="card-body">
+                                <span className="skeleton-line skeleton-line-lg" />
+                                <span className="skeleton-line" />
+                                <span className="skeleton-line skeleton-line-sm" />
+                            </div>
                         </div>
-                        <div className="card-body">
-                            <h3>{item.title}</h3>
-                            <p>{item.summary}</p>
-                            {selectedBlog === item._id && <p className="blog-full-copy">{item.content || item.summary}</p>}
-                            <button className="btn-read" onClick={() => setSelectedBlog(selectedBlog === item._id ? null : item._id)}>
-                                {selectedBlog === item._id ? <>Close story <Minus size={16} /></> : <>Read story <ArrowRight size={16} /></>}
-                            </button>
+                    ))}
+                </div>
+            ) : (
+                <>
+                    {categories.length > 2 && (
+                        <div className="blog-filter-row">
+                            {categories.map((category) => (
+                                <motion.button
+                                    key={category}
+                                    type="button"
+                                    className={`blog-chip ${activeCategory === category ? 'active' : ''}`}
+                                    whileHover={{ y: -2 }}
+                                    whileTap={{ scale: 0.96 }}
+                                    onClick={() => setActiveCategory(category)}
+                                >
+                                    {category}
+                                </motion.button>
+                            ))}
                         </div>
-                    </article>
-                ))}
-            </div>
+                    )}
+
+                    {/* Newest story runs full width as the lead, the rest tile beneath it */}
+                    {lead && (
+                        <Reveal as="article" dir="scale" className="blog-lead">
+                            <Link to={`/blog/${lead._id}`} className="blog-lead-inner">
+                                <div className="blog-lead-media">
+                                    {lead.image
+                                        ? <img src={lead.image} alt={lead.title} />
+                                        : <span className="blog-media-fallback">{lead.category}</span>}
+                                </div>
+                                <div className="blog-lead-copy">
+                                    <span className="tag">{lead.category}</span>
+                                    <h2>{lead.title}</h2>
+                                    <p>{lead.summary}</p>
+                                    <span className="blog-lead-meta">
+                                        {lead.author || 'DNISPL'}
+                                        {lead.readTime ? ` · ${lead.readTime}` : ''}
+                                    </span>
+                                    <span className="btn-read">Read story <ArrowRight size={16} /></span>
+                                </div>
+                            </Link>
+                        </Reveal>
+                    )}
+
+                    <RevealGroup className="blog-container">
+                        {rest.map((item) => (
+                            <Reveal as="article" dir="scale" className="blog-card" key={item._id}>
+                                <Link to={`/blog/${item._id}`} className="blog-card-link">
+                                    <div className="card-header">
+                                        {item.image
+                                            ? <img src={item.image} alt={item.title} />
+                                            : <span className="blog-media-fallback">{item.category}</span>}
+                                        <span className="tag">{item.category}</span>
+                                    </div>
+                                    <div className="card-body">
+                                        <h3>{item.title}</h3>
+                                        <p>{item.summary}</p>
+                                        <span className="btn-read">Read story <ArrowRight size={16} /></span>
+                                    </div>
+                                </Link>
+                            </Reveal>
+                        ))}
+                    </RevealGroup>
+
+                    {!visibleBlogs.length && (
+                        <p className="blog-empty">No stories filed under {activeCategory} yet.</p>
+                    )}
+                </>
+            )}
           </div>
           <Footer />
         </>
