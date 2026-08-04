@@ -3,6 +3,8 @@ import "./Leadership.css";
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import ceoImage from '../Images/Rakesh.jpg';
+import ashishImage from '../Images/Ashish.jpg';
+import awadheshImage from '../Images/Awadhesh.jpg';
 import { Lightbulb, Rocket } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -45,6 +47,7 @@ const EXECUTIVES = [
   {
     role: 'CHIEF EXECUTIVE OFFICER',
     name: 'Ashish Mehra',
+    image: ashishImage,
     monogram: 'AM',
     bio: 'Experienced leader with senior roles at Singtel, Airtel, and Hitachi. He brings strong B2B expertise, global digital transformation experience, and CXO-level relationships to drive strategic and sustainable growth.',
     metric: 'Global',
@@ -53,6 +56,7 @@ const EXECUTIVES = [
   {
     role: 'HEAD OF SALES',
     name: 'Awadhesh Gupta',
+    image: awadheshImage,
     monogram: 'AG',
     bio: 'Over 2 decades of experience with Airtel, NTT, and Sify. A seasoned Presales Consultant with expertise in IT services, enterprise solutions, client engagement, and business development.',
     metric: '20+',
@@ -254,11 +258,7 @@ const Leadership = () => {
           renderCard={(exec) => (
             <article className="fx-fan-card executive-fan-card">
               <div className="executive-card-image">
-                {exec.image ? (
-                  <img src={exec.image} alt={`${exec.name} — ${exec.role}`} />
-                ) : (
-                  <div className="executive-monogram" aria-label={exec.name}>{exec.monogram}</div>
-                )}
+                <img src={exec.image} alt={`${exec.name} — ${exec.role}`} />
                 <div className="executive-card-overlay"></div>
               </div>
 

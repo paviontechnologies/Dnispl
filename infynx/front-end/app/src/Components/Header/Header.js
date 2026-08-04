@@ -11,9 +11,9 @@ import { INDUSTRIES } from '../../data/industries';
 const solutionItems = [
   { to: '/network-implementation', icon: Network, title: 'Enterprise Networking', desc: 'Active and passive networking' },
   { to: '/business-solutions', icon: ShieldCheck, title: 'Cyber Security', desc: 'Protecting your digital assets' },
-  { to: '/regulatory-compliance', icon: Cloud, title: 'Cloud Solutions', desc: 'Scalable cloud infrastructure' },
+  // { to: '/regulatory-compliance', icon: Cloud, title: 'Cloud Solutions', desc: 'Scalable cloud infrastructure' },
   { to: '/dc-passive-work', icon: Database, title: 'DC Infrastructure', desc: 'Data center passive work' },
-  { to: '/software-development', icon: Code2, title: 'Software Development', desc: 'Web, mobile, cloud and AI builds' },
+  // { to: '/software-development', icon: Code2, title: 'Software Development', desc: 'Web, mobile, cloud and AI builds' },
 ];
 
 const serviceItems = [
