@@ -20,7 +20,9 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="footer-brand">
             <div className="logo-section">
-              <Link to="/"><img src={Logo} alt="DNISPL Logo" className="footer-logo-img" /></Link>
+              <Link to="/" className="logo-capsule">
+                <img src={Logo} alt="DNISPL Logo" className="logo-img-brand" />
+              </Link>
             </div>
             <p className="brand-desc">
               Building Enterprise Networks That Don't Fail When Business Can't. Strategic Network Integration & Operations at Scale.

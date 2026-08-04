@@ -569,3 +569,29 @@
     box-shadow: 0 10px 30px rgba(179, 37, 247, 0.35);
   }
 }
+
+/* Custom Logo Capsule styling to display the official brand logo cleanly */
+.logo-capsule {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 6px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.logo-capsule:hover {
+  background: #ffffff;
+  box-shadow: 0 5px 25px rgba(0, 226, 245, 0.25);
+  transform: translateY(-2px);
+}
+
+.logo-img-brand {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}

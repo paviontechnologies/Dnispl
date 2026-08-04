@@ -89,8 +89,8 @@ const Header = () => {
         <HeaderContentWrapper className="header-content">
           {/* Logo Section */}
           <div className="logo">
-            <Link to="/" onClick={closeMenuAndNavigate}>
-              <img src={Logo} alt="DNISPL Logo" className="logo-img" />
+            <Link to="/" onClick={closeMenuAndNavigate} className="logo-capsule">
+              <img src={Logo} alt="DNISPL Logo" className="logo-img-brand" />
             </Link>
           </div>
 
