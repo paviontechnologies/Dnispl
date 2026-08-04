@@ -596,9 +596,9 @@ ye iska css h
   display: flex;
   align-items: center;
   min-width: 100%;
-  gap: 25px;
+  gap: 30px;
   padding-right: 25px;
-  animation: marquee 35s linear infinite;
+  animation: marquee 20s linear infinite;
 }
 
 .marquee-track:hover .marquee-content-1 { animation-play-state: paused; }
@@ -1516,48 +1516,83 @@ ye iska css h
 
 .excellence-card strong { color: #fff; opacity: 1; font-weight: 700; }
 
-/* --------------------------------------------------------------------------
-   PARTNERS — draggable-looking gradient tag cloud (ftc-campaign-4-tag)
-   -------------------------------------------------------------------------- */
+/* ============================================================
+   TECHNOLOGY PARTNERS
+   ============================================================ */
+
 .partners-section {
-  padding: 110px 0;
-  background: #000;
+  display: flex;
+  padding: 90px 0;
+  position: relative;
+  overflow: hidden;
 }
 
 .partners-logos-grid {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  margin-top: 40px;
+  align-items: center;
+  gap: 13px;
+  margin-top: 48px;
+  /* flex-wrap: wrap; */
 }
 
 .partner-logo-box {
-  position: relative;
-  z-index: 1;
-  background: #7F5BEA;
-  padding: 15px 30px;
-  border-radius: 100px;
-  font-family: var(--saira);
-  font-weight: 600;
-  font-size: 18px;
-  color: #fff;
-  transition: 300ms var(--cube-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 110px;
+  width: 200px;
+  flex: 0 0 auto;
+  background: #fff;
+  border: 2px solid #626262;
+  border-radius: 9px;
+  padding: 20px;
+  transition: 400ms var(--cube-1);
+  overflow: hidden;
 }
 
-.partner-logo-box::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 100px;
-  background: var(--ftc-gd-2);
-  z-index: -1;
-  opacity: 0;
-  transition: 300ms var(--cube-1);
+.partner-logo-box img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 65px;
+  object-fit: contain;
 }
 
-.partner-logo-box:hover::after { opacity: 1; }
-.partner-logo-box:hover { transform: translateY(-4px); }
+.partner-logo-box:hover {
+  transform: translateY(-5px);
+  border-color: #222;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+}
+
+.partner-logo-box:hover img {
+  transform: scale(1.05);
+}
+
+/* Tablet */
+@media (max-width: 1100px) {
+  .partners-logos-grid {
+    justify-content: center;
+  }
+}
+
+/* Mobile */
+@media (max-width: 650px) {
+  .partners-logos-grid {
+    gap: 14px;
+    justify-content: center;
+  }
+
+  .partner-logo-box {
+    width: 160px;
+    height: 95px;
+    padding: 15px;
+  }
+
+  .partner-logo-box img {
+    max-height: 50px;
+  }
+}
 
 /* --------------------------------------------------------------------------
    WHY CHOOSE US

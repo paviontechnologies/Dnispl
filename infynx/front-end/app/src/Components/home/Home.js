@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import './Home.css';
-// import ceoImage from '../Images/Rakesh.jpg';
 import phoneImage from '../Images/infynix/c4-phone.webp';
 import phoneGlobe from '../Images/infynix/c4-phone-cirlce.webp';
 import Header from '../Header/Header';
@@ -13,14 +12,23 @@ import { MagneticButton, SpotlightCard } from '../../motion/MotionKit';
 import { INDUSTRIES } from '../../data/industries';
 
 // Icons/logos imports
-import ditIcon from '../Images/icons/dit.png';
-import jcbIcon from '../Images/icons/JCB.jpg';
+import philipsIcon from '../Images/icons/philips.png';
+import paytmIcon from '../Images/icons/paytm.png';
 import airtelIcon from '../Images/icons/airtel1.png';
 import samsungIcon from '../Images/icons/samsung.png';
 import kyndrylIcon from '../Images/icons/Kyndryl.png';
 import techMIcon from '../Images/icons/Tech-M1.png';
 import bsiIso27001 from '../Images/bsi-iso27001.png';
 import bsiAnab from '../Images/bsi-anab.png';
+import panasonicIcon from '../Images/icons/panasonic.png';
+
+//oem logos
+import ciscoLogo from '../Images/icons/oem/cisco.png';
+import fortinetLogo from '../Images/icons/oem/fortinet.png';
+import hpeLogo from '../Images/icons/oem/hpe.png';
+import juniperLogo from '../Images/icons/oem/juniper.png';
+import lenovoLogo from '../Images/icons/oem/lenovo.png';
+import catoLogo from '../Images/icons/oem/cato.png';
 
 /**
  * The theme's signature headline reveal (ftc-split-text): each line sits in an
@@ -275,12 +283,13 @@ const Home = () => {
         <div className="marquee-track">
           {[...Array(2)].map((_, index) => (
             <div key={index} className="marquee-content-1">
-              <div className="marquee-item"><img src={ditIcon} alt="DIT" /></div>
-              <div className="marquee-item"><img src={jcbIcon} alt="JCB" /></div>
+              <div className="marquee-item"><img src={philipsIcon} alt="Philips" /></div>
+              <div className="marquee-item"><img src={panasonicIcon} alt="Panasonic" /></div>
+              <div className="marquee-item"><img src={paytmIcon} alt="Paytm" /></div>
               <div className="marquee-item"><img src={airtelIcon} alt="Airtel" /></div>
               <div className="marquee-item"><img src={samsungIcon} alt="Samsung" /></div>
-              <div className="marquee-item"><img src={kyndrylIcon} alt="Kyndryl" /></div>
-              <div className="marquee-item"><img src={techMIcon} alt="Tech-M" /></div>
+              <div className="marquee-item"><img src={kyndrylIcon} alt="Kyndryl" /></div>       
+              <div className="marquee-item"><img src={techMIcon} alt="Tech Mahindra" /></div>       
             </div>
           ))}
         </div>
@@ -621,6 +630,36 @@ const Home = () => {
                 <span className="cert-badge">Accredited Governance</span>
                 <p>Governed under ANSI National Accreditation Board standards, validating our processes, auditing methodologies, and engineering lifecycle workflows.</p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* --- PARTNERS --- */}
+      <section className="partners-section">
+        <div className="container-max center" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div className="ftc-reveal">
+            <span className="section-tag">Technology Ecosystem</span>
+            <h2 className="section-title">Our Technology Partners</h2>
+          </div>
+          <div className="partners-logos-grid" data-reveal-group>
+            <div className="partner-logo-box ftc-reveal ftc-reveal-scale">
+              <img src={ciscoLogo} alt="Cisco" />
+            </div>
+            <div className="partner-logo-box ftc-reveal ftc-reveal-scale">
+              <img src={fortinetLogo} alt="Fortinet" />
+            </div>
+            <div className="partner-logo-box ftc-reveal ftc-reveal-scale">
+              <img src={hpeLogo} alt="HPE" />
+            </div>
+            <div className="partner-logo-box ftc-reveal ftc-reveal-scale">
+              <img src={juniperLogo} alt="Juniper Networks" />
+            </div>
+            <div className="partner-logo-box ftc-reveal ftc-reveal-scale">
+              <img src={lenovoLogo} alt="Lenovo" />
+            </div>
+            <div className="partner-logo-box ftc-reveal ftc-reveal-scale">
+              <img src={catoLogo} alt="Cato Networks" />
             </div>
           </div>
         </div>
