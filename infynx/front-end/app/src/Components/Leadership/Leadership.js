@@ -13,7 +13,6 @@ import {
   CountUp,
   Reveal,
   RevealGroup,
-  ScrollFan,
   SplitHeading,
   TiltCard,
   useScrollReveal
@@ -251,30 +250,31 @@ const Leadership = () => {
           </Reveal>
         </ContentWrapper>
 
-        <ScrollFan
-          items={EXECUTIVES}
-          palette={EXEC_PALETTE}
-          keyOf={(exec) => exec.name}
-          renderCard={(exec) => (
-            <article className="fx-fan-card executive-fan-card">
-              <div className="executive-card-image">
-                <img src={exec.image} alt={`${exec.name} — ${exec.role}`} />
-                <div className="executive-card-overlay"></div>
-              </div>
-
-              <div className="executive-card-content">
-                <span className="executive-role">{exec.role}</span>
-                <h3>{exec.name}</h3>
-                <p className="executive-description">{exec.bio}</p>
-
-                <div className="executive-experience">
-                  <span>{exec.metric}</span>
-                  <small>{exec.metricLabel}</small>
+        <ContentWrapper>
+          <div className="executive-team-grid">
+            {EXECUTIVES.map((exec, idx) => (
+              <article key={exec.name} className="executive-card">
+                <div className="executive-card-image">
+                  <img src={exec.image} alt={`${exec.name} — ${exec.role}`} />
+                  <div className="executive-card-overlay"></div>
                 </div>
-              </div>
-            </article>
-          )}
-        />
+
+                <div className="executive-card-content">
+                  <span className="executive-role" style={{ color: EXEC_PALETTE[idx % EXEC_PALETTE.length].card }}>
+                    {exec.role}
+                  </span>
+                  <h3>{exec.name}</h3>
+                  <p className="executive-description">{exec.bio}</p>
+
+                  <div className="executive-experience">
+                    <span style={{ color: EXEC_PALETTE[idx % EXEC_PALETTE.length].card }}>{exec.metric}</span>
+                    <small>{exec.metricLabel}</small>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </ContentWrapper>
       </section>
 
       <Footer />
