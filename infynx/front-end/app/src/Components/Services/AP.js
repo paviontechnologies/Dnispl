@@ -19,12 +19,12 @@ const TINT = { from: '#00E2F5', to: '#2563EB', glow: 'rgba(0, 226, 245, 0.32)' }
 
 /* Fan shades stay inside the page's cyan/blue family */
 const PALETTE = [
-  { card: '#0891B2', badge: '#067289' },
-  { card: '#06B6D4', badge: '#0592AB' },
-  { card: '#0EA5E9', badge: '#0B84BB' },
-  { card: '#2AC5DD', badge: '#22A3B6' },
-  { card: '#0284C7', badge: '#02699E' },
-  { card: '#38BDF8', badge: '#2C97C7' }
+  { card: '#3B82F6', badge: '#1D4ED8' }, // Blue
+  { card: '#10B981', badge: '#047857' }, // Green
+  { card: '#F59E0B', badge: '#B45309' }, // Amber
+  { card: '#EF4444', badge: '#B91C1C' }, // Red
+  { card: '#8B5CF6', badge: '#6D28D9' }, // Purple
+  { card: '#EC4899', badge: '#BE185D' }  // Pink
 ];
 
 const CAPABILITIES = [

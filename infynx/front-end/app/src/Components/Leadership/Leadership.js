@@ -3,6 +3,8 @@ import "./Leadership.css";
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import ceoImage from '../Images/Rakesh.jpg';
+import ashishImage from '../Images/Ashish.jpg';
+import awadheshImage from '../Images/Awadhesh.jpg';
 import { Lightbulb, Rocket } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -11,7 +13,6 @@ import {
   CountUp,
   Reveal,
   RevealGroup,
-  ScrollFan,
   SplitHeading,
   TiltCard,
   useScrollReveal
@@ -45,6 +46,7 @@ const EXECUTIVES = [
   {
     role: 'CHIEF EXECUTIVE OFFICER',
     name: 'Ashish Mehra',
+    image: ashishImage,
     monogram: 'AM',
     bio: 'Experienced leader with senior roles at Singtel, Airtel, and Hitachi. He brings strong B2B expertise, global digital transformation experience, and CXO-level relationships to drive strategic and sustainable growth.',
     metric: 'Global',
@@ -53,6 +55,7 @@ const EXECUTIVES = [
   {
     role: 'HEAD OF SALES',
     name: 'Awadhesh Gupta',
+    image: awadheshImage,
     monogram: 'AG',
     bio: 'Over 2 decades of experience with Airtel, NTT, and Sify. A seasoned Presales Consultant with expertise in IT services, enterprise solutions, client engagement, and business development.',
     metric: '20+',
@@ -247,34 +250,31 @@ const Leadership = () => {
           </Reveal>
         </ContentWrapper>
 
-        <ScrollFan
-          items={EXECUTIVES}
-          palette={EXEC_PALETTE}
-          keyOf={(exec) => exec.name}
-          renderCard={(exec) => (
-            <article className="fx-fan-card executive-fan-card">
-              <div className="executive-card-image">
-                {exec.image ? (
+        <ContentWrapper>
+          <div className="executive-team-grid">
+            {EXECUTIVES.map((exec, idx) => (
+              <article key={exec.name} className="executive-card">
+                <div className="executive-card-image">
                   <img src={exec.image} alt={`${exec.name} — ${exec.role}`} />
-                ) : (
-                  <div className="executive-monogram" aria-label={exec.name}>{exec.monogram}</div>
-                )}
-                <div className="executive-card-overlay"></div>
-              </div>
-
-              <div className="executive-card-content">
-                <span className="executive-role">{exec.role}</span>
-                <h3>{exec.name}</h3>
-                <p className="executive-description">{exec.bio}</p>
-
-                <div className="executive-experience">
-                  <span>{exec.metric}</span>
-                  <small>{exec.metricLabel}</small>
+                  <div className="executive-card-overlay"></div>
                 </div>
-              </div>
-            </article>
-          )}
-        />
+
+                <div className="executive-card-content">
+                  <span className="executive-role" style={{ color: EXEC_PALETTE[idx % EXEC_PALETTE.length].card }}>
+                    {exec.role}
+                  </span>
+                  <h3>{exec.name}</h3>
+                  <p className="executive-description">{exec.bio}</p>
+
+                  <div className="executive-experience">
+                    <span style={{ color: EXEC_PALETTE[idx % EXEC_PALETTE.length].card }}>{exec.metric}</span>
+                    <small>{exec.metricLabel}</small>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </ContentWrapper>
       </section>
 
       <Footer />

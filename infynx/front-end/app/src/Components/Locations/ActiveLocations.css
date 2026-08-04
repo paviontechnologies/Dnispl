@@ -136,7 +136,7 @@
 .loc-card-sidebar {
   display: flex;
   flex-direction: column;
-  height: 760px; /* Consistent height */
+  height: 880px; /* Consistent height */
   overflow: hidden;
 }
 
@@ -327,7 +327,7 @@
 .loc-card-map-view {
   display: flex;
   flex-direction: column;
-  height: 760px;
+  height: 880px;
   position: relative;
   overflow: hidden;
 }
@@ -408,20 +408,20 @@
 .india-vector-svg {
   width: 100%;
   height: 100%;
-  max-height: 400px;
+  max-height: 540px; /* Increased from 400px to make map larger */
 }
 
 .india-state-path {
-  fill: rgba(15, 23, 42, 0.55);
-  stroke: rgba(0, 240, 255, 0.08);
-  stroke-width: 0.8;
+  fill: rgba(30, 41, 79, 0.7); /* Brighter slate blue background for states */
+  stroke: rgba(0, 240, 255, 0.35); /* Brighter cyan stroke */
+  stroke-width: 1.0;
   transition: all 0.3s ease;
   cursor: pointer;
 }
 
 .india-state-path:hover {
-  fill: rgba(0, 240, 255, 0.05);
-  stroke: rgba(0, 240, 255, 0.35);
+  fill: rgba(0, 240, 255, 0.18); /* Much brighter cyan hover fill */
+  stroke: rgba(0, 240, 255, 0.85); /* Vibrant cyan hover stroke */
 }
 
 /* Interconnect Lines */

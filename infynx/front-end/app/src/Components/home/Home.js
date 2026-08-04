@@ -19,6 +19,8 @@ import airtelIcon from '../Images/icons/airtel1.png';
 import samsungIcon from '../Images/icons/samsung.png';
 import kyndrylIcon from '../Images/icons/Kyndryl.png';
 import techMIcon from '../Images/icons/Tech-M1.png';
+import bsiIso27001 from '../Images/bsi-iso27001.png';
+import bsiAnab from '../Images/bsi-anab.png';
 
 /**
  * The theme's signature headline reveal (ftc-split-text): each line sits in an
@@ -588,20 +590,38 @@ const Home = () => {
         </div>
       </section>
 
-      {/* --- PARTNERS --- */}
-      <section className="partners-section">
+      {/* --- CERTIFICATIONS --- */}
+      <section className="certifications-section">
         <div className="container-max center">
           <div className="ftc-reveal">
-            <span className="section-tag">Technology Ecosystem</span>
-            <h2 className="section-title">Certified OEM Alliances</h2>
+            <span className="section-tag">Standards &amp; Compliance</span>
+            <h2 className="section-title">Certified Quality &amp; Security Standards</h2>
+            <p className="certifications-desc">
+              DNISPL is assessed and certified by the British Standards Institution (BSI) for holding global standards in information security management systems and operations governance.
+            </p>
           </div>
-          <div className="partners-logos-grid" data-reveal-group>
-            <div className="partner-logo-box ftc-reveal ftc-reveal-scale">Cisco</div>
-            <div className="partner-logo-box ftc-reveal ftc-reveal-scale">Fortinet</div>
-            <div className="partner-logo-box ftc-reveal ftc-reveal-scale">HPE / Aruba</div>
-            <div className="partner-logo-box ftc-reveal ftc-reveal-scale">Juniper Networks</div>
-            <div className="partner-logo-box ftc-reveal ftc-reveal-scale">Lenovo Enterprise</div>
-            <div className="partner-logo-box ftc-reveal ftc-reveal-scale">Cato Networks</div>
+          <div className="certifications-grid" data-reveal-group>
+            <div className="cert-card ftc-reveal ftc-reveal-scale">
+              <div className="cert-image-wrap">
+                <img src={bsiIso27001} alt="BSI ISO/IEC 27001 Certified" className="cert-img" />
+              </div>
+              <div className="cert-info">
+                <h3>ISO/IEC 27001:2022</h3>
+                <span className="cert-badge">Information Security Management</span>
+                <p>Ensuring top-tier confidentiality, integrity, and availability of all client infrastructure operations and SLA-backed management services.</p>
+              </div>
+            </div>
+
+            <div className="cert-card ftc-reveal ftc-reveal-scale">
+              <div className="cert-image-wrap">
+                <img src={bsiAnab} alt="BSI ANAB Certified" className="cert-img" />
+              </div>
+              <div className="cert-info">
+                <h3>ISO/IEC 17021-1</h3>
+                <span className="cert-badge">Accredited Governance</span>
+                <p>Governed under ANSI National Accreditation Board standards, validating our processes, auditing methodologies, and engineering lifecycle workflows.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

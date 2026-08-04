@@ -18,12 +18,12 @@ const TINT = { from: '#F97316', to: '#FBBF24', glow: 'rgba(249, 115, 22, 0.32)' 
 
 /* Fan shades stay inside the page's orange/amber family */
 const PALETTE = [
-  { card: '#F97316', badge: '#D0600F' },
-  { card: '#EA580C', badge: '#C24A09' },
-  { card: '#F59E0B', badge: '#CE8409' },
-  { card: '#FB923C', badge: '#D57930' },
-  { card: '#D97706', badge: '#B5620A' },
-  { card: '#C2410C', badge: '#A03509' }
+  { card: '#3B82F6', badge: '#1D4ED8' }, // Blue
+  { card: '#10B981', badge: '#047857' }, // Green
+  { card: '#F59E0B', badge: '#B45309' }, // Amber
+  { card: '#EF4444', badge: '#B91C1C' }, // Red
+  { card: '#8B5CF6', badge: '#6D28D9' }, // Purple
+  { card: '#EC4899', badge: '#BE185D' }  // Pink
 ];
 
 const HARDWARE = [

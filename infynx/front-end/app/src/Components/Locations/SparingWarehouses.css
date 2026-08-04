@@ -133,7 +133,7 @@
 .wh-card-sidebar {
   display: flex;
   flex-direction: column;
-  height: 760px;
+  height: 880px;
   overflow: hidden;
 }
 
@@ -305,7 +305,7 @@
 .wh-card-map-view {
   display: flex;
   flex-direction: column;
-  height: 760px;
+  height: 880px;
   position: relative;
   overflow: hidden;
 }
@@ -385,20 +385,20 @@
 .wh-india-vector-svg {
   width: 100%;
   height: 100%;
-  max-height: 400px;
+  max-height: 540px; /* Increased from 400px to make map larger */
 }
 
 .wh-states-group path {
-  fill: rgba(20, 18, 14, 0.55);
-  stroke: rgba(245, 158, 11, 0.08);
-  stroke-width: 0.8;
+  fill: rgba(43, 34, 25, 0.7); /* Brighter warm bronze background for states */
+  stroke: rgba(245, 158, 11, 0.35); /* Brighter amber stroke */
+  stroke-width: 1.0;
   transition: all 0.3s ease;
   cursor: pointer;
 }
 
 .wh-states-group path:hover {
-  fill: rgba(245, 158, 11, 0.04);
-  stroke: rgba(245, 158, 11, 0.35);
+  fill: rgba(245, 158, 11, 0.18); /* Much brighter amber hover fill */
+  stroke: rgba(245, 158, 11, 0.85); /* Vibrant amber hover stroke */
 }
 
 /* Warehouse Pins */
