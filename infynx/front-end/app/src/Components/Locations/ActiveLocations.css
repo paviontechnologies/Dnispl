@@ -136,7 +136,7 @@
 .loc-card-sidebar {
   display: flex;
   flex-direction: column;
-  height: 760px; /* Consistent height */
+  height: 880px; /* Consistent height */
   overflow: hidden;
 }
 
@@ -327,7 +327,7 @@
 .loc-card-map-view {
   display: flex;
   flex-direction: column;
-  height: 760px;
+  height: 880px;
   position: relative;
   overflow: hidden;
 }

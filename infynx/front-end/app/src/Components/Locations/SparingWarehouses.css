@@ -133,7 +133,7 @@
 .wh-card-sidebar {
   display: flex;
   flex-direction: column;
-  height: 760px;
+  height: 880px;
   overflow: hidden;
 }
 
@@ -305,7 +305,7 @@
 .wh-card-map-view {
   display: flex;
   flex-direction: column;
-  height: 760px;
+  height: 880px;
   position: relative;
   overflow: hidden;
 }
