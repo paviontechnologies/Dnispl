@@ -1,0 +1,137 @@
+/* --------------------------------------------------------------------------
+   GLOBAL SCROLL NAVIGATOR WIDGET (TOP / BOTTOM)
+   -------------------------------------------------------------------------- */
+.scroll-navigator-widget {
+  position: fixed;
+  right: 28px;
+  bottom: 36px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(13, 17, 27, 0.85);
+  border: 1px solid rgba(0, 226, 245, 0.28);
+  border-radius: 40px;
+  padding: 5px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 226, 245, 0.12);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: fadeInScroller 0.4s ease-out;
+}
+
+@keyframes fadeInScroller {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.scroll-navigator-widget:hover {
+  border-color: rgba(0, 226, 245, 0.6);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(0, 226, 245, 0.25);
+  transform: translateY(-2px);
+}
+
+.scroll-nav-btn {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: #00e2f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-nav-btn:hover {
+  background: rgba(0, 226, 245, 0.18);
+  color: #ffffff;
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(0, 226, 245, 0.4);
+}
+
+.scroll-nav-btn:active {
+  transform: scale(0.95);
+}
+
+.scroll-nav-btn.dimmed {
+  opacity: 0.45;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.scroll-nav-btn.dimmed:hover {
+  opacity: 0.9;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.scroll-nav-divider {
+  width: 24px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 226, 245, 0.4), transparent);
+  margin: 2px 0;
+}
+
+.scroll-nav-icon {
+  transition: transform 0.2s ease;
+}
+
+.scroll-nav-top:hover .scroll-nav-icon {
+  transform: translateY(-2px);
+}
+
+.scroll-nav-bottom:hover .scroll-nav-icon {
+  transform: translateY(2px);
+}
+
+/* Tooltip on hover */
+.scroll-nav-tooltip {
+  position: absolute;
+  right: 56px;
+  background: rgba(9, 12, 20, 0.92);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 226, 245, 0.3);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(8px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.scroll-nav-btn:hover .scroll-nav-tooltip {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .scroll-navigator-widget {
+    right: 18px;
+    bottom: 85px; /* Stay above mobile fixed cta if any */
+    padding: 3px;
+  }
+  .scroll-nav-btn {
+    width: 38px;
+    height: 38px;
+  }
+  .scroll-nav-tooltip {
+    display: none; /* Hide hover tooltip on touch devices */
+  }
+}

@@ -28,8 +28,8 @@ const EXEC_PALETTE = [
 ];
 
 const STATS = [
-  { icon: '👥', value: '10k+', label: 'Users Impacted' },
-  { icon: '💻', value: '80+', label: 'Projects Delivered' },
+  { icon: '👥', value: '450+', label: 'Enterprise Workforce' },
+  { icon: '💻', value: '200+', label: 'Projects Delivered' },
   { icon: '🌍', value: '8+', label: 'Countries Served' },
   { icon: '🎧', value: '24/7', label: 'Client Support' }
 ];
@@ -83,117 +83,30 @@ const Leadership = () => {
         <div className="shape shape-teal"></div>
       </div>
 
-      {/* 1️⃣ HERO / TOP SECTION */}
-      <section className="leadership-section">
-        <AuroraBackdrop tint={TINT} />
 
-        <div className="leadership-wrapper">
 
-          {/* LEFT SIDE */}
-          <div className="leadership-left">
-            <motion.div
-              className="leader-badge glass-pill"
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <img
-                src={ceoImage}
-                alt="Managing Director"
-                className="leader-avatar"
-              />
-              <div className="leader-badge-text">
-                <p className="leader-name">Rakesh Uniyal</p>
-                <p className="leader-role">Managing Director</p>
-              </div>
-            </motion.div>
-
-            <SplitHeading
-              className="leader-title"
-              lines={[
-                "Let's Build Your Product &",
-                <span className="text-gradient" key="a">Scale it Together</span>
-              ]}
-            />
-
-            <motion.p
-              className="leader-desc"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
-              Thanks for connecting. We're a full-stack tech company helping
-              startups and SMEs build scalable apps, websites, and automation
-              tools — with growth in mind.
-            </motion.p>
-
-            <motion.div
-              className="leader-buttons"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.75 }}
-            >
-              <Link to="/form" className="btn-glow">Schedule a Call</Link>
-              <a href="tel:+911244234805" className="btn-glass">Call Me Now</a>
-            </motion.div>
-          </div>
-
-          {/* RIGHT SIDE — portrait circled by turning orbit rings */}
-          <motion.div
-            className="leadership-right"
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9, delay: 0.35 }}
-          >
-            <div className="image-glass-container floating-anim">
-              <div className="blob-bg"></div>
-              <span className="leader-orbit fx-scope" aria-hidden="true">
-                <span className="fx-orbit-ring fx-orbit-ring-1" />
-                <span className="fx-orbit-ring fx-orbit-ring-2" />
-                <span className="fx-orbit-ring fx-orbit-ring-3" />
-              </span>
-              <img
-                src={ceoImage}
-                alt="Rakesh Uniyal"
-                className="leader-main-img"
-              />
-
-              {/* Floating Decor Elements */}
-              <div className="floating-card card-1">
-                <Rocket size={22} />
-                <p>Growth</p>
-              </div>
-              <div className="floating-card card-2">
-                <Lightbulb size={22} />
-                <p>Innovation</p>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* 2️⃣ Custom Web, Mobile & AI Development Section */}
+      {/* 2️⃣ Executive Leadership & Strategic Vision Section */}
       <section className="ls-about-services-section">
         <ContentWrapper className="ls-about-services-inner">
 
           {/* Left side text */}
           <Reveal className="ls-about-left" dir="left">
-            <p className="section-tag">• ABOUT US</p>
+            <p className="section-tag">• EXECUTIVE LEADERSHIP</p>
             <h2 className="ls-about-title">
-              Custom Web, Mobile & <br />
-              <span className="text-gradient-blue">AI Development</span>
+              Decades of Leadership in <br />
+              <span className="text-gradient-blue">IT, Telecom & Infrastructure</span>
             </h2>
 
             <p className="ls-about-desc">
-              We're a full-stack tech company helping startups and SMEs build
-              scalable apps, websites, and automation tools. With years of
-              expertise across multiple industries, our team has delivered
-              innovative digital solutions to clients worldwide.
+              Our executive leadership brings over two decades of deep industry experience
+              from top global enterprises including Airtel, Singtel, NTT, and Hitachi.
+              We lead with strategic foresight, driving large-scale enterprise network deployments,
+              digital transformation, and mission-critical infrastructure solutions.
             </p>
 
             <div className="ls-about-actions">
-              <Link to="/about" className="btn-primary-dark">Explore more</Link>
-              <Link to="/portfolio" className="btn-outline-dark">View case studies</Link>
+              <Link to="/about" className="btn-primary-dark">Our Story & Journey</Link>
+              <Link to="/contact" className="btn-outline-dark">Connect With Us</Link>
             </div>
           </Reveal>
 
@@ -205,7 +118,7 @@ const Leadership = () => {
                 <div className="card-shine"></div>
                 <img
                   src="https://images.unsplash.com/photo-1553877615-30c73a63bbc4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                  alt="Team collaborating"
+                  alt="Leadership team collaborating"
                   className="ls-about-image"
                 />
               </div>

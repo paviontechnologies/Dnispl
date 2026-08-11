@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion';
 import * as THREE from 'three';
 import './SiteExperience.css';
+import ScrollNavigator from '../ScrollNavigator/ScrollNavigator';
 
 const NetworkScene = () => {
   const mountRef = useRef(null);
@@ -155,6 +156,7 @@ const SiteExperience = ({ children }) => {
           {children}
         </motion.main>
       </AnimatePresence>
+      <ScrollNavigator />
     </div>
   );
 };
