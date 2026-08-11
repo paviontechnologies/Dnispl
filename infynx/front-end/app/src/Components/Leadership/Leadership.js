@@ -5,20 +5,14 @@ import Footer from '../Footer/Footer';
 import ceoImage from '../Images/Rakesh.jpg';
 import ashishImage from '../Images/Ashish.jpg';
 import awadheshImage from '../Images/Awadhesh.jpg';
-import { Lightbulb, Rocket } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import {
-  AuroraBackdrop,
   CountUp,
   Reveal,
   RevealGroup,
-  SplitHeading,
   TiltCard,
   useScrollReveal
 } from '../../motion/MotionKit';
-
-const TINT = { from: '#00E2F5', to: '#B325F7', glow: 'rgba(0, 226, 245, 0.3)' };
 
 /* Fan shades for the executive cards — the page's cyan → violet ramp */
 const EXEC_PALETTE = [

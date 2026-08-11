@@ -44,7 +44,6 @@ const Footer = () => {
               <Link to="/business-solutions">Cyber Security</Link>
               <Link to="/regulatory-compliance">Cloud Solutions</Link>
               <Link to="/dc-passive-work">DC Infrastructure</Link>
-              <Link to="/software-development">Software Development</Link>
             </div>
 
             <div className="footer-column">

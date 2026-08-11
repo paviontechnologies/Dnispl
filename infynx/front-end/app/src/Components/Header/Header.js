@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import {
-  ArrowRight, ChevronDown, Cloud, Code2, Database, Menu, Network,
+  ArrowRight, ChevronDown, Database, Menu, Network,
   ShieldCheck, Users, Wrench, X
 } from 'lucide-react';
 import './Header.css';
@@ -11,9 +11,7 @@ import { INDUSTRIES } from '../../data/industries';
 const solutionItems = [
   { to: '/network-implementation', icon: Network, title: 'Enterprise Networking', desc: 'Active and passive networking' },
   { to: '/business-solutions', icon: ShieldCheck, title: 'Cyber Security', desc: 'Protecting your digital assets' },
-  // { to: '/regulatory-compliance', icon: Cloud, title: 'Cloud Solutions', desc: 'Scalable cloud infrastructure' },
   { to: '/dc-passive-work', icon: Database, title: 'DC Infrastructure', desc: 'Data center passive work' },
-  // { to: '/software-development', icon: Code2, title: 'Software Development', desc: 'Web, mobile, cloud and AI builds' },
 ];
 
 const serviceItems = [
@@ -21,7 +19,6 @@ const serviceItems = [
   { to: '/services/professional', icon: Network, title: 'Professional Services', desc: 'Audits, deployment and project management' },
   { to: '/services/technical', icon: ShieldCheck, title: 'Technical Support', desc: 'L1, L2, L3 and SME services' },
   { to: '/services/workforce-solutions', icon: Users, title: 'Workforce Solutions', desc: 'Technical staffing and field engineers' },
-  { to: '/software-development', icon: Code2, title: 'Software Development', desc: 'Custom platforms, APIs and integrations' },
 ];
 
 /**

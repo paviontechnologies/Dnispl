@@ -45,7 +45,6 @@ const FIELDS = [
 ];
 
 const SERVICES = [
-  "Software Development",
   "Network Implementation",
   "Business Solutions",
   "Regulatory Compliance",

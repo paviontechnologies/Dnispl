@@ -161,7 +161,7 @@ const About = () => {
           <p className="about-hero-description fade-in-up delay-2">
             DNISPL is a technology and IT solutions company delivering reliable,
             scalable, and business-focused solutions across IT infrastructure,
-            networking, managed services, software development, and digital
+            networking, managed services, cyber security, and digital
             transformation.
           </p>
         </ContentWrapper>
