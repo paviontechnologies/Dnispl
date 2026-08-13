@@ -260,8 +260,6 @@ const Header = () => {
 
             <NavLink to="/careers" className="nav-link" onClick={closeMenuAndNavigate}>Careers</NavLink>
 
-            <Link to="/admin/login" className="nav-link admin-nav" onClick={closeMenuAndNavigate}>HR Portal</Link>
-
             <Link to="/form" className="btn-glow desktop-cta" onClick={closeMenuAndNavigate}>
               Start Project
             </Link>
