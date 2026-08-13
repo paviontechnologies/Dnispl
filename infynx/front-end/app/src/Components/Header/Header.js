@@ -10,7 +10,8 @@ import { INDUSTRIES } from '../../data/industries';
 
 const solutionItems = [
   { to: '/network-implementation', icon: Network, title: 'Enterprise Networking', desc: 'Active and passive networking' },
-  { to: '/business-solutions', icon: ShieldCheck, title: 'Cyber Security', desc: 'Protecting your digital assets' },
+  { to: '/cyber-security', icon: ShieldCheck, title: 'Cyber Security', desc: 'Next-gen firewalls, UTM & SOC protection' },
+  { to: '/hardware-procurement', icon: Wrench, title: 'Hardware Procurement', desc: 'IT equipment sourcing & staging' },
   { to: '/dc-passive-work', icon: Database, title: 'DC Infrastructure', desc: 'Data center passive work' },
 ];
 

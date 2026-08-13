@@ -9,12 +9,12 @@ import ManagedServices from './Components/Services/ManagedServices/ManagedServic
 import ProfessionalServices from './Components/Services/ProfessionalServices/ProfessionalServices';
 import TechnicalSupport from './Components/Services/TechnicalSupport/TechnicalSupport';
 import WorkforceSolutions from './Components/Services/WorkforceSolutions/WorkforceSolutions';
-import SD from './Components/Services/SD';
 import AP from './Components/Services/AP';
 import HPD from './Components/Services/HPD';
 import RC from './Components/Services/RC';
 import WO from './Components/Services/WO';
 import DC from './Components/Services/DC';
+import CyberSecurity from './Components/Services/CyberSecurity/CyberSecurity';
 import Portfolio from './Components/Portfolio/Portfolio';
 import Industries from './Components/Industries/Industries';
 import IndustryDetail from './Components/Industries/IndustryDetail';
@@ -50,10 +50,11 @@ function App() {
           <Route path="/services/professional" element={<ProfessionalServices />} />
           <Route path="/services/technical" element={<TechnicalSupport />} />
           <Route path="/services/workforce-solutions" element={<WorkforceSolutions />} />
-          <Route path="/software-development" element={<SD />} />
           <Route path="/network-implementation" element={<AP />} />
+          <Route path="/cyber-security" element={<CyberSecurity />} />
+          <Route path="/hardware-procurement" element={<HPD />} />
           <Route path="/workforce-outsourcing" element={<WO />} />
-          <Route path="/business-solutions" element={<HPD />} />
+          <Route path="/business-solutions" element={<CyberSecurity />} />
           <Route path="/regulatory-compliance" element={<RC />} />
           <Route path="/dc-passive-work" element={<DC />} />
           <Route path="/blog" element={<BlogPage />} />

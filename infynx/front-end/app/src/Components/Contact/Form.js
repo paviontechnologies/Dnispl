@@ -46,7 +46,8 @@ const FIELDS = [
 
 const SERVICES = [
   "Network Implementation",
-  "Business Solutions",
+  "Cyber Security",
+  "Hardware Procurement",
   "Regulatory Compliance",
   "Workforce Outsourcing",
   "Data Center",
