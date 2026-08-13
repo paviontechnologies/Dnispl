@@ -171,20 +171,18 @@ const Leadership = () => {
                     alt={`${exec.name} — ${exec.role}`} 
                     className={exec.name === 'Rakesh Uniyal' ? 'rakesh-img' : ''} 
                   />
+                  {exec.linkedin && (
+                    <a href={exec.linkedin} target="_blank" rel="noopener noreferrer" className="exec-linkedin-floating">
+                      <Linkedin size={18} />
+                    </a>
+                  )}
                   <div className="executive-card-overlay"></div>
                 </div>
 
                 <div className="executive-card-content">
-                  <div className="executive-card-header">
-                    <span className="executive-role" style={{ color: EXEC_PALETTE[idx % EXEC_PALETTE.length].card }}>
-                      {exec.role}
-                    </span>
-                    {exec.linkedin && (
-                      <a href={exec.linkedin} target="_blank" rel="noopener noreferrer" className="exec-linkedin-btn">
-                        <Linkedin size={16} />
-                      </a>
-                    )}
-                  </div>
+                  <span className="executive-role" style={{ color: EXEC_PALETTE[idx % EXEC_PALETTE.length].card }}>
+                    {exec.role}
+                  </span>
                   <h3>{exec.name}</h3>
                   <p className="executive-description">{exec.bio}</p>
 

@@ -292,11 +292,15 @@ EXECUTIVE LEADERSHIP TEAM
   aspect-ratio: 1 / 1;
   flex-shrink: 0;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: linear-gradient(
     135deg,
-    #1a2a55,
-    #080d20
+    #0c1220 0%,
+    #030712 100%
   );
+  padding: 20px;
 }
 
 .executive-card-image img {
@@ -305,17 +309,57 @@ EXECUTIVE LEADERSHIP TEAM
   display: block;
   object-fit: cover;
   object-position: center 20%;
-  transition: transform 0.6s ease;
+  border-radius: 18px;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .rakesh-img {
+  border-radius: 50% !important;
+  width: 82% !important;
+  height: 82% !important;
   object-fit: cover !important;
   object-position: center 10% !important;
-  transform: scale(0.72) translateY(10%) !important;
+  border: 3px solid #00e2f5 !important;
+  box-shadow: 0 0 25px rgba(0, 226, 245, 0.3) !important;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease !important;
 }
 
 .executive-card:hover .rakesh-img {
-  transform: scale(0.78) translateY(10%) !important;
+  transform: scale(1.06) !important;
+  box-shadow: 0 0 35px rgba(0, 226, 245, 0.5) !important;
+}
+
+.executive-card:hover .executive-card-image img:not(.rakesh-img) {
+  transform: scale(1.05);
+}
+
+.exec-linkedin-floating {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  z-index: 10;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.exec-linkedin-floating:hover {
+  background: #0077b5;
+  border-color: #0077b5;
+  color: #fff;
+  transform: scale(1.12) rotate(8deg);
+  box-shadow: 0 0 20px rgba(0, 119, 181, 0.6);
 }
 
 .executive-monogram {
