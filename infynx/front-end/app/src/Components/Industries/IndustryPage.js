@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import {
-  Landmark, RadioTower, Factory, HeartPulse, GraduationCap, ShoppingBag, Database, Building2, Truck,
+  Landmark, RadioTower, Factory, HeartPulse, GraduationCap, ShoppingBag, Database, Building2, Truck, Hotel,
   ArrowRight, Award, CheckCircle2, ChevronRight
 } from 'lucide-react';
 import Header from '../Header/Header';
@@ -286,6 +286,66 @@ const INDUSTRIES_DATA = {
       problem: "Scanner coverage dropped in high-rack aisles and cold zones, forcing manual stock reconciliation at the end of every shift.",
       solution: "We ran predictive and on-site RF surveys, redesigned access-point placement for rack-aisle propagation, and deployed hardened APs across cold and dock zones.",
       impact: "Continuous scanner coverage through high-rack aisles and manual reconciliation eliminated."
+    }
+  },
+  hospitality: {
+    title: "Hospitality",
+    tagline: "Guest networks, POS and coverage",
+    theme: { from: '#C084FC', to: '#22D3EE', glow: 'rgba(192, 132, 252, 0.30)' },
+    icon: Hotel,
+    description: "In hospitality, the network is part of the product. We design and implement robust Wi-Fi, secure POS networks, and property-wide coverage.",
+    capabilities: [
+      { title: "Property-wide Wi-Fi", desc: "Surveyed in-room, corridor, and back-of-house coverage with seamless roaming." },
+      { title: "Guest network isolation", desc: "Guest access with no adjacency to POS, property management, or administrative systems." },
+      { title: "POS & KOT platforms", desc: "Cloud POS with real-time kitchen order printing, table management, and multi-outlet support." },
+      { title: "Recipe-level inventory", desc: "Stock deduction at recipe level so wastage and pilferage become visible." }
+    ],
+    statistics: [
+      { value: "30%", label: "Pilferage & Wastage Saved" },
+      { value: "Real-time", label: "Owner Dashboard Tracking" },
+      { value: "100%", label: "Guest Network Isolation" }
+    ],
+    solutions: [
+      "Property-wide surveyed Wi-Fi coverage",
+      "Guest network isolation and gateway setup",
+      "Cloud POS & thermal kitchen printer integration",
+      "Recipe-level inventory tracking and automation"
+    ],
+    caseStudy: {
+      title: "DinePOS – Smart POS & Inventory Automation",
+      problem: "Local restaurants struggled with manual billing, inaccurate inventory, and no visibility on daily sales performance.",
+      solution: "We built a cloud-based POS with real-time KOT printing, table management, recipe-level inventory deduction, and multi-outlet support.",
+      impact: "30% reduction in pilferage and wastage with real-time owner dashboards."
+    }
+  },
+  government: {
+    title: "Government & PSU",
+    tagline: "Secure routing and audit compliance",
+    theme: { from: '#38BDF8', to: '#6366F1', glow: 'rgba(56, 189, 248, 0.30)' },
+    icon: Landmark,
+    description: "Secure nationwide routing, compliance architecture, and audit closure. We standardise routing and hardening baselines across regional government offices.",
+    capabilities: [
+      { title: "Standardised baselines", desc: "One routing and hardening standard applied across every regional office, documented and version-controlled." },
+      { title: "Vulnerability & config audit", desc: "Per-site scanning and configuration compliance checks against the agreed baseline." },
+      { title: "Secure nationwide routing", desc: "Segmented, policy-controlled routing between regions with secure remote access." },
+      { title: "Compliance register", desc: "Findings tracked to closure with an owner and a date, in a form that survives audit handover." }
+    ],
+    statistics: [
+      { value: "One", label: "Hardening Baseline" },
+      { value: "Tracked", label: "Audit Closure Process" },
+      { value: "7 SME", label: "Engineers Supporting CPCL" }
+    ],
+    solutions: [
+      "Nationwide routing standardization",
+      "Per-site vulnerability compliance mapping",
+      "SME & L1 resourcing against strict SLAs",
+      "As-built compliant risk register documentation"
+    ],
+    caseStudy: {
+      title: "Secure Routing & Compliance Audit Programme",
+      problem: "A nationwide department ran regional offices on inconsistent configurations, so every audit cycle turned into a fresh discovery exercise with no baseline to compare against.",
+      solution: "We standardised routing and hardening baselines across regions, ran vulnerability and configuration audits per site, and delivered a compliance register that survives audit handover.",
+      impact: "One hardening baseline applied across all regional offices with accepted documentation packs."
     }
   }
 };

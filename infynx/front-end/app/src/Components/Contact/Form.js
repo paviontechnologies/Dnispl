@@ -47,7 +47,7 @@ const FIELDS = [
 const SERVICES = [
   "Network Implementation",
   "Cyber Security",
-  "Hardware Procurement",
+  
   "Unified Conferencing",
   "Regulatory Compliance",
   "Workforce Outsourcing",

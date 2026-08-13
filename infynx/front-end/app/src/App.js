@@ -10,7 +10,7 @@ import ProfessionalServices from './Components/Services/ProfessionalServices/Pro
 import TechnicalSupport from './Components/Services/TechnicalSupport/TechnicalSupport';
 import WorkforceSolutions from './Components/Services/WorkforceSolutions/WorkforceSolutions';
 import AP from './Components/Services/AP';
-import HPD from './Components/Services/HPD';
+
 import RC from './Components/Services/RC';
 import WO from './Components/Services/WO';
 import DC from './Components/Services/DC';
@@ -53,7 +53,7 @@ function App() {
           <Route path="/services/workforce-solutions" element={<WorkforceSolutions />} />
           <Route path="/network-implementation" element={<AP />} />
           <Route path="/cyber-security" element={<CyberSecurity />} />
-          <Route path="/hardware-procurement" element={<HPD />} />
+         
           <Route path="/unified-conferencing" element={<UnifiedConferencing />} />
           <Route path="/workforce-outsourcing" element={<WO />} />
           <Route path="/business-solutions" element={<CyberSecurity />} />
