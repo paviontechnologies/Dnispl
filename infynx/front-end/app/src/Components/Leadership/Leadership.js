@@ -6,6 +6,7 @@ import ceoImage from '../Images/Rakesh.jpg';
 import ashishImage from '../Images/Ashish.jpg';
 import awadheshImage from '../Images/Awadhesh.jpg';
 import { Link } from 'react-router-dom';
+import { Linkedin } from 'lucide-react';
 import {
   CountUp,
   Reveal,
@@ -35,7 +36,8 @@ const EXECUTIVES = [
     image: ceoImage,
     bio: 'Over 2 decades of experience, including a decade with Airtel, with expertise in Management, Operations, Strategic Planning, and Distribution. A seasoned professional with extensive experience in the Telecom and Retail industries.',
     metric: '20+',
-    metricLabel: 'Years of Experience'
+    metricLabel: 'Years of Experience',
+    linkedin: 'https://www.linkedin.com/in/rakesh-uniyal-42328b7/'
   },
   {
     role: 'CHIEF EXECUTIVE OFFICER',
@@ -44,7 +46,8 @@ const EXECUTIVES = [
     monogram: 'AM',
     bio: 'Experienced leader with senior roles at Singtel, Airtel, and Hitachi. He brings strong B2B expertise, global digital transformation experience, and CXO-level relationships to drive strategic and sustainable growth.',
     metric: 'Global',
-    metricLabel: 'Digital Transformation Leadership'
+    metricLabel: 'Digital Transformation Leadership',
+    linkedin: 'https://www.linkedin.com/in/asmehra/'
   },
   {
     role: 'HEAD OF SALES',
@@ -53,7 +56,8 @@ const EXECUTIVES = [
     monogram: 'AG',
     bio: 'Over 2 decades of experience with Airtel, NTT, and Sify. A seasoned Presales Consultant with expertise in IT services, enterprise solutions, client engagement, and business development.',
     metric: '20+',
-    metricLabel: 'Years of Experience'
+    metricLabel: 'Years of Experience',
+    linkedin: 'https://www.linkedin.com/in/awadhesh-gupta-a5927a88/'
   }
 ];
 
@@ -162,14 +166,25 @@ const Leadership = () => {
             {EXECUTIVES.map((exec, idx) => (
               <article key={exec.name} className="executive-card">
                 <div className="executive-card-image">
-                  <img src={exec.image} alt={`${exec.name} — ${exec.role}`} />
+                  <img 
+                    src={exec.image} 
+                    alt={`${exec.name} — ${exec.role}`} 
+                    className={exec.name === 'Rakesh Uniyal' ? 'rakesh-img' : ''} 
+                  />
                   <div className="executive-card-overlay"></div>
                 </div>
 
                 <div className="executive-card-content">
-                  <span className="executive-role" style={{ color: EXEC_PALETTE[idx % EXEC_PALETTE.length].card }}>
-                    {exec.role}
-                  </span>
+                  <div className="executive-card-header">
+                    <span className="executive-role" style={{ color: EXEC_PALETTE[idx % EXEC_PALETTE.length].card }}>
+                      {exec.role}
+                    </span>
+                    {exec.linkedin && (
+                      <a href={exec.linkedin} target="_blank" rel="noopener noreferrer" className="exec-linkedin-btn">
+                        <Linkedin size={16} />
+                      </a>
+                    )}
+                  </div>
                   <h3>{exec.name}</h3>
                   <p className="executive-description">{exec.bio}</p>
 
