@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import IndustryStrip from "../Industries/IndustryStrip";
 import "./WO.css";
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -180,13 +179,7 @@ const WO = () => {
           </div>
         </section>
 
-        {/* Sector cross-links — routes this capability page into the
-            industries that buy it. */}
-        <IndustryStrip
-          tint={TINT}
-          title="Sectors we staff and operate for"
-          slugs={['telecom', 'enterprise', 'government', 'manufacturing', 'finance']}
-        />
+
 
         {/* CTA SECTION */}
         <section className="wo-cta-section" id="contact">

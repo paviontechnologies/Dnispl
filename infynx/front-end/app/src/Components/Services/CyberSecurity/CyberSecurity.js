@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "../../Header/Header";
 import Footer from "../../Footer/Footer";
-import IndustryStrip from "../../Industries/IndustryStrip";
 import "./CyberSecurity.css";
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -148,12 +147,7 @@ const CyberSecurity = () => {
           </div>
         </section>
 
-        {/* Sector cross-links */}
-        <IndustryStrip
-          tint={TINT}
-          title="Industries trusting our cyber security architecture"
-          slugs={['enterprise', 'retail', 'education', 'government', 'hospitality', 'healthcare']}
-        />
+
 
         {/* CTA SECTION */}
         <section className="cs-cta-section" id="contact">

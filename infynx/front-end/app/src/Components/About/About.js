@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import {
   Briefcase,
   TrendingUp,
@@ -25,6 +25,7 @@ import {
   useScrollReveal
 } from '../../motion/MotionKit';
 
+import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 // Import CSS file
 import './About.css';
 
@@ -84,14 +85,14 @@ const CAPABILITY_STRIP = [
 ];
 
 const JOURNEY = [
-  { side: 'left', year: '2017', yearClass: 'year-navy', title: 'DNISPL is Formed', icon: Briefcase, desc: 'Commences business on 10th February, laying the foundation for network and IT solutions services.' },
-  { side: 'right', year: '2018–19', yearClass: 'year-yellow', title: 'Bags Major Orders', icon: Award, desc: 'Delivered large network deployments and audits for enterprise clients across metro cities.' },
-  { side: 'left', year: '2019–20', yearClass: 'year-red', title: 'System Integrator', icon: Server, desc: 'Executed multi-location projects with complex networking, cabling, and infrastructure roll-outs.' },
-  { side: 'right', year: '2020–21', yearClass: 'year-blue', title: 'DNISPL Network', icon: Globe, desc: 'Formalized DNISPL as a network-first solutions company, scaling remote operations and support.' },
-  { side: 'left', year: '2021–22', yearClass: 'year-teal', title: 'New Verticals', icon: Zap, desc: 'Expanded into data-center networking, cloud connectivity, and security-led architectures.' },
-  { side: 'right', year: '2022–23', yearClass: 'year-dark-teal', title: 'Tech Mahindra Project', icon: Cpu, desc: '200+ manpower deployed. Installation & Commissioning of 1.5MVA DG Set. AMC for Samsung, SBI Life, etc.' },
-  { side: 'left', year: '2023–24', yearClass: 'year-steel-blue', title: 'Manpower Growth', icon: Users, desc: 'Strength increased to over 450. Solutions for fintech firms. Expanded presence in Mumbai & Bangalore.' },
-  { side: 'right', year: 'Future', yearClass: 'year-navy', title: 'Global Expansion', icon: TrendingUp, desc: 'Continuing our rapid ascent with AI integration and global strategic partnerships.' }
+  { side: 'left', year: '2017', color: '#00F0FF', title: 'DNISPL is Formed', icon: Briefcase, desc: 'Commences business on 10th February, laying the foundation for network and IT solutions services.' },
+  { side: 'right', year: '2018–19', color: '#FBBF24', title: 'Bags Major Orders', icon: Award, desc: 'Delivered large network deployments and audits for enterprise clients across metro cities.' },
+  { side: 'left', year: '2019–20', color: '#EF4444', title: 'System Integrator', icon: Server, desc: 'Executed multi-location projects with complex networking, cabling, and infrastructure roll-outs.' },
+  { side: 'right', year: '2020–21', color: '#3B82F6', title: 'DNISPL Network', icon: Globe, desc: 'Formalized DNISPL as a network-first solutions company, scaling remote operations and support.' },
+  { side: 'left', year: '2021–22', color: '#14B8A6', title: 'New Verticals', icon: Zap, desc: 'Expanded into data-center networking, cloud connectivity, and security-led architectures.' },
+  { side: 'right', year: '2022–23', color: '#8B5CF6', title: 'Tech Mahindra Project', icon: Cpu, desc: '200+ manpower deployed. Installation & Commissioning of 1.5MVA DG Set. AMC for Samsung, SBI Life, etc.' },
+  { side: 'left', year: '2023–24', color: '#0EA5E9', title: 'Manpower Growth', icon: Users, desc: 'Strength increased to over 450. Solutions for fintech firms. Expanded presence in Mumbai & Bangalore.' },
+  { side: 'right', year: 'Future', color: '#EC4899', title: 'Global Expansion', icon: TrendingUp, desc: 'Continuing our rapid ascent with AI integration and global strategic partnerships.' }
 ];
 
 const STATS = [
@@ -113,22 +114,59 @@ const ContentWrapper = ({ children, className }) => (
 );
 
 /* Each entry swings in from its own side of the centre rail. */
-const TimelineItem = ({ year, yearClass, title, desc, side, icon: Icon }) => (
-  <Reveal className={`timeline-item ${side}`} dir={side === 'left' ? 'left' : 'right'}>
-    <div className="timeline-marker">
-      <Icon size={20} strokeWidth={2.5} />
+const TimelineItem = ({ year, color, title, desc, side, icon: Icon }) => {
+  const cardRef = useRef(null);
+  const isInView = useInView(cardRef, { once: true, margin: "-120px" });
+
+  return (
+    <div className={`timeline-item ${side}`} ref={cardRef}>
+      <motion.div
+        className="timeline-marker"
+        style={{ borderColor: color, color: color, boxShadow: `0 0 15px ${color}40` }}
+        initial={{ scale: 0, opacity: 0 }}
+        animate={isInView ? { scale: 1, opacity: 1 } : {}}
+        transition={{ type: "spring", stiffness: 220, damping: 15, delay: 0.15 }}
+      >
+        <Icon size={20} strokeWidth={2.5} />
+      </motion.div>
+      <div className="timeline-connector" style={{ backgroundColor: color }}></div>
+      <motion.div
+        className="timeline-content glass-card-timeline"
+        style={{ '--milestone-color': color }}
+        initial={{ x: side === 'left' ? -70 : 70, opacity: 0, scale: 0.94 }}
+        animate={isInView ? { x: 0, opacity: 1, scale: 1 } : {}}
+        transition={{ type: "spring", stiffness: 100, damping: 18, delay: 0.2 }}
+        whileHover={{
+          y: -10,
+          scale: 1.02,
+          borderColor: color,
+          boxShadow: `0 20px 40px rgba(0,0,0,0.65), 0 0 35px ${color}35`
+        }}
+      >
+        <div className="timeline-card-glow" style={{ background: `radial-gradient(circle at 100% 0%, ${color}20, transparent 65%)` }}></div>
+        <div className="timeline-card-header">
+          <span className="timeline-year-badge" style={{ backgroundColor: `${color}15`, color: color, border: `1px solid ${color}30` }}>
+            {year}
+          </span>
+          <div className="timeline-card-icon-wrapper" style={{ color: color, backgroundColor: `${color}10`, border: `1px solid ${color}20` }}>
+            <Icon size={20} />
+          </div>
+        </div>
+        <h3 className="timeline-heading">{title}</h3>
+        <p className="timeline-desc-text">{desc}</p>
+      </motion.div>
     </div>
-    <div className="timeline-connector"></div>
-    <div className="timeline-content glass-card-timeline">
-      <span className={`timeline-year ${yearClass}`}>{year}</span>
-      <h3 className="timeline-heading">{title}</h3>
-      <p>{desc}</p>
-    </div>
-  </Reveal>
-);
+  );
+};
 
 const About = () => {
   useScrollReveal();
+  const timelineRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ['start end', 'end end']
+  });
+  const scaleY = useTransform(scrollYProgress, [0.08, 0.96], [0, 1]);
 
   return (
     <div className="about-page-container">
@@ -249,8 +287,11 @@ const About = () => {
         />
       </section>
 
-      {/* --- OUR JOURNEY --- */}
-      <section className="our-journey-section">
+      <section className="our-journey-section" ref={timelineRef}>
+        <div className="journey-bg-orbs">
+          <div className="journey-orb journey-orb-cyan"></div>
+          <div className="journey-orb journey-orb-purple"></div>
+        </div>
         <div className="journey-bg-pattern"></div>
         <Cpu className="floating-tech-icon tech-icon-1" />
         <Server className="floating-tech-icon tech-icon-2" />
@@ -265,7 +306,10 @@ const About = () => {
           <div className="journey-ribbon-timeline">
             {/* Center Line with Laser Beam */}
             <div className="timeline-center-line">
-              <div className="timeline-beam"></div>
+              <motion.div
+                className="timeline-progress-bar"
+                style={{ scaleY, originY: 0 }}
+              />
             </div>
 
             {JOURNEY.map((entry) => (

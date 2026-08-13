@@ -111,10 +111,10 @@ const ManagedServices = () => {
             </p>
 
             <div className="managed-hero-actions">
-              <Link to="/form" className="managed-primary-btn">
+              <a href="https://discovery.diversifiedsolutions.in/" target="_blank" rel="noopener noreferrer" className="managed-primary-btn">
                 Discuss Your Requirements
                 <ArrowRight size={18} />
-              </Link>
+              </a>
 
               <a href="#managed-services" className="managed-secondary-btn">
                 Explore Services
@@ -376,10 +376,10 @@ const ManagedServices = () => {
                 environment.
               </p>
 
-              <Link to="/form" className="managed-primary-btn">
+              <a href="https://discovery.diversifiedsolutions.in/" target="_blank" rel="noopener noreferrer" className="managed-primary-btn">
                 Start a Conversation
                 <ArrowRight size={18} />
-              </Link>
+              </a>
 
             </div>
 

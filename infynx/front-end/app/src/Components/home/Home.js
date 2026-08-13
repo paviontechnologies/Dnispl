@@ -149,11 +149,11 @@ const Home = () => {
   ];
 
   const coreServices = [
-    { num: "1", title: "Structured Cabling", desc: "Design & implementation (Cat6, Cat6A, Cat7, FTTH and fiber). Adherence to TIA/EIA, ISO/IEC, and BICSI standards. Fluke and OTDR testing reports with skilled field force for multi-site projects." },
-    { num: "2", title: "Enterprise Networking", desc: "LAN/WAN, SD-WAN, SDN, Routing, Switching, Wi-Fi, Cisco ACI, Nexus fabric, Data Center, Cybersecurity, FortiGate NGFW, Cisco ISE, FortiNAC, segmentation, and endpoint security." },
-    { num: "3", title: "Professional Services", desc: "NOC management, Project Management, Network Auditing, L1, L2, L3 & SME Services, Manpower and Managed desk services." },
-    { num: "4", title: "Managed Services", desc: "SLA-driven AMC, FMS, L1/L2/L3 field services, NOC setup and compliance management." },
-    { num: "5", title: "Collaboration & Voice", desc: "Webex, MS Teams, VC rollouts, and IP Telephony solutions for seamless communication." }
+    { num: "1", title: "Enterprise Networking", desc: "LAN/WAN, SD-WAN, SDN, Routing, Switching, Wi-Fi, Cisco ACI, Nexus fabric, Data Center, Cybersecurity, FortiGate NGFW, Cisco ISE, FortiNAC, segmentation, and endpoint security." },
+    { num: "2", title: "Professional Services", desc: "NOC management, Project Management, Network Auditing, L1, L2, L3 & SME Services, Manpower and Managed desk services." },
+    { num: "3", title: "Managed Services", desc: "SLA-driven AMC, FMS, L1/L2/L3 field services, NOC setup and compliance management." },
+    { num: "4", title: "Collaboration & Voice", desc: "Webex, MS Teams, VC rollouts, and IP Telephony solutions for seamless communication." },
+    { num: "5", title: "Structured Cabling", desc: "Design & implementation (Cat6, Cat6A, Cat7, FTTH and fiber). Adherence to TIA/EIA, ISO/IEC, and BICSI standards. Fluke and OTDR testing reports with skilled field force for multi-site projects." }
   ];
 
   return (

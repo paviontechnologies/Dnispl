@@ -42,8 +42,7 @@ const Footer = () => {
               <Link to="/network-implementation">Enterprise Networking</Link>
               <Link to="/cyber-security">Cyber Security</Link>
               <Link to="/hardware-procurement">Hardware Procurement</Link>
-              <Link to="/workforce-outsourcing">Managed Services</Link>
-              <Link to="/regulatory-compliance">Cloud Solutions</Link>
+              <Link to="/unified-conferencing">Unified Conferencing</Link>
               <Link to="/dc-passive-work">DC Infrastructure</Link>
             </div>
 

@@ -15,6 +15,7 @@ import RC from './Components/Services/RC';
 import WO from './Components/Services/WO';
 import DC from './Components/Services/DC';
 import CyberSecurity from './Components/Services/CyberSecurity/CyberSecurity';
+import UnifiedConferencing from './Components/Services/UnifiedConferencing/UnifiedConferencing';
 import Portfolio from './Components/Portfolio/Portfolio';
 import Industries from './Components/Industries/Industries';
 import IndustryDetail from './Components/Industries/IndustryDetail';
@@ -53,6 +54,7 @@ function App() {
           <Route path="/network-implementation" element={<AP />} />
           <Route path="/cyber-security" element={<CyberSecurity />} />
           <Route path="/hardware-procurement" element={<HPD />} />
+          <Route path="/unified-conferencing" element={<UnifiedConferencing />} />
           <Route path="/workforce-outsourcing" element={<WO />} />
           <Route path="/business-solutions" element={<CyberSecurity />} />
           <Route path="/regulatory-compliance" element={<RC />} />
