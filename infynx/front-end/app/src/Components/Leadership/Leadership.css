@@ -551,3 +551,388 @@ EXECUTIVE LEADERSHIP TEAM
   .ls-stats-grid { grid-template-columns: 1fr; }
   .leader-buttons, .ls-about-actions { flex-direction: column; width: 100%; gap: 12px; }
 }
+
+
+/* =========================================
+   SOLUTION LEADERSHIP TEAM SECTION
+   ========================================= */
+
+.solution-team-section {
+  position: relative;
+  padding: 100px 0;
+  overflow: hidden;
+  background: transparent;
+  z-index: 2;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.solution-team-header {
+  position: relative;
+  max-width: 850px;
+  margin: 0 auto 60px;
+  text-align: center;
+  z-index: 2;
+}
+
+.solution-team-header .section-tag {
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.solution-team-title {
+  margin: 0 0 20px 0;
+  font-size: clamp(36px, 4.5vw, 54px);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  color: #ffffff;
+}
+
+.solution-team-desc {
+  max-width: 720px;
+  margin: 0 auto;
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.solution-team-grid {
+  position: relative;
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  z-index: 3;
+}
+
+/* --- SOLUTION EXPERT CARD --- */
+
+.solution-expert-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  background: rgba(10, 15, 35, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  transition:
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.5s ease,
+    border-color 0.5s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.solution-expert-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(0, 240, 255, 0.4);
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.45),
+    0 0 30px rgba(0, 240, 255, 0.08);
+}
+
+.expert-card-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.1 / 1;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0c1220 0%, #030712 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.expert-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.solution-expert-card:hover .expert-card-image img {
+  transform: scale(1.05);
+}
+
+.expert-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(10, 15, 35, 0.95) 0%,
+    rgba(10, 15, 35, 0.3) 50%,
+    rgba(10, 15, 35, 0) 100%
+  );
+  pointer-events: none;
+}
+
+.expert-card-content {
+  padding: 24px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.expert-role {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--accent);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.expert-card-content h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 14px 0;
+  color: #ffffff;
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+}
+
+.expert-experience {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.expert-experience span {
+  font-size: 18px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.expert-experience small {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.expert-previous, .expert-expertise {
+  margin-bottom: 18px;
+}
+
+.expert-previous h4, .expert-expertise h4 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0 0 8px 0;
+  font-weight: 600;
+}
+
+.expert-previous ul, .expert-expertise ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.expert-previous li {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.expert-previous li::before {
+  content: "•";
+  color: var(--secondary);
+  font-weight: bold;
+}
+
+.expert-expertise li {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  line-height: 1.4;
+}
+
+.expert-expertise li::before {
+  content: "→";
+  color: var(--accent);
+  font-weight: bold;
+  margin-top: 1px;
+}
+
+
+/* =========================================
+   CERTIFICATIONS SECTION
+   ========================================= */
+
+.certifications-section {
+  position: relative;
+  padding: 100px 0 120px 0;
+  overflow: hidden;
+  background: rgba(10, 15, 30, 0.3);
+  z-index: 2;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.certifications-header {
+  position: relative;
+  max-width: 850px;
+  margin: 0 auto 50px;
+  text-align: center;
+  z-index: 2;
+}
+
+.certifications-header .section-tag {
+  color: var(--secondary);
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.certifications-title {
+  margin: 0;
+  font-size: clamp(36px, 4.5vw, 54px);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  color: #ffffff;
+}
+
+.certifications-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  max-width: 600px;
+  margin: 0 auto 50px;
+}
+
+.cert-stat-card {
+  padding: 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: rgba(15, 25, 50, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cert-stat-number {
+  font-family: var(--font-heading);
+  font-size: clamp(36px, 5vw, 48px);
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.cert-stat-label {
+  font-size: 13.5px;
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.certifications-list-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.certifications-pills-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.cert-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+}
+
+.cert-pill:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.cert-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+  background: #ffffff;
+}
+
+/* Color codes for categories */
+.cert-category-fortinet .cert-dot { background: #32d74b; } /* Fortinet Green */
+.cert-category-fortinet:hover { border-color: rgba(50, 215, 75, 0.4); box-shadow: 0 0 10px rgba(50, 215, 75, 0.15); }
+
+.cert-category-cisco .cert-dot { background: #00f0ff; } /* Cisco Cyan */
+.cert-category-cisco:hover { border-color: rgba(0, 240, 255, 0.4); box-shadow: 0 0 10px rgba(0, 240, 255, 0.15); }
+
+.cert-category-cato .cert-dot { background: #ff9f0a; } /* Cato Orange */
+.cert-category-cato:hover { border-color: rgba(255, 159, 10, 0.4); box-shadow: 0 0 10px rgba(255, 159, 10, 0.15); }
+
+.cert-category-ruckus .cert-dot { background: #ff453a; } /* Ruckus Red */
+.cert-category-ruckus:hover { border-color: rgba(255, 69, 58, 0.4); box-shadow: 0 0 10px rgba(255, 69, 58, 0.15); }
+
+.cert-category-ibm .cert-dot { background: #5e5ce6; } /* IBM Indigo */
+.cert-category-ibm:hover { border-color: rgba(94, 92, 230, 0.4); box-shadow: 0 0 10px rgba(94, 92, 230, 0.15); }
+
+.cert-category-itil .cert-dot { background: #bf5af2; } /* ITIL Purple */
+.cert-category-itil:hover { border-color: rgba(191, 90, 242, 0.4); box-shadow: 0 0 10px rgba(191, 90, 242, 0.15); }
+
+
+/* =========================================
+   RESPONSIVE FOR NEW SECTIONS
+   ========================================= */
+
+@media (max-width: 1200px) {
+  .solution-team-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 24px;
+    justify-items: center;
+  }
+  .solution-expert-card {
+    max-width: 320px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .solution-team-grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    padding: 0 16px;
+  }
+  .certifications-summary-grid {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    padding: 0 24px;
+  }
+  .certifications-pills-container {
+    padding: 0 16px;
+  }
+}

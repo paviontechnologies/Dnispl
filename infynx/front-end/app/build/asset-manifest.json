@@ -1,7 +1,11 @@
 {
   "files": {
-    "main.css": "/static/css/main.ef9f0044.css",
-    "main.js": "/static/js/main.a5d8a749.js",
+    "main.css": "/static/css/main.c1eb7d2a.css",
+    "main.js": "/static/js/main.d1ba1b23.js",
+    "static/media/stephen.jpg": "/static/media/stephen.f92b93e3e6649d079874.jpg",
+    "static/media/vinod.jpg": "/static/media/vinod.ed0f896538bf566e11e2.jpg",
+    "static/media/soumya.jpg": "/static/media/soumya.d76eac1d1833e6c10a0f.jpg",
+    "static/media/sumeet.jpg": "/static/media/sumeet.c963d18e34cdfbc91ebb.jpg",
     "static/media/Ashish.jpg": "/static/media/Ashish.37bd26da34a2361a3b8f.jpg",
     "static/media/Rakesh.jpg": "/static/media/Rakesh.fba49bc1d31608b502d6.jpg",
     "static/media/p4-bg-img-1.webp": "/static/media/p4-bg-img-1.c282416a2e279f7c0660.webp",
@@ -25,11 +29,11 @@
     "static/media/c4-phone-cirlce.webp": "/static/media/c4-phone-cirlce.3b7a7d6b0d8c5194ad55.webp",
     "static/media/panasonic.png": "/static/media/panasonic.fb888077bf88dc1fcca8.png",
     "index.html": "/index.html",
-    "main.ef9f0044.css.map": "/static/css/main.ef9f0044.css.map",
-    "main.a5d8a749.js.map": "/static/js/main.a5d8a749.js.map"
+    "main.c1eb7d2a.css.map": "/static/css/main.c1eb7d2a.css.map",
+    "main.d1ba1b23.js.map": "/static/js/main.d1ba1b23.js.map"
   },
   "entrypoints": [
-    "static/css/main.ef9f0044.css",
-    "static/js/main.a5d8a749.js"
+    "static/css/main.c1eb7d2a.css",
+    "static/js/main.d1ba1b23.js"
   ]
 }

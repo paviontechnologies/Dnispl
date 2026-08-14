@@ -5,6 +5,10 @@ import Footer from '../Footer/Footer';
 import ceoImage from '../Images/Rakesh.jpg';
 import ashishImage from '../Images/Ashish.jpg';
 import awadheshImage from '../Images/Awadhesh.jpg';
+import soumyaImage from '../Images/soumya.jpg';
+import stephenImage from '../Images/stephen.jpg';
+import sumeetImage from '../Images/sumeet.jpg';
+import vinodImage from '../Images/vinod.jpg';
 import { Link } from 'react-router-dom';
 import { Linkedin } from 'lucide-react';
 import {
@@ -59,6 +63,94 @@ const EXECUTIVES = [
     metricLabel: 'Years of Experience',
     linkedin: 'https://www.linkedin.com/in/awadhesh-gupta-a5927a88/'
   }
+];
+
+const SOLUTION_EXPERTS = [
+  {
+    name: 'Soumya Majumdar',
+    role: 'SOLUTION EXPERT: CLOUD',
+    image: soumyaImage,
+    experience: '25+',
+    previousOrgs: ['Bharti Airtel Ltd.', 'Nxtra Data Limited'],
+    expertise: [
+      'Cloud Strategy & Architecture',
+      'Public, Private & Hybrid Cloud',
+      'Data Center & Infrastructure',
+      'Virtualization (VMware, Hyper-V)',
+      'Cloud Migration & Modernization',
+      'Backup & Disaster Recovery',
+      'AWS | Microsoft Azure | Google Cloud'
+    ]
+  },
+  {
+    name: 'Stephen Hallal',
+    role: 'SOLUTION EXPERT: COLLABORATION',
+    image: stephenImage,
+    experience: '15+',
+    previousOrgs: ['Proactive'],
+    expertise: [
+      'Audio Conferencing',
+      'Video Conferencing',
+      'Microsoft Teams Rooms',
+      'Cisco Collaboration',
+      'Zoom Rooms',
+      'Unified Communications (UC)',
+      'AV Integration & Collaboration Solutions'
+    ]
+  },
+  {
+    name: 'Sumeet Chaudhry',
+    role: 'SOLUTION EXPERT: CYBER SECURITY',
+    image: sumeetImage,
+    experience: '10+',
+    previousOrgs: ['HCL Technologies', 'Velocis', 'Wipro'],
+    expertise: [
+      'Network & Endpoint Security',
+      'Next-Generation Firewalls',
+      'SASE & Zero Trust',
+      'SOC & SIEM',
+      'Vulnerability Assessment & Penetration Testing (VAPT)',
+      'Identity & Access Management (IAM)',
+      'Security Architecture & Compliance'
+    ]
+  },
+  {
+    name: 'Vinod Venaik',
+    role: 'SOLUTION EXPERT: ENTERPRISE NETWORKING & PASSIVE',
+    image: vinodImage,
+    experience: '25+',
+    previousOrgs: ['Kyndryl', 'IBM', 'NetSol'],
+    expertise: [
+      'Enterprise LAN/WAN',
+      'SD-WAN & Campus Networking',
+      'Routing & Switching',
+      'Wireless Networks',
+      'Structured Cabling & Passive Infrastructure',
+      'Network Design, Deployment & Operations'
+    ]
+  }
+];
+
+const CERTIFICATIONS = [
+  { text: 'Fortinet Certified Associate Cybersecurity', category: 'fortinet' },
+  { text: 'Fortinet Network Security Expert Level 1', category: 'fortinet' },
+  { text: 'Fortinet Network Security Expert Level 2', category: 'fortinet' },
+  { text: 'Fortinet Network Security Expert Level 3', category: 'fortinet' },
+  { text: 'Fortinet FortiGate 7.4 Operator', category: 'fortinet' },
+  { text: 'Fortinet Introduction to the Threat Landscape', category: 'fortinet' },
+  { text: 'Cisco Certified Network Associate (CCNA)', category: 'cisco' },
+  { text: 'Cisco Certified Network Professional (CCNP-RS)', category: 'cisco' },
+  { text: 'Cisco Small and Medium Business Engineer', category: 'cisco' },
+  { text: 'Cisco Introduction to Cybersecurity', category: 'cisco' },
+  { text: 'Cato Networks SASE Expert Level 1', category: 'cato' },
+  { text: 'Cato Networks SASE Expert Level 2', category: 'cato' },
+  { text: 'Cato Networks SASE Advanced Security', category: 'cato' },
+  { text: 'RUCKUS Accredited Wi-Fi Designer (RAWD)', category: 'ruckus' },
+  { text: 'RUCKUS One Implementer (ROne)', category: 'ruckus' },
+  { text: 'RUCKUS Accredited SmartZone Administrator (RASZA)', category: 'ruckus' },
+  { text: 'RUCKUS ICX Implementer Accreditation (RICXI)', category: 'ruckus' },
+  { text: 'IBM Instana Sales Foundation', category: 'ibm' },
+  { text: 'ITIL Foundation', category: 'itil' }
 ];
 
 const ContentWrapper = ({ children, className }) => (
@@ -194,6 +286,102 @@ const Leadership = () => {
               </article>
             ))}
           </div>
+        </ContentWrapper>
+      </section>
+
+      {/* 5️⃣ SOLUTION LEADERSHIP TEAM */}
+      <section className="solution-team-section">
+        <ContentWrapper>
+          <Reveal className="solution-team-header">
+            <p className="section-tag">• SOLUTION LEADERSHIP TEAM</p>
+            <h2 className="solution-team-title">
+              Expertise That Drives. <br />
+              <span className="text-gradient-blue">Solutions That Deliver.</span>
+            </h2>
+            <p className="solution-team-desc">
+              Our solution experts bring deep domain knowledge and decades of
+              experience to help enterprises modernize, secure and transform with confidence.
+            </p>
+          </Reveal>
+        </ContentWrapper>
+
+        <ContentWrapper>
+          <RevealGroup className="solution-team-grid">
+            {SOLUTION_EXPERTS.map((expert, idx) => (
+              <article key={expert.name} className="solution-expert-card">
+                <div className="expert-card-image">
+                  <img src={expert.image} alt={expert.name} />
+                  <div className="expert-card-overlay"></div>
+                </div>
+                <div className="expert-card-content">
+                  <span className="expert-role">{expert.role}</span>
+                  <h3>{expert.name}</h3>
+                  
+                  <div className="expert-experience">
+                    <span>{expert.experience}</span>
+                    <small>Years of Experience</small>
+                  </div>
+
+                  <div className="expert-previous">
+                    <h4>Previous Organizations</h4>
+                    <ul>
+                      {expert.previousOrgs.map((org) => (
+                        <li key={org}>{org}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="expert-expertise">
+                    <h4>Technology Expertise</h4>
+                    <ul>
+                      {expert.expertise.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </RevealGroup>
+        </ContentWrapper>
+      </section>
+
+      {/* 6️⃣ CERTIFICATIONS SECTION */}
+      <section className="certifications-section">
+        <ContentWrapper>
+          <Reveal className="certifications-header">
+            <p className="section-tag">• VALIDATED PARTNER EXPERTISE</p>
+            <h2 className="certifications-title">
+              Certifications & Validated <br />
+              <span className="text-gradient-blue">Technology Partnership</span>
+            </h2>
+          </Reveal>
+        </ContentWrapper>
+
+        <ContentWrapper>
+          {/* Summary Stats */}
+          <RevealGroup className="certifications-summary-grid">
+            <Reveal dir="scale" className="cert-stat-card glass-card">
+              <span className="cert-stat-number">11</span>
+              <span className="cert-stat-label">CCNA Certifications</span>
+            </Reveal>
+            <Reveal dir="scale" className="cert-stat-card glass-card">
+              <span className="cert-stat-number">178</span>
+              <span className="cert-stat-label">Cisco Black Belt Certifications</span>
+            </Reveal>
+          </RevealGroup>
+
+          {/* Individual Certifications */}
+          <Reveal dir="up" className="certifications-list-wrapper">
+            <div className="certifications-pills-container">
+              {CERTIFICATIONS.map((cert) => (
+                <div key={cert.text} className={`cert-pill cert-category-${cert.category}`}>
+                  <span className="cert-dot"></span>
+                  <span className="cert-text">{cert.text}</span>
+                </div>
+              ))}
+            </div>
+          </Reveal>
         </ContentWrapper>
       </section>
 
