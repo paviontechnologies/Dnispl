@@ -48,7 +48,7 @@ const SERVICES = [
   "Network Implementation",
   "Cyber Security",
   
-  "Unified Conferencing",
+  "Unified Communications",
   "Regulatory Compliance",
   "Workforce Outsourcing",
   "Data Center",

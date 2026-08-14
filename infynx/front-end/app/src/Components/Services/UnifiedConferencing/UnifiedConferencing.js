@@ -84,7 +84,7 @@ const UnifiedConferencing = () => {
             <SplitHeading
               className="uc-hero-title"
               lines={[
-                <span className="text-gradient-indigo-uc" key="a">Unified Conferencing</span>,
+                <span className="text-gradient-indigo-uc" key="a">Unified Communications</span>,
                 <span className="text-gradient-cyan-uc" key="b">&amp; Smart Collaboration</span>
               ]}
             />

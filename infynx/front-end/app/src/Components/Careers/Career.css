@@ -68,7 +68,8 @@
 
 .career-stat-value {
   display: block;
-  font: 800 clamp(24px, 2.3vw, 32px)/1 var(--font-heading);
+  font: 800 clamp(24px, 2.3vw, 32px)/1.25 var(--font-heading);
+  padding: 4px 0;
   background: linear-gradient(92deg, #00E2F5, #173FCF);
   -webkit-background-clip: text;
   background-clip: text;

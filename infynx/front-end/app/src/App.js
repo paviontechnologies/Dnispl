@@ -54,7 +54,7 @@ function App() {
           <Route path="/network-implementation" element={<AP />} />
           <Route path="/cyber-security" element={<CyberSecurity />} />
          
-          <Route path="/unified-conferencing" element={<UnifiedConferencing />} />
+          <Route path="/unified-communications" element={<UnifiedConferencing />} />
           <Route path="/workforce-outsourcing" element={<WO />} />
           <Route path="/business-solutions" element={<CyberSecurity />} />
           <Route path="/regulatory-compliance" element={<RC />} />

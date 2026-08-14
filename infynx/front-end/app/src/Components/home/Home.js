@@ -538,7 +538,9 @@ const Home = () => {
 
           <div className="proof-grid" data-reveal-group>
             <div className="proof-card main-highlight ftc-reveal ftc-reveal-left">
-              <h3>Aditya Birla Group</h3>
+              <div className="client-logo-badge abg-badge">
+                <span className="abg-text">ADITYA BIRLA GROUP</span>
+              </div>
               <p className="proof-lead">Strategic Network & SD-WAN Transformation</p>
               <div className="proof-metric">400+ SD-WAN Deployments</div>
               <ul>
@@ -550,19 +552,28 @@ const Home = () => {
 
             <div className="proof-list-side ftc-reveal ftc-reveal-right" data-reveal-group>
               <div className="proof-subcard ftc-reveal">
-                <h4>IDBI Bank</h4>
+                <div className="client-logo-badge idbi-badge">
+                  <span className="idbi-text">IDBI BANK</span>
+                </div>
                 <p>Core Banking Network Infrastructure & Security Operations.</p>
               </div>
               <div className="proof-subcard ftc-reveal">
-                <h4>CBDT</h4>
+                <div className="client-logo-badge cbdt-badge">
+                  <span className="cbdt-text">CBDT</span>
+                  <span className="cbdt-sub">Govt of India</span>
+                </div>
                 <p>Nationwide secure routing, compliance architecture, and vulnerability auditing.</p>
               </div>
               <div className="proof-subcard ftc-reveal">
-                <h4>Tech Mahindra</h4>
+                <div className="client-logo-img-wrapper">
+                  <img src={techMIcon} alt="Tech Mahindra" className="client-logo-img" />
+                </div>
                 <p>Global IT services support desk augmentation with hundreds of L1/L2 resources.</p>
               </div>
               <div className="proof-subcard ftc-reveal">
-                <h4>Samsung</h4>
+                <div className="client-logo-img-wrapper">
+                  <img src={samsungIcon} alt="Samsung" className="client-logo-img" />
+                </div>
                 <p>Active routing/switching connectivity for massive manufacturing facilities and corporate campuses.</p>
               </div>
             </div>
@@ -669,7 +680,6 @@ const Home = () => {
       <section className="why-choose-us-section" id="expert-consultation">
         <div className="why-header ftc-reveal">
           <div className="why-text">
-            <span className="section-tag">Why DNISPL</span>
             <h2 className="section-title">Why Enterprise Leaders Choose <span className="text-gradient-orange">DNISPL</span></h2>
             <p className="section-desc">
               We move beyond simple equipment supply. We design and deliver lifecycle operations with guaranteed SLA performance.
