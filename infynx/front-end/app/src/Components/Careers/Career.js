@@ -8,7 +8,6 @@ import {
   AuroraBackdrop,
   CountUp,
   MagneticButton,
-  NetworkLattice,
   Reveal,
   RevealGroup,
   ScrollDrift,
@@ -251,7 +250,6 @@ const Career = () => {
                         </Reveal>
 
                         <Reveal className="career-why-visual" dir="right">
-                            <NetworkLattice tint={TINT} density={92} />
                             <p className="career-why-caption">
                                 Metro through tier-3. Wherever the estate is, that is where
                                 the work is.

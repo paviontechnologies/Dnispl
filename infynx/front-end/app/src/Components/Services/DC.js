@@ -27,19 +27,19 @@ const PALETTE = [
 ];
 
 const SERVICES = [
-  { icon: "🧵", title: "Structured Cabling", desc: "Cat-6, OFC fiber cabling, rack dressing, patch panels, tray installation & labeling." },
-  { icon: "⚡", title: "Electrical Work", desc: "DB installation, power cabling, earthing, surge protection & load balancing." },
-  { icon: "🔧", title: "Mechanical & Civil", desc: "Civil modifications, cooling ducting, raised flooring, rack mounting & sealing." },
-  { icon: "🔋", title: "DG & UPS Setup", desc: "Deployment of DG sets, UPS units, battery banks & backup power integration." },
-  { icon: "❄️", title: "PAC Installation", desc: "Precision AC installation, ducting, cooling optimization & environment monitoring." },
-  { icon: "🛠️", title: "I&C Services", desc: "Complete site execution: mounting, power integration, cabling & final commissioning." }
+  { icon: "🌐", title: "Cisco ACI Fabric", desc: "Design and deployment of software-defined, policy-driven Cisco Application Centric Infrastructure (ACI)." },
+  { icon: "🔗", title: "Nexus Spine-Leaf Switching", desc: "High-speed leaf-spine network backbones utilizing Cisco Nexus switches for multi-gigabit routing." },
+  { icon: "💻", title: "Compute & Virtualization", desc: "Deployment of virtualization clusters, hyperconverged infrastructure (HCI), VMware, and ESXi servers." },
+  { icon: "💾", title: "Storage Area Networks (SAN)", desc: "Installation of secure, scalable storage systems and MDS switch configurations." },
+  { icon: "🛡️", title: "Micro-Segmentation Security", desc: "East-west traffic protection, perimeter firewalls, and microsegmentation security policies." },
+  { icon: "⚙️", title: "Installation & Commissioning", desc: "Active staging, software upgrades, license mapping, and full hardware commissioning." }
 ];
 
 const PROCESS = [
-  { step: "01", title: "Site Survey", desc: "Detailed evaluation of site layout, power, cooling & safety compliance." },
-  { step: "02", title: "Design & Planning", desc: "BOQ preparation, power diagrams, cabling layout & resource allocation." },
-  { step: "03", title: "Implementation", desc: "Execution of cabling, power setup, PAC installation & hardware mounting." },
-  { step: "04", title: "Testing & Handover", desc: "Electrical testing, cooling validation, load tests & commissioning sign-off." }
+  { step: "01", title: "Architectural Planning", desc: "Detailed mapping of logical fabrics, tenant requirements, and routing policies." },
+  { step: "02", title: "Active Staging", desc: "Pre-staging hardware, software upgrades, firmware patches, and initial config testing." },
+  { step: "03", title: "Fabric Deployment", desc: "Leaf-spine physical installation, ACI policy configuration, and routing enablement." },
+  { step: "04", title: "Testing & Handover", desc: "Uptime validation, path failover testing, security auditing, and documentation sign-off." }
 ];
 
 const DC = () => {
@@ -75,7 +75,7 @@ const DC = () => {
             <SplitHeading
               className="dc-hero-title"
               lines={[
-                <span className="text-gradient-green" key="a">Next-Gen DC Passive Work</span>,
+                <span className="text-gradient-green" key="a">Next-Gen DC Active Fabric</span>,
                 <span className="text-gradient-green" key="b">&amp; Infrastructure Services</span>
               ]}
             />
@@ -86,8 +86,8 @@ const DC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.7 }}
             >
-              Complete implementation of cabling, electrical, mechanical, civil work, DG/UPS
-              setup, PAC units, and installation &amp; commissioning for small to large data centers.
+              Design and implementation of Cisco ACI fabric, leaf-spine switching, compute clusters,
+              virtualization, and secure active infrastructure for enterprise data centers.
             </motion.p>
 
             <motion.div
@@ -156,10 +156,10 @@ const DC = () => {
         <section className="dc-cta-section" id="contact">
           <Reveal className="dc-cta-box glass-panel" dir="scale">
             <div className="scan-line"></div>
-            <h2>Ready to Build Your Data Center?</h2>
+            <h2>Ready to Deploy Your Data Center Infrastructure?</h2>
             <p>
-              From small server rooms to hyperscale centers — our certified teams
-              handle complete passive infrastructure deployment.
+              From custom server rooms to hyperscale fabrics — our certified teams
+              handle complete active datacenter infrastructure deployment.
             </p>
             <Link to="/form" className="btn-green-neon">Start Project</Link>
           </Reveal>

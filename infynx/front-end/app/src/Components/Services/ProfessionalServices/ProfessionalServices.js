@@ -192,10 +192,6 @@ const ProfessionalServices = () => {
 
               return (
                 <div className="ps-service-card" key={service.title}>
-                  <div className="ps-card-number">
-                    0{index + 1}
-                  </div>
-
                   <div className="ps-service-icon">
                     <Icon size={24} />
                   </div>
@@ -203,10 +199,6 @@ const ProfessionalServices = () => {
                   <h3>{service.title}</h3>
 
                   <p>{service.desc}</p>
-
-                  <div className="ps-card-arrow">
-                    <ArrowRight size={18} />
-                  </div>
                 </div>
               );
             })}

@@ -5,6 +5,6 @@
 
 /* Ensure full dark background at app root level */
 #root, .App {
-  background-color: #08090d;
+  background-color: #060b26;
   min-height: 100vh;
 }

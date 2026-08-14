@@ -298,8 +298,10 @@
   position: absolute;
   inset: -12%;
   background:
+    radial-gradient(circle at 1px 1px, #00e2f5 2px, transparent 2px),
     repeating-linear-gradient(90deg, transparent 0 22px, rgba(255, 255, 255, 0.20) 22px 23px),
     repeating-linear-gradient(0deg, transparent 0 26px, rgba(255, 255, 255, 0.11) 26px 27px);
+  background-size: 23px 27px, auto, auto;
   animation: fx-globe-spin 16s linear infinite;
   -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 58%, transparent 80%);
   mask-image: radial-gradient(circle at 50% 50%, #000 58%, transparent 80%);
@@ -316,7 +318,8 @@
 
 /* -230px is exactly ten meridian periods (23px), so the loop has no seam */
 @keyframes fx-globe-spin {
-  to { background-position: -230px 0, 0 0; }
+  from { background-position: 0px 0, 0px 0, 0 0; }
+  to { background-position: -230px 0, -230px 0, 0 0; }
 }
 
 /* Each ring keeps its own tilt while spinning, so the keyframes carry the

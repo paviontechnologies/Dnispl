@@ -101,7 +101,7 @@ const Portfolio = () => {
                       <span key="b">that actually went <span className="text-gradient-purple">live</span>.</span>
                     ]
                   : [
-                      <span key="a">A portfolio of <span className="text-gradient-blue">products</span> that</span>,
+                      <span key="a">A portfolio of <span className="text-gradient-blue">networks</span> that</span>,
                       <span key="b">actually went <span className="text-gradient-purple">live</span>.</span>
                     ]
               }
@@ -115,8 +115,8 @@ const Portfolio = () => {
             >
               {lens
                 ? lens.blurb
-                : `From early-stage MVPs to scaled enterprise platforms, DNISPL
-                   partners with teams to ship reliable software and robust
+                : `From enterprise campus rollouts to complex datacenter backbones, DNISPL
+                   partners with teams to deliver resilient networks and robust
                    infrastructure — on time, and with full ownership.`}
             </motion.p>
 
@@ -189,12 +189,12 @@ const Portfolio = () => {
                     className={`project-card glass-card hover-lift ${
                       selectedProject?.id === project.id ? "expanded" : ""
                     }`}
-                    initial={{ opacity: 0, x: index % 2 === 0 ? -70 : 70, y: 30, scale: 0.95 }}
-                    whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     whileHover={{ y: -8 }}
-                    exit={{ opacity: 0, scale: 0.92, transition: { duration: 0.22 } }}
-                    viewport={{ once: true, amount: 0.15 }}
-                    transition={{ duration: 0.65, delay: (index % 3) * 0.09, ease: [0.16, 1, 0.3, 1] }}
+                    exit={{ opacity: 0, transition: { duration: 0.2 } }}
+                    viewport={{ once: true, amount: 0.05 }}
+                    transition={{ duration: 0.3, delay: (index % 4) * 0.04, ease: "easeOut" }}
                     onClick={() =>
                       setSelectedProject(
                         selectedProject?.id === project.id ? null : project

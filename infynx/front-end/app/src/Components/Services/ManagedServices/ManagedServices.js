@@ -215,10 +215,6 @@ const ManagedServices = () => {
                   key={service.title}
                 >
                   <div className="managed-card-top">
-                    <span className="managed-card-number">
-                      0{index + 1}
-                    </span>
-
                     <div className="managed-card-icon">
                       <Icon size={24} />
                     </div>
@@ -318,7 +314,7 @@ const ManagedServices = () => {
             <h2>
               A structured approach to
               <br />
-              <span>managed IT operations.</span>
+              <span>managed IT operations with confidence.</span>
             </h2>
           </div>
 

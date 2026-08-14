@@ -91,8 +91,9 @@ const TechnicalSupport = () => {
             </span>
 
             <h1>
-              Technical Expertise.
-              <span> When You Need It.</span>
+              Technical Expertise
+              <br />
+              <span>When You Need It.</span>
             </h1>
 
             <p>
@@ -218,10 +219,6 @@ const TechnicalSupport = () => {
               return (
                 <div className="ts-service-card" key={service.title}>
 
-                  <div className="ts-service-number">
-                    0{index + 1}
-                  </div>
-
                   <div className="ts-service-icon">
                     <Icon size={24} />
                   </div>
@@ -229,10 +226,6 @@ const TechnicalSupport = () => {
                   <h3>{service.title}</h3>
 
                   <p>{service.desc}</p>
-
-                  <div className="ts-card-arrow">
-                    <ArrowRight size={18} />
-                  </div>
 
                 </div>
               );

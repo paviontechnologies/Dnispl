@@ -42,7 +42,7 @@ const Footer = () => {
               <Link to="/network-implementation">Enterprise Networking</Link>
               <Link to="/cyber-security">Cyber Security</Link>
             
-              <Link to="/unified-conferencing">Unified Conferencing</Link>
+              <Link to="/unified-communications">Unified Communications</Link>
               <Link to="/dc-passive-work">DC Infrastructure</Link>
             </div>
 

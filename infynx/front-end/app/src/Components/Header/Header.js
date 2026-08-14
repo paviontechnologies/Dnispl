@@ -12,7 +12,7 @@ const solutionItems = [
   { to: '/network-implementation', icon: Network, title: 'Enterprise Networking', desc: 'Active and passive networking' },
   { to: '/cyber-security', icon: ShieldCheck, title: 'Cyber Security', desc: 'Next-gen firewalls, UTM & SOC protection' },
   // { to: '/hardware-procurement', icon: Wrench, title: 'Hardware Procurement', desc: 'IT equipment sourcing & staging' },
-  { to: '/unified-conferencing', icon: Users, title: 'Unified Conferencing', desc: 'Smart meeting rooms & hybrid collaboration' },
+  { to: '/unified-communications', icon: Users, title: 'Unified Communications', desc: 'Smart meeting rooms & hybrid collaboration' },
   { to: '/dc-passive-work', icon: Database, title: 'DC Infrastructure', desc: 'Data center passive work' },
 ];
 

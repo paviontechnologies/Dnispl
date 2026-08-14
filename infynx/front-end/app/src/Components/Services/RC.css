@@ -12,7 +12,7 @@
 .rc-page-container {
   overflow-x: hidden;
   position: relative;
-  background-color: var(--slate-dark);
+  background-color: transparent;
   font-family: var(--font-body);
   color: var(--text-main);
   min-height: 100vh;

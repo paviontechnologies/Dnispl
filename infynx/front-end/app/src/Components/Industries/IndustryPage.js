@@ -252,10 +252,10 @@ const INDUSTRIES_DATA = {
       "Network optimization for cloud application workloads"
     ],
     caseStudy: {
-      title: "LeadSync – B2B Sales & Marketing Automation Suite",
-      problem: "The client’s sales team used spreadsheets and manual follow-ups, causing lost leads and poor tracking.",
-      solution: "We built a web-based lead management and automation suite with email workflows, lead scoring, task reminders, and dashboards.",
-      impact: "2x increase in qualified follow-ups and transparent tracking."
+      title: "Enterprise HQ & Branch SD-WAN Rollout",
+      problem: "A multi-site corporate enterprise suffered frequent link failures on legacy WAN links, stalling collaboration tools and access to cloud services.",
+      solution: "We deployed dual-ISP path redundancy, standardized firewall policies, and implemented SD-WAN edge routing with centralized policy control.",
+      impact: "Real-time path failover, reduced latency, and unified network visibility."
     }
   },
   logistics: {
@@ -297,25 +297,25 @@ const INDUSTRIES_DATA = {
     capabilities: [
       { title: "Property-wide Wi-Fi", desc: "Surveyed in-room, corridor, and back-of-house coverage with seamless roaming." },
       { title: "Guest network isolation", desc: "Guest access with no adjacency to POS, property management, or administrative systems." },
-      { title: "POS & KOT platforms", desc: "Cloud POS with real-time kitchen order printing, table management, and multi-outlet support." },
-      { title: "Recipe-level inventory", desc: "Stock deduction at recipe level so wastage and pilferage become visible." }
+      { title: "POS Backhaul prioritization", desc: "Dedicated low-latency pathways prioritizing transactional and card reader traffic." },
+      { title: "Structured Server Closets", desc: "Neat, label-certified, and ventilated rack layouts with power and link failovers." }
     ],
     statistics: [
-      { value: "30%", label: "Pilferage & Wastage Saved" },
-      { value: "Real-time", label: "Owner Dashboard Tracking" },
+      { value: "100%", label: "POS Transaction Reliability" },
+      { value: "0ms", label: "Guest Wi-Fi Roaming Latency" },
       { value: "100%", label: "Guest Network Isolation" }
     ],
     solutions: [
       "Property-wide surveyed Wi-Fi coverage",
       "Guest network isolation and gateway setup",
-      "Cloud POS & thermal kitchen printer integration",
-      "Recipe-level inventory tracking and automation"
+      "POS backend network link optimization",
+      "Dedicated administrative network segmentation"
     ],
     caseStudy: {
-      title: "DinePOS – Smart POS & Inventory Automation",
-      problem: "Local restaurants struggled with manual billing, inaccurate inventory, and no visibility on daily sales performance.",
-      solution: "We built a cloud-based POS with real-time KOT printing, table management, recipe-level inventory deduction, and multi-outlet support.",
-      impact: "30% reduction in pilferage and wastage with real-time owner dashboards."
+      title: "Luxury Hotel Network & Guest Wi-Fi Modernization",
+      problem: "Aged wireless APs could not handle concurrent guest connections in conference halls, and POS transactions were failing during peak checkout times.",
+      solution: "Deployed high-density controller-managed Wi-Fi with band steering, isolated guest traffic via secure VLANs, and configured QoS to prioritize POS and PMS systems.",
+      impact: "100% guest Wi-Fi coverage across all rooms and zero POS transaction failures."
     }
   },
   government: {

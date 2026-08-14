@@ -12,7 +12,7 @@
 .dc-page-container {
   overflow-x: hidden;
   position: relative;
-  background-color: var(--dark-bg);
+  background-color: transparent;
   font-family: var(--font-body);
   color: var(--text-main);
   min-height: 100vh;

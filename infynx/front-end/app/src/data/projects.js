@@ -8,67 +8,10 @@
 
 export const PROJECT_CATEGORIES = [
   'All',
-  'Web',
-  'Mobile',
-  'AI & Automation',
   'Network & Infra'
 ];
 
 export const PROJECTS = [
-  {
-    id: 1,
-    title: 'DinePOS – Smart POS & Inventory Automation',
-    category: 'Web',
-    industryKey: 'hospitality',
-    industry: 'Hospitality / Restaurants',
-    problem:
-      'Local restaurants struggled with manual billing, inaccurate inventory, and no visibility on daily sales performance.',
-    solution:
-      'We built a cloud-based POS with real-time KOT printing, table management, recipe-level inventory deduction, and multi-outlet support.',
-    impact: [
-      '30% reduction in pilferage and wastage',
-      'Real-time sales dashboard for owners across outlets',
-      'Integrated GST-compliant invoicing and reports'
-    ],
-    techStack: 'React, Node.js, PostgreSQL, Redis, AWS, Thermal Printer APIs',
-    tag: 'Product Engineering'
-  },
-  {
-    id: 2,
-    title: 'Ease Yatrika – School Transport & Booking Platform',
-    category: 'Mobile',
-    industryKey: 'education',
-    industry: 'EdTech / Transportation',
-    problem:
-      'Parents had no transparency on school cabs location, safety, and billing. Operators managed everything on Excel and WhatsApp.',
-    solution:
-      'A mobile-first platform for route planning, live GPS tracking, parent notifications, and automated fee collection with reporting.',
-    impact: [
-      '90% reduction in manual coordination between parents and drivers',
-      'Live ETA tracking improved parent satisfaction',
-      'Central dashboard for school administrators'
-    ],
-    techStack: 'Flutter, Firebase, Node.js, Google Maps APIs, Razorpay',
-    tag: 'Mobility & Safety'
-  },
-  {
-    id: 3,
-    title: 'StockPilot – Multi-Location Inventory Intelligence',
-    category: 'AI & Automation',
-    industryKey: 'retail',
-    industry: 'Retail / Distribution',
-    problem:
-      'Retailers had multiple warehouses and stores, but no unified, intelligent view of inventory, reorder levels, and dead stock.',
-    solution:
-      'We developed an AI-driven inventory engine that predicts reorder points, highlights slow-moving SKUs, and optimizes procurement.',
-    impact: [
-      'Up to 25% reduction in overstocking',
-      'Improved fill-rate and on-shelf availability',
-      'Unified stock visibility across warehouses and stores'
-    ],
-    techStack: 'React, Python, ML models (time series), MongoDB, Kafka',
-    tag: 'AI & Analytics'
-  },
   {
     id: 4,
     title: 'InfraNet360 – PAN India Active & Passive Rollout',
@@ -87,24 +30,6 @@ export const PROJECTS = [
     techStack:
       'Cisco / Juniper switches & routers, Fiber & Cat-6, UPS, DG, DC passive components',
     tag: 'Network Rollout'
-  },
-  {
-    id: 5,
-    title: 'LeadSync – B2B Sales & Marketing Automation Suite',
-    category: 'Web',
-    industryKey: 'enterprise',
-    industry: 'B2B SaaS',
-    problem:
-      'The client’s sales team used spreadsheets and manual follow-ups, causing lost leads and poor tracking.',
-    solution:
-      'We built a web-based lead management and automation suite with email workflows, lead scoring, task reminders, and dashboards.',
-    impact: [
-      '2x increase in qualified follow-ups',
-      'Single source of truth for leads and activities',
-      'Team performance tracking made transparent'
-    ],
-    techStack: 'Next.js, Node.js, MySQL, Redis, SendGrid, Chart.js',
-    tag: 'SaaS Platform'
   },
   {
     id: 6,
