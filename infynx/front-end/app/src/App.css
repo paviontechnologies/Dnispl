@@ -5,6 +5,13 @@
 
 /* Ensure full dark background at app root level */
 #root, .App {
-  background-color: #060b26;
+  background-color: var(--bg-deep);
+  min-height: 100vh;
+}
+
+/* Held while a lazily-loaded route resolves. Deliberately empty of its own
+   paint: the fixed background scene is already on screen behind it, so the
+   swap reads as a pause rather than as a flash of empty page. */
+.route-fallback {
   min-height: 100vh;
 }

@@ -347,14 +347,18 @@ const FanCard = ({ index, total, progress, spread, palette, reduced, children })
   const offset = index - (total - 1) / 2;
   const tone = palette[index % palette.length];
 
+  // The cards land in a grid now, so they settle flat and aligned: a resting
+  // tilt of up to 13 degrees was what made neighbouring cards overlap at the
+  // corners once a set wrapped onto a second row. The tilt survives as part of
+  // the entrance instead, which is where it was doing the work anyway.
   const x = useTransform(progress, [0, 1], [offset * spread, 0]);
-  const y = useTransform(progress, [0, 1], [90, pose.y]);
-  const rotate = useTransform(progress, [0, 1], [offset * 10, pose.rotate]);
-  const scale = useTransform(progress, [0, 1], [0.82, 1]);
+  const y = useTransform(progress, [0, 1], [70, 0]);
+  const rotate = useTransform(progress, [0, 1], [pose.rotate * 0.8 + offset * 4, 0]);
+  const scale = useTransform(progress, [0, 1], [0.86, 1]);
   const opacity = useTransform(progress, [0, 0.35], [0, 1]);
 
   const restingStyle = {
-    '--counter-rot': `${-pose.rotate}deg`,
+    '--counter-rot': '0deg',
     '--fx-card-bg': tone.card,
     '--fx-badge-bg': tone.badge
   };
@@ -401,9 +405,12 @@ export const ScrollFan = ({
   const viewport = useViewportWidth();
   const progress = useSectionProgress(ref);
 
-  // Full 340px throw on desktop; proportionally gentler once cards start
-  // wrapping, so they never fly in from far outside the page.
-  const spread = Math.min(340, Math.max(90, viewport * 0.22));
+  // Throw distance is now per-card rather than per-row: with six items the
+  // outermost offset is 2.5, so the old 340px base launched cards from 850px
+  // off-centre and they spent most of the scroll off-screen. Scaling it down by
+  // the item count keeps the furthest card inside the viewport at any width.
+  const base = Math.min(340, Math.max(90, viewport * 0.22));
+  const spread = base / Math.max(1, items.length / 3);
 
   return (
     <div className={['fx-fan', className].filter(Boolean).join(' ')} ref={ref}>
@@ -495,6 +502,15 @@ export const ScrollDrift = ({
  * A slowly rotating globe wrapped in orbital rings, each carrying a satellite.
  * Pass `media` to put an image (device, portrait) in front of the globe
  * instead — the rings keep turning around it, mirroring Home's phone + globe.
+ *
+ * The globe itself is the WebGL node lattice rather than the CSS sphere it used
+ * to be. Two reasons. It reads as what the company actually sells — nodes with
+ * live links between them — and it turns on Safari, which the CSS version did
+ * not: that globe faked rotation by animating `background-position` across a
+ * three-layer background behind a `mask-image`, and WebKit does not interpolate
+ * a comma-separated background-position list on a masked pseudo-element, so the
+ * sphere sat frozen on Apple devices while animating normally everywhere else.
+ * Rotation now happens in the render loop, which every engine agrees on.
  */
 export const OrbitVisual = ({
   tint,
@@ -519,7 +535,9 @@ export const OrbitVisual = ({
         {media ? (
           <img className="fx-orbit-media" src={media} alt={mediaAlt} />
         ) : (
-          children || <div className="fx-globe" />
+          children || (
+            <NetworkLattice tint={tint} density={78} className="fx-orbit-lattice" />
+          )
         )}
 
         {Array.from({ length: rings }, (_, i) => (

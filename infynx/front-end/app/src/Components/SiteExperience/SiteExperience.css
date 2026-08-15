@@ -1,12 +1,12 @@
 .site-experience {
-  --surface-glass: rgba(10, 15, 18, 0.68);
+  --surface-glass: rgba(5, 45, 76, 0.62);
   --line-glass: rgba(255, 255, 255, 0.13);
   --signal-cyan: #00e2f5;
   --signal-lime: #c4f017;
   position: relative;
   min-height: 100vh;
   isolation: isolate;
-  background: #060b26;
+  background: var(--bg-deep);
 }
 
 .site-page-stage {
@@ -23,21 +23,26 @@
   pointer-events: none;
 }
 
+/* The base ramp is built from the brand blue rather than the imported theme's
+   indigo, with the mark's green as the secondary bloom. This is the only place
+   the page ground is painted — pages sit transparently on top of it. */
 .site-atmosphere {
   z-index: 0;
   background:
     linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-    radial-gradient(circle at 82% 22%, rgba(0, 226, 245, 0.12), transparent 32%),
-    radial-gradient(circle at 18% 72%, rgba(196, 240, 23, 0.07), transparent 28%),
-    linear-gradient(145deg, #060b26 0%, #08103c 56%, #050718 100%);
+    radial-gradient(circle at 82% 22%, rgba(0, 113, 189, 0.34), transparent 38%),
+    radial-gradient(circle at 18% 72%, rgba(140, 198, 62, 0.10), transparent 30%),
+    linear-gradient(145deg, var(--bg-dark) 0%, var(--bg-alt) 52%, var(--bg-deep) 100%);
   background-size: 64px 64px, 64px 64px, auto, auto, auto;
   mask-image: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.7) 72%, transparent 100%);
 }
 
+/* Full strength: the scene is the page's ground now, not an accent behind an
+   opaque layout. */
 .site-network-scene {
   z-index: 1;
-  opacity: 0.9;
+  opacity: 1;
 }
 
 .site-network-scene canvas {
@@ -64,18 +69,20 @@
   transition: opacity 200ms ease;
 }
 
-/* Let the shared scene show through while preserving each page's identity. */
-.site-experience :is(
-  .about-page-container,
-  .home-container,
-  .leadership-page-container,
-  .portfolio-page,
-  .career-page-root,
-  .career-container,
-  .contact-page,
-  .blog-wrapper,
-) {
-  background: transparent;
+/* Let the shared scene show through, on every route.
+   This used to enumerate page roots one at a time, which is why anything added
+   later — the service pages, the locations pages, the industry pages — came
+   back opaque and buried the scene again. Instead the stage clears solid
+   ground wherever a page or one of its sections paints one, and only
+   `background-color` is cleared so decorative gradients and textures survive.
+   Surfaces that genuinely need to occlude (cards, panels, the header, modals)
+   set their own translucent fill further down and are unaffected. */
+.site-page-stage > div,
+.site-page-stage > main,
+.site-page-stage > div > div,
+.site-page-stage section,
+.site-page-stage header:not(.header) {
+  background-color: transparent;
 }
 
 .site-experience :is(
@@ -92,7 +99,7 @@
   .executive-card,
   .portfolio-card,
   .portfolio-card-content,) {
-  background: linear-gradient(145deg, rgba(20, 28, 32, 0.76), rgba(7, 10, 12, 0.64));
+  background: linear-gradient(145deg, rgba(6, 52, 87, 0.62), rgba(2, 29, 51, 0.55));
   border-color: var(--line-glass);
   box-shadow: 0 22px 60px rgba(0, 0, 0, 0.28), inset 0 1px rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(22px) saturate(130%);
@@ -141,8 +148,8 @@
   background:
     linear-gradient(
       145deg,
-      rgba(20, 28, 32, 0.76),
-      rgba(7, 10, 12, 0.64)
+      rgba(6, 52, 87, 0.62),
+      rgba(2, 29, 51, 0.55)
     ) !important;
 
   border: 1px solid rgba(255, 255, 255, 0.13) !important;
@@ -190,8 +197,8 @@
   background:
     linear-gradient(
       145deg,
-      rgba(25, 36, 42, 0.88),
-      rgba(7, 12, 16, 0.78)
+      rgba(9, 68, 112, 0.72),
+      rgba(3, 38, 64, 0.66)
     ) !important;
 
   box-shadow:
@@ -325,8 +332,8 @@ a:hover {
   background:
     linear-gradient(
       145deg,
-      rgba(20, 28, 32, 0.76),
-      rgba(7, 10, 12, 0.64)
+      rgba(6, 52, 87, 0.62),
+      rgba(2, 29, 51, 0.55)
     ) !important;
 
   border: 1px solid rgba(255, 255, 255, 0.13);
@@ -359,7 +366,7 @@ a:hover {
       rgba(0, 226, 245, 0.08),
       transparent 55%
     ),
-    rgba(10, 15, 18, 0.50) !important;
+    rgba(4, 40, 68, 0.42) !important;
 
   border: 1px solid rgba(255, 255, 255, 0.10);
   box-shadow:
@@ -376,8 +383,8 @@ a:hover {
   background:
     linear-gradient(
       145deg,
-      rgba(20, 28, 32, 0.85),
-      rgba(7, 10, 12, 0.75)
+      rgba(6, 52, 87, 0.72),
+      rgba(2, 29, 51, 0.64)
     ) !important;
 
   border: 1px solid rgba(255, 255, 255, 0.13);
@@ -408,8 +415,8 @@ a:hover {
     ),
     linear-gradient(
       145deg,
-      rgba(20, 28, 32, 0.76),
-      rgba(7, 10, 12, 0.64)
+      rgba(6, 52, 87, 0.62),
+      rgba(2, 29, 51, 0.55)
     ) !important;
 
   border: 1px solid rgba(255, 255, 255, 0.13);
@@ -561,8 +568,8 @@ a:hover {
   background:
     linear-gradient(
       145deg,
-      rgba(20, 28, 32, 0.76),
-      rgba(7, 10, 12, 0.64)
+      rgba(6, 52, 87, 0.62),
+      rgba(2, 29, 51, 0.55)
     ) !important;
 
   border: 1px solid rgba(255, 255, 255, 0.13) !important;
@@ -618,8 +625,8 @@ a:hover {
   background:
     linear-gradient(
       145deg,
-      rgba(25, 36, 42, 0.88),
-      rgba(7, 12, 16, 0.78)
+      rgba(9, 68, 112, 0.72),
+      rgba(3, 38, 64, 0.66)
     ) !important;
 
   box-shadow:
@@ -699,8 +706,8 @@ a:hover {
   background:
     linear-gradient(
       145deg,
-      rgba(20, 28, 32, 0.76),
-      rgba(7, 10, 12, 0.64)
+      rgba(6, 52, 87, 0.62),
+      rgba(2, 29, 51, 0.55)
     ) !important;
 
   border:
@@ -820,8 +827,8 @@ a:hover {
   background:
     linear-gradient(
       145deg,
-      rgba(20, 28, 32, 0.76),
-      rgba(7, 10, 12, 0.64)
+      rgba(6, 52, 87, 0.62),
+      rgba(2, 29, 51, 0.55)
     ) !important;
 
   border:
@@ -1007,8 +1014,8 @@ a:hover {
   background:
     linear-gradient(
       145deg,
-      rgba(20, 28, 32, 0.76),
-      rgba(7, 10, 12, 0.64)
+      rgba(6, 52, 87, 0.62),
+      rgba(2, 29, 51, 0.55)
     ) !important;
 
   border:
@@ -1064,7 +1071,7 @@ a:hover {
       rgba(0, 226, 245, 0.08),
       transparent 55%
     ),
-    rgba(10, 15, 18, 0.50) !important;
+    rgba(4, 40, 68, 0.42) !important;
 
   border:
     1px solid rgba(255, 255, 255, 0.10);
@@ -1090,8 +1097,8 @@ a:hover {
   background:
     linear-gradient(
       145deg,
-      rgba(20, 28, 32, 0.85),
-      rgba(7, 10, 12, 0.75)
+      rgba(6, 52, 87, 0.72),
+      rgba(2, 29, 51, 0.64)
     ) !important;
 
   border:
@@ -1134,8 +1141,8 @@ a:hover {
     ),
     linear-gradient(
       145deg,
-      rgba(20, 28, 32, 0.76),
-      rgba(7, 10, 12, 0.64)
+      rgba(6, 52, 87, 0.62),
+      rgba(2, 29, 51, 0.55)
     ) !important;
 
   border:

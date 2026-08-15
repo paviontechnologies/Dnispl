@@ -80,7 +80,7 @@ const STORY_FEATURES = [
 
 const CAPABILITY_STRIP = [
   'Enterprise Networking', 'Structured Cabling', 'Managed NOC', 'SD-WAN',
-  'Data Center', 'Cloud Connectivity', 'Cybersecurity', 'AI & Automation',
+  'Data Center', 'Cloud Connectivity', 'Cybersecurity',
   'Workforce Outsourcing', 'Regulatory Compliance'
 ];
 

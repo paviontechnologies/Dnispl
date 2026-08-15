@@ -162,39 +162,66 @@
    Scroll fan — cards fly in from their own side of the viewport and settle
    into a rotated fan as the section scrolls through.
    -------------------------------------------------------------------------- */
+/* A wrapping flex row of fixed 320px slots meant six cards never landed the
+   same way twice: at most desktop widths three fitted, the remaining three
+   wrapped under a fan that was still rotated for a single row, and the only
+   way to see the whole set was to zoom the browser out. A responsive grid
+   gives every viewport a settled layout, and equal-height rows so the cards
+   line up instead of stepping. */
 .fx-fan {
   position: relative;
   z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  gap: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(272px, 1fr));
+  align-items: stretch;
+  gap: 26px;
+  max-width: 1180px;
+  margin-inline: auto;
   padding: 40px 20px 60px;
   /* the fan swings wide before it settles — don't clip it */
   overflow: visible;
 }
 
 .fx-fan-slot {
-  display: inline-block;
-  flex: 0 0 auto;
-  width: 320px;
-  max-width: 100%;
+  display: flex;
+  width: 100%;
+  min-width: 0;
   will-change: transform, opacity;
 }
 
+/* The per-card hue now tints the surface instead of flooding it. At full
+   strength the amber and green slots in the rainbow palettes put white body
+   copy at roughly 2:1 against their own background, which is below the point
+   the text is readable at all; as a wash over the dark ground every slot keeps
+   its identity and every slot stays legible. */
 .fx-fan-card {
   position: relative;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  height: 100%;
   border-radius: 25px;
-  padding: 34px 22px 28px;
+  padding: 34px 24px 30px;
   text-align: center;
   color: #fff;
-  border: none;
-  background: var(--fx-card-bg, var(--bg-card));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background:
+    linear-gradient(150deg,
+      color-mix(in srgb, var(--fx-card-bg, #0071BD) 30%, transparent),
+      transparent 62%),
+    linear-gradient(145deg, rgba(6, 52, 87, 0.78), rgba(2, 29, 51, 0.72));
+  backdrop-filter: blur(20px) saturate(130%);
+  -webkit-backdrop-filter: blur(20px) saturate(130%);
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.32);
   transition: 500ms var(--cube-1);
+}
+
+/* Safari 15 and older, plus any engine without relative colour syntax, skip the
+   tint layer rather than dropping the whole background declaration. */
+@supports not (background: color-mix(in srgb, red 30%, transparent)) {
+  .fx-fan-card {
+    background: linear-gradient(145deg, rgba(6, 52, 87, 0.78), rgba(2, 29, 51, 0.72));
+  }
 }
 
 /* Hover straightens the card by cancelling its resting rotation */
@@ -207,8 +234,9 @@
 
 .fx-fan-badge {
   display: inline-flex;
-  width: 92px;
-  height: 92px;
+  width: 88px;
+  height: 88px;
+  flex: 0 0 auto;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
@@ -220,7 +248,9 @@
   z-index: 1;
   margin-bottom: 20px;
   background: var(--fx-badge-bg, rgba(0, 0, 0, 0.25));
-  border: 8px solid var(--fx-card-bg, var(--bg-card));
+  /* A ring rather than a thick knock-out border — the card is translucent now,
+     so an 8px solid edge in the card colour read as a hard collar. */
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.06);
   transition: 400ms var(--cube-1);
 }
 
@@ -228,19 +258,23 @@
 
 .fx-fan-card h3 {
   font-family: var(--saira);
-  font-size: 24px;
-  line-height: 1.25;
+  font-size: 21px;
+  line-height: 1.3;
   font-weight: 700;
   color: #fff;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
+  /* Long capability names ("L2 / L3 Network Configuration") were running past
+     the card edge rather than wrapping. */
+  overflow-wrap: anywhere;
 }
 
 .fx-fan-card p {
   font-family: var(--roboto);
   font-size: 15px;
-  line-height: 25px;
-  color: rgba(255, 255, 255, 0.92);
+  line-height: 24px;
+  color: rgba(255, 255, 255, 0.9);
   margin: 0;
+  overflow-wrap: break-word;
 }
 
 /* --------------------------------------------------------------------------
@@ -275,6 +309,15 @@
   aspect-ratio: 1;
   display: grid;
   place-items: center;
+}
+
+/* The lattice fills the stage the CSS sphere used to occupy, so the rings keep
+   their existing relationship to the object at the centre. */
+.fx-orbit-lattice {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  max-height: none;
 }
 
 .fx-globe {

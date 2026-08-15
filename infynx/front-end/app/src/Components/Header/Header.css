@@ -2,10 +2,12 @@
   --header-height: 86px;
   --radius: var(--border-radius-md);
 
-  --nav-bg: rgba(0, 0, 0, 0.82);
-  --dropdown-bg: rgba(7, 0, 0, 0.97);
-  --card-bg-hover: rgba(179, 37, 247, 0.08);
-  --card-border-hover: rgba(179, 37, 247, 0.45);
+  /* Brand-blue glass rather than flat black, so the header belongs to the same
+     surface family as the rest of the site now that pages are transparent. */
+  --nav-bg: rgba(2, 29, 51, 0.72);
+  --dropdown-bg: rgba(2, 29, 51, 0.96);
+  --card-bg-hover: rgba(0, 113, 189, 0.16);
+  --card-border-hover: rgba(42, 155, 224, 0.5);
   --text-nav: #ffffff;
 }
 
@@ -19,9 +21,9 @@
   align-items: center;
 
   background: var(--nav-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(179, 37, 247, 0.18);
+  backdrop-filter: blur(20px) saturate(130%);
+  -webkit-backdrop-filter: blur(20px) saturate(130%);
+  border-bottom: 1px solid rgba(42, 155, 224, 0.22);
   transition: all 0.3s ease;
 }
 
@@ -570,29 +572,31 @@
   }
 }
 
-/* Custom Logo Capsule styling to display the official brand logo cleanly */
+/* Custom Logo Capsule styling to display the official brand logo cleanly.
+   The mark is a dark navy wordmark on transparency — "DIVERSIFIED NETWORK &
+   INFRA SOLUTIONS PVT. LTD." is set in near-black. On the previous translucent
+   dark capsule that text was effectively invisible against the header, which is
+   why the logo read as missing. The plate is white at rest so the artwork sits
+   on the ground it was drawn for. */
 .logo-capsule {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(15, 23, 42, 0.45);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  padding: 6px 16px;
+  background: #ffffff;
+  padding: 7px 16px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .logo-capsule:hover {
-  background: #ffffff;
-  box-shadow: 0 5px 25px rgba(0, 226, 245, 0.25);
+  box-shadow: 0 6px 26px rgba(0, 113, 189, 0.45);
   transform: translateY(-2px);
 }
 
 .logo-img-brand {
-  height: 38px;
+  height: 40px;
   width: auto;
   object-fit: contain;
   display: block;

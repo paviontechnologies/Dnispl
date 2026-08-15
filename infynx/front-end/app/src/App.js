@@ -1,45 +1,69 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import './App.css';
 import Home from './Components/home/Home';
-import Career from './Components/Careers/Career';
-import About from './Components/About/About';
-import Leadership from './Components/Leadership/Leadership';
-import Work from './Components/Work/Work';
-import ManagedServices from './Components/Services/ManagedServices/ManagedServices';
-import ProfessionalServices from './Components/Services/ProfessionalServices/ProfessionalServices';
-import TechnicalSupport from './Components/Services/TechnicalSupport/TechnicalSupport';
-import WorkforceSolutions from './Components/Services/WorkforceSolutions/WorkforceSolutions';
-import AP from './Components/Services/AP';
-
-import RC from './Components/Services/RC';
-import WO from './Components/Services/WO';
-import DC from './Components/Services/DC';
-import CyberSecurity from './Components/Services/CyberSecurity/CyberSecurity';
-import UnifiedConferencing from './Components/Services/UnifiedConferencing/UnifiedConferencing';
-import Portfolio from './Components/Portfolio/Portfolio';
-import Industries from './Components/Industries/Industries';
-import IndustryDetail from './Components/Industries/IndustryDetail';
-import Form from './Components/Contact/Form';
-import BlogPage from './Components/Blog/Blog';
-import BlogPost from './Components/Blog/BlogPost';
-import Login from './Components/Admin/Login/Login';
-import Dashboard from './Components/Admin/Dashboard/Dashboard';
-import Contacts from './Components/Admin/Contacts/Contacts';
-import Jobs from './Components/Admin/Jobs/Jobs';
-import Applications from './Components/Admin/Applications/Application';
-import Blogs from './Components/Admin/Blogs/Blogs';
-import ProtectedRoute from './Components/Admin/ProtectedRoute/ProtectedRoute';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import SiteExperience from './Components/SiteExperience/SiteExperience';
-import { InfoPage, NotFound } from './Components/InfoPage/InfoPage';
-import IndustryPage from './Components/Industries/IndustryPage';
-import ActiveLocations from './Components/Locations/ActiveLocations';
-import SparingWarehouses from './Components/Locations/SparingWarehouses';
+import ProtectedRoute from './Components/Admin/ProtectedRoute/ProtectedRoute';
+
+/**
+ * Every route but the landing page is loaded on demand.
+ *
+ * Importing all of them eagerly produced one 1.5 MB main chunk: opening any
+ * page — the portfolio in particular — meant first downloading, parsing, and
+ * evaluating three.js, framer-motion, the admin console, the India map data,
+ * and the module records for all 26 media assets, none of which that page
+ * renders. Splitting per route means a visitor pays only for the page they
+ * asked for, and the shared vendor code is factored out once by the bundler.
+ *
+ * Home stays eager: it is the most common entry point, and code-splitting the
+ * landing route would trade the bundle cost for a blank frame on first paint.
+ */
+const Career = lazy(() => import('./Components/Careers/Career'));
+const About = lazy(() => import('./Components/About/About'));
+const Leadership = lazy(() => import('./Components/Leadership/Leadership'));
+const Work = lazy(() => import('./Components/Work/Work'));
+const ManagedServices = lazy(() => import('./Components/Services/ManagedServices/ManagedServices'));
+const ProfessionalServices = lazy(() => import('./Components/Services/ProfessionalServices/ProfessionalServices'));
+const TechnicalSupport = lazy(() => import('./Components/Services/TechnicalSupport/TechnicalSupport'));
+const WorkforceSolutions = lazy(() => import('./Components/Services/WorkforceSolutions/WorkforceSolutions'));
+const AP = lazy(() => import('./Components/Services/AP'));
+const RC = lazy(() => import('./Components/Services/RC'));
+const WO = lazy(() => import('./Components/Services/WO'));
+const DC = lazy(() => import('./Components/Services/DC'));
+const CyberSecurity = lazy(() => import('./Components/Services/CyberSecurity/CyberSecurity'));
+const UnifiedConferencing = lazy(() => import('./Components/Services/UnifiedConferencing/UnifiedConferencing'));
+const Portfolio = lazy(() => import('./Components/Portfolio/Portfolio'));
+const Industries = lazy(() => import('./Components/Industries/Industries'));
+const IndustryDetail = lazy(() => import('./Components/Industries/IndustryDetail'));
+const IndustryPage = lazy(() => import('./Components/Industries/IndustryPage'));
+const Form = lazy(() => import('./Components/Contact/Form'));
+const BlogPage = lazy(() => import('./Components/Blog/Blog'));
+const BlogPost = lazy(() => import('./Components/Blog/BlogPost'));
+const ActiveLocations = lazy(() => import('./Components/Locations/ActiveLocations'));
+const SparingWarehouses = lazy(() => import('./Components/Locations/SparingWarehouses'));
+const InfoPage = lazy(() =>
+  import('./Components/InfoPage/InfoPage').then((m) => ({ default: m.InfoPage }))
+);
+const NotFound = lazy(() =>
+  import('./Components/InfoPage/InfoPage').then((m) => ({ default: m.NotFound }))
+);
+
+const Login = lazy(() => import('./Components/Admin/Login/Login'));
+const Dashboard = lazy(() => import('./Components/Admin/Dashboard/Dashboard'));
+const Contacts = lazy(() => import('./Components/Admin/Contacts/Contacts'));
+const Jobs = lazy(() => import('./Components/Admin/Jobs/Jobs'));
+const Applications = lazy(() => import('./Components/Admin/Applications/Application'));
+const Blogs = lazy(() => import('./Components/Admin/Blogs/Blogs'));
+
+/* The shared scene stays painted behind this, so a route swap reads as a beat
+   in the same page rather than as a blank screen. */
+const RouteFallback = () => <div className="route-fallback" aria-busy="true" />;
 
 function App() {
   return (
     <Router>
       <SiteExperience>
+        <Suspense fallback={<RouteFallback />}>
         <Routes>
           {/* Route 1: Home Page (loaded by default at the root) */}
           <Route path="/" element={<Home />} />
@@ -82,6 +106,7 @@ function App() {
           <Route path="/admin/blogs" element={<ProtectedRoute><Blogs /></ProtectedRoute>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </Suspense>
       </SiteExperience>
     </Router>
   );

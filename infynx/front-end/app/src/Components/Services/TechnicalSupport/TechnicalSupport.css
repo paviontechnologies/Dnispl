@@ -561,6 +561,14 @@
   letter-spacing: 0.17em;
 }
 
+/* The closing CTA label carries the same weight as "Let's work together" on the
+   sibling service pages, so it is sized to match rather than left at eyebrow
+   size. */
+.ts-cta-content .ts-section-label {
+  font-size: 22px;
+  letter-spacing: 0.2em;
+}
+
 
 .ts-intro h2 {
   max-width: 600px;

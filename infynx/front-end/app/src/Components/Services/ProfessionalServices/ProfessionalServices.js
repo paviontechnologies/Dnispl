@@ -230,14 +230,13 @@ const ProfessionalServices = () => {
           </div>
 
           <div className="ps-process">
-            {process.map((item, index) => (
+            {process.map((item) => (
               <div className="ps-process-item" key={item}>
                 <div className="ps-process-icon">
                   <CheckCircle2 size={19} />
                 </div>
 
                 <div>
-                  <span>0{index + 1}</span>
                   <strong>{item}</strong>
                 </div>
               </div>

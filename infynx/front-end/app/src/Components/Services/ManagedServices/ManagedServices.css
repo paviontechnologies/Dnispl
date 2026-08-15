@@ -728,8 +728,9 @@
 }
 
 .managed-cta-content .managed-section-label p {
-  font-size: 16px;
+  font-size: 22px;
   letter-spacing: 3px;
+  color: var(--managed-electric);
 }
 
 .managed-cta-content h2 {

@@ -157,7 +157,14 @@ const Portfolio = () => {
                 {lens ? `${lens.label} Case Studies` : 'Featured Case Studies'}
               </h2>
 
-              <div className="portfolio-filters">
+              {/* Once Web / Mobile / AI & Automation came out, every case study
+                  sits in a single category, which left a two-chip row where
+                  "All" and "Network & Infra" select exactly the same set. The
+                  row reappears on its own the moment a second category exists. */}
+              <div
+                className="portfolio-filters"
+                hidden={PROJECT_CATEGORIES.length < 3}
+              >
                 {PROJECT_CATEGORIES.map(
                   (filter) => (
                     <motion.button

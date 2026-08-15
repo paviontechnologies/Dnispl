@@ -148,7 +148,6 @@ const ManagedServices = () => {
         <div className="managed-container managed-two-column">
 
           <div className="managed-section-label">
-            <span>01</span>
             <p>WHY MANAGED SERVICES</p>
           </div>
 
@@ -187,7 +186,6 @@ const ManagedServices = () => {
 
           <div className="managed-section-heading">
             <div className="managed-section-label">
-              <span>02</span>
               <p>OUR CAPABILITIES</p>
             </div>
 
@@ -270,7 +268,6 @@ const ManagedServices = () => {
           <div className="managed-support-content">
 
             <div className="managed-section-label">
-              <span>03</span>
               <p>OUR SUPPORT MODEL</p>
             </div>
 
@@ -307,7 +304,6 @@ const ManagedServices = () => {
 
           <div className="managed-section-heading center">
             <div className="managed-section-label">
-              <span>04</span>
               <p>HOW WE WORK</p>
             </div>
 
@@ -356,7 +352,6 @@ const ManagedServices = () => {
             <div className="managed-cta-content">
 
               <div className="managed-section-label">
-                <span>05</span>
                 <p>LET'S WORK TOGETHER</p>
               </div>
 

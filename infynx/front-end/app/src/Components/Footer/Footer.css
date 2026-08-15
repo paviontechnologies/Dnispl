@@ -1,5 +1,8 @@
 :root {
-  --footer-bg: #000000;
+  /* Deep brand blue instead of flat black — the footer is the one band that
+     should close the page off, so it stays the darkest surface on the site
+     without dropping out of the palette. */
+  --footer-bg: rgba(2, 29, 51, 0.86);
   --footer-text: rgba(255, 255, 255, 0.75);
   --footer-title: #ffffff;
   --primary-accent: var(--pr-purple);
@@ -16,6 +19,8 @@
   overflow: hidden;
   font-family: var(--roboto);
   border-top: 1px solid var(--border-light);
+  backdrop-filter: blur(24px) saturate(120%);
+  -webkit-backdrop-filter: blur(24px) saturate(120%);
 }
 
 /* Lime + gradient ambience, as on the source footer */
@@ -302,12 +307,16 @@
   }
 }
 
-/* Custom Logo Capsule styling to display the official brand logo cleanly in Footer */
-.logo-capsule {
+/* Custom Logo Capsule styling to display the official brand logo cleanly in
+   Footer.
+   Scoped to .footer deliberately: the header uses this same class name, and
+   because this stylesheet loads after Header.css an unscoped rule here was
+   silently overriding the header's capsule too. Each now owns its own. */
+.footer .logo-capsule {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.95);
+  background: #ffffff;
   padding: 6px 16px;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.25);
@@ -315,13 +324,12 @@
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.logo-capsule:hover {
-  background: #ffffff;
-  box-shadow: 0 5px 25px rgba(0, 226, 245, 0.25);
+.footer .logo-capsule:hover {
+  box-shadow: 0 5px 25px rgba(0, 113, 189, 0.35);
   transform: translateY(-2px);
 }
 
-.logo-img-brand {
+.footer .logo-img-brand {
   height: 38px;
   width: auto;
   object-fit: contain;

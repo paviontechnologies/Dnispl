@@ -462,6 +462,99 @@
 
   box-shadow:
     0 0 10px rgba(0, 226, 245, 0.45);
+
+  /* Contains the travelling packet below. */
+  overflow: hidden;
+}
+
+/* =========================================================
+   PROJECT EXECUTION PANEL — data flow
+   The panel read as a static diagram: three boxes joined by
+   two rules, with only the "Active" dot suggesting anything
+   was running. A packet now travels each link and the nodes
+   answer it, so the card shows execution rather than stating
+   it. Driven by transform, not background-position: WebKit
+   declines to interpolate a multi-layer background-position,
+   which is the same trick that left the old globe frozen on
+   Safari.
+   ========================================================= */
+.ps-line::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -34px;
+
+  width: 34px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #ffffff,
+      transparent
+    );
+
+  /* Travel is a fixed over-distance rather than a percentage: a percentage in
+     translateX resolves against the packet's own 34px, not the length of the
+     link it is crossing, and the two links differ in width. Overrunning and
+     letting the parent's overflow clip it keeps one rule correct for both. */
+  animation: ps-packet 2.8s linear infinite;
+}
+
+/* The second hop starts once the first is underway, so the pulse reads as one
+   packet crossing the whole chain rather than two firing in lockstep. */
+.line-two::after {
+  animation-delay: 1.4s;
+}
+
+@keyframes ps-packet {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  82% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(560px);
+    opacity: 0;
+  }
+}
+
+/* Each node brightens as the packet lands on it. */
+.ps-node {
+  animation: ps-node-pulse 2.8s var(--cube-1) infinite;
+}
+
+.node-two { animation-delay: 0.7s; }
+.node-three { animation-delay: 1.4s; }
+
+@keyframes ps-node-pulse {
+  0%, 100% {
+    border-color: rgba(0, 226, 245, 0.20);
+    box-shadow:
+      0 15px 30px rgba(0, 0, 0, 0.25),
+      0 0 25px rgba(0, 226, 245, 0.06);
+  }
+  50% {
+    border-color: rgba(0, 226, 245, 0.55);
+    box-shadow:
+      0 15px 30px rgba(0, 0, 0, 0.25),
+      0 0 34px rgba(0, 226, 245, 0.28);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ps-line::after,
+  .ps-node {
+    animation: none;
+  }
+
+  .ps-line::after { opacity: 0; }
 }
 
 .line-one {
@@ -1052,7 +1145,7 @@
 }
 
 .ps-final-cta .ps-section-label {
-  font-size: 16px !important;
+  font-size: 22px !important;
   letter-spacing: 0.25em;
 }
 

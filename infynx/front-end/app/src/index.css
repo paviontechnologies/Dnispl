@@ -19,23 +19,36 @@
   --ftc-gd-1: linear-gradient(90deg, rgba(23, 63, 207, 1) 0%, rgba(229, 4, 238, 1) 100%);
   --ftc-gd-2: linear-gradient(90deg, rgba(179, 37, 247, 1) 0%, rgba(0, 226, 245, 1) 100%);
 
-  /* --- Brand colors --- */
+  /* --- Brand colors ---
+     --brand-blue / --brand-green are sampled straight off the DNISPL mark and
+     are the two colours the identity actually owns. Everything below is tuned
+     around that blue rather than the imported theme's indigo. */
+  --brand-blue: #0071BD;
+  --brand-blue-light: #2A9BE0;
+  --brand-green: #8CC63E;
+
   --pr-purple: #B325F7;
   --pr-magenta: #E504EE;
   --pr-cyan: #00E2F5;
-  --pr-blue: #173FCF;
+  --pr-blue: #0071BD;
   --pr-lime: #C4F017;
   --pr-violet: #6827DA;
-  --pr-hover-border: #A732F7;
-  --pr-soft-border: #CCA6F5;
+  --pr-hover-border: #2A9BE0;
+  --pr-soft-border: rgba(42, 155, 224, 0.55);
 
-  /* --- Surfaces --- */
-  --bg-dark: #060b26;
-  --bg-alt: #08103c;
-  --bg-card: #181A2D;
-  --bg-card-hover: #1F273E;
-  --bg-glass: rgba(31, 39, 62, 0.7);
-  --btn-inner: #010419;
+  /* --- Surfaces ---
+     The site runs a single fixed WebGL scene behind every route, so page
+     surfaces are translucent by default: cards tint and blur what is behind
+     them instead of covering it. --bg-solid stays opaque for the few places
+     that genuinely need to occlude (drawers, modals, the admin shell). */
+  --bg-dark: #032F4F;
+  --bg-alt: #044876;
+  --bg-deep: #021D33;
+  --bg-solid: #032F4F;
+  --bg-card: rgba(5, 45, 76, 0.55);
+  --bg-card-hover: rgba(8, 62, 103, 0.68);
+  --bg-glass: rgba(5, 45, 76, 0.6);
+  --btn-inner: #021D33;
 
   /* --- Text --- */
   --text-primary: #ffffff;
@@ -76,7 +89,7 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: var(--bg-dark);
+  background-color: var(--bg-deep);
 }
 
 body {
@@ -84,7 +97,7 @@ body {
   font-family: var(--roboto);
   font-size: 18px;
   line-height: 30px;
-  background-color: var(--bg-dark);
+  background-color: var(--bg-deep);
   color: var(--text-secondary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -241,6 +254,8 @@ code {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-md);
+  backdrop-filter: blur(18px) saturate(125%);
+  -webkit-backdrop-filter: blur(18px) saturate(125%);
   transition: 400ms var(--cube-1);
 }
 
@@ -357,3 +372,29 @@ code {
 /* --- Small odds and ends referenced in JSX --- */
 .link-arrow { transition: transform 320ms var(--cube-1); }
 a:hover > .link-arrow { transform: translateX(4px); }
+
+/* ============================================================
+   Gradient-clipped display figures
+   ------------------------------------------------------------
+   `background-clip: text` paints the gradient across the element's own box and
+   then clips it to the glyphs — so any part of a glyph that falls outside that
+   box gets no paint at all and simply disappears. On the big stat figures the
+   boxes were sized with line-height 1 to 1.25, which is shorter than the actual
+   glyph bounds for Saira at 34-44px: the tops of the digits and the tails of
+   %, +, and ★ were being sheared off. Every counter across the site shares the
+   same shape, so they share one rule rather than each carrying its own patch.
+
+   The `body` prefix is deliberate: several of these set line-height through a
+   `font:` shorthand in their own stylesheet, which loads after this file, so a
+   bare class selector here would lose on source order.
+   ============================================================ */
+body .ind-metric-value,
+body .ind-scale-value,
+body .career-stat-value,
+body .metric-box h3,
+body .excellence-card h4,
+body .loc-main-headline,
+body .wh-main-headline {
+  line-height: 1.45;
+  padding-block: 0.12em;
+}

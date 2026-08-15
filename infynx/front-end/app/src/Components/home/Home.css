@@ -579,14 +579,19 @@ ye iska css h
   pointer-events: none;
 }
 
+/* The fade masks used to be solid black, which read as two dark slabs once the
+   page ground went transparent. Fading to nothing instead lets the scene run
+   behind the strip while still softening the logos as they enter and leave. */
 .services-tech-icons-marquee::before {
   left: 0;
-  background: linear-gradient(90deg, #000, transparent);
+  background: linear-gradient(90deg, var(--bg-deep), transparent);
+  opacity: 0.75;
 }
 
 .services-tech-icons-marquee::after {
   right: 0;
-  background: linear-gradient(-90deg, #000, transparent);
+  background: linear-gradient(-90deg, var(--bg-deep), transparent);
+  opacity: 0.75;
 }
 
 .marquee-track { display: flex; overflow: hidden; }
@@ -632,18 +637,12 @@ ye iska css h
 /* --------------------------------------------------------------------------
    PHILOSOPHY / CHALLENGES TABS
    -------------------------------------------------------------------------- */
+/* Full-bleed texture removed: it sat opaque over the shared scene, which is the
+   one thing every page is meant to show through to. */
 .philosophy-challenges-section {
   padding: 120px 0;
-  background-color: #080808;
-  background-image: url('../Images/infynix/ch4-bg-img-1.webp');
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background: transparent;
   position: relative;
-}
-
-@media (min-width: 1367px) {
-  .philosophy-challenges-section { background-attachment: fixed; }
 }
 
 .toggle-tabs {
@@ -1157,15 +1156,13 @@ ye iska css h
 /* --------------------------------------------------------------------------
    OPERATIONAL SCALE — gradient stat bar (ftc-achieve-4)
    -------------------------------------------------------------------------- */
+/* Full-bleed texture removed for the same reason as the other bands: it sat
+   opaque over the shared scene. */
 .operational-scale-section {
   padding: 120px 0;
   position: relative;
   z-index: 1;
-  background-color: #080808;
-  background-image: url('../Images/infynix/c4-bg-img-1-1.webp');
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background: transparent;
   overflow: hidden;
 }
 
@@ -1474,7 +1471,7 @@ ye iska css h
    -------------------------------------------------------------------------- */
 .managed-excellence-section {
   padding: 120px 0;
-  background: #080808;
+  background: transparent;
 }
 
 .excellence-grid {
@@ -1674,16 +1671,8 @@ ye iska css h
   position: relative;
   padding: 130px 0;
   text-align: center;
-  background-color: transparent;
-  background-image: url('../Images/infynix/cta-5-bg-shape.webp');
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background: transparent;
   overflow: hidden;
-}
-
-@media (min-width: 1367px) {
-  .final-cta-section { background-attachment: fixed; }
 }
 
 .cta-anim-bg {
