@@ -108,7 +108,7 @@ const Industries = () => {
             <Reveal className="ind-section-head">
               <span className="ind-section-tag">Industries</span>
               <h2 className="ind-section-title">
-                Ten sectors, each with its own{' '}
+                Nine sectors, each with its own{' '}
                 <span className="text-gradient-purple">failure mode</span>
               </h2>
               <p className="ind-section-desc">

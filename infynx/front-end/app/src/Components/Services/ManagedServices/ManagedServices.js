@@ -100,9 +100,8 @@ const ManagedServices = () => {
             </div>
 
             <h1>
-              Reliable IT Operations.
-              <br />
-              <span>Managed With Confidence.</span>
+           Manged IT operations with confidence
+             
             </h1>
 
             <p>

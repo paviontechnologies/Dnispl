@@ -9,18 +9,18 @@ import Logo from '../Images/logo.png';
 import { INDUSTRIES } from '../../data/industries';
 
 const solutionItems = [
-  { to: '/network-implementation', icon: Network, title: 'Enterprise Networking', desc: 'Active and passive networking' },
-  { to: '/cyber-security', icon: ShieldCheck, title: 'Cyber Security', desc: 'Next-gen firewalls, UTM & SOC protection' },
+  { to: '/network-implementation', icon: Network, title: 'Enterprise Networking', desc: 'Active and passive networking', preload: () => import('../Services/AP') },
+  { to: '/cyber-security', icon: ShieldCheck, title: 'Cyber Security', desc: 'Next-gen firewalls, UTM & SOC protection', preload: () => import('../Services/CyberSecurity/CyberSecurity') },
   // { to: '/hardware-procurement', icon: Wrench, title: 'Hardware Procurement', desc: 'IT equipment sourcing & staging' },
-  { to: '/unified-communications', icon: Users, title: 'Unified Communications', desc: 'Smart meeting rooms & hybrid collaboration' },
-  { to: '/dc-passive-work', icon: Database, title: 'DC Infrastructure', desc: 'Data center passive work' },
+  { to: '/unified-communications', icon: Users, title: 'Unified Communications', desc: 'Smart meeting rooms & hybrid collaboration', preload: () => import('../Services/UnifiedConferencing/UnifiedConferencing') },
+  { to: '/dc-passive-work', icon: Database, title: 'DC Infrastructure', desc: 'Data center passive work', preload: () => import('../Services/DC') },
 ];
 
 const serviceItems = [
-  { to: '/services/managed', icon: Wrench, title: 'Managed Services', desc: 'NOC, managed network, AMC and FMS' },
-  { to: '/services/professional', icon: Network, title: 'Professional Services', desc: 'Audits, deployment and project management' },
-  { to: '/services/technical', icon: ShieldCheck, title: 'Technical Support', desc: 'L1, L2, L3 and SME services' },
-  { to: '/services/workforce-solutions', icon: Users, title: 'Workforce Solutions', desc: 'Technical staffing and field engineers' },
+  { to: '/services/managed', icon: Wrench, title: 'Managed Services', desc: 'NOC, managed network, AMC and FMS', preload: () => import('../Services/ManagedServices/ManagedServices') },
+  { to: '/services/professional', icon: Network, title: 'Professional Services', desc: 'Audits, deployment and project management', preload: () => import('../Services/ProfessionalServices/ProfessionalServices') },
+  { to: '/services/technical', icon: ShieldCheck, title: 'Technical Support', desc: 'L1, L2, L3 and SME services', preload: () => import('../Services/TechnicalSupport/TechnicalSupport') },
+  { to: '/services/workforce-solutions', icon: Users, title: 'Workforce Solutions', desc: 'Technical staffing and field engineers', preload: () => import('../Services/WorkforceSolutions/WorkforceSolutions') },
 ];
 
 /**
@@ -33,9 +33,10 @@ const industryItems = [
     to: `/industries/${industry.slug}`,
     icon: industry.icon,
     title: industry.name,
-    desc: industry.tagline
+    desc: industry.tagline,
+    preload: () => import('../Industries/IndustryDetail')
   })),
-  { to: '/dc-passive-work', icon: Database, title: 'Data Centers', desc: 'ACI, Nexus fabric and audits' }
+  { to: '/dc-passive-work', icon: Database, title: 'Data Centers', desc: 'ACI, Nexus fabric and audits', preload: () => import('../Services/DC') }
 ];
 
 const HeaderContentWrapper = ({ children, className }) => (
@@ -130,6 +131,8 @@ const Header = () => {
                         to={item.to}
                         className="dropdown-card"
                         onClick={closeMenuAndNavigate}
+                        onMouseEnter={item.preload}
+                        onFocus={item.preload}
                       >
                         <div className="card-icon"><item.icon size={19} /></div>
                         <div className="card-info">
@@ -165,7 +168,14 @@ const Header = () => {
                   </div>
                   <div className="dropdown-grid" style={{ gridTemplateColumns: '1fr' }}>
                     {serviceItems.map((item) => (
-                      <Link key={item.title} to={item.to} className="dropdown-card" onClick={closeMenuAndNavigate}>
+                      <Link
+                        key={item.title}
+                        to={item.to}
+                        className="dropdown-card"
+                        onClick={closeMenuAndNavigate}
+                        onMouseEnter={item.preload}
+                        onFocus={item.preload}
+                      >
                         <div className="card-icon"><item.icon size={19} /></div>
                         <div className="card-info">
                           <span className="card-title">{item.title}</span>
@@ -200,7 +210,14 @@ const Header = () => {
                   </div>
                   <div className="dropdown-grid">
                     {industryItems.map((item) => (
-                      <Link key={item.title} to={item.to} className="dropdown-card" onClick={closeMenuAndNavigate}>
+                      <Link
+                        key={item.title}
+                        to={item.to}
+                        className="dropdown-card"
+                        onClick={closeMenuAndNavigate}
+                        onMouseEnter={item.preload}
+                        onFocus={item.preload}
+                      >
                         <div className="card-icon"><item.icon size={19} /></div>
                         <div className="card-info">
                           <span className="card-title">{item.title}</span>
@@ -209,14 +226,28 @@ const Header = () => {
                       </Link>
                     ))}
                   </div>
-                  <Link to="/industries" className="dropdown-footer-link" onClick={closeMenuAndNavigate}>
+                  <Link
+                    to="/industries"
+                    className="dropdown-footer-link"
+                    onClick={closeMenuAndNavigate}
+                    onMouseEnter={() => import('../Industries/Industries')}
+                    onFocus={() => import('../Industries/Industries')}
+                  >
                     View all industries <ArrowRight size={15} />
                   </Link>
                 </div>
               )}
             </div>
 
-            <NavLink to="/portfolio" className="nav-link" onClick={closeMenuAndNavigate}>Portfolio</NavLink>
+            <NavLink
+              to="/portfolio"
+              className="nav-link"
+              onClick={closeMenuAndNavigate}
+              onMouseEnter={() => import('../Portfolio/Portfolio')}
+              onFocus={() => import('../Portfolio/Portfolio')}
+            >
+              Portfolio
+            </NavLink>
 
             {/* ABOUT DROPDOWN */}
             <div
@@ -236,16 +267,18 @@ const Header = () => {
               {activeDropdown === 'about' && (
                 <div className="dropdown-menu company-menu">
                   {[
-                    { to: "/about", title: "About Us", desc: "Our history, engineering values, and outcomes." },
-                    { to: "/leadership", title: "Leadership Team", desc: "Meet the founders and directors." },
-                    { to: "/work", title: "How We Work", desc: "Agile execution, SoW, and SLA operations." },
-                    { to: "/blog", title: "Blogs & News", desc: "Field notes from complex rollouts." },
+                    { to: "/about", title: "About Us", desc: "Our history, engineering values, and outcomes.", preload: () => import('../About/About') },
+                    { to: "/leadership", title: "Leadership Team", desc: "Meet the founders and directors.", preload: () => import('../Leadership/Leadership') },
+                    { to: "/work", title: "How We Work", desc: "Agile execution, SoW, and SLA operations.", preload: () => import('../Work/Work') },
+                    { to: "/blog", title: "Blogs & News", desc: "Field notes from complex rollouts.", preload: () => import('../Blog/Blog') },
                   ].map(item => (
                     <Link
                       key={item.to}
                       to={item.to}
                       className="company-item"
                       onClick={closeMenuAndNavigate}
+                      onMouseEnter={item.preload}
+                      onFocus={item.preload}
                     >
                       <div className="company-text">
                         <h4>{item.title}</h4>
@@ -258,7 +291,15 @@ const Header = () => {
               )}
             </div>
 
-            <NavLink to="/careers" className="nav-link" onClick={closeMenuAndNavigate}>Careers</NavLink>
+            <NavLink
+              to="/careers"
+              className="nav-link"
+              onClick={closeMenuAndNavigate}
+              onMouseEnter={() => import('../Careers/Career')}
+              onFocus={() => import('../Careers/Career')}
+            >
+              Careers
+            </NavLink>
 
             <Link to="/form" className="btn-glow desktop-cta" onClick={closeMenuAndNavigate}>
               Start Project

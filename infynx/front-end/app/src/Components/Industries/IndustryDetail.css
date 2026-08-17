@@ -1,7 +1,7 @@
 /* ==========================================================================
    Industry detail — /industries/:slug
    Every hue on the page comes from --fx-1 / --fx-2, set on .idt-page from the
-   industry's own tint, so one stylesheet serves all ten sectors.
+   industry's own tint, so one stylesheet serves all nine sectors.
    ========================================================================== */
 
 .idt-page {

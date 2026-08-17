@@ -5,7 +5,7 @@ import './Footer.css';
 import Logo from '../Images/logo.png';
 import { INDUSTRIES } from '../../data/industries';
 
-/* Six of the ten sectors — enough to signal coverage without turning the
+/* Six of the nine sectors — enough to signal coverage without turning the
    column into a wall. "All industries" carries the rest. */
 const FOOTER_INDUSTRIES = INDUSTRIES.slice(0, 6);
 

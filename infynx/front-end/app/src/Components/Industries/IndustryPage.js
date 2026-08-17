@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import {
-  Landmark, RadioTower, Factory, HeartPulse, GraduationCap, ShoppingBag, Database, Building2, Truck, Hotel,
+  Landmark, RadioTower, HeartPulse, GraduationCap, ShoppingBag, Database, Building2, Truck, Hotel,
   ArrowRight, Award, CheckCircle2, ChevronRight
 } from 'lucide-react';
 import Header from '../Header/Header';
@@ -78,36 +78,7 @@ const INDUSTRIES_DATA = {
       impact: "On-time delivery across 50+ cities."
     }
   },
-  manufacturing: {
-    title: "Manufacturing & Industrial",
-    tagline: "Plant networks and connectivity",
-    theme: { from: '#F59E0B', to: '#EF4444', glow: 'rgba(245, 158, 11, 0.3)' }, // Amber/Red
-    icon: Factory,
-    description: "OT/IT convergence solutions providing industrial-grade network reliability, shop-floor automation, and secure segmentation. We build resilient backbones for heavy industries.",
-    capabilities: [
-      { title: "Ruggedized Switching", desc: "Industrial Ethernet deployments designed for high temperatures, dust, and vibration." },
-      { title: "Zero Single-Point-of-Failure", desc: "High-speed optical fiber ring topology implementation using ERP/MRP protocols." },
-      { title: "OT/IT Firewall Segmentation", desc: "Secure partitioning aligning to the Purdue Model, protecting SCADA and PLC control systems." },
-      { title: "Fluke Certified Cabling", desc: "Rigorous testing and structured layout labeling of copper and fiber segments." }
-    ],
-    statistics: [
-      { value: "20+", label: "Smart Plants Configured" },
-      { value: "100%", label: "OT/IT Isolation" },
-      { value: "5000+", label: "Certified Nodes" }
-    ],
-    solutions: [
-      "Ruggedized industrial-grade WLAN deployment",
-      "OT network design, zoning, and isolation",
-      "High-bandwidth plant fiber rings",
-      "Warehouse-to-plant backbone connectivity"
-    ],
-    caseStudy: {
-      title: "Plant Network Modernisation & Shop-Floor Connectivity",
-      problem: "Production lines shared a flat network with office traffic, so a single broadcast storm could stall the shop floor, and industrial zones had no segmentation.",
-      solution: "We segmented OT from IT with policy-enforced VLANs, deployed ruggedised switching across production zones, and rebuilt the fibre backbone between plant blocks.",
-      impact: "Production and corporate traffic fully isolated with redundant ring topology."
-    }
-  },
+
   healthcare: {
     title: "Healthcare & Life Sciences",
     tagline: "Reliable hospital infrastructure",

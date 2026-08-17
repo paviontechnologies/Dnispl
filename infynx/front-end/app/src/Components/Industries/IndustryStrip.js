@@ -8,7 +8,7 @@ import './IndustryStrip.css';
 /**
  * "Which sectors we deliver this in" — dropped onto the service pages so each
  * capability page routes into the sectors that buy it. Pass `slugs` to pick the
- * relevant sectors; omit it to show all ten.
+ * relevant sectors; omit it to show all nine.
  *
  * `tint` keeps the strip in the host page's hue (green on DC, orange on HPD…)
  * rather than importing a second accent colour onto the page.

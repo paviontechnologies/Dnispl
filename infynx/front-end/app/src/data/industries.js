@@ -12,7 +12,6 @@
  */
 import {
   Building2,
-  Factory,
   GraduationCap,
   HeartPulse,
   Hotel,
@@ -158,75 +157,6 @@ export const INDUSTRIES = [
       {
         q: 'What does your audit deliverable contain?',
         a: 'Standardised per-site documentation: as-built drawings, cable plant certification with OTDR and Fluke reports, configuration records, and a findings register tracked to closure.'
-      }
-    ]
-  },
-
-  /* ---------------------------------------------------------- manufacturing */
-  {
-    slug: 'manufacturing',
-    name: 'Manufacturing',
-    short: 'Manufacturing',
-    icon: Factory,
-    eyebrow: 'OT / IT convergence',
-    tint: { from: '#F59E0B', to: '#EF4444', glow: 'rgba(245, 158, 11, 0.30)' },
-    tagline: 'Plant networks and connectivity',
-    blurb: 'Plant networks, shop-floor connectivity, and campus links.',
-    headline: ['Shop floors that keep running', 'when the office network doesn’t.'],
-    summary:
-      'On a flat plant network, one broadcast storm from an office printer can stall a production line. We separate OT from IT with enforced policy, ruggedise the switching that lives in the heat and dust, and build a fibre backbone with no single point of failure.',
-    stats: [
-      { value: '100%', label: 'OT / IT isolation' },
-      { value: 'Ring', label: 'Redundant topology' },
-      { value: 'Fluke', label: 'Certified cable plant' },
-      { value: '24/7', label: 'Escalation cover' }
-    ],
-    pressures: [
-      {
-        title: 'Production and corporate traffic on one flat network',
-        desc: 'A single broadcast storm reaches the line. There is no policy boundary between a spreadsheet and a PLC.'
-      },
-      {
-        title: 'No segmentation across industrial zones',
-        desc: 'Once anything on the plant network is compromised, lateral movement into control systems is unobstructed.'
-      },
-      {
-        title: 'Commodity switching in hostile environments',
-        desc: 'Office-grade hardware in heat, vibration, and dust fails early — and it fails during the shift, not during maintenance.'
-      },
-      {
-        title: 'Undocumented cable plant',
-        desc: 'When nothing is labelled or certified, every fault becomes an excavation and every change carries unknown risk.'
-      }
-    ],
-    capabilities: [
-      { title: 'OT / IT segmentation', desc: 'Policy-enforced VLANs and zone design that puts a real boundary between production and corporate traffic.' },
-      { title: 'Ruggedised switching', desc: 'Industrial Ethernet deployed across production zones for temperature, vibration, and dust tolerance.' },
-      { title: 'Fibre ring backbone', desc: 'Redundant ring topology between plant blocks so a single break does not isolate a zone.' },
-      { title: 'Access control', desc: 'Cisco ISE and FortiNAC posture enforcement on everything that joins the plant network.' },
-      { title: 'Certified cable plant', desc: 'Structured cabling to TIA/EIA and ISO/IEC standards with Fluke certification and labelled documentation.' },
-      { title: 'Campus interconnects', desc: 'Plant-to-office and plant-to-plant links with the redundancy the production schedule assumes.' }
-    ],
-    stack: ['Industrial Ethernet switching', 'Fibre ring backbone', 'VLAN & zone segmentation', 'Cisco ISE', 'FortiNAC', 'Fluke certification', 'Cat-6 / Cat-6A cable plant'],
-    outcomes: [
-      { metric: 'Full', label: 'traffic isolation', note: 'production separated from corporate' },
-      { metric: 'Zero', label: 'single points of failure', note: 'redundant ring topology' },
-      { metric: '100%', label: 'labelled cable plant', note: 'Fluke certified and documented' }
-    ],
-    proof: { client: 'Samsung', note: 'Active routing and switching connectivity across manufacturing facilities and corporate campuses.' },
-    compliance: ['TIA/EIA & ISO/IEC cabling standards', 'BICSI design adherence', 'Zone-based segmentation model', 'Fluke certification per run'],
-    faqs: [
-      {
-        q: 'Can you segment OT from IT without stopping production?',
-        a: 'Yes. Segmentation is staged zone by zone against planned maintenance windows, with the policy applied in monitor mode first so we can see what would have been blocked before anything actually is.'
-      },
-      {
-        q: 'Do you handle the civil and electrical work as well?',
-        a: 'We do — trays, raceway, trunking, DB installation, earthing, and surge protection are part of the same scope. It avoids the gap where a cabling partner and an electrical partner each wait for the other.'
-      },
-      {
-        q: 'What happens to the plant network after handover?',
-        a: 'Most plants move onto an SLA-backed AMC or FMS arrangement with L1/L2/L3 cover and an agreed escalation matrix, because a line stoppage cannot wait for a purchase order.'
       }
     ]
   },

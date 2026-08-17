@@ -91,7 +91,7 @@
   font-weight: 700; text-decoration: none; transition: 0.3s; border: none; cursor: pointer;
   box-shadow: 0 4px 20px rgba(0, 240, 255, 0.35); display: inline-block;
 }
-.btn-cyan-glow:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0, 240, 255, 0.5); }
+.btn-cyan-glow:hover { box-shadow: 0 4px 20px rgba(0, 240, 255, 0.35); }
 
 .btn-glass-outline {
   background: rgba(255, 255, 255, 0.03); border: 1px solid var(--text-muted); color: var(--text-main);

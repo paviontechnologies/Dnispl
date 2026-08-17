@@ -570,12 +570,7 @@ const Home = () => {
                 </div>
                 <p>Global IT services support desk augmentation with hundreds of L1/L2 resources.</p>
               </div>
-              <div className="proof-subcard ftc-reveal">
-                <div className="client-logo-img-wrapper">
-                  <img src={samsungIcon} alt="Samsung" className="client-logo-img" />
-                </div>
-                <p>Active routing/switching connectivity for massive manufacturing facilities and corporate campuses.</p>
-              </div>
+
             </div>
           </div>
         </div>

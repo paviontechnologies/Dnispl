@@ -60,7 +60,7 @@ const AP = () => {
 
         {/* HERO SECTION */}
         <section className="ap-hero-section">
-          <AuroraBackdrop tint={TINT} />
+          <AuroraBackdrop tint={TINT} parallax={false} />
 
           <div className="ap-content-wrapper center-text">
             <SplitHeading

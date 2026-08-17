@@ -181,7 +181,7 @@ const UnifiedConferencing = () => {
         <IndustryStrip
           tint={TINT}
           title="Sectors trusting our hybrid meeting architecture"
-          slugs={['enterprise', 'bfsi', 'manufacturing', 'healthcare', 'education', 'government']}
+          slugs={['enterprise', 'bfsi', 'healthcare', 'education', 'government']}
         />
 
         {/* CTA SECTION */}
