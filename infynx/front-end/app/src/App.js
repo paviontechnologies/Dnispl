@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React, { lazy } from 'react';
 import './App.css';
 import Home from './Components/home/Home';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
@@ -18,52 +18,69 @@ import ProtectedRoute from './Components/Admin/ProtectedRoute/ProtectedRoute';
  * Home stays eager: it is the most common entry point, and code-splitting the
  * landing route would trade the bundle cost for a blank frame on first paint.
  */
-const Career = lazy(() => import('./Components/Careers/Career'));
-const About = lazy(() => import('./Components/About/About'));
-const Leadership = lazy(() => import('./Components/Leadership/Leadership'));
-const Work = lazy(() => import('./Components/Work/Work'));
-const ManagedServices = lazy(() => import('./Components/Services/ManagedServices/ManagedServices'));
-const ProfessionalServices = lazy(() => import('./Components/Services/ProfessionalServices/ProfessionalServices'));
-const TechnicalSupport = lazy(() => import('./Components/Services/TechnicalSupport/TechnicalSupport'));
-const WorkforceSolutions = lazy(() => import('./Components/Services/WorkforceSolutions/WorkforceSolutions'));
-const AP = lazy(() => import('./Components/Services/AP'));
-const RC = lazy(() => import('./Components/Services/RC'));
-const WO = lazy(() => import('./Components/Services/WO'));
-const DC = lazy(() => import('./Components/Services/DC'));
-const CyberSecurity = lazy(() => import('./Components/Services/CyberSecurity/CyberSecurity'));
-const UnifiedConferencing = lazy(() => import('./Components/Services/UnifiedConferencing/UnifiedConferencing'));
-const Portfolio = lazy(() => import('./Components/Portfolio/Portfolio'));
-const Industries = lazy(() => import('./Components/Industries/Industries'));
-const IndustryDetail = lazy(() => import('./Components/Industries/IndustryDetail'));
-const IndustryPage = lazy(() => import('./Components/Industries/IndustryPage'));
-const Form = lazy(() => import('./Components/Contact/Form'));
-const BlogPage = lazy(() => import('./Components/Blog/Blog'));
-const BlogPost = lazy(() => import('./Components/Blog/BlogPost'));
-const ActiveLocations = lazy(() => import('./Components/Locations/ActiveLocations'));
-const SparingWarehouses = lazy(() => import('./Components/Locations/SparingWarehouses'));
-const InfoPage = lazy(() =>
+// Resilient dynamic importer to automatically handle ChunkLoadErrors from new builds/deployments
+const lazyWithRetry = (componentImport) =>
+  lazy(() =>
+    componentImport().catch((error) => {
+      console.error('--- DEBUG: lazyWithRetry caught import error ---', error);
+      const isChunkLoadError =
+        error.name === 'ChunkLoadError' ||
+        /loading\s+chunk/i.test(error.message);
+      
+      if (isChunkLoadError && typeof window !== 'undefined') {
+        const hasReloaded = window.sessionStorage.getItem('chunk-load-retry');
+        if (!hasReloaded) {
+          window.sessionStorage.setItem('chunk-load-retry', 'true');
+          window.location.reload();
+          return new Promise(() => {}); // Keep pending to prevent React crashing
+        }
+      }
+      throw error;
+    })
+  );
+
+const Career = lazyWithRetry(() => import('./Components/Careers/Career'));
+const About = lazyWithRetry(() => import('./Components/About/About'));
+const Leadership = lazyWithRetry(() => import('./Components/Leadership/Leadership'));
+const Work = lazyWithRetry(() => import('./Components/Work/Work'));
+const ManagedServices = lazyWithRetry(() => import('./Components/Services/ManagedServices/ManagedServices'));
+const ProfessionalServices = lazyWithRetry(() => import('./Components/Services/ProfessionalServices/ProfessionalServices'));
+const TechnicalSupport = lazyWithRetry(() => import('./Components/Services/TechnicalSupport/TechnicalSupport'));
+const WorkforceSolutions = lazyWithRetry(() => import('./Components/Services/WorkforceSolutions/WorkforceSolutions'));
+const AP = lazyWithRetry(() => import('./Components/Services/AP'));
+const RC = lazyWithRetry(() => import('./Components/Services/RC'));
+const WO = lazyWithRetry(() => import('./Components/Services/WO'));
+const DC = lazyWithRetry(() => import('./Components/Services/DC'));
+const CyberSecurity = lazyWithRetry(() => import('./Components/Services/CyberSecurity/CyberSecurity'));
+const UnifiedConferencing = lazyWithRetry(() => import('./Components/Services/UnifiedConferencing/UnifiedConferencing'));
+const Portfolio = lazyWithRetry(() => import('./Components/Portfolio/Portfolio'));
+const Industries = lazyWithRetry(() => import('./Components/Industries/Industries'));
+const IndustryDetail = lazyWithRetry(() => import('./Components/Industries/IndustryDetail'));
+const IndustryPage = lazyWithRetry(() => import('./Components/Industries/IndustryPage'));
+const Form = lazyWithRetry(() => import('./Components/Contact/Form'));
+const BlogPage = lazyWithRetry(() => import('./Components/Blog/Blog'));
+const BlogPost = lazyWithRetry(() => import('./Components/Blog/BlogPost'));
+const ActiveLocations = lazyWithRetry(() => import('./Components/Locations/ActiveLocations'));
+const SparingWarehouses = lazyWithRetry(() => import('./Components/Locations/SparingWarehouses'));
+const InfoPage = lazyWithRetry(() =>
   import('./Components/InfoPage/InfoPage').then((m) => ({ default: m.InfoPage }))
 );
-const NotFound = lazy(() =>
+const NotFound = lazyWithRetry(() =>
   import('./Components/InfoPage/InfoPage').then((m) => ({ default: m.NotFound }))
 );
 
-const Login = lazy(() => import('./Components/Admin/Login/Login'));
-const Dashboard = lazy(() => import('./Components/Admin/Dashboard/Dashboard'));
-const Contacts = lazy(() => import('./Components/Admin/Contacts/Contacts'));
-const Jobs = lazy(() => import('./Components/Admin/Jobs/Jobs'));
-const Applications = lazy(() => import('./Components/Admin/Applications/Application'));
-const Blogs = lazy(() => import('./Components/Admin/Blogs/Blogs'));
+const Login = lazyWithRetry(() => import('./Components/Admin/Login/Login'));
+const Dashboard = lazyWithRetry(() => import('./Components/Admin/Dashboard/Dashboard'));
+const Contacts = lazyWithRetry(() => import('./Components/Admin/Contacts/Contacts'));
+const Jobs = lazyWithRetry(() => import('./Components/Admin/Jobs/Jobs'));
+const Applications = lazyWithRetry(() => import('./Components/Admin/Applications/Application'));
+const Blogs = lazyWithRetry(() => import('./Components/Admin/Blogs/Blogs'));
 
-/* The shared scene stays painted behind this, so a route swap reads as a beat
-   in the same page rather than as a blank screen. */
-const RouteFallback = () => <div className="route-fallback" aria-busy="true" />;
 
 function App() {
   return (
     <Router>
       <SiteExperience>
-        <Suspense fallback={<RouteFallback />}>
         <Routes>
           {/* Route 1: Home Page (loaded by default at the root) */}
           <Route path="/" element={<Home />} />
@@ -106,7 +123,6 @@ function App() {
           <Route path="/admin/blogs" element={<ProtectedRoute><Blogs /></ProtectedRoute>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-        </Suspense>
       </SiteExperience>
     </Router>
   );

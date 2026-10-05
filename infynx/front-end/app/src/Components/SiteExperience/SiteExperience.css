@@ -16,8 +16,7 @@
 }
 
 .site-atmosphere,
-.site-network-scene,
-.site-cursor-glow {
+.site-network-scene {
   position: fixed;
   inset: 0;
   pointer-events: none;
@@ -61,12 +60,6 @@
   transform-origin: 0 50%;
   background: linear-gradient(90deg, #c4f017, #00e2f5, #ff5a36);
   box-shadow: 0 0 18px rgba(0, 226, 245, 0.65);
-}
-
-.site-cursor-glow {
-  z-index: 1;
-  background: radial-gradient(260px circle at var(--cursor-x, 50%) var(--cursor-y, 50%), rgba(0, 226, 245, 0.08), transparent 72%);
-  transition: opacity 200ms ease;
 }
 
 /* Let the shared scene show through, on every route.

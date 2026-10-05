@@ -314,23 +314,7 @@ EXECUTIVE LEADERSHIP TEAM
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.rakesh-img {
-  border-radius: 50% !important;
-  width: 82% !important;
-  height: 82% !important;
-  object-fit: cover !important;
-  object-position: center 10% !important;
-  border: 3px solid #00e2f5 !important;
-  box-shadow: 0 0 25px rgba(0, 226, 245, 0.3) !important;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease !important;
-}
-
-.executive-card:hover .rakesh-img {
-  transform: scale(1.06) !important;
-  box-shadow: 0 0 35px rgba(0, 226, 245, 0.5) !important;
-}
-
-.executive-card:hover .executive-card-image img:not(.rakesh-img) {
+.executive-card:hover .executive-card-image img {
   transform: scale(1.05);
 }
 
@@ -604,7 +588,7 @@ EXECUTIVE LEADERSHIP TEAM
   max-width: 1300px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 24px;
   z-index: 3;
 }

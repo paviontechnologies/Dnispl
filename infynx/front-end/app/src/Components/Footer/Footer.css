@@ -334,4 +334,5 @@
   width: auto;
   object-fit: contain;
   display: block;
+  filter: none;
 }

@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
-import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import './SiteExperience.css';
 import ScrollNavigator from '../ScrollNavigator/ScrollNavigator';
 
@@ -231,7 +231,6 @@ const SiteExperience = ({ children }) => {
   const isAdmin = location.pathname.startsWith('/admin');
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 24, restDelta: 0.001 });
-  const [cursorVisible, setCursorVisible] = useState(false);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -240,35 +239,21 @@ const SiteExperience = ({ children }) => {
   if (isAdmin) return children;
 
   return (
-    <div
-      className="site-experience"
-      onPointerEnter={() => setCursorVisible(true)}
-      onPointerLeave={() => setCursorVisible(false)}
-      onPointerMove={(event) => {
-        event.currentTarget.style.setProperty('--cursor-x', `${event.clientX}px`);
-        event.currentTarget.style.setProperty('--cursor-y', `${event.clientY}px`);
-      }}
-    >
+    <div className="site-experience">
       <motion.div className="site-scroll-progress" style={{ scaleX: progress }} />
       <div className="site-atmosphere" aria-hidden="true" />
       <NetworkScene />
-      <motion.div
-        className="site-cursor-glow"
-        animate={{ opacity: cursorVisible ? 1 : 0 }}
-        aria-hidden="true"
-      />
-      <AnimatePresence mode="wait">
+      <Suspense fallback={<div className="route-fallback" aria-busy="true" />}>
         <motion.main
           key={location.pathname}
           className="site-page-stage"
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -12 }}
-          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           {children}
         </motion.main>
-      </AnimatePresence>
+      </Suspense>
       <ScrollNavigator />
     </div>
   );

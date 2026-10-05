@@ -87,6 +87,17 @@ const Footer = () => {
 
         <div className="footer-bottom">
           <p>Reliability is engineered, not assumed.</p>
+          <p style={{ opacity: 0.85 }}>
+            Designed &amp; Developed by{' '}
+            <a 
+              href="https://www.paviontechnologies.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{ color: '#00e2f5', textDecoration: 'none', fontWeight: 600 }}
+            >
+              Pavion Technologies
+            </a>
+          </p>
         </div>
       </div>
     </footer>

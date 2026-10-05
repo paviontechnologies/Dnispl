@@ -40,11 +40,27 @@ export const useScrollReveal = () => {
       { threshold: 0.12, rootMargin: '0px 0px -60px 0px' }
     );
 
-    const targets = document.querySelectorAll('.ftc-reveal:not(.is-revealed)');
-    targets.forEach((el) => observer.observe(el));
+    const observeTargets = () => {
+      const targets = document.querySelectorAll('.ftc-reveal:not(.is-revealed)');
+      targets.forEach((el) => observer.observe(el));
+    };
 
-    return () => observer.disconnect();
-  });
+    observeTargets();
+
+    const mutationObserver = new MutationObserver(() => {
+      observeTargets();
+    });
+
+    mutationObserver.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    return () => {
+      observer.disconnect();
+      mutationObserver.disconnect();
+    };
+  }, []);
 };
 
 /**

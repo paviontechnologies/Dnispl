@@ -2,13 +2,15 @@ import React from "react";
 import "./Leadership.css";
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import ceoImage from '../Images/Rakesh.jpg';
-import ashishImage from '../Images/Ashish.jpg';
-import awadheshImage from '../Images/Awadhesh.jpg';
-import soumyaImage from '../Images/soumya.jpg';
-import stephenImage from '../Images/stephen.jpg';
-import sumeetImage from '../Images/sumeet.jpg';
-import vinodImage from '../Images/vinod.jpg';
+import ceoImage from '../Images/Rakesh.png';
+import ashishImage from '../Images/ashish.jpg';
+import awadheshImage from '../Images/adesh.png';
+import soumyaImage from '../Images/soumya.png';
+import stephenImage from '../Images/stephen.png';
+import stephenHallanImage from '../Images/stephen_hallan.png';
+import sumeetImage from '../Images/sumeet.png';
+import vinodImage from '../Images/vinod.png';
+import collabImage from '../Images/leadership_collaboration.jpg';
 import { Link } from 'react-router-dom';
 import { Linkedin } from 'lucide-react';
 import {
@@ -67,7 +69,7 @@ const EXECUTIVES = [
 
 const SOLUTION_EXPERTS = [
   {
-    name: 'Soumya Majumdar',
+    name: 'Soumya Majumder',
     role: 'SOLUTION EXPERT: CLOUD',
     image: soumyaImage,
     experience: '25+',
@@ -83,9 +85,27 @@ const SOLUTION_EXPERTS = [
     ]
   },
   {
-    name: 'Stephen Hallal',
-    role: 'SOLUTION EXPERT: COLLABORATION',
+    name: 'Pokhraj Yadav',
+    role: 'SOLUTION EXPERT: NETWORK & SECURITY',
     image: stephenImage,
+    experience: '7+',
+    previousOrgs: ['Excitel Broadband', 'Network Bulls'],
+    expertise: [
+      'Network Security Implementation',
+      'Fortinet',
+      'Web Application Firewalls',
+      'Cisco Meraki',
+      'SD-WAN',
+      'Virtual Private Network (VPN)',
+      'Handover',
+      'Project Management',
+      'System Migration'
+    ]
+  },
+  {
+    name: 'Stephen Hallan',
+    role: 'SOLUTION EXPERT: COLLABORATION',
+    image: stephenHallanImage,
     experience: '15+',
     previousOrgs: ['Proactive'],
     expertise: [
@@ -99,7 +119,7 @@ const SOLUTION_EXPERTS = [
     ]
   },
   {
-    name: 'Sumeet Chaudhry',
+    name: 'Sumit Chaudhary',
     role: 'SOLUTION EXPERT: CYBER SECURITY',
     image: sumeetImage,
     experience: '10+',
@@ -207,7 +227,7 @@ const Leadership = () => {
               <div className="ls-image-card">
                 <div className="card-shine"></div>
                 <img
-                  src="https://images.unsplash.com/photo-1553877615-30c73a63bbc4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                  src={collabImage}
                   alt="Leadership team collaborating"
                   className="ls-about-image"
                 />
@@ -258,11 +278,7 @@ const Leadership = () => {
             {EXECUTIVES.map((exec, idx) => (
               <article key={exec.name} className="executive-card">
                 <div className="executive-card-image">
-                  <img 
-                    src={exec.image} 
-                    alt={`${exec.name} — ${exec.role}`} 
-                    className={exec.name === 'Rakesh Uniyal' ? 'rakesh-img' : ''} 
-                  />
+                  <img src={exec.image} alt={exec.name} />
                   {exec.linkedin && (
                     <a href={exec.linkedin} target="_blank" rel="noopener noreferrer" className="exec-linkedin-floating">
                       <Linkedin size={18} />

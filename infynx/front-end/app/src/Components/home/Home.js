@@ -7,9 +7,7 @@ import Footer from '../Footer/Footer';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { useScrollReveal, CountUp } from '../../hooks/useScrollReveal';
-import { ArrowRight, Phone, Mail, Linkedin } from 'lucide-react';
-import { MagneticButton, SpotlightCard } from '../../motion/MotionKit';
-import { INDUSTRIES } from '../../data/industries';
+import { Phone, Mail, Linkedin } from 'lucide-react';
 
 // Icons/logos imports
 import philipsIcon from '../Images/icons/philips.png';
@@ -21,6 +19,9 @@ import techMIcon from '../Images/icons/Tech-M1.png';
 import bsiIso27001 from '../Images/bsi-iso27001.png';
 import bsiAnab from '../Images/bsi-anab.png';
 import panasonicIcon from '../Images/icons/panasonic.png';
+import adityaBirlaIcon from '../Images/icons/aditya_birla.png';
+import idbiBankIcon from '../Images/icons/idbi_bank.png';
+import cbdtIcon from '../Images/icons/cbdt.png';
 
 //oem logos
 import ciscoLogo from '../Images/icons/oem/cisco.png';
@@ -100,6 +101,36 @@ const ServiceFanCard = ({ service, index, total, progress }) => {
     </motion.div>
   );
 };
+
+const AdityaBirlaLogo = () => (
+  <div className="client-logo-img-wrapper" style={{ background: '#ffffff', padding: '4px 16px', borderRadius: '30px', display: 'inline-flex', alignItems: 'center', height: '54px', border: 'none' }}>
+    <img src={adityaBirlaIcon} alt="Aditya Birla Group" style={{ height: '48px', width: 'auto', objectFit: 'contain', filter: 'none' }} />
+  </div>
+);
+
+const IdbiBankLogo = () => (
+  <div className="client-logo-img-wrapper" style={{ background: '#ffffff', padding: '4px 16px', borderRadius: '30px', display: 'inline-flex', alignItems: 'center', height: '54px', border: 'none' }}>
+    <img src={idbiBankIcon} alt="IDBI Bank" style={{ height: '36px', width: 'auto', objectFit: 'contain', filter: 'none' }} />
+  </div>
+);
+
+const CbdtLogo = () => (
+  <div className="client-logo-img-wrapper" style={{ background: '#ffffff', padding: '4px 16px', borderRadius: '30px', display: 'inline-flex', alignItems: 'center', height: '54px', border: 'none' }}>
+    <img src={cbdtIcon} alt="CBDT" style={{ height: '46px', width: 'auto', objectFit: 'contain', filter: 'none' }} />
+  </div>
+);
+
+const TechMahindraLogo = () => (
+  <div className="client-logo-img-wrapper" style={{ background: '#ffffff', padding: '4px 16px', borderRadius: '30px', display: 'inline-flex', alignItems: 'center', height: '54px', border: 'none' }}>
+    <img src={techMIcon} alt="Tech Mahindra" style={{ height: '34px', width: 'auto', objectFit: 'contain', filter: 'none' }} />
+  </div>
+);
+
+const SamsungLogo = () => (
+  <div className="client-logo-img-wrapper" style={{ background: '#ffffff', padding: '4px 16px', borderRadius: '30px', display: 'inline-flex', alignItems: 'center', height: '54px', border: 'none' }}>
+    <img src={samsungIcon} alt="Samsung" style={{ height: '30px', width: 'auto', objectFit: 'contain', filter: 'none' }} />
+  </div>
+);
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState('philosophy');
@@ -280,6 +311,14 @@ const Home = () => {
 
       {/* --- TRUSTED LOGOS MARQUEE --- */}
       <section className="services-tech-icons-marquee">
+        <div className="container-max" style={{ marginBottom: '30px' }}>
+          <div className="section-header center ftc-reveal" style={{ paddingBottom: '0' }}>
+            <span className="section-tag">Partnerships</span>
+            <h2 className="section-title" style={{ fontSize: '1.8rem', marginBottom: '10px' }}>
+              Trusted by Clients & Enterprise Giants
+            </h2>
+          </div>
+        </div>
         <div className="marquee-track">
           {[...Array(2)].map((_, index) => (
             <div key={index} className="marquee-content-1">
@@ -435,50 +474,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* --- INDUSTRIES WE OPERATE IN --- */}
-      <section className="home-industries-section" id="industries">
-        <div className="container-max">
-          <div className="section-header center ftc-reveal">
-            <span className="section-tag">Sectors</span>
-            <h2 className="section-title">
-              Every Sector Breaks Its Network{' '}
-              <span className="text-gradient-blue">Differently</span>
-            </h2>
-            <p className="section-desc">
-              A branch estate fails on failover time. A shop floor fails on
-              segmentation. Same discipline — different failure mode.
-            </p>
-          </div>
 
-          <div className="home-industry-grid" data-reveal-group>
-            {INDUSTRIES.map((industry) => {
-              const Icon = industry.icon;
-              return (
-                <SpotlightCard
-                  key={industry.slug}
-                  as={Link}
-                  to={`/industries/${industry.slug}`}
-                  className="home-industry-card ftc-reveal"
-                  style={{ '--fx-1': industry.tint.from, '--fx-2': industry.tint.to }}
-                >
-                  <span className="home-industry-icon"><Icon size={20} /></span>
-                  <span className="home-industry-name">{industry.name}</span>
-                  <span className="home-industry-desc">{industry.tagline}</span>
-                  <span className="home-industry-go">
-                    <ArrowRight size={15} />
-                  </span>
-                </SpotlightCard>
-              );
-            })}
-          </div>
-
-          <div className="home-industry-cta ftc-reveal">
-            <MagneticButton as={Link} to="/industries" className="btn btn-glow-primary">
-              Explore all industries
-            </MagneticButton>
-          </div>
-        </div>
-      </section>
 
       {/* --- OPERATIONAL SCALE & METRICS --- */}
       <section className="operational-scale-section">
@@ -538,9 +534,7 @@ const Home = () => {
 
           <div className="proof-grid" data-reveal-group>
             <div className="proof-card main-highlight ftc-reveal ftc-reveal-left">
-              <div className="client-logo-badge abg-badge">
-                <span className="abg-text">ADITYA BIRLA GROUP</span>
-              </div>
+              <AdityaBirlaLogo />
               <p className="proof-lead">Strategic Network & SD-WAN Transformation</p>
               <div className="proof-metric">400+ SD-WAN Deployments</div>
               <ul>
@@ -552,25 +546,21 @@ const Home = () => {
 
             <div className="proof-list-side ftc-reveal ftc-reveal-right" data-reveal-group>
               <div className="proof-subcard ftc-reveal">
-                <div className="client-logo-badge idbi-badge">
-                  <span className="idbi-text">IDBI BANK</span>
-                </div>
+                <IdbiBankLogo />
                 <p>Core Banking Network Infrastructure & Security Operations.</p>
               </div>
               <div className="proof-subcard ftc-reveal">
-                <div className="client-logo-badge cbdt-badge">
-                  <span className="cbdt-text">CBDT</span>
-                  <span className="cbdt-sub">Govt of India</span>
-                </div>
+                <CbdtLogo />
                 <p>Nationwide secure routing, compliance architecture, and vulnerability auditing.</p>
               </div>
               <div className="proof-subcard ftc-reveal">
-                <div className="client-logo-img-wrapper">
-                  <img src={techMIcon} alt="Tech Mahindra" className="client-logo-img" />
-                </div>
+                <TechMahindraLogo />
                 <p>Global IT services support desk augmentation with hundreds of L1/L2 resources.</p>
               </div>
-
+              <div className="proof-subcard ftc-reveal">
+                <SamsungLogo />
+                <p>Corporate Office Connectivity.</p>
+              </div>
             </div>
           </div>
         </div>

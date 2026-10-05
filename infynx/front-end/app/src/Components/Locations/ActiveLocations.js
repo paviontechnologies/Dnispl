@@ -182,75 +182,77 @@ export default function ActiveLocations() {
             </Link>
           </div>
 
-          {/* Title Area */}
-          <div className="loc-hero-title">
-            <div className="loc-tag">
-              <ShieldCheck size={14} className="tag-icon" />
-              <span>NOC & Infrastructure Sparing</span>
-            </div>
-            <h1 className="loc-main-headline">Enterprise Presence Network</h1>
-            <p className="loc-description">
-              DNISPL maintains operational presence across 100+ active locations in India, delivering carrier-grade network architecture, active infrastructure swaps, and low-latency SD-WAN deployments.
-            </p>
-          </div>
-
           {/* Main Workspace Layout */}
           <div className="loc-workspace-grid">
-            {/* Sidebar list & search */}
-            <div className="loc-card-sidebar glass-card-base">
-              <div className="search-wrap">
-                <Search size={18} className="search-decor" />
-                <input
-                  type="text"
-                  placeholder="Search by city, code, hub..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                />
+            {/* Left Column */}
+            <div className="loc-left-column">
+              {/* Title Area */}
+              <div className="loc-hero-title">
+                <div className="loc-tag">
+                  <ShieldCheck size={14} className="tag-icon" />
+                  <span>NOC & Infrastructure Sparing</span>
+                </div>
+                <h1 className="loc-main-headline">Enterprise Presence Network</h1>
+                <p className="loc-description">
+                  DNISPL maintains operational presence across 100+ active locations in India, delivering carrier-grade network architecture, active infrastructure swaps, and low-latency SD-WAN deployments.
+                </p>
               </div>
 
-              {/* Zone selectors */}
-              <div className="filter-chips-row">
-                {['All', 'North', 'South', 'East', 'West'].map(zone => (
-                  <button
-                    key={zone}
-                    className={`filter-btn ${selectedZone === zone ? 'selected' : ''}`}
-                    onClick={() => {
-                      setSelectedZone(zone);
-                      const matches = ACTIVE_LOCATIONS.filter(l => zone === 'All' || l.zone === zone);
-                      if (matches.length > 0) setSelectedId(matches[0].id);
-                    }}
-                  >
-                    {zone}
-                  </button>
-                ))}
-              </div>
+              {/* Sidebar list & search */}
+              <div className="loc-card-sidebar glass-card-base">
+                <div className="search-wrap">
+                  <Search size={18} className="search-decor" />
+                  <input
+                    type="text"
+                    placeholder="Search by city, code, hub..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
+                </div>
 
-              {/* Scrollable list */}
-              <div className="sidebar-items-scroll">
-                {filtered.map(loc => (
-                  <div
-                    key={loc.id}
-                    ref={el => itemRefs.current[loc.id] = el}
-                    className={`scroll-item-card ${selectedId === loc.id ? 'active' : ''}`}
-                    onClick={() => setSelectedId(loc.id)}
-                  >
-                    <div className="item-meta">
-                      <span className="code-text">{loc.code}</span>
-                      <span className="badge-zone" data-zone={loc.zone}>{loc.zone}</span>
+                {/* Zone selectors */}
+                <div className="filter-chips-row">
+                  {['All', 'North', 'South', 'East', 'West'].map(zone => (
+                    <button
+                      key={zone}
+                      className={`filter-btn ${selectedZone === zone ? 'selected' : ''}`}
+                      onClick={() => {
+                        setSelectedZone(zone);
+                        const matches = ACTIVE_LOCATIONS.filter(l => zone === 'All' || l.zone === zone);
+                        if (matches.length > 0) setSelectedId(matches[0].id);
+                      }}
+                    >
+                      {zone}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Scrollable list */}
+                <div className="sidebar-items-scroll">
+                  {filtered.map(loc => (
+                    <div
+                      key={loc.id}
+                      ref={el => itemRefs.current[loc.id] = el}
+                      className={`scroll-item-card ${selectedId === loc.id ? 'active' : ''}`}
+                      onClick={() => setSelectedId(loc.id)}
+                    >
+                      <div className="item-meta">
+                        <span className="code-text">{loc.code}</span>
+                        <span className="badge-zone" data-zone={loc.zone}>{loc.zone}</span>
+                      </div>
+                      <h3 className="city-title">{loc.city}</h3>
+                      <p className="facility-name">{loc.name}</p>
+                      <div className="active-arrow">
+                        <ChevronRight size={14} />
+                      </div>
                     </div>
-                    <h3 className="city-title">{loc.city}</h3>
-                    <p className="facility-name">{loc.name}</p>
-                    <p className="address-snippet">{loc.address}</p>
-                    <div className="active-arrow">
-                      <ChevronRight size={14} />
+                  ))}
+                  {filtered.length === 0 && (
+                    <div className="empty-search-fallback">
+                      <p>No network location matched the search criteria.</p>
                     </div>
-                  </div>
-                ))}
-                {filtered.length === 0 && (
-                  <div className="empty-search-fallback">
-                    <p>No network location matched the search criteria.</p>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             </div>
 

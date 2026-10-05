@@ -8,6 +8,8 @@ import './Header.css';
 import Logo from '../Images/logo.png';
 import { INDUSTRIES } from '../../data/industries';
 
+
+
 const solutionItems = [
   { to: '/network-implementation', icon: Network, title: 'Enterprise Networking', desc: 'Active and passive networking', preload: () => import('../Services/AP') },
   { to: '/cyber-security', icon: ShieldCheck, title: 'Cyber Security', desc: 'Next-gen firewalls, UTM & SOC protection', preload: () => import('../Services/CyberSecurity/CyberSecurity') },
@@ -87,10 +89,17 @@ const Header = () => {
     <>
       <header className="header">
         <HeaderContentWrapper className="header-content">
-          {/* Logo Section */}
           <div className="logo">
-            <Link to="/" onClick={closeMenuAndNavigate} className="logo-capsule">
-              <img src={Logo} alt="DNISPL Logo" className="logo-img-brand" />
+            <Link
+              to="/"
+              onClick={closeMenuAndNavigate}
+              className="logo-capsule"
+            >
+              <img
+                src={Logo}
+                alt="DNISPL Logo"
+                className="logo-img-brand"
+              />
             </Link>
           </div>
 
@@ -131,8 +140,6 @@ const Header = () => {
                         to={item.to}
                         className="dropdown-card"
                         onClick={closeMenuAndNavigate}
-                        onMouseEnter={item.preload}
-                        onFocus={item.preload}
                       >
                         <div className="card-icon"><item.icon size={19} /></div>
                         <div className="card-info">
@@ -173,8 +180,6 @@ const Header = () => {
                         to={item.to}
                         className="dropdown-card"
                         onClick={closeMenuAndNavigate}
-                        onMouseEnter={item.preload}
-                        onFocus={item.preload}
                       >
                         <div className="card-icon"><item.icon size={19} /></div>
                         <div className="card-info">
@@ -215,8 +220,6 @@ const Header = () => {
                         to={item.to}
                         className="dropdown-card"
                         onClick={closeMenuAndNavigate}
-                        onMouseEnter={item.preload}
-                        onFocus={item.preload}
                       >
                         <div className="card-icon"><item.icon size={19} /></div>
                         <div className="card-info">
@@ -230,8 +233,6 @@ const Header = () => {
                     to="/industries"
                     className="dropdown-footer-link"
                     onClick={closeMenuAndNavigate}
-                    onMouseEnter={() => import('../Industries/Industries')}
-                    onFocus={() => import('../Industries/Industries')}
                   >
                     View all industries <ArrowRight size={15} />
                   </Link>
@@ -243,8 +244,6 @@ const Header = () => {
               to="/portfolio"
               className="nav-link"
               onClick={closeMenuAndNavigate}
-              onMouseEnter={() => import('../Portfolio/Portfolio')}
-              onFocus={() => import('../Portfolio/Portfolio')}
             >
               Portfolio
             </NavLink>
@@ -277,8 +276,6 @@ const Header = () => {
                       to={item.to}
                       className="company-item"
                       onClick={closeMenuAndNavigate}
-                      onMouseEnter={item.preload}
-                      onFocus={item.preload}
                     >
                       <div className="company-text">
                         <h4>{item.title}</h4>
@@ -295,8 +292,6 @@ const Header = () => {
               to="/careers"
               className="nav-link"
               onClick={closeMenuAndNavigate}
-              onMouseEnter={() => import('../Careers/Career')}
-              onFocus={() => import('../Careers/Career')}
             >
               Careers
             </NavLink>

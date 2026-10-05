@@ -17,6 +17,8 @@ import {
 import { INDUSTRY_LENS } from '../../data/industries';
 import { PROJECTS, PROJECT_CATEGORIES } from '../../data/projects';
 
+console.log('--- DEBUG: Portfolio.js file scope evaluation ---');
+
 const TINT = { from: '#00F0FF', to: '#2563EB', glow: 'rgba(0, 240, 255, 0.3)' };
 
 const METRICS = [
@@ -33,6 +35,7 @@ const ContentWrapper = ({ children, className }) => (
 );
 
 const Portfolio = () => {
+  console.log('--- DEBUG: Portfolio component rendering ---');
   const [searchParams, setSearchParams] = useSearchParams();
   const [activeFilter, setActiveFilter] = useState("All");
   const [selectedProject, setSelectedProject] = useState(null);

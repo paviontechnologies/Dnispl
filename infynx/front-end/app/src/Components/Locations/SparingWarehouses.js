@@ -88,72 +88,74 @@ export default function SparingWarehouses() {
             </Link>
           </div>
 
-          {/* Title Area */}
-          <div className="wh-hero-title">
-            <div className="wh-tag" style={{ color: TINT.from, borderColor: `${TINT.from}33`, background: `${TINT.from}11` }}>
-              <Package size={14} className="tag-icon" />
-              <span>Sparing Logistics Grid</span>
-            </div>
-            <h1 className="wh-main-headline">Sparing &amp; Spares Warehouses</h1>
-            <p className="wh-description">
-              To guarantee zero-downtime SLA compliance, DNISPL manages 18 strategic spares depots across major state capitals and logistics junctions, holding critical replacement network assets.
-            </p>
-          </div>
-
           {/* Main workspace */}
           <div className="wh-workspace-grid">
-            {/* Sidebar search list */}
-            <div className="wh-card-sidebar glass-card-wh">
-              <div className="wh-search-wrap">
-                <Search size={18} className="search-decor" />
-                <input
-                  type="text"
-                  placeholder="Search by location, custodian..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                />
+            {/* Left Column */}
+            <div className="wh-left-column">
+              {/* Title Area */}
+              <div className="wh-hero-title">
+                <div className="wh-tag" style={{ color: TINT.from, borderColor: `${TINT.from}33`, background: `${TINT.from}11` }}>
+                  <Package size={14} className="tag-icon" />
+                  <span>Sparing Logistics Grid</span>
+                </div>
+                <h1 className="wh-main-headline">Sparing &amp; Spares Warehouses</h1>
+                <p className="wh-description">
+                  To guarantee zero-downtime SLA compliance, DNISPL manages 18 strategic spares depots across major state capitals and logistics junctions, holding critical replacement network assets.
+                </p>
               </div>
 
-              {/* Region chips */}
-              <div className="wh-chips-row">
-                {['All', 'North', 'South', 'East', 'West'].map(region => (
-                  <button
-                    key={region}
-                    className={`wh-filter-btn ${selectedRegion === region ? 'selected' : ''}`}
-                    onClick={() => {
-                      setSelectedRegion(region);
-                      const matches = SPARE_WAREHOUSES.filter(w => region === 'All' || w.region.includes(region));
-                      if (matches.length > 0) setSelectedId(matches[0].id);
-                    }}
-                  >
-                    {region}
-                  </button>
-                ))}
-              </div>
+              {/* Sidebar search list */}
+              <div className="wh-card-sidebar glass-card-wh">
+                <div className="wh-search-wrap">
+                  <Search size={18} className="search-decor" />
+                  <input
+                    type="text"
+                    placeholder="Search by location, custodian..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
+                </div>
 
-              {/* Scrollable List */}
-              <div className="wh-items-scroll">
-                {filtered.map(wh => (
-                  <div
-                    key={wh.id}
-                    ref={el => itemRefs.current[wh.id] = el}
-                    className={`wh-item-card ${selectedId === wh.id ? 'active' : ''}`}
-                    onClick={() => setSelectedId(wh.id)}
-                  >
-                    <div className="wh-item-meta">
-                      <span className="wh-code-text">WH-0{wh.id}</span>
-                      <span className="wh-badge-region">{wh.region}</span>
+                {/* Region chips */}
+                <div className="wh-chips-row">
+                  {['All', 'North', 'South', 'East', 'West'].map(region => (
+                    <button
+                      key={region}
+                      className={`wh-filter-btn ${selectedRegion === region ? 'selected' : ''}`}
+                      onClick={() => {
+                        setSelectedRegion(region);
+                        const matches = SPARE_WAREHOUSES.filter(w => region === 'All' || w.region.includes(region));
+                        if (matches.length > 0) setSelectedId(matches[0].id);
+                      }}
+                    >
+                      {region}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Scrollable List */}
+                <div className="wh-items-scroll">
+                  {filtered.map(wh => (
+                    <div
+                      key={wh.id}
+                      ref={el => itemRefs.current[wh.id] = el}
+                      className={`wh-item-card ${selectedId === wh.id ? 'active' : ''}`}
+                      onClick={() => setSelectedId(wh.id)}
+                    >
+                      <div className="wh-item-meta">
+                        <span className="wh-code-text">WH-0{wh.id}</span>
+                        <span className="wh-badge-region">{wh.region}</span>
+                      </div>
+                      <h3 className="wh-city-title">{wh.city}</h3>
+                      <p className="wh-depot-name">{wh.name}</p>
                     </div>
-                    <h3 className="wh-city-title">{wh.city}</h3>
-                    <p className="wh-depot-name">{wh.name}</p>
-                    <p className="wh-address-snippet">{wh.address}</p>
-                  </div>
-                ))}
-                {filtered.length === 0 && (
-                  <div className="wh-empty-fallback">
-                    <p>No spares warehouse matched the filter criteria.</p>
-                  </div>
-                )}
+                  ))}
+                  {filtered.length === 0 && (
+                    <div className="wh-empty-fallback">
+                      <p>No spares warehouse matched the filter criteria.</p>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 

@@ -192,10 +192,10 @@ ye iska css h
   --my: 0;
   position: relative;
   z-index: 1;
-  min-height: 100vh;
+  min-height: 80vh; /* Reduced from 100vh to pull content up */
   display: flex;
   align-items: center;
-  padding: 220px 0 140px;
+  padding: 85px 0 100px; /* Reduced top padding further to pull content higher */
   background-color: transparent;
   background-image: url('../Images/infynix/s4-bg-shape-1.webp');
   background-position: center center;
@@ -634,6 +634,15 @@ ye iska css h
   object-fit: contain;
 }
 
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
 /* --------------------------------------------------------------------------
    PHILOSOPHY / CHALLENGES TABS
    -------------------------------------------------------------------------- */
@@ -819,14 +828,31 @@ ye iska css h
 
 .service-card {
   position: relative;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   border-radius: 25px;
   padding: 34px 22px 28px;
   text-align: center;
   color: #fff;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background:
+    linear-gradient(150deg,
+      color-mix(in srgb, var(--card-theme-color, #0071BD) 30%, transparent),
+      transparent 62%),
+    linear-gradient(145deg, rgba(6, 52, 87, 0.78), rgba(2, 29, 51, 0.72));
+  backdrop-filter: blur(20px) saturate(130%);
+  -webkit-backdrop-filter: blur(20px) saturate(130%);
   transition: 500ms var(--cube-1);
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.32);
+}
+
+/* Safari 15 and older, plus any engine without relative colour syntax */
+@supports not (background: color-mix(in srgb, red 30%, transparent)) {
+  .service-card {
+    background: linear-gradient(145deg, rgba(6, 52, 87, 0.78), rgba(2, 29, 51, 0.72));
+  }
 }
 
 /* Hover straightens the card by cancelling its resting rotation. */
@@ -837,16 +863,17 @@ ye iska css h
 
 .service-card-roted:hover .service-card {
   transform: rotate(var(--counter-rot, 0deg)) translateY(-12px) scale(1.03);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55), 0 0 25px var(--badge-theme-color);
+  border-color: rgba(255, 255, 255, 0.28);
 }
 
-/* Per-card colours, straight from the source theme */
-.service-cards-grid .service-card-roted:nth-child(1) .service-card { background: #B325F7; }
-.service-cards-grid .service-card-roted:nth-child(2) .service-card { background: #E45621; }
-.service-cards-grid .service-card-roted:nth-child(3) .service-card { background: #1AC975; }
-.service-cards-grid .service-card-roted:nth-child(4) .service-card { background: #2925F7; }
-.service-cards-grid .service-card-roted:nth-child(5) .service-card { background: #DF8E14; }
-.service-cards-grid .service-card-roted:nth-child(6) .service-card { background: #2AC5DD; }
+/* Per-card colors: slightly brighter, matching the cyber security glassmorphism style */
+.service-cards-grid .service-card-roted:nth-child(1) .service-card { --card-theme-color: #D35BFF; --badge-theme-color: rgba(211, 91, 255, 0.25); }
+.service-cards-grid .service-card-roted:nth-child(2) .service-card { --card-theme-color: #FF7E47; --badge-theme-color: rgba(255, 126, 71, 0.25); }
+.service-cards-grid .service-card-roted:nth-child(3) .service-card { --card-theme-color: #00FF87; --badge-theme-color: rgba(0, 255, 135, 0.25); }
+.service-cards-grid .service-card-roted:nth-child(4) .service-card { --card-theme-color: #4D4BFF; --badge-theme-color: rgba(77, 75, 255, 0.25); }
+.service-cards-grid .service-card-roted:nth-child(5) .service-card { --card-theme-color: #FFC400; --badge-theme-color: rgba(255, 196, 0, 0.25); }
+.service-cards-grid .service-card-roted:nth-child(6) .service-card { --card-theme-color: #00F0FF; --badge-theme-color: rgba(0, 240, 255, 0.25); }
 
 .card-num-badge {
   display: inline-flex;
@@ -858,19 +885,15 @@ ye iska css h
   font-family: var(--saira);
   font-size: 34px;
   font-weight: 700;
-  color: #fff;
+  color: var(--card-theme-color);
   position: relative;
   z-index: 1;
   margin-bottom: 20px;
   transition: 400ms var(--cube-1);
+  background: var(--badge-theme-color, rgba(0, 0, 0, 0.25));
+  border: 2px solid var(--card-theme-color);
+  box-shadow: 0 0 15px var(--badge-theme-color);
 }
-
-.service-cards-grid .service-card-roted:nth-child(1) .card-num-badge { background: #9B1DD8; border: 8px solid #B325F7; }
-.service-cards-grid .service-card-roted:nth-child(2) .card-num-badge { background: #C55126; border: 8px solid #E45621; }
-.service-cards-grid .service-card-roted:nth-child(3) .card-num-badge { background: #1CAF69; border: 8px solid #1AC975; }
-.service-cards-grid .service-card-roted:nth-child(4) .card-num-badge { background: #3432BD; border: 8px solid #2925F7; }
-.service-cards-grid .service-card-roted:nth-child(5) .card-num-badge { background: #BB7D20; border: 8px solid #DF8E14; }
-.service-cards-grid .service-card-roted:nth-child(6) .card-num-badge { background: #3AB0C2; border: 8px solid #2AC5DD; }
 
 .service-card:hover .card-num-badge { animation: wobble-vertical 1s ease-in-out; }
 

@@ -2,13 +2,11 @@
   --header-height: 86px;
   --radius: var(--border-radius-md);
 
-  /* Brand-blue glass rather than flat black, so the header belongs to the same
-     surface family as the rest of the site now that pages are transparent. */
-  --nav-bg: rgba(2, 29, 51, 0.72);
-  --dropdown-bg: rgba(2, 29, 51, 0.96);
-  --card-bg-hover: rgba(0, 113, 189, 0.16);
-  --card-border-hover: rgba(42, 155, 224, 0.5);
-  --text-nav: #ffffff;
+  --nav-bg: #ffffff;
+  --dropdown-bg: #ffffff;
+  --card-bg-hover: rgba(0, 113, 189, 0.06);
+  --card-border-hover: rgba(0, 113, 189, 0.25);
+  --text-nav: #0f172a;
 }
 
 /* --- HEADER CONTAINER --- */
@@ -20,10 +18,9 @@
   display: flex;
   align-items: center;
 
-  background: var(--nav-bg);
-  backdrop-filter: blur(20px) saturate(130%);
-  -webkit-backdrop-filter: blur(20px) saturate(130%);
-  border-bottom: 1px solid rgba(42, 155, 224, 0.22);
+  background: #ffffff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
 }
 
@@ -58,7 +55,7 @@
 
 .nav-link {
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.75);
+  color: #1e293b;
   font-family: var(--oxanium);
   font-weight: 600;
   font-size: 15px;
@@ -90,7 +87,7 @@
 
 .nav-link:hover,
 .nav-link.active {
-  color: var(--pr-purple);
+  color: var(--brand-blue);
   background: transparent;
 }
 
@@ -119,15 +116,15 @@
   width: 13px;
   height: 13px;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  color: var(--text-muted);
+  color: #64748b;
 }
 .dropdown-btn:hover .arrow-icon,
 .dropdown-btn.active .arrow-icon {
-  color: var(--pr-purple);
+  color: var(--brand-blue);
 }
 .arrow-icon.rotate {
   transform: rotate(180deg);
-  color: var(--pr-purple);
+  color: var(--brand-blue);
 }
 
 /* --- DROPDOWNS (COMMON - DESKTOP DEFAULTS) --- */
@@ -145,8 +142,8 @@
   transform: translateX(-50%);
   background: var(--dropdown-bg);
   border-radius: 12px;
-  box-shadow: 0 24px 50px -15px rgba(0, 0, 0, 0.8);
-  border: 1px solid rgba(179, 179, 179, 0.48);
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   backdrop-filter: var(--backdrop-blur);
   -webkit-backdrop-filter: var(--backdrop-blur);
   padding: 24px;
@@ -175,7 +172,7 @@
 
 .dropdown-header {
   margin-bottom: 18px;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   padding-bottom: 12px;
 }
 
@@ -183,13 +180,13 @@
   font-family: var(--font-heading);
   font-size: 15px; 
   font-weight: 600;
-  color: var(--text-primary);
+  color: #0f172a;
   letter-spacing: 0.5px;
 }
 
 .dropdown-subtitle {
   font-size: 12px;
-  color: var(--text-secondary);
+  color: #64748b;
   margin-top: 4px;
 }
 
@@ -208,19 +205,19 @@
   gap: 9px;
   margin-top: 14px;
   padding-top: 14px;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
   font-family: var(--oxanium);
   font-size: 12.5px;
   font-weight: 700;
   letter-spacing: 1.2px;
   text-transform: uppercase;
-  color: var(--pr-cyan);
+  color: var(--brand-blue);
   transition: gap 300ms var(--cube-1), color 300ms;
 }
 
 .dropdown-footer-link:hover {
   gap: 15px;
-  color: #fff;
+  color: var(--pr-purple);
 }
 
 /* Dropdown Card Design */
@@ -232,15 +229,19 @@
   padding: 12px;
   border-radius: var(--border-radius-sm);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  border: 1px solid transparent;
-  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  background: #f8fafc;
 }
 
 .dropdown-card:hover {
   background-color: var(--card-bg-hover);
   border-color: var(--card-border-hover);
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px -10px rgba(0, 0, 0, 0.5), 0 0 10px -2px var(--secondary-glow);
+  box-shadow: 0 8px 20px -10px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-card:hover .card-title {
+  color: var(--brand-blue);
 }
 
 .card-icon {
@@ -269,12 +270,12 @@
   font-family: var(--saira);
   font-size: 15px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: #0f172a;
 }
 
 .card-desc {
   font-size: 11px;
-  color: var(--text-secondary);
+  color: #64748b;
   line-height: 1.3;
 }
 
@@ -292,10 +293,10 @@
   text-decoration: none;
   border-radius: var(--border-radius-sm);
   transition: all 0.2s ease;
-  color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.01);
+  color: #0f172a;
+  background: #f8fafc;
   margin-bottom: 4px;
-  border: 1px solid transparent;
+  border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .company-item:last-child {
@@ -311,20 +312,24 @@
   font-family: var(--font-heading);
   font-size: 14px;
   margin-bottom: 3px;
-  color: var(--text-primary);
+  color: #0f172a;
   font-weight: 600;
+}
+
+.company-item:hover .company-text h4 {
+  color: var(--brand-blue);
 }
 
 .company-text p {
   font-size: 11px;
-  color: var(--text-secondary);
+  color: #64748b;
 }
 
 .arrow-right {
   opacity: 0;
   transform: translateX(-8px);
   transition: 250ms var(--cube-1);
-  color: var(--pr-purple);
+  color: var(--brand-blue);
   font-weight: bold;
 }
 
@@ -402,7 +407,7 @@
   border: none;
   font-size: 24px;
   cursor: pointer;
-  color: var(--text-primary);
+  color: #0f172a;
   padding: 6px;
   z-index: 1010;
   transition: all 0.3s ease;
@@ -411,7 +416,7 @@
 }
 
 .hamburger:hover {
-  color: var(--pr-purple);
+  color: var(--brand-blue);
 }
 
 /* ---------- TABLET & MOBILE MENU (Max Width 1024px) ---------- */
@@ -434,9 +439,9 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 0; 
-    background: var(--bg-dark);
-    border-top: 1px solid var(--border-color);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.8);
+    background: #ffffff;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     z-index: 999;
     padding-bottom: 30px;
     height: calc(100vh - var(--header-height)); 
@@ -454,12 +459,14 @@
     justify-content: space-between;
     font-size: 15px;
     font-weight: 600;
-    border-bottom: 1px solid var(--border-color);
+    color: #1e293b;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     border-radius: 0;
   }
   
   .nav-link:hover {
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(0, 113, 189, 0.05);
+    color: var(--brand-blue);
   }
 
   .nav-link::after {
@@ -476,7 +483,7 @@
   
   .dropdown-btn {
     width: 100%;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   }
 
   /* MOBILE DROPDOWN STYLES */
@@ -490,11 +497,11 @@
     padding: 16px 0;
     border: none;
     box-shadow: none;
-    background: rgba(255, 255, 255, 0.015);
+    background: #f8fafc;
     border-radius: 0;
     animation: none;
     opacity: 1;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   }
   
   .services-menu {
@@ -504,7 +511,7 @@
   .dropdown-header {
     padding: 0 24px 10px;
     margin-bottom: 10px;
-    border-color: var(--border-color);
+    border-color: rgba(0, 0, 0, 0.06);
   }
 
   /* SERVICES GRID → LIST */
@@ -516,22 +523,23 @@
 
   .dropdown-card {
     padding: 12px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid var(--border-color);
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
   }
   
   /* COMPANY MENU */
   .company-menu {
     width: 100%;
     padding: 0;
-    background: rgba(255, 255, 255, 0.015);
+    background: #f8fafc;
   }
   
   .company-item {
     padding: 14px 24px;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     margin-bottom: 0;
     border-radius: 0;
+    background: #ffffff;
   }
   
   .company-item:last-child {
@@ -541,11 +549,11 @@
 
 .admin-nav {
   background: transparent;
-  color: #fff !important;
+  color: #0f172a !important;
   padding: 8px 18px;
   border-radius: 100px;
   font-weight: 600;
-  border: 1px solid var(--pr-soft-border);
+  border: 1px solid rgba(0, 0, 0, 0.15);
   transition: 300ms var(--cube-1);
 }
 
@@ -572,32 +580,34 @@
   }
 }
 
-/* Custom Logo Capsule styling to display the official brand logo cleanly.
-   The mark is a dark navy wordmark on transparency — "DIVERSIFIED NETWORK &
-   INFRA SOLUTIONS PVT. LTD." is set in near-black. On the previous translucent
-   dark capsule that text was effectively invisible against the header, which is
-   why the logo read as missing. The plate is white at rest so the artwork sits
-   on the ground it was drawn for. */
+/* Custom Logo Capsule styling */
 .logo-capsule {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #ffffff;
-  padding: 7px 16px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
+  background: transparent;
+  padding: 4px 0;
+  border: none;
+  box-shadow: none;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
 }
 
 .logo-capsule:hover {
-  box-shadow: 0 6px 26px rgba(0, 113, 189, 0.45);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .logo-img-brand {
-  height: 40px;
+  height: 62px;
   width: auto;
   object-fit: contain;
   display: block;
+  filter: none;
+  transition: transform 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .logo-img-brand {
+    height: 50px;
+  }
 }
