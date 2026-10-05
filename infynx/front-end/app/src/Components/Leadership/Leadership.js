@@ -3,7 +3,7 @@ import "./Leadership.css";
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import ceoImage from '../Images/Rakesh.png';
-import ashishImage from '../Images/ashish.jpg';
+import ashishImage from '../Images/Ashish.jpg';
 import awadheshImage from '../Images/adesh.png';
 import soumyaImage from '../Images/soumya.png';
 import stephenImage from '../Images/stephen.png';
