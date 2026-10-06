@@ -12,7 +12,6 @@ import {
   SplitHeading,
   useScrollReveal
 } from "../../motion/MotionKit";
-import { publicFetch } from "../../config/api";
 
 const TINT = { from: "#00E2F5", to: "#B325F7", glow: "rgba(0, 226, 245, 0.35)" };
 
@@ -74,9 +73,36 @@ const Form = () => {
     };
 
     try {
-      await publicFetch("/send-mail", { method: "POST", body: formData });
-      setStatus("✅ Your message has been sent successfully.");
-      e.target.reset();
+      const response = await fetch("https://formsubmit.co/ajax/info@dnispl.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify({
+          _subject: `New Inquiry: ${formData.service} from ${formData.name}`,
+          _cc: "accounts@dnispl.com",
+          _template: "table",
+          _captcha: "false",
+          "Client Name": formData.name,
+          "Client Email": formData.email,
+          "Phone Number": formData.phone,
+          "Selected Service": formData.service,
+          "Message": formData.message,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success === "true" || data.success === true || response.ok) {
+        setStatus("✅ Your message has been sent successfully.");
+        e.target.reset();
+      } else if (data.message && data.message.toLowerCase().includes("activation")) {
+        setStatus("✅ Your message has been submitted. (Activation required on info@dnispl.com)");
+        e.target.reset();
+      } else {
+        throw new Error(data.message || "Unable to send message. Please try again later.");
+      }
     } catch (err) {
       setStatus(`❌ ${err.message || "Unable to send message. Please check your connection."}`);
     } finally {
