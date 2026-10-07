@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import {
   ArrowRight, ChevronDown, Database, Menu, Network,
@@ -48,6 +48,15 @@ const HeaderContentWrapper = ({ children, className }) => (
 const Header = () => {
   const [activeDropdown, setActiveDropdown] = useState(null); // 'solutions', 'services', 'industries', 'about' or null
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Toggle mobile hamburger
   const toggleMenu = () => {
@@ -87,7 +96,8 @@ const Header = () => {
 
   return (
     <>
-      <header className="header">
+      <header className={`header ${isScrolled ? 'header-scrolled' : ''}`}>
+        <div className="header-top-accent"></div>
         <HeaderContentWrapper className="header-content">
           <div className="logo">
             <Link
@@ -296,16 +306,18 @@ const Header = () => {
               Careers
             </NavLink>
 
-            <Link to="/form" className="btn-glow desktop-cta" onClick={closeMenuAndNavigate}>
-              Start Project
+            <Link to="/form" className="header-cta-btn desktop-cta" onClick={closeMenuAndNavigate}>
+              <span>Start Project</span>
+              <ArrowRight size={15} className="cta-arrow-icon" />
             </Link>
           </nav>
         </HeaderContentWrapper>
       </header>
 
       {/* Mobile Fixed CTA */}
-      <Link to="/form" className="btn-glow mobile-fixed-cta">
-        Start Project
+      <Link to="/form" className="header-cta-btn mobile-fixed-cta">
+        <span>Start Project</span>
+        <ArrowRight size={15} className="cta-arrow-icon" />
       </Link>
     </>
   );

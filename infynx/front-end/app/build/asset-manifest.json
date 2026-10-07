@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.e870640f.css",
-    "main.js": "/static/js/main.dd339e82.js",
+    "main.css": "/static/css/main.48c987e0.css",
+    "main.js": "/static/js/main.ec69e854.js",
     "static/css/270.909250f6.chunk.css": "/static/css/270.909250f6.chunk.css",
     "static/js/270.cb3152bc.chunk.js": "/static/js/270.cb3152bc.chunk.js",
     "static/css/104.d03afc55.chunk.css": "/static/css/104.d03afc55.chunk.css",
@@ -96,8 +96,8 @@
     "static/media/Kyndryl.png": "/static/media/Kyndryl.a916e3322e1257ff3390.png",
     "static/media/panasonic.png": "/static/media/panasonic.fb888077bf88dc1fcca8.png",
     "index.html": "/index.html",
-    "main.e870640f.css.map": "/static/css/main.e870640f.css.map",
-    "main.dd339e82.js.map": "/static/js/main.dd339e82.js.map",
+    "main.48c987e0.css.map": "/static/css/main.48c987e0.css.map",
+    "main.ec69e854.js.map": "/static/js/main.ec69e854.js.map",
     "270.909250f6.chunk.css.map": "/static/css/270.909250f6.chunk.css.map",
     "270.cb3152bc.chunk.js.map": "/static/js/270.cb3152bc.chunk.js.map",
     "104.d03afc55.chunk.css.map": "/static/css/104.d03afc55.chunk.css.map",
@@ -165,7 +165,7 @@
     "918.b603dbab.chunk.js.map": "/static/js/918.b603dbab.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e870640f.css",
-    "static/js/main.dd339e82.js"
+    "static/css/main.48c987e0.css",
+    "static/js/main.ec69e854.js"
   ]
 }
