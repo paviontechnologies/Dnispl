@@ -84,105 +84,100 @@ ye iska css h
 .about-header.center-text { margin-bottom: 55px; }
 
 /* --------------------------------------------------------------------------
-   Buttons (ftc-pr-btn-5) — gradient pill, dark core, circle that floods on hover
+   Buttons — Clean, modern pill CTAs with smooth lift & glow
    -------------------------------------------------------------------------- */
 .btn {
-  overflow: hidden;
-  z-index: 1;
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 10px;
   flex: 0 0 auto;
   font-family: var(--saira);
-  font-size: 18px;
-  line-height: 1;
+  font-size: 16px;
+  line-height: 1.2;
   font-weight: 600;
   text-transform: capitalize;
+  text-decoration: none;
   color: #fff;
-  padding: 22px 38px;
-  border-radius: 100px;
-  transition: 0.2s transform ease-in-out;
-  will-change: transform;
+  padding: 16px 36px;
+  border-radius: 999px;
   cursor: pointer;
   border: none;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, box-shadow;
+  box-sizing: border-box;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+.btn:active {
+  transform: translateY(0);
 }
 
 .btn-glow-primary {
-  background: var(--ftc-gd-2);
+  background: linear-gradient(135deg, #0071bd 0%, #00e2f5 50%, #8cc63e 100%);
+  background-size: 200% auto;
+  color: #ffffff !important;
+  box-shadow: 0 4px 18px rgba(0, 113, 189, 0.35);
+  border: none;
 }
 
-.btn-glow-primary::before {
-  content: '';
-  background-color: var(--btn-inner);
-  height: 95%;
-  width: 98.5%;
-  border-radius: 100px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: -1;
-  transition: 400ms ease;
-  transform: translate(-50%, -50%);
+.btn-glow-primary:hover {
+  background-position: right center;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 113, 189, 0.55), 0 0 20px rgba(0, 226, 245, 0.3);
+  color: #ffffff !important;
 }
 
+.btn-glow-primary::before,
 .btn-glow-primary::after {
-  content: '';
-  background: var(--ftc-gd-2);
-  height: 22px;
-  width: 22px;
-  border-radius: 50%;
-  position: absolute;
-  right: 31px;
-  top: 33%;
-  z-index: -1;
-  transition: 400ms ease;
-  transform: scale(1);
+  display: none !important;
 }
-
-.btn-glow-primary:hover::after { transform: scale(22); }
 
 .btn-glass-outline {
-  background: transparent;
-  border: 1px solid var(--pr-soft-border);
-  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff !important;
+  backdrop-filter: blur(8px);
 }
 
+.btn-glass-outline:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.12);
+  color: #ffffff !important;
+}
+
+.btn-glass-outline::before,
 .btn-glass-outline::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 100px;
-  background: var(--ftc-gd-2);
-  z-index: -1;
-  opacity: 0;
-  transition: 300ms var(--cube-1);
+  display: none !important;
 }
-
-.btn-glass-outline:hover::after { opacity: 1; }
-.btn-glass-outline:hover { border-color: transparent; }
 
 .btn-white-solid {
-  background: #fff;
-  color: #010419;
+  background: #ffffff;
+  color: #032F4F !important;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  border: none;
 }
 
+.btn-white-solid:hover {
+  background: #ffffff;
+  color: #0071bd !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.35);
+}
+
+.btn-white-solid::before,
 .btn-white-solid::after {
-  content: '';
-  position: absolute;
-  right: 31px;
-  top: 33%;
-  height: 22px;
-  width: 22px;
-  border-radius: 50%;
-  background: var(--ftc-gd-2);
-  z-index: -1;
-  transition: 400ms ease;
-  transform: scale(1);
+  display: none !important;
 }
-
-.btn-white-solid:hover { color: #fff; }
-.btn-white-solid:hover::after { transform: scale(22); }
 
 /* --------------------------------------------------------------------------
    HERO (ftc-hero-4-area)

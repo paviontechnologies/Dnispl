@@ -41,6 +41,7 @@
 
 /* Buttons */
 .btn { padding: 12px 30px; border-radius: 50px; font-family: var(--font-heading); font-weight: 600; text-decoration: none; display: inline-block; transition: 0.3s; cursor: pointer; border: none; font-size: 14.5px; }
+.btn::before, .btn::after { display: none !important; }
 .btn-glow { background: var(--primary); color: white; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); }
 .btn-glow:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5); }
 .btn-white { background: white; color: var(--dark-bg); font-weight: 700; box-shadow: 0 4px 15px rgba(255,255,255,0.2); }

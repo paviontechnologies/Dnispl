@@ -252,10 +252,55 @@
 .hover-lift { transition: box-shadow 420ms var(--cube-1); }
 .hover-lift:hover { box-shadow: 0 26px 52px rgba(0, 0, 0, 0.5); }
 
-.btn-white-solid { background: white; color: var(--dark-bg); padding: 14px 34px; border-radius: 50px; font-family: var(--font-heading); font-weight: 700; text-decoration: none; transition: 0.3s; }
-.btn-white-solid:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255,255,255,0.2); }
-.btn-outline-white { border: 1px solid rgba(255,255,255,0.3); color: white; padding: 14px 34px; border-radius: 50px; font-family: var(--font-heading); font-weight: 700; text-decoration: none; transition: 0.3s; }
-.btn-outline-white:hover { background: rgba(255,255,255,0.06); border-color: white; }
+.btn-white-solid {
+  background: #ffffff;
+  color: #032F4F;
+  padding: 14px 34px;
+  border-radius: 999px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  border: none;
+}
+
+.btn-white-solid:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.35);
+  color: #0071bd;
+}
+
+.btn-white-solid::before,
+.btn-white-solid::after {
+  display: none !important;
+}
+
+.btn-outline-white {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 14px 34px;
+  border-radius: 999px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-outline-white:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: white;
+  transform: translateY(-2px);
+  color: white;
+}
 
 .industry-filter-wrapper { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 30px; font-family: var(--font-heading); font-size: 0.85rem; color: var(--text-muted); }
 .filter-option { background: rgba(255, 255, 255, 0.02); padding: 6px 16px; border-radius: 30px; cursor: pointer; transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.08); }
