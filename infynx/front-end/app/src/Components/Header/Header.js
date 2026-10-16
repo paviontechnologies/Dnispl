@@ -97,7 +97,6 @@ const Header = () => {
   return (
     <>
       <header className={`header ${isScrolled ? 'header-scrolled' : ''}`}>
-        <div className="header-top-accent"></div>
         <HeaderContentWrapper className="header-content">
           <div className="logo">
             <Link

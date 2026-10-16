@@ -90,6 +90,11 @@
 html {
   scroll-behavior: smooth;
   background-color: var(--bg-deep);
+  background-image: linear-gradient(to bottom, #ffffff 0px, #ffffff var(--header-height, 86px), var(--bg-deep) var(--header-height, 86px));
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  scrollbar-color: rgba(0, 113, 189, 0.45) transparent;
+  scrollbar-width: thin;
 }
 
 body {
@@ -120,14 +125,20 @@ code {
 }
 
 /* --- Scrollbar --- */
-::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar-track { background: var(--bg-dark); }
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
-  border-radius: 5px;
-  border: 2px solid var(--bg-dark);
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
-::-webkit-scrollbar-thumb:hover { background: var(--pr-purple); }
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 113, 189, 0.35);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-blue);
+}
 
 /* ============================================================
    Keyframes  (lifted from the source theme)

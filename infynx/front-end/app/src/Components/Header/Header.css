@@ -9,30 +9,13 @@
   --text-nav: #0f172a;
 }
 
-/* --- TOP ACCENT GLOW STRIP --- */
-.header-top-accent {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #0071bd 0%, #00e2f5 35%, #8cc63e 70%, #0071bd 100%);
-  background-size: 200% 100%;
-  animation: headerAccentFlow 6s linear infinite;
-  z-index: 1002;
-}
-
-@keyframes headerAccentFlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
 /* --- HEADER CONTAINER --- */
 .header {
   position: sticky;
   top: 0;
   z-index: 1000;
+  width: 100%;
+  box-sizing: border-box;
   height: var(--header-height);
   display: flex;
   align-items: center;

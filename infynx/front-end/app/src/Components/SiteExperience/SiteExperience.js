@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { motion } from 'framer-motion';
 import './SiteExperience.css';
 import ScrollNavigator from '../ScrollNavigator/ScrollNavigator';
 
@@ -229,8 +229,6 @@ const NetworkScene = () => {
 const SiteExperience = ({ children }) => {
   const location = useLocation();
   const isAdmin = location.pathname.startsWith('/admin');
-  const { scrollYProgress } = useScroll();
-  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 24, restDelta: 0.001 });
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -240,7 +238,6 @@ const SiteExperience = ({ children }) => {
 
   return (
     <div className="site-experience">
-      <motion.div className="site-scroll-progress" style={{ scaleX: progress }} />
       <div className="site-atmosphere" aria-hidden="true" />
       <NetworkScene />
       <Suspense fallback={<div className="route-fallback" aria-busy="true" />}>
